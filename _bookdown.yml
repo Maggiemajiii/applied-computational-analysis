@@ -1,0 +1,14 @@
+book_filename: "applied-computational-analysis"
+output_dir: "docs"
+delete_merged_file: true
+
+rmd_files:
+  - index.Rmd
+  - 01-Lecture1.Rmd
+  - 02-Lecture2.Rmd
+  - 03-Lecture3.Rmd
+  - 99-bibliography.Rmd
+
+language:
+  ui:
+    chapter_name: "Section "

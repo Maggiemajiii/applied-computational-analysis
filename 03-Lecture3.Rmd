@@ -1,0 +1,30 @@
+---
+title: "Lecture 3"
+date: "`r Sys.Date()`"
+---
+
+# Lecture 3 {#lecture3}
+
+## Overview
+
+Notes from Lecture 3 of Applied Computational Analysis.
+
+*Note: This section should be filled in based on the content from `lecture-notes/Lecture3.pdf`.*
+
+## Key Topics
+
+<!-- Add key topics covered in this lecture -->
+
+## Main Content
+
+<!-- Add detailed notes from the lecture -->
+
+## Examples and Exercises
+
+<!-- Add examples and exercises from the lecture -->
+
+## Summary
+
+<!-- Add a summary of the main points covered -->
+
+---
