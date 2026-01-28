@@ -3,28 +3,131 @@ title: "Lecture 2"
 date: "`r Sys.Date()`"
 ---
 
-# Lecture 2 {#lecture2}
+# Lecture 2: Condition Numbers & Interpolation
 
-## Overview
+## 1. Condition of Matrix-Vector Multiplication
+Consider the function $f(\vec{x}) = A\vec{x}$, where $A \in \mathbb{R}^{m \times n}$.
 
-Notes from Lecture 2 of Applied Computational Analysis.
+The condition number $\kappa$ is defined by:
+$$\kappa = \lim_{\epsilon \to 0} \sup_{||\delta \vec{x}|| \le \epsilon} \frac{||\delta f|| / ||f(\vec{x})||}{||\delta \vec{x}|| / ||\vec{x}||}$$
+$$= ||A|| \frac{||\vec{x}||}{||A\vec{x}||}$$
 
-*Note: This section should be filled in based on the content from `lecture-notes/Lecture2.pdf`.*
+* **Case 1:** If $A$ is square and nonsingular:
+    $$\frac{||\vec{x}||}{||A\vec{x}||} \le ||A^{-1}||$$
+    Thus, $\kappa \le ||A|| \cdot ||A^{-1}||$.
 
-## Key Topics
+* **Case 2:** For a matrix $A \in \mathbb{R}^{m \times n}$ where $m \ne n$, use the pseudo-inverse $A^\dagger$ (defined with SVD):
+    $$\kappa \le ||A|| \cdot ||A^\dagger||$$
 
-<!-- Add key topics covered in this lecture -->
+**Using the 2-norm:**
+* $||A||_2 = \sigma_1$ (largest singular value).
+* $||A^{-1}||_2 = \frac{1}{\sigma_m}$ (smallest singular value).
+* Therefore, the condition number in 2-norm is:
+    $$\kappa(A) = \frac{\sigma_1}{\sigma_m}$$
 
-## Main Content
+**Remark:**
+The condition of the problem is inherent to the problem itself. A correct algorithm would likely inherently have the same sensitivity. It is hard to solve ill-conditioned problems numerically.
 
-<!-- Add detailed notes from the lecture -->
-
-## Examples and Exercises
-
-<!-- Add examples and exercises from the lecture -->
-
-## Summary
-
-<!-- Add a summary of the main points covered -->
+**Problem Comparison:**
+1.  **Map $\vec{x} \mapsto A\vec{x}$:** $\kappa(A) = ||A|| \cdot ||A^{-1}||$.
+2.  **Map $A\vec{x} \mapsto \vec{x}$ (solving linear system):** $\kappa = \kappa(A^{-1}) = ||A^{-1}|| \cdot ||A||$.
+    * If $A$ is singular, then $\kappa(A) = \infty$.
 
 ---
+
+## 2. Numerical Instability
+
+**Example: Compute $\sqrt{2}$ (approx 1.4142...)**.
+
+**Method 1: Babylonian Method (Stable)**
+* Initialize $x_0$.
+* Update: $x_{k+1} = \frac{x_k}{2} + \frac{1}{x_k}$.
+* Assume it converges to $x^*$: $x^* = \frac{x^*}{2} + \frac{1}{x^*} \Rightarrow (x^*)^2 = 2$.
+
+**Method 2: Unstable Method**
+* Start with $(x^*)^2 = 2 \Rightarrow x^* = \sqrt{2}$.
+* Rearrange: $x^* = x^* - ( (x^*)^2 - 2 )$.
+* Iterative scheme: $x_{k+1} = (x_k^2 - 2) + x_k$.
+* **Result:** This is unstable with respect to the initial guess. A small change in $x_0$ causes a large difference, and error grows exponentially.
+
+**Definition:** An algorithm that amplifies error too much is called **numerically unstable**.
+
+---
+
+## 3. Polynomial Interpolation
+
+(Textbook 8.1 and 8.2).
+
+**Goal:** Approximate function $f$ by a "simple function" $g$ (from a subspace).
+1.  **How to choose $g$?** Polynomials, trigonometric functions, etc.
+2.  **How to measure error?**
+    * $L^2$ norm: $||f-g||_{L^2[a,b]} = [\int_a^b (f(x)-g(x))^2 dx]^{1/2}$.
+    * $L^\infty$ norm: $||f-g||_{L^\infty[a,b]} = \max_{x \in [a,b]} |f(x)-g(x)|$.
+
+**Weierstrass Approximation Theorem:**
+Suppose $f$ is a continuous real-valued function defined on $[a, b]$. For every $\epsilon > 0$, there exists a polynomial $p$ such that for all $x \in [a, b]$:
+$$|f(x) - p(x)| < \epsilon$$
+Equivalently: $||f-p||_{L^\infty[a,b]} < \epsilon$.
+
+---
+
+## 4. Interpolation Problem & Lagrange Form
+
+**Problem Statement:**
+Given $(n+1)$ pairs $(x_i, y_i)$, find a polynomial $\Pi_n \in \mathbb{P}_n$ (interpolating polynomial) such that:
+$$\Pi_n(x_i) = y_i \quad \text{for } i = 0, 1, ..., n$$
+* $x_i$ are called **interpolation nodes**.
+* **Theorem 8.1:** Given distinct nodes, there exists a **unique** polynomial $\Pi_n \in \mathbb{P}_n$ satisfying the condition.
+
+**Lagrange Form:**
+Can we find a basis of $\mathbb{P}_n$ that leads to a simpler form?
+Define Lagrange basis (Characteristic polynomials) $l_i(x)$:
+$$l_i(x) = \prod_{j=0, j \ne i}^{n} \frac{x - x_j}{x_i - x_j}$$
+
+* Property: $l_i(x_j) = \delta_{ij}$ (1 if $i=j$, 0 if $i \ne j$).
+* Interpolant:
+    $$\Pi_n(x) = \sum_{i=0}^n y_i l_i(x)$$
+
+**Alternate form using Nodal Polynomial:**
+Let $w_{n+1}(x) = \prod_{i=0}^n (x - x_i)$ be the "nodal polynomial".
+$$\Pi_n(x) = \sum_{i=0}^n \frac{w_{n+1}(x)}{(x-x_i) w'_{n+1}(x_i)} y_i$$
+
+---
+
+## 5. Interpolation Error
+
+**Theorem:**
+Let $x_0, ..., x_n$ be distinct nodes. Assume $f \in C^{n+1}(I_x)$. The error $E_n(x)$ is:
+$$E_n(x) = f(x) - \Pi_n(x) = \frac{f^{(n+1)}(\xi)}{(n+1)!} w_{n+1}(x)$$
+
+* This is similar to the Taylor expansion remainder, but Taylor uses one point with derivatives, while interpolation uses $(n+1)$ distinct points.
+
+**Error Bound:**
+$$\max_{x \in [a,b]} |E_n(x)| \le \frac{M}{(n+1)!} \max_{x \in [a,b]} |w_{n+1}(x)|$$
+where $M = \max |f^{(n+1)}(x)|$.
+
+**Runge's Counter Example:**
+Consider $f(x) = \frac{1}{1+25x^2}$ on $[-1, 1]$ with equally spaced nodes.
+* The maximum error grows exponentially as $n \to \infty$.
+* Equally spaced nodes are not optimal.
+* **Solution:** Chebyshev interpolation (pick nodes to minimize $w_{n+1}$). Choose nodes $x_j = \cos(\frac{2j+1}{2n+2}\pi)$.
+
+---
+
+## 6. Newton Form of Interpolation
+
+**Motivation:**
+In Lagrange form, if one more node is added, all terms must change. We want a representation where adding points is computationally cheaper.
+
+**Recursive Structure:**
+$$\Pi_n(x) = \Pi_{n-1}(x) + q_n(x)$$
+where $q_n \in \mathbb{P}_n$ and $q_n(x_i) = 0$ for $i=0, ..., n-1$.
+
+* This implies $q_n(x) = c_n w_n(x)$.
+* We can solve for $c_n$:
+    $$c_n = \frac{f(x_n) - \Pi_{n-1}(x_n)}{w_n(x_n)}$$
+
+**Newton Form:**
+$$\Pi_n(x) = c_0 + c_1(x-x_0) + c_2(x-x_0)(x-x_1) + ... + c_n \prod_{i=0}^{n-1}(x-x_i)$$
+
+* Adding a new node only requires computing the next term $c_{n+1} w_{n+1}(x)$.

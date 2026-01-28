@@ -4,27 +4,135 @@ date: "`r Sys.Date()`"
 ---
 
 # Lecture 1 {#lecture1}
+# MA 563 Applied Computational Analysis
 
-## Overview
+## 1. Introduction: Themes, Concepts, and Examples
 
-Notes from Lecture 1 of Applied Computational Analysis.
+Mathematical problems can be approximately solved with computers. Most problems do not have explicit solution formulas.
 
-*Note: This section should be filled in based on the content from `lecture-notes/Lecture1.pdf`.*
+**Example:**
+* Find roots of: $x^5 + x^4 + 3x^2 + 2x + 2 = 0$.
+* **Abel's Impossibility Theorem:** There is no algebraic solution (explicit solution formula) for general polynomial equations of degree five or higher with arbitrary constants.
+* Most partial differential equations (PDEs) have no explicit solution formula.
 
-## Key Topics
+### To study the approximation:
 
-<!-- Add key topics covered in this lecture -->
+1.  **Theory (Analysis):**
+    * **Convergence:** Limits of sequences that approach the true solution.
+    * Finite dimensional space for approximation.
+    * **Stability**.
 
-## Main Content
+2.  **Application:**
+    * Derivation of numerical methods.
+    * Interpretation of results / measure the error.
+    * Adapting methods to get desired properties.
 
-<!-- Add detailed notes from the lecture -->
-
-## Examples and Exercises
-
-<!-- Add examples and exercises from the lecture -->
-
-## Summary
-
-<!-- Add a summary of the main points covered -->
+3.  **Implementation:**
+    * Matlab, Python, C.
 
 ---
+
+## 2. Floating Point Arithmetic
+
+Digital computers use a finite number of bits to represent a real number.
+* $F$: The set of Floating point numbers.
+* The position of decimal (or binary) point is stored separately from the digits.
+
+**Form of elements in F:**
+$$x = \pm (m / \beta^t) \beta^e$$
+
+Where:
+* $\beta > 2$: **Base** (an integer, given by computer).
+* $t \ge 1$: **Precision** (an integer, given by computer). e.g., 24 for single precision, 53 for double precision.
+* $e$: **Exponent** (integer). Bounds $e_{min} \le e \le e_{max}$ given by computer.
+* $m$: **Mantissa** (integer), $\beta^{t-1} \le m \le \beta^t - 1$.
+
+### Example: Double Precision ($t=53, \beta=2$)
+Consider the interval $(1, 2]$. Let $e=1$:
+$$2^{52} \le m \le 2^{53} - 1$$
+
+The numbers in this range are:
+$$1, 1+2^{-52}, 1+2 \times 2^{-52}, ..., 2 - 2^{-52}$$
+
+* Smallest mantissa: $m = 2^{52}$.
+* Largest mantissa: $m = 2^{53} - 1$.
+* Next number (let $e=2$): $x = \frac{2^{52}}{2^{53}} \cdot 2^2 = 2$.
+* $x_{max} = \frac{2^{53}-1}{2^{53}} 2^1 \approx 2 - 2^{-52}$ (approx).
+
+*(See textbook section 2.5 for details)*.
+
+### Machine Epsilon ($\epsilon_{machine}$)
+How large is the gap between numbers in $F$?
+Define machine epsilon:
+$$\epsilon_{machine} = \frac{1}{2} \beta^{1-t}$$
+
+For all $x \in \mathbb{R}$, there exists $x' \in F$ such that:
+$$|x - x'| \le \epsilon_{machine} |x|$$
+
+Let $fl: \mathbb{R} \to F$ denote the function giving the closest floating point approximation of a real number.
+For $x \in \mathbb{R}$, with $|\epsilon| < \epsilon_{machine}$:
+$$fl(x) = x(1+\epsilon)$$
+
+**For double precision:**
+$$\epsilon_{machine} = \frac{1}{2} \cdot 2^{1-53} = 2^{-52} \approx 1.1 \times 10^{-16}$$
+
+### Accumulation of Error
+When you compute with floating numbers:
+$$y = \sum_{n=1}^{1000} \frac{(-1)^n}{2n+1}$$
+
+* This involves 1000 additions.
+* **Relative error:** $1000 \times \epsilon_{machine} \approx 10^{-13}$.
+* Need to pay attention when designing algorithms so that errors are not amplified to the point of spoiling the solution.
+
+---
+
+## 3. Condition / Sensitivity
+
+Consider a problem with an input $x$ and an output $f(x)$.
+When $x$ is changed by an amount $\delta x$ (of size $||\delta x|| \le \epsilon$), the output becomes $f(x+\delta x)$.
+
+The difference is:
+$$\delta f = f(x + \delta x) - f(x)$$
+
+### Definitions
+* **Well-conditioned:** A problem is called well-conditioned if small changes in the input lead to small changes in the output.
+* **Ill-conditioned:** If it is sensitive to the change of $\delta x$, then the problem is called ill-conditioned.
+
+### Relative Condition Number ($\kappa$)
+How to measure the condition of a problem?
+
+$$K = \lim_{\epsilon \to 0} \sup_{||\delta x|| \le \epsilon} \frac{||\delta f|| / ||f(x)||} {||\delta x|| / ||x||}$$
+
+Using the Jacobian $J = f'$:
+$$\kappa = \frac{||J|| \cdot ||x||}{||f(x)||}$$
+
+* A problem is **well-conditioned** if $\kappa$ is small (e.g., $1, 10, 10^2...$).
+* A problem is **ill-conditioned** if $\kappa$ is large (e.g., $10^6, 10^7...$).
+
+*Remark:* For $f: \mathbb{R}^m \to \mathbb{R}^n$, use $||\cdot||$ for norm of $x$ and norm of $f(x)$. (Check textbook 1.10 for def of norms).
+
+### Examples
+
+**1. Consider $f(x) = \sqrt{x}$ for $x > 0$**
+$$J = f'(x) = \frac{1}{2} x^{-1/2}$$
+
+$$\kappa = \frac{||J|| \cdot ||x||}{||f(x)||} = \frac{\frac{1}{2}x^{-1/2} \cdot x}{\sqrt{x}} = \frac{1}{2}$$
+
+* $\kappa = 1/2$ is small.
+* This is a **well-conditioned** problem.
+
+**2. Consider $f(x) = x_1 - x_2$, where $x = [x_1, x_2]^T$**
+$f: \mathbb{R}^2 \to \mathbb{R}$
+$J = [1, -1]$
+
+Let's consider the condition number w.r.t. $\infty$-norm.
+$$\kappa = \frac{||J||_\infty}{||f||_\infty / ||x||_\infty} = \frac{2 \cdot ||x||_\infty}{|x_1 - x_2|}$$
+
+*Details:*
+* $||J||_\infty = \sup_{||y||_\infty=1} ||Jy|| = \sup |y_1 - y_2| = 2$.
+* $||x||_\infty = \max \{ |x_1|, |x_2| \}$.
+
+Take $x_1 = 1, x_2 = -1 \implies ||x||_\infty = 1$. Then $\kappa$ is reasonable.
+However, when $x_1$ and $x_2$ are very close ($x_1 \approx x_2$), the denominator $|x_1 - x_2|$ is small, so $\kappa$ can be very large.
+
+**"Cancellation Error":** We should avoid subtraction of very close vectors in designing algorithms.

@@ -6,6 +6,7 @@ bookdown::gitbook:
       collapse: section
       before: |
         <li><a href="./index.html">🏠 Home</a></li>
+        <li><a href="https://github.com/Maggiemajiii/applied-computational-analysis" target="_blank">🔗 GitHub Repository</a></li>
     search: yes
     edit: null
     fontsettings:

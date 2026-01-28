@@ -2,29 +2,135 @@
 title: "Lecture 3"
 date: "`r Sys.Date()`"
 ---
+# Lecture 3: Newton Form, Error Analysis, and Spline Interpolation
 
-# Lecture 3 {#lecture3}
+## 1. Newton Form of Interpolation (Recap & Details)
 
-## Overview
+### Newton Form Structure
+Recall that adding points to the Lagrange form is computationally expensive. The **Newton Form** allows for efficient updates when new nodes are added.
 
-Notes from Lecture 3 of Applied Computational Analysis.
+The polynomial is written as:
+$$\Pi_n(x) = c_0 + c_1(x-x_0) + c_2(x-x_0)(x-x_1) + \dots + c_n \prod_{i=0}^{n-1}(x-x_i)$$
 
-*Note: This section should be filled in based on the content from `lecture-notes/Lecture3.pdf`.*
+This can be written compactly as:
+$$\Pi_n(x) = \sum_{j=0}^{n} c_j \prod_{i=0}^{j-1}(x-x_i)$$
 
-## Key Topics
+### Divided Differences
+The coefficients $c_j$ are called the **$n$-th Newton divided differences**.
+Notation: $c_j = f[x_0, x_1, \dots, x_j]$.
 
-<!-- Add key topics covered in this lecture -->
+**Recursive Definition:**
+* **0-th order:** $c_0 = f[x_0] = f(x_0) = y_0$.
+* **1-st order:** $c_1 = f[x_0, x_1] = \frac{f[x_1] - f[x_0]}{x_1 - x_0}$.
+* **2-nd order:** $c_2 = f[x_0, x_1, x_2] = \frac{f[x_1, x_2] - f[x_0, x_1]}{x_2 - x_0}$.
+* **General Recursive Formula:**
+    $$c_n = f[x_0, \dots, x_n] = \frac{f[x_1, \dots, x_n] - f[x_0, \dots, x_{n-1}]}{x_n - x_0}$$
 
-## Main Content
+### Example
+Exact function: $f(x) = x^3 - 2x^2 + 1$.
+Nodes: $x_i = 0, 1, 2, 3$.
+Values:
+* $f(0) = 1$
+* $f(1) = 0$
+* $f(2) = 1$
+* $f(3) = 10$
 
-<!-- Add detailed notes from the lecture -->
-
-## Examples and Exercises
-
-<!-- Add examples and exercises from the lecture -->
-
-## Summary
-
-<!-- Add a summary of the main points covered -->
+By computing the divided difference table, the polynomial is:
+$$\Pi_3(x) = 1 - x + x(x-1) + x(x-1)(x-2)$$
+$$= 1 - x + x^2 - x + x(x^2 - 3x + 2)$$
+*(Simplifies back to original function)*.
 
 ---
+
+## 2. Interpolation Error Analysis
+
+**Theorem:** Let $x_0, \dots, x_n$ be distinct nodes. Assume $f \in C^{n+1}(I_x)$.
+The error is given by:
+$$E_n(x) = f(x) - \Pi_n(x) = \frac{f^{(n+1)}(\xi)}{(n+1)!} w_{n+1}(x)$$
+Where $w_{n+1}(x)$ is the **nodal polynomial**:
+$$w_{n+1}(x) = \prod_{i=0}^{n} (x - x_i)$$
+
+**Error Bound:**
+$$|E_n(x)| \le \frac{M}{(n+1)!} \max |w_{n+1}(x)|$$
+Where $M = \max |f^{(n+1)}(x)|$.
+
+### The Problem with High-Degree Interpolation
+**Question:** Does increasing the number of nodes always reduce error?
+
+**Example 1:** $f(x) = e^x$ on $[0, 1]$.
+* Error decreases as $n$ increases (well-behaved).
+
+**Example 2 (Runge's Phenomenon):**
+$$f(x) = \frac{1}{1+25x^2}, \quad x \in [-1, 1]$$
+* With equally spaced nodes, the maximum error grows **exponentially** as $n \to \infty$.
+* High-degree polynomials oscillate wildly near the endpoints.
+
+**Solution: Chebyshev Interpolation**
+Instead of equally spaced nodes, we choose nodes to minimize $\max |w_{n+1}(x)|$.
+$$x_j = \cos \left( \frac{2j+1}{2n+2} \pi \right)$$
+* **Remark:** There is no universal optimal choice of nodes for all functions (Faber's Theorem), but Chebyshev is often much better than equidistant.
+
+---
+
+## 3. Spline Interpolation
+
+Given the issues with high-degree polynomials (Runge's phenomenon), we use a different approach: **Use low-degree polynomials in sub-intervals.**
+
+### Definition: Spline of Order $k$
+Given nodes $a = x_0 < x_1 < \dots < x_n = b$.
+A function $S_k$ is a spline of order $k$ if:
+1.  **Piecewise Polynomial:** On each sub-interval $[x_j, x_{j+1}]$, $S_k$ is a polynomial of degree $\le k$.
+2.  **Smoothness:** $S_k \in C^{k-1}[a, b]$ (Continuous up to the $(k-1)$-th derivative).
+
+---
+
+## 4. Linear Splines ($k=1$)
+Connect the data points with straight lines.
+
+* **Properties:**
+    * $S_1$ is a polynomial of degree 1 on each interval.
+    * $S_1 \in C^0[a, b]$ (Continuous, but derivative is discontinuous).
+    * $S_1(x_j) = f(x_j)$.
+
+* **Error Analysis:**
+    Let $h_j = x_{j+1} - x_j$ (interval width).
+    $$|S_1(x) - f(x)| \le \frac{1}{4} \max |f''(x)| h_{max}^2$$
+    * As the max spacing $h_{max} \to 0$, the error converges to 0 with order $O(h^2)$.
+
+---
+
+## 5. Cubic Splines ($k=3$)
+We often want a smoother approximation (e.g., $C^2$ continuity).
+
+* **Properties:**
+    1.  Restricted to $[x_j, x_{j+1}]$, it is a polynomial of degree 3 ($P_i \in \mathbb{P}_3$).
+    2.  $S_3 \in C^2[a, b]$ (Function, 1st deriv, and 2nd deriv are continuous).
+    3.  $S_3(x_j) = f(x_j)$ (Interpolation condition).
+
+### Deriving the System
+Let $P_i(x)$ be the cubic polynomial on interval $[x_i, x_{i+1}]$.
+$$P_i(x) = a_i + b_i(x-x_i) + c_i(x-x_i)^2 + d_i(x-x_i)^3$$
+
+**Unknowns:** $4n$ unknowns (since there are $n$ intervals).
+
+**Constraints:**
+1.  **Interpolation:** $P_i(x_i) = a_i = f(x_i)$. (Determines $a_i$).
+2.  **Continuity ($C^0$):** $P_i(x_{i+1}) = P_{i+1}(x_{i+1})$.
+    $$a_i + b_i h_i + c_i h_i^2 + d_i h_i^3 = a_{i+1}$$
+3.  **Smoothness ($C^1$):** $P'_i(x_{i+1}) = P'_{i+1}(x_{i+1})$.
+    $$b_i + 2c_i h_i + 3d_i h_i^2 = b_{i+1}$$
+4.  **Curvature ($C^2$):** $P''_i(x_{i+1}) = P''_{i+1}(x_{i+1})$.
+    $$2c_i + 6d_i h_i = 2c_{i+1} \implies c_i + 3d_i h_i = c_{i+1}$$
+
+### Boundary Conditions
+The internal conditions give $(3n-2)$ equations for $3n$ unknowns. We need 2 more conditions at the endpoints ($x_0$ and $x_n$).
+
+**Natural Spline Boundary:**
+$$S''(a) = S''(b) = 0$$
+
+### Solving
+The system can be formulated as a matrix equation:
+$$A \vec{c} = \vec{r}$$
+Where $\vec{c}$ contains the unknown coefficients.
+* The matrix $A$ is **Tridiagonal**.
+* This system can be solved very efficiently (linear time, $O(n)$) using algorithms like the Thomas algorithm.

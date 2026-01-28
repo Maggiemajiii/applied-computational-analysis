@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Lecture 3</title>
-  <meta name="description" content="Lecture 3" />
+  <title>Section 3 Lecture 2: Condition Numbers &amp; Interpolation | Lecture 3</title>
+  <meta name="description" content="Section 3 Lecture 2: Condition Numbers &amp; Interpolation | Lecture 3" />
   <meta name="generator" content="bookdown 0.45 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Lecture 3" />
+  <meta property="og:title" content="Section 3 Lecture 2: Condition Numbers &amp; Interpolation | Lecture 3" />
   <meta property="og:type" content="book" />
   
   
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Lecture 3" />
+  <meta name="twitter:title" content="Section 3 Lecture 2: Condition Numbers &amp; Interpolation | Lecture 3" />
   
   
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-
-<link rel="next" href="lecture1.html"/>
+<link rel="prev" href="lecture1.html"/>
+<link rel="next" href="lecture-3-newton-form-error-analysis-and-spline-interpolation.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -167,25 +167,119 @@
   <span>👁 <span id="busuanzi_value_page_pv"></span> views</span>
 
 </div>
-<div id="header">
-<h1 class="title">Lecture 3</h1>
-<p class="author"><em>Maggie Zhang</em></p>
-<p class="date"><em>2026-01-28</em></p>
-</div>
-<div id="applied-computational-analysis-course-notes" class="section level1 hasAnchor" number="1">
-<h1><span class="header-section-number">Section 1</span> Applied Computational Analysis Course Notes<a href="index.html#applied-computational-analysis-course-notes" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p>Welcome! 👋</p>
-<p>This site contains my course notes for Applied Computational Analysis. The notes are organized by lecture and cover topics in numerical methods, computational mathematics, and their applications.</p>
-<hr />
-<div id="table-of-contents" class="section level2 hasAnchor" number="1.1">
-<h2><span class="header-section-number">1.1</span> Table of Contents<a href="index.html#table-of-contents" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="lecture-2-condition-numbers-interpolation" class="section level1 hasAnchor" number="3">
+<h1><span class="header-section-number">Section 3</span> Lecture 2: Condition Numbers &amp; Interpolation<a href="lecture-2-condition-numbers-interpolation.html#lecture-2-condition-numbers-interpolation" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="condition-of-matrix-vector-multiplication" class="section level2 hasAnchor" number="3.1">
+<h2><span class="header-section-number">3.1</span> 1. Condition of Matrix-Vector Multiplication<a href="lecture-2-condition-numbers-interpolation.html#condition-of-matrix-vector-multiplication" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Consider the function <span class="math inline">\(f(\vec{x}) = A\vec{x}\)</span>, where <span class="math inline">\(A \in \mathbb{R}^{m \times n}\)</span>.</p>
+<p>The condition number <span class="math inline">\(\kappa\)</span> is defined by:
+<span class="math display">\[\kappa = \lim_{\epsilon \to 0} \sup_{||\delta \vec{x}|| \le \epsilon} \frac{||\delta f|| / ||f(\vec{x})||}{||\delta \vec{x}|| / ||\vec{x}||}\]</span>
+<span class="math display">\[= ||A|| \frac{||\vec{x}||}{||A\vec{x}||}\]</span></p>
 <ul>
-<li><a href="lecture1.html#lecture1">Lecture 1</a></li>
-<li><a href="#lecture2">Lecture 2</a></li>
-<li><a href="#lecture3">Lecture 3</a></li>
-<li><a href="refs.html#refs">Bibliography</a></li>
+<li><p><strong>Case 1:</strong> If <span class="math inline">\(A\)</span> is square and nonsingular:
+<span class="math display">\[\frac{||\vec{x}||}{||A\vec{x}||} \le ||A^{-1}||\]</span>
+Thus, <span class="math inline">\(\kappa \le ||A|| \cdot ||A^{-1}||\)</span>.</p></li>
+<li><p><strong>Case 2:</strong> For a matrix <span class="math inline">\(A \in \mathbb{R}^{m \times n}\)</span> where <span class="math inline">\(m \ne n\)</span>, use the pseudo-inverse <span class="math inline">\(A^\dagger\)</span> (defined with SVD):
+<span class="math display">\[\kappa \le ||A|| \cdot ||A^\dagger||\]</span></p></li>
 </ul>
+<p><strong>Using the 2-norm:</strong>
+* <span class="math inline">\(||A||_2 = \sigma_1\)</span> (largest singular value).
+* <span class="math inline">\(||A^{-1}||_2 = \frac{1}{\sigma_m}\)</span> (smallest singular value).
+* Therefore, the condition number in 2-norm is:
+<span class="math display">\[\kappa(A) = \frac{\sigma_1}{\sigma_m}\]</span></p>
+<p><strong>Remark:</strong>
+The condition of the problem is inherent to the problem itself. A correct algorithm would likely inherently have the same sensitivity. It is hard to solve ill-conditioned problems numerically.</p>
+<p><strong>Problem Comparison:</strong>
+1. <strong>Map <span class="math inline">\(\vec{x} \mapsto A\vec{x}\)</span>:</strong> <span class="math inline">\(\kappa(A) = ||A|| \cdot ||A^{-1}||\)</span>.
+2. <strong>Map <span class="math inline">\(A\vec{x} \mapsto \vec{x}\)</span> (solving linear system):</strong> <span class="math inline">\(\kappa = \kappa(A^{-1}) = ||A^{-1}|| \cdot ||A||\)</span>.
+* If <span class="math inline">\(A\)</span> is singular, then <span class="math inline">\(\kappa(A) = \infty\)</span>.</p>
 <hr />
+</div>
+<div id="numerical-instability" class="section level2 hasAnchor" number="3.2">
+<h2><span class="header-section-number">3.2</span> 2. Numerical Instability<a href="lecture-2-condition-numbers-interpolation.html#numerical-instability" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><strong>Example: Compute <span class="math inline">\(\sqrt{2}\)</span> (approx 1.4142…)</strong>.</p>
+<p><strong>Method 1: Babylonian Method (Stable)</strong>
+* Initialize <span class="math inline">\(x_0\)</span>.
+* Update: <span class="math inline">\(x_{k+1} = \frac{x_k}{2} + \frac{1}{x_k}\)</span>.
+* Assume it converges to <span class="math inline">\(x^*\)</span>: <span class="math inline">\(x^* = \frac{x^*}{2} + \frac{1}{x^*} \Rightarrow (x^*)^2 = 2\)</span>.</p>
+<p><strong>Method 2: Unstable Method</strong>
+* Start with <span class="math inline">\((x^*)^2 = 2 \Rightarrow x^* = \sqrt{2}\)</span>.
+* Rearrange: <span class="math inline">\(x^* = x^* - ( (x^*)^2 - 2 )\)</span>.
+* Iterative scheme: <span class="math inline">\(x_{k+1} = (x_k^2 - 2) + x_k\)</span>.
+* <strong>Result:</strong> This is unstable with respect to the initial guess. A small change in <span class="math inline">\(x_0\)</span> causes a large difference, and error grows exponentially.</p>
+<p><strong>Definition:</strong> An algorithm that amplifies error too much is called <strong>numerically unstable</strong>.</p>
+<hr />
+</div>
+<div id="polynomial-interpolation" class="section level2 hasAnchor" number="3.3">
+<h2><span class="header-section-number">3.3</span> 3. Polynomial Interpolation<a href="lecture-2-condition-numbers-interpolation.html#polynomial-interpolation" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>(Textbook 8.1 and 8.2).</p>
+<p><strong>Goal:</strong> Approximate function <span class="math inline">\(f\)</span> by a “simple function” <span class="math inline">\(g\)</span> (from a subspace).
+1. <strong>How to choose <span class="math inline">\(g\)</span>?</strong> Polynomials, trigonometric functions, etc.
+2. <strong>How to measure error?</strong>
+* <span class="math inline">\(L^2\)</span> norm: <span class="math inline">\(||f-g||_{L^2[a,b]} = [\int_a^b (f(x)-g(x))^2 dx]^{1/2}\)</span>.
+* <span class="math inline">\(L^\infty\)</span> norm: <span class="math inline">\(||f-g||_{L^\infty[a,b]} = \max_{x \in [a,b]} |f(x)-g(x)|\)</span>.</p>
+<p><strong>Weierstrass Approximation Theorem:</strong>
+Suppose <span class="math inline">\(f\)</span> is a continuous real-valued function defined on <span class="math inline">\([a, b]\)</span>. For every <span class="math inline">\(\epsilon &gt; 0\)</span>, there exists a polynomial <span class="math inline">\(p\)</span> such that for all <span class="math inline">\(x \in [a, b]\)</span>:
+<span class="math display">\[|f(x) - p(x)| &lt; \epsilon\]</span>
+Equivalently: <span class="math inline">\(||f-p||_{L^\infty[a,b]} &lt; \epsilon\)</span>.</p>
+<hr />
+</div>
+<div id="interpolation-problem-lagrange-form" class="section level2 hasAnchor" number="3.4">
+<h2><span class="header-section-number">3.4</span> 4. Interpolation Problem &amp; Lagrange Form<a href="lecture-2-condition-numbers-interpolation.html#interpolation-problem-lagrange-form" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><strong>Problem Statement:</strong>
+Given <span class="math inline">\((n+1)\)</span> pairs <span class="math inline">\((x_i, y_i)\)</span>, find a polynomial <span class="math inline">\(\Pi_n \in \mathbb{P}_n\)</span> (interpolating polynomial) such that:
+<span class="math display">\[\Pi_n(x_i) = y_i \quad \text{for } i = 0, 1, ..., n\]</span>
+* <span class="math inline">\(x_i\)</span> are called <strong>interpolation nodes</strong>.
+* <strong>Theorem 8.1:</strong> Given distinct nodes, there exists a <strong>unique</strong> polynomial <span class="math inline">\(\Pi_n \in \mathbb{P}_n\)</span> satisfying the condition.</p>
+<p><strong>Lagrange Form:</strong>
+Can we find a basis of <span class="math inline">\(\mathbb{P}_n\)</span> that leads to a simpler form?
+Define Lagrange basis (Characteristic polynomials) <span class="math inline">\(l_i(x)\)</span>:
+<span class="math display">\[l_i(x) = \prod_{j=0, j \ne i}^{n} \frac{x - x_j}{x_i - x_j}\]</span></p>
+<ul>
+<li>Property: <span class="math inline">\(l_i(x_j) = \delta_{ij}\)</span> (1 if <span class="math inline">\(i=j\)</span>, 0 if <span class="math inline">\(i \ne j\)</span>).</li>
+<li>Interpolant:
+<span class="math display">\[\Pi_n(x) = \sum_{i=0}^n y_i l_i(x)\]</span></li>
+</ul>
+<p><strong>Alternate form using Nodal Polynomial:</strong>
+Let <span class="math inline">\(w_{n+1}(x) = \prod_{i=0}^n (x - x_i)\)</span> be the “nodal polynomial”.
+<span class="math display">\[\Pi_n(x) = \sum_{i=0}^n \frac{w_{n+1}(x)}{(x-x_i) w&#39;_{n+1}(x_i)} y_i\]</span></p>
+<hr />
+</div>
+<div id="interpolation-error" class="section level2 hasAnchor" number="3.5">
+<h2><span class="header-section-number">3.5</span> 5. Interpolation Error<a href="lecture-2-condition-numbers-interpolation.html#interpolation-error" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><strong>Theorem:</strong>
+Let <span class="math inline">\(x_0, ..., x_n\)</span> be distinct nodes. Assume <span class="math inline">\(f \in C^{n+1}(I_x)\)</span>. The error <span class="math inline">\(E_n(x)\)</span> is:
+<span class="math display">\[E_n(x) = f(x) - \Pi_n(x) = \frac{f^{(n+1)}(\xi)}{(n+1)!} w_{n+1}(x)\]</span></p>
+<ul>
+<li>This is similar to the Taylor expansion remainder, but Taylor uses one point with derivatives, while interpolation uses <span class="math inline">\((n+1)\)</span> distinct points.</li>
+</ul>
+<p><strong>Error Bound:</strong>
+<span class="math display">\[\max_{x \in [a,b]} |E_n(x)| \le \frac{M}{(n+1)!} \max_{x \in [a,b]} |w_{n+1}(x)|\]</span>
+where <span class="math inline">\(M = \max |f^{(n+1)}(x)|\)</span>.</p>
+<p><strong>Runge’s Counter Example:</strong>
+Consider <span class="math inline">\(f(x) = \frac{1}{1+25x^2}\)</span> on <span class="math inline">\([-1, 1]\)</span> with equally spaced nodes.
+* The maximum error grows exponentially as <span class="math inline">\(n \to \infty\)</span>.
+* Equally spaced nodes are not optimal.
+* <strong>Solution:</strong> Chebyshev interpolation (pick nodes to minimize <span class="math inline">\(w_{n+1}\)</span>). Choose nodes <span class="math inline">\(x_j = \cos(\frac{2j+1}{2n+2}\pi)\)</span>.</p>
+<hr />
+</div>
+<div id="newton-form-of-interpolation" class="section level2 hasAnchor" number="3.6">
+<h2><span class="header-section-number">3.6</span> 6. Newton Form of Interpolation<a href="lecture-2-condition-numbers-interpolation.html#newton-form-of-interpolation" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><strong>Motivation:</strong>
+In Lagrange form, if one more node is added, all terms must change. We want a representation where adding points is computationally cheaper.</p>
+<p><strong>Recursive Structure:</strong>
+<span class="math display">\[\Pi_n(x) = \Pi_{n-1}(x) + q_n(x)\]</span>
+where <span class="math inline">\(q_n \in \mathbb{P}_n\)</span> and <span class="math inline">\(q_n(x_i) = 0\)</span> for <span class="math inline">\(i=0, ..., n-1\)</span>.</p>
+<ul>
+<li>This implies <span class="math inline">\(q_n(x) = c_n w_n(x)\)</span>.</li>
+<li>We can solve for <span class="math inline">\(c_n\)</span>:
+<span class="math display">\[c_n = \frac{f(x_n) - \Pi_{n-1}(x_n)}{w_n(x_n)}\]</span></li>
+</ul>
+<p><strong>Newton Form:</strong>
+<span class="math display">\[\Pi_n(x) = c_0 + c_1(x-x_0) + c_2(x-x_0)(x-x_1) + ... + c_n \prod_{i=0}^{n-1}(x-x_i)\]</span></p>
+<ul>
+<li>Adding a new node only requires computing the next term <span class="math inline">\(c_{n+1} w_{n+1}(x)\)</span>.</li>
+</ul>
 
 </div>
 </div>
@@ -211,8 +305,8 @@
           </div>
         </div>
       </div>
-
-<a href="lecture1.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="lecture1.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="lecture-3-newton-form-error-analysis-and-spline-interpolation.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
