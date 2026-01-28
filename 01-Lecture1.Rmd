@@ -4,7 +4,6 @@ date: "`r Sys.Date()`"
 ---
 
 # Lecture 1 {#lecture1}
-# MA 563 Applied Computational Analysis
 
 ## 1. Introduction: Themes, Concepts, and Examples
 

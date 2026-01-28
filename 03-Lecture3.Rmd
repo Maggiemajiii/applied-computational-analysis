@@ -134,3 +134,4 @@ $$A \vec{c} = \vec{r}$$
 Where $\vec{c}$ contains the unknown coefficients.
 * The matrix $A$ is **Tridiagonal**.
 * This system can be solved very efficiently (linear time, $O(n)$) using algorithms like the Thomas algorithm.
+

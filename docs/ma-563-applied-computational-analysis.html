@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Page not found | Lecture 3</title>
-  <meta name="description" content="Page not found | Lecture 3" />
+  <title>Section 3 MA 563 Applied Computational Analysis | Lecture 3</title>
+  <meta name="description" content="Section 3 MA 563 Applied Computational Analysis | Lecture 3" />
   <meta name="generator" content="bookdown 0.45 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Page not found | Lecture 3" />
+  <meta property="og:title" content="Section 3 MA 563 Applied Computational Analysis | Lecture 3" />
   <meta property="og:type" content="book" />
   
   
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Page not found | Lecture 3" />
+  <meta name="twitter:title" content="Section 3 MA 563 Applied Computational Analysis | Lecture 3" />
   
   
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-
-
+<link rel="prev" href="lecture1.html"/>
+<link rel="next" href="lecture-2-condition-numbers-interpolation.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -179,11 +179,137 @@
   <span>👁 <span id="busuanzi_value_page_pv"></span> views</span>
 
 </div>
-<div id="page-not-found" class="section level1">
-<h1>Page not found</h1>
-<p>The page you requested cannot be found (perhaps it was moved or renamed).</p>
-<p>You may want to try searching to find the page's new location, or use
-the table of contents to find the page you are looking for.</p>
+<div id="ma-563-applied-computational-analysis" class="section level1 hasAnchor" number="3">
+<h1><span class="header-section-number">Section 3</span> MA 563 Applied Computational Analysis<a href="ma-563-applied-computational-analysis.html#ma-563-applied-computational-analysis" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="introduction-themes-concepts-and-examples" class="section level2 hasAnchor" number="3.1">
+<h2><span class="header-section-number">3.1</span> 1. Introduction: Themes, Concepts, and Examples<a href="ma-563-applied-computational-analysis.html#introduction-themes-concepts-and-examples" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Mathematical problems can be approximately solved with computers. Most problems do not have explicit solution formulas.</p>
+<p><strong>Example:</strong>
+* Find roots of: <span class="math inline">\(x^5 + x^4 + 3x^2 + 2x + 2 = 0\)</span>.
+* <strong>Abel’s Impossibility Theorem:</strong> There is no algebraic solution (explicit solution formula) for general polynomial equations of degree five or higher with arbitrary constants.
+* Most partial differential equations (PDEs) have no explicit solution formula.</p>
+<div id="to-study-the-approximation" class="section level3 hasAnchor" number="3.1.1">
+<h3><span class="header-section-number">3.1.1</span> To study the approximation:<a href="ma-563-applied-computational-analysis.html#to-study-the-approximation" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ol style="list-style-type: decimal">
+<li><strong>Theory (Analysis):</strong>
+<ul>
+<li><strong>Convergence:</strong> Limits of sequences that approach the true solution.</li>
+<li>Finite dimensional space for approximation.</li>
+<li><strong>Stability</strong>.</li>
+</ul></li>
+<li><strong>Application:</strong>
+<ul>
+<li>Derivation of numerical methods.</li>
+<li>Interpretation of results / measure the error.</li>
+<li>Adapting methods to get desired properties.</li>
+</ul></li>
+<li><strong>Implementation:</strong>
+<ul>
+<li>Matlab, Python, C.</li>
+</ul></li>
+</ol>
+<hr />
+</div>
+</div>
+<div id="floating-point-arithmetic" class="section level2 hasAnchor" number="3.2">
+<h2><span class="header-section-number">3.2</span> 2. Floating Point Arithmetic<a href="ma-563-applied-computational-analysis.html#floating-point-arithmetic" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Digital computers use a finite number of bits to represent a real number.
+* <span class="math inline">\(F\)</span>: The set of Floating point numbers.
+* The position of decimal (or binary) point is stored separately from the digits.</p>
+<p><strong>Form of elements in F:</strong>
+<span class="math display">\[x = \pm (m / \beta^t) \beta^e\]</span></p>
+<p>Where:
+* <span class="math inline">\(\beta &gt; 2\)</span>: <strong>Base</strong> (an integer, given by computer).
+* <span class="math inline">\(t \ge 1\)</span>: <strong>Precision</strong> (an integer, given by computer). e.g., 24 for single precision, 53 for double precision.
+* <span class="math inline">\(e\)</span>: <strong>Exponent</strong> (integer). Bounds <span class="math inline">\(e_{min} \le e \le e_{max}\)</span> given by computer.
+* <span class="math inline">\(m\)</span>: <strong>Mantissa</strong> (integer), <span class="math inline">\(\beta^{t-1} \le m \le \beta^t - 1\)</span>.</p>
+<div id="example-double-precision-t53-beta2" class="section level3 hasAnchor" number="3.2.1">
+<h3><span class="header-section-number">3.2.1</span> Example: Double Precision (<span class="math inline">\(t=53, \beta=2\)</span>)<a href="ma-563-applied-computational-analysis.html#example-double-precision-t53-beta2" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Consider the interval <span class="math inline">\((1, 2]\)</span>. Let <span class="math inline">\(e=1\)</span>:
+<span class="math display">\[2^{52} \le m \le 2^{53} - 1\]</span></p>
+<p>The numbers in this range are:
+<span class="math display">\[1, 1+2^{-52}, 1+2 \times 2^{-52}, ..., 2 - 2^{-52}\]</span></p>
+<ul>
+<li>Smallest mantissa: <span class="math inline">\(m = 2^{52}\)</span>.</li>
+<li>Largest mantissa: <span class="math inline">\(m = 2^{53} - 1\)</span>.</li>
+<li>Next number (let <span class="math inline">\(e=2\)</span>): <span class="math inline">\(x = \frac{2^{52}}{2^{53}} \cdot 2^2 = 2\)</span>.</li>
+<li><span class="math inline">\(x_{max} = \frac{2^{53}-1}{2^{53}} 2^1 \approx 2 - 2^{-52}\)</span> (approx).</li>
+</ul>
+<p><em>(See textbook section 2.5 for details)</em>.</p>
+</div>
+<div id="machine-epsilon-epsilon_machine" class="section level3 hasAnchor" number="3.2.2">
+<h3><span class="header-section-number">3.2.2</span> Machine Epsilon (<span class="math inline">\(\epsilon_{machine}\)</span>)<a href="ma-563-applied-computational-analysis.html#machine-epsilon-epsilon_machine" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>How large is the gap between numbers in <span class="math inline">\(F\)</span>?
+Define machine epsilon:
+<span class="math display">\[\epsilon_{machine} = \frac{1}{2} \beta^{1-t}\]</span></p>
+<p>For all <span class="math inline">\(x \in \mathbb{R}\)</span>, there exists <span class="math inline">\(x&#39; \in F\)</span> such that:
+<span class="math display">\[|x - x&#39;| \le \epsilon_{machine} |x|\]</span></p>
+<p>Let <span class="math inline">\(fl: \mathbb{R} \to F\)</span> denote the function giving the closest floating point approximation of a real number.
+For <span class="math inline">\(x \in \mathbb{R}\)</span>, with <span class="math inline">\(|\epsilon| &lt; \epsilon_{machine}\)</span>:
+<span class="math display">\[fl(x) = x(1+\epsilon)\]</span></p>
+<p><strong>For double precision:</strong>
+<span class="math display">\[\epsilon_{machine} = \frac{1}{2} \cdot 2^{1-53} = 2^{-52} \approx 1.1 \times 10^{-16}\]</span></p>
+</div>
+<div id="accumulation-of-error" class="section level3 hasAnchor" number="3.2.3">
+<h3><span class="header-section-number">3.2.3</span> Accumulation of Error<a href="ma-563-applied-computational-analysis.html#accumulation-of-error" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>When you compute with floating numbers:
+<span class="math display">\[y = \sum_{n=1}^{1000} \frac{(-1)^n}{2n+1}\]</span></p>
+<ul>
+<li>This involves 1000 additions.</li>
+<li><strong>Relative error:</strong> <span class="math inline">\(1000 \times \epsilon_{machine} \approx 10^{-13}\)</span>.</li>
+<li>Need to pay attention when designing algorithms so that errors are not amplified to the point of spoiling the solution.</li>
+</ul>
+<hr />
+</div>
+</div>
+<div id="condition-sensitivity" class="section level2 hasAnchor" number="3.3">
+<h2><span class="header-section-number">3.3</span> 3. Condition / Sensitivity<a href="ma-563-applied-computational-analysis.html#condition-sensitivity" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Consider a problem with an input <span class="math inline">\(x\)</span> and an output <span class="math inline">\(f(x)\)</span>.
+When <span class="math inline">\(x\)</span> is changed by an amount <span class="math inline">\(\delta x\)</span> (of size <span class="math inline">\(||\delta x|| \le \epsilon\)</span>), the output becomes <span class="math inline">\(f(x+\delta x)\)</span>.</p>
+<p>The difference is:
+<span class="math display">\[\delta f = f(x + \delta x) - f(x)\]</span></p>
+<div id="definitions" class="section level3 hasAnchor" number="3.3.1">
+<h3><span class="header-section-number">3.3.1</span> Definitions<a href="ma-563-applied-computational-analysis.html#definitions" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li><strong>Well-conditioned:</strong> A problem is called well-conditioned if small changes in the input lead to small changes in the output.</li>
+<li><strong>Ill-conditioned:</strong> If it is sensitive to the change of <span class="math inline">\(\delta x\)</span>, then the problem is called ill-conditioned.</li>
+</ul>
+</div>
+<div id="relative-condition-number-kappa" class="section level3 hasAnchor" number="3.3.2">
+<h3><span class="header-section-number">3.3.2</span> Relative Condition Number (<span class="math inline">\(\kappa\)</span>)<a href="ma-563-applied-computational-analysis.html#relative-condition-number-kappa" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>How to measure the condition of a problem?</p>
+<p><span class="math display">\[K = \lim_{\epsilon \to 0} \sup_{||\delta x|| \le \epsilon} \frac{||\delta f|| / ||f(x)||} {||\delta x|| / ||x||}\]</span></p>
+<p>Using the Jacobian <span class="math inline">\(J = f&#39;\)</span>:
+<span class="math display">\[\kappa = \frac{||J|| \cdot ||x||}{||f(x)||}\]</span></p>
+<ul>
+<li>A problem is <strong>well-conditioned</strong> if <span class="math inline">\(\kappa\)</span> is small (e.g., <span class="math inline">\(1, 10, 10^2...\)</span>).</li>
+<li>A problem is <strong>ill-conditioned</strong> if <span class="math inline">\(\kappa\)</span> is large (e.g., <span class="math inline">\(10^6, 10^7...\)</span>).</li>
+</ul>
+<p><em>Remark:</em> For <span class="math inline">\(f: \mathbb{R}^m \to \mathbb{R}^n\)</span>, use <span class="math inline">\(||\cdot||\)</span> for norm of <span class="math inline">\(x\)</span> and norm of <span class="math inline">\(f(x)\)</span>. (Check textbook 1.10 for def of norms).</p>
+</div>
+<div id="examples" class="section level3 hasAnchor" number="3.3.3">
+<h3><span class="header-section-number">3.3.3</span> Examples<a href="ma-563-applied-computational-analysis.html#examples" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><strong>1. Consider <span class="math inline">\(f(x) = \sqrt{x}\)</span> for <span class="math inline">\(x &gt; 0\)</span></strong>
+<span class="math display">\[J = f&#39;(x) = \frac{1}{2} x^{-1/2}\]</span></p>
+<p><span class="math display">\[\kappa = \frac{||J|| \cdot ||x||}{||f(x)||} = \frac{\frac{1}{2}x^{-1/2} \cdot x}{\sqrt{x}} = \frac{1}{2}\]</span></p>
+<ul>
+<li><span class="math inline">\(\kappa = 1/2\)</span> is small.</li>
+<li>This is a <strong>well-conditioned</strong> problem.</li>
+</ul>
+<p><strong>2. Consider <span class="math inline">\(f(x) = x_1 - x_2\)</span>, where <span class="math inline">\(x = [x_1, x_2]^T\)</span></strong>
+<span class="math inline">\(f: \mathbb{R}^2 \to \mathbb{R}\)</span>
+<span class="math inline">\(J = [1, -1]\)</span></p>
+<p>Let’s consider the condition number w.r.t. <span class="math inline">\(\infty\)</span>-norm.
+<span class="math display">\[\kappa = \frac{||J||_\infty}{||f||_\infty / ||x||_\infty} = \frac{2 \cdot ||x||_\infty}{|x_1 - x_2|}\]</span></p>
+<p><em>Details:</em>
+* <span class="math inline">\(||J||_\infty = \sup_{||y||_\infty=1} ||Jy|| = \sup |y_1 - y_2| = 2\)</span>.
+* <span class="math inline">\(||x||_\infty = \max \{ |x_1|, |x_2| \}\)</span>.</p>
+<p>Take <span class="math inline">\(x_1 = 1, x_2 = -1 \implies ||x||_\infty = 1\)</span>. Then <span class="math inline">\(\kappa\)</span> is reasonable.
+However, when <span class="math inline">\(x_1\)</span> and <span class="math inline">\(x_2\)</span> are very close (<span class="math inline">\(x_1 \approx x_2\)</span>), the denominator <span class="math inline">\(|x_1 - x_2|\)</span> is small, so <span class="math inline">\(\kappa\)</span> can be very large.</p>
+<p><strong>“Cancellation Error”:</strong> We should avoid subtraction of very close vectors in designing algorithms.</p>
+
+</div>
+</div>
 </div>
 <hr style="margin-top:50px;">
 
@@ -207,8 +333,8 @@ the table of contents to find the page you are looking for.</p>
           </div>
         </div>
       </div>
-
-
+<a href="lecture1.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="lecture-2-condition-numbers-interpolation.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

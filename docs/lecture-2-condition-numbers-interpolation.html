@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Section 3 Lecture 2: Condition Numbers &amp; Interpolation | Lecture 3</title>
-  <meta name="description" content="Section 3 Lecture 2: Condition Numbers &amp; Interpolation | Lecture 3" />
+  <title>Section 4 Lecture 2: Condition Numbers &amp; Interpolation | Lecture 3</title>
+  <meta name="description" content="Section 4 Lecture 2: Condition Numbers &amp; Interpolation | Lecture 3" />
   <meta name="generator" content="bookdown 0.45 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Section 3 Lecture 2: Condition Numbers &amp; Interpolation | Lecture 3" />
+  <meta property="og:title" content="Section 4 Lecture 2: Condition Numbers &amp; Interpolation | Lecture 3" />
   <meta property="og:type" content="book" />
   
   
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Section 3 Lecture 2: Condition Numbers &amp; Interpolation | Lecture 3" />
+  <meta name="twitter:title" content="Section 4 Lecture 2: Condition Numbers &amp; Interpolation | Lecture 3" />
   
   
   
@@ -30,7 +30,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="lecture1.html"/>
+<link rel="prev" href="ma-563-applied-computational-analysis.html"/>
 <link rel="next" href="lecture-3-newton-form-error-analysis-and-spline-interpolation.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
@@ -81,48 +81,60 @@
 <ul>
 <li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#table-of-contents"><i class="fa fa-check"></i><b>1.1</b> Table of Contents</a></li>
 </ul></li>
-<li class="chapter" data-level="2" data-path="lecture1.html"><a href="lecture1.html"><i class="fa fa-check"></i><b>2</b> Lecture 1</a>
+<li class="chapter" data-level="2" data-path="lecture1.html"><a href="lecture1.html"><i class="fa fa-check"></i><b>2</b> Lecture 1</a></li>
+<li class="chapter" data-level="3" data-path="ma-563-applied-computational-analysis.html"><a href="ma-563-applied-computational-analysis.html"><i class="fa fa-check"></i><b>3</b> MA 563 Applied Computational Analysis</a>
 <ul>
-<li class="chapter" data-level="2.1" data-path="lecture1.html"><a href="lecture1.html#overview"><i class="fa fa-check"></i><b>2.1</b> Overview</a></li>
-<li class="chapter" data-level="2.2" data-path="lecture1.html"><a href="lecture1.html#key-topics"><i class="fa fa-check"></i><b>2.2</b> Key Topics</a></li>
-<li class="chapter" data-level="2.3" data-path="lecture1.html"><a href="lecture1.html#main-content"><i class="fa fa-check"></i><b>2.3</b> Main Content</a></li>
-<li class="chapter" data-level="2.4" data-path="lecture1.html"><a href="lecture1.html#examples-and-exercises"><i class="fa fa-check"></i><b>2.4</b> Examples and Exercises</a></li>
-<li class="chapter" data-level="2.5" data-path="lecture1.html"><a href="lecture1.html#summary"><i class="fa fa-check"></i><b>2.5</b> Summary</a></li>
+<li class="chapter" data-level="3.1" data-path="ma-563-applied-computational-analysis.html"><a href="ma-563-applied-computational-analysis.html#introduction-themes-concepts-and-examples"><i class="fa fa-check"></i><b>3.1</b> 1. Introduction: Themes, Concepts, and Examples</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="ma-563-applied-computational-analysis.html"><a href="ma-563-applied-computational-analysis.html#to-study-the-approximation"><i class="fa fa-check"></i><b>3.1.1</b> To study the approximation:</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="lecture-2-condition-numbers-interpolation.html"><a href="lecture-2-condition-numbers-interpolation.html"><i class="fa fa-check"></i><b>3</b> Lecture 2: Condition Numbers &amp; Interpolation</a>
+<li class="chapter" data-level="3.2" data-path="ma-563-applied-computational-analysis.html"><a href="ma-563-applied-computational-analysis.html#floating-point-arithmetic"><i class="fa fa-check"></i><b>3.2</b> 2. Floating Point Arithmetic</a>
 <ul>
-<li class="chapter" data-level="3.1" data-path="lecture-2-condition-numbers-interpolation.html"><a href="lecture-2-condition-numbers-interpolation.html#condition-of-matrix-vector-multiplication"><i class="fa fa-check"></i><b>3.1</b> 1. Condition of Matrix-Vector Multiplication</a></li>
-<li class="chapter" data-level="3.2" data-path="lecture-2-condition-numbers-interpolation.html"><a href="lecture-2-condition-numbers-interpolation.html#numerical-instability"><i class="fa fa-check"></i><b>3.2</b> 2. Numerical Instability</a></li>
-<li class="chapter" data-level="3.3" data-path="lecture-2-condition-numbers-interpolation.html"><a href="lecture-2-condition-numbers-interpolation.html#polynomial-interpolation"><i class="fa fa-check"></i><b>3.3</b> 3. Polynomial Interpolation</a></li>
-<li class="chapter" data-level="3.4" data-path="lecture-2-condition-numbers-interpolation.html"><a href="lecture-2-condition-numbers-interpolation.html#interpolation-problem-lagrange-form"><i class="fa fa-check"></i><b>3.4</b> 4. Interpolation Problem &amp; Lagrange Form</a></li>
-<li class="chapter" data-level="3.5" data-path="lecture-2-condition-numbers-interpolation.html"><a href="lecture-2-condition-numbers-interpolation.html#interpolation-error"><i class="fa fa-check"></i><b>3.5</b> 5. Interpolation Error</a></li>
-<li class="chapter" data-level="3.6" data-path="lecture-2-condition-numbers-interpolation.html"><a href="lecture-2-condition-numbers-interpolation.html#newton-form-of-interpolation"><i class="fa fa-check"></i><b>3.6</b> 6. Newton Form of Interpolation</a></li>
+<li class="chapter" data-level="3.2.1" data-path="ma-563-applied-computational-analysis.html"><a href="ma-563-applied-computational-analysis.html#example-double-precision-t53-beta2"><i class="fa fa-check"></i><b>3.2.1</b> Example: Double Precision (<span class="math inline">\(t=53, \beta=2\)</span>)</a></li>
+<li class="chapter" data-level="3.2.2" data-path="ma-563-applied-computational-analysis.html"><a href="ma-563-applied-computational-analysis.html#machine-epsilon-epsilon_machine"><i class="fa fa-check"></i><b>3.2.2</b> Machine Epsilon (<span class="math inline">\(\epsilon_{machine}\)</span>)</a></li>
+<li class="chapter" data-level="3.2.3" data-path="ma-563-applied-computational-analysis.html"><a href="ma-563-applied-computational-analysis.html#accumulation-of-error"><i class="fa fa-check"></i><b>3.2.3</b> Accumulation of Error</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="lecture-3-newton-form-error-analysis-and-spline-interpolation.html"><a href="lecture-3-newton-form-error-analysis-and-spline-interpolation.html"><i class="fa fa-check"></i><b>4</b> Lecture 3: Newton Form, Error Analysis, and Spline Interpolation</a>
+<li class="chapter" data-level="3.3" data-path="ma-563-applied-computational-analysis.html"><a href="ma-563-applied-computational-analysis.html#condition-sensitivity"><i class="fa fa-check"></i><b>3.3</b> 3. Condition / Sensitivity</a>
 <ul>
-<li class="chapter" data-level="4.1" data-path="lecture-3-newton-form-error-analysis-and-spline-interpolation.html"><a href="lecture-3-newton-form-error-analysis-and-spline-interpolation.html#newton-form-of-interpolation-recap-details"><i class="fa fa-check"></i><b>4.1</b> 1. Newton Form of Interpolation (Recap &amp; Details)</a>
-<ul>
-<li class="chapter" data-level="4.1.1" data-path="lecture-3-newton-form-error-analysis-and-spline-interpolation.html"><a href="lecture-3-newton-form-error-analysis-and-spline-interpolation.html#newton-form-structure"><i class="fa fa-check"></i><b>4.1.1</b> Newton Form Structure</a></li>
-<li class="chapter" data-level="4.1.2" data-path="lecture-3-newton-form-error-analysis-and-spline-interpolation.html"><a href="lecture-3-newton-form-error-analysis-and-spline-interpolation.html#divided-differences"><i class="fa fa-check"></i><b>4.1.2</b> Divided Differences</a></li>
-<li class="chapter" data-level="4.1.3" data-path="lecture-3-newton-form-error-analysis-and-spline-interpolation.html"><a href="lecture-3-newton-form-error-analysis-and-spline-interpolation.html#example"><i class="fa fa-check"></i><b>4.1.3</b> Example</a></li>
-</ul></li>
-<li class="chapter" data-level="4.2" data-path="lecture-3-newton-form-error-analysis-and-spline-interpolation.html"><a href="lecture-3-newton-form-error-analysis-and-spline-interpolation.html#interpolation-error-analysis"><i class="fa fa-check"></i><b>4.2</b> 2. Interpolation Error Analysis</a>
-<ul>
-<li class="chapter" data-level="4.2.1" data-path="lecture-3-newton-form-error-analysis-and-spline-interpolation.html"><a href="lecture-3-newton-form-error-analysis-and-spline-interpolation.html#the-problem-with-high-degree-interpolation"><i class="fa fa-check"></i><b>4.2.1</b> The Problem with High-Degree Interpolation</a></li>
-</ul></li>
-<li class="chapter" data-level="4.3" data-path="lecture-3-newton-form-error-analysis-and-spline-interpolation.html"><a href="lecture-3-newton-form-error-analysis-and-spline-interpolation.html#spline-interpolation"><i class="fa fa-check"></i><b>4.3</b> 3. Spline Interpolation</a>
-<ul>
-<li class="chapter" data-level="4.3.1" data-path="lecture-3-newton-form-error-analysis-and-spline-interpolation.html"><a href="lecture-3-newton-form-error-analysis-and-spline-interpolation.html#definition-spline-of-order-k"><i class="fa fa-check"></i><b>4.3.1</b> Definition: Spline of Order <span class="math inline">\(k\)</span></a></li>
-</ul></li>
-<li class="chapter" data-level="4.4" data-path="lecture-3-newton-form-error-analysis-and-spline-interpolation.html"><a href="lecture-3-newton-form-error-analysis-and-spline-interpolation.html#linear-splines-k1"><i class="fa fa-check"></i><b>4.4</b> 4. Linear Splines (<span class="math inline">\(k=1\)</span>)</a></li>
-<li class="chapter" data-level="4.5" data-path="lecture-3-newton-form-error-analysis-and-spline-interpolation.html"><a href="lecture-3-newton-form-error-analysis-and-spline-interpolation.html#cubic-splines-k3"><i class="fa fa-check"></i><b>4.5</b> 5. Cubic Splines (<span class="math inline">\(k=3\)</span>)</a>
-<ul>
-<li class="chapter" data-level="4.5.1" data-path="lecture-3-newton-form-error-analysis-and-spline-interpolation.html"><a href="lecture-3-newton-form-error-analysis-and-spline-interpolation.html#deriving-the-system"><i class="fa fa-check"></i><b>4.5.1</b> Deriving the System</a></li>
-<li class="chapter" data-level="4.5.2" data-path="lecture-3-newton-form-error-analysis-and-spline-interpolation.html"><a href="lecture-3-newton-form-error-analysis-and-spline-interpolation.html#boundary-conditions"><i class="fa fa-check"></i><b>4.5.2</b> Boundary Conditions</a></li>
-<li class="chapter" data-level="4.5.3" data-path="lecture-3-newton-form-error-analysis-and-spline-interpolation.html"><a href="lecture-3-newton-form-error-analysis-and-spline-interpolation.html#solving"><i class="fa fa-check"></i><b>4.5.3</b> Solving</a></li>
+<li class="chapter" data-level="3.3.1" data-path="ma-563-applied-computational-analysis.html"><a href="ma-563-applied-computational-analysis.html#definitions"><i class="fa fa-check"></i><b>3.3.1</b> Definitions</a></li>
+<li class="chapter" data-level="3.3.2" data-path="ma-563-applied-computational-analysis.html"><a href="ma-563-applied-computational-analysis.html#relative-condition-number-kappa"><i class="fa fa-check"></i><b>3.3.2</b> Relative Condition Number (<span class="math inline">\(\kappa\)</span>)</a></li>
+<li class="chapter" data-level="3.3.3" data-path="ma-563-applied-computational-analysis.html"><a href="ma-563-applied-computational-analysis.html#examples"><i class="fa fa-check"></i><b>3.3.3</b> Examples</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="refs.html"><a href="refs.html"><i class="fa fa-check"></i><b>5</b> Bibliography</a></li>
+<li class="chapter" data-level="4" data-path="lecture-2-condition-numbers-interpolation.html"><a href="lecture-2-condition-numbers-interpolation.html"><i class="fa fa-check"></i><b>4</b> Lecture 2: Condition Numbers &amp; Interpolation</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="lecture-2-condition-numbers-interpolation.html"><a href="lecture-2-condition-numbers-interpolation.html#condition-of-matrix-vector-multiplication"><i class="fa fa-check"></i><b>4.1</b> 1. Condition of Matrix-Vector Multiplication</a></li>
+<li class="chapter" data-level="4.2" data-path="lecture-2-condition-numbers-interpolation.html"><a href="lecture-2-condition-numbers-interpolation.html#numerical-instability"><i class="fa fa-check"></i><b>4.2</b> 2. Numerical Instability</a></li>
+<li class="chapter" data-level="4.3" data-path="lecture-2-condition-numbers-interpolation.html"><a href="lecture-2-condition-numbers-interpolation.html#polynomial-interpolation"><i class="fa fa-check"></i><b>4.3</b> 3. Polynomial Interpolation</a></li>
+<li class="chapter" data-level="4.4" data-path="lecture-2-condition-numbers-interpolation.html"><a href="lecture-2-condition-numbers-interpolation.html#interpolation-problem-lagrange-form"><i class="fa fa-check"></i><b>4.4</b> 4. Interpolation Problem &amp; Lagrange Form</a></li>
+<li class="chapter" data-level="4.5" data-path="lecture-2-condition-numbers-interpolation.html"><a href="lecture-2-condition-numbers-interpolation.html#interpolation-error"><i class="fa fa-check"></i><b>4.5</b> 5. Interpolation Error</a></li>
+<li class="chapter" data-level="4.6" data-path="lecture-2-condition-numbers-interpolation.html"><a href="lecture-2-condition-numbers-interpolation.html#newton-form-of-interpolation"><i class="fa fa-check"></i><b>4.6</b> 6. Newton Form of Interpolation</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="lecture-3-newton-form-error-analysis-and-spline-interpolation.html"><a href="lecture-3-newton-form-error-analysis-and-spline-interpolation.html"><i class="fa fa-check"></i><b>5</b> Lecture 3: Newton Form, Error Analysis, and Spline Interpolation</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="lecture-3-newton-form-error-analysis-and-spline-interpolation.html"><a href="lecture-3-newton-form-error-analysis-and-spline-interpolation.html#newton-form-of-interpolation-recap-details"><i class="fa fa-check"></i><b>5.1</b> 1. Newton Form of Interpolation (Recap &amp; Details)</a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="lecture-3-newton-form-error-analysis-and-spline-interpolation.html"><a href="lecture-3-newton-form-error-analysis-and-spline-interpolation.html#newton-form-structure"><i class="fa fa-check"></i><b>5.1.1</b> Newton Form Structure</a></li>
+<li class="chapter" data-level="5.1.2" data-path="lecture-3-newton-form-error-analysis-and-spline-interpolation.html"><a href="lecture-3-newton-form-error-analysis-and-spline-interpolation.html#divided-differences"><i class="fa fa-check"></i><b>5.1.2</b> Divided Differences</a></li>
+<li class="chapter" data-level="5.1.3" data-path="lecture-3-newton-form-error-analysis-and-spline-interpolation.html"><a href="lecture-3-newton-form-error-analysis-and-spline-interpolation.html#example"><i class="fa fa-check"></i><b>5.1.3</b> Example</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="lecture-3-newton-form-error-analysis-and-spline-interpolation.html"><a href="lecture-3-newton-form-error-analysis-and-spline-interpolation.html#interpolation-error-analysis"><i class="fa fa-check"></i><b>5.2</b> 2. Interpolation Error Analysis</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="lecture-3-newton-form-error-analysis-and-spline-interpolation.html"><a href="lecture-3-newton-form-error-analysis-and-spline-interpolation.html#the-problem-with-high-degree-interpolation"><i class="fa fa-check"></i><b>5.2.1</b> The Problem with High-Degree Interpolation</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="lecture-3-newton-form-error-analysis-and-spline-interpolation.html"><a href="lecture-3-newton-form-error-analysis-and-spline-interpolation.html#spline-interpolation"><i class="fa fa-check"></i><b>5.3</b> 3. Spline Interpolation</a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="lecture-3-newton-form-error-analysis-and-spline-interpolation.html"><a href="lecture-3-newton-form-error-analysis-and-spline-interpolation.html#definition-spline-of-order-k"><i class="fa fa-check"></i><b>5.3.1</b> Definition: Spline of Order <span class="math inline">\(k\)</span></a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="lecture-3-newton-form-error-analysis-and-spline-interpolation.html"><a href="lecture-3-newton-form-error-analysis-and-spline-interpolation.html#linear-splines-k1"><i class="fa fa-check"></i><b>5.4</b> 4. Linear Splines (<span class="math inline">\(k=1\)</span>)</a></li>
+<li class="chapter" data-level="5.5" data-path="lecture-3-newton-form-error-analysis-and-spline-interpolation.html"><a href="lecture-3-newton-form-error-analysis-and-spline-interpolation.html#cubic-splines-k3"><i class="fa fa-check"></i><b>5.5</b> 5. Cubic Splines (<span class="math inline">\(k=3\)</span>)</a>
+<ul>
+<li class="chapter" data-level="5.5.1" data-path="lecture-3-newton-form-error-analysis-and-spline-interpolation.html"><a href="lecture-3-newton-form-error-analysis-and-spline-interpolation.html#deriving-the-system"><i class="fa fa-check"></i><b>5.5.1</b> Deriving the System</a></li>
+<li class="chapter" data-level="5.5.2" data-path="lecture-3-newton-form-error-analysis-and-spline-interpolation.html"><a href="lecture-3-newton-form-error-analysis-and-spline-interpolation.html#boundary-conditions"><i class="fa fa-check"></i><b>5.5.2</b> Boundary Conditions</a></li>
+<li class="chapter" data-level="5.5.3" data-path="lecture-3-newton-form-error-analysis-and-spline-interpolation.html"><a href="lecture-3-newton-form-error-analysis-and-spline-interpolation.html#solving"><i class="fa fa-check"></i><b>5.5.3</b> Solving</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="refs.html"><a href="refs.html"><i class="fa fa-check"></i><b>6</b> Bibliography</a></li>
 </ul>
 
       </nav>
@@ -167,10 +179,10 @@
   <span>👁 <span id="busuanzi_value_page_pv"></span> views</span>
 
 </div>
-<div id="lecture-2-condition-numbers-interpolation" class="section level1 hasAnchor" number="3">
-<h1><span class="header-section-number">Section 3</span> Lecture 2: Condition Numbers &amp; Interpolation<a href="lecture-2-condition-numbers-interpolation.html#lecture-2-condition-numbers-interpolation" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<div id="condition-of-matrix-vector-multiplication" class="section level2 hasAnchor" number="3.1">
-<h2><span class="header-section-number">3.1</span> 1. Condition of Matrix-Vector Multiplication<a href="lecture-2-condition-numbers-interpolation.html#condition-of-matrix-vector-multiplication" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="lecture-2-condition-numbers-interpolation" class="section level1 hasAnchor" number="4">
+<h1><span class="header-section-number">Section 4</span> Lecture 2: Condition Numbers &amp; Interpolation<a href="lecture-2-condition-numbers-interpolation.html#lecture-2-condition-numbers-interpolation" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="condition-of-matrix-vector-multiplication" class="section level2 hasAnchor" number="4.1">
+<h2><span class="header-section-number">4.1</span> 1. Condition of Matrix-Vector Multiplication<a href="lecture-2-condition-numbers-interpolation.html#condition-of-matrix-vector-multiplication" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Consider the function <span class="math inline">\(f(\vec{x}) = A\vec{x}\)</span>, where <span class="math inline">\(A \in \mathbb{R}^{m \times n}\)</span>.</p>
 <p>The condition number <span class="math inline">\(\kappa\)</span> is defined by:
 <span class="math display">\[\kappa = \lim_{\epsilon \to 0} \sup_{||\delta \vec{x}|| \le \epsilon} \frac{||\delta f|| / ||f(\vec{x})||}{||\delta \vec{x}|| / ||\vec{x}||}\]</span>
@@ -195,8 +207,8 @@ The condition of the problem is inherent to the problem itself. A correct algori
 * If <span class="math inline">\(A\)</span> is singular, then <span class="math inline">\(\kappa(A) = \infty\)</span>.</p>
 <hr />
 </div>
-<div id="numerical-instability" class="section level2 hasAnchor" number="3.2">
-<h2><span class="header-section-number">3.2</span> 2. Numerical Instability<a href="lecture-2-condition-numbers-interpolation.html#numerical-instability" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="numerical-instability" class="section level2 hasAnchor" number="4.2">
+<h2><span class="header-section-number">4.2</span> 2. Numerical Instability<a href="lecture-2-condition-numbers-interpolation.html#numerical-instability" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p><strong>Example: Compute <span class="math inline">\(\sqrt{2}\)</span> (approx 1.4142…)</strong>.</p>
 <p><strong>Method 1: Babylonian Method (Stable)</strong>
 * Initialize <span class="math inline">\(x_0\)</span>.
@@ -210,8 +222,8 @@ The condition of the problem is inherent to the problem itself. A correct algori
 <p><strong>Definition:</strong> An algorithm that amplifies error too much is called <strong>numerically unstable</strong>.</p>
 <hr />
 </div>
-<div id="polynomial-interpolation" class="section level2 hasAnchor" number="3.3">
-<h2><span class="header-section-number">3.3</span> 3. Polynomial Interpolation<a href="lecture-2-condition-numbers-interpolation.html#polynomial-interpolation" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="polynomial-interpolation" class="section level2 hasAnchor" number="4.3">
+<h2><span class="header-section-number">4.3</span> 3. Polynomial Interpolation<a href="lecture-2-condition-numbers-interpolation.html#polynomial-interpolation" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>(Textbook 8.1 and 8.2).</p>
 <p><strong>Goal:</strong> Approximate function <span class="math inline">\(f\)</span> by a “simple function” <span class="math inline">\(g\)</span> (from a subspace).
 1. <strong>How to choose <span class="math inline">\(g\)</span>?</strong> Polynomials, trigonometric functions, etc.
@@ -224,8 +236,8 @@ Suppose <span class="math inline">\(f\)</span> is a continuous real-valued funct
 Equivalently: <span class="math inline">\(||f-p||_{L^\infty[a,b]} &lt; \epsilon\)</span>.</p>
 <hr />
 </div>
-<div id="interpolation-problem-lagrange-form" class="section level2 hasAnchor" number="3.4">
-<h2><span class="header-section-number">3.4</span> 4. Interpolation Problem &amp; Lagrange Form<a href="lecture-2-condition-numbers-interpolation.html#interpolation-problem-lagrange-form" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="interpolation-problem-lagrange-form" class="section level2 hasAnchor" number="4.4">
+<h2><span class="header-section-number">4.4</span> 4. Interpolation Problem &amp; Lagrange Form<a href="lecture-2-condition-numbers-interpolation.html#interpolation-problem-lagrange-form" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p><strong>Problem Statement:</strong>
 Given <span class="math inline">\((n+1)\)</span> pairs <span class="math inline">\((x_i, y_i)\)</span>, find a polynomial <span class="math inline">\(\Pi_n \in \mathbb{P}_n\)</span> (interpolating polynomial) such that:
 <span class="math display">\[\Pi_n(x_i) = y_i \quad \text{for } i = 0, 1, ..., n\]</span>
@@ -245,8 +257,8 @@ Let <span class="math inline">\(w_{n+1}(x) = \prod_{i=0}^n (x - x_i)\)</span> be
 <span class="math display">\[\Pi_n(x) = \sum_{i=0}^n \frac{w_{n+1}(x)}{(x-x_i) w&#39;_{n+1}(x_i)} y_i\]</span></p>
 <hr />
 </div>
-<div id="interpolation-error" class="section level2 hasAnchor" number="3.5">
-<h2><span class="header-section-number">3.5</span> 5. Interpolation Error<a href="lecture-2-condition-numbers-interpolation.html#interpolation-error" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="interpolation-error" class="section level2 hasAnchor" number="4.5">
+<h2><span class="header-section-number">4.5</span> 5. Interpolation Error<a href="lecture-2-condition-numbers-interpolation.html#interpolation-error" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p><strong>Theorem:</strong>
 Let <span class="math inline">\(x_0, ..., x_n\)</span> be distinct nodes. Assume <span class="math inline">\(f \in C^{n+1}(I_x)\)</span>. The error <span class="math inline">\(E_n(x)\)</span> is:
 <span class="math display">\[E_n(x) = f(x) - \Pi_n(x) = \frac{f^{(n+1)}(\xi)}{(n+1)!} w_{n+1}(x)\]</span></p>
@@ -263,8 +275,8 @@ Consider <span class="math inline">\(f(x) = \frac{1}{1+25x^2}\)</span> on <span 
 * <strong>Solution:</strong> Chebyshev interpolation (pick nodes to minimize <span class="math inline">\(w_{n+1}\)</span>). Choose nodes <span class="math inline">\(x_j = \cos(\frac{2j+1}{2n+2}\pi)\)</span>.</p>
 <hr />
 </div>
-<div id="newton-form-of-interpolation" class="section level2 hasAnchor" number="3.6">
-<h2><span class="header-section-number">3.6</span> 6. Newton Form of Interpolation<a href="lecture-2-condition-numbers-interpolation.html#newton-form-of-interpolation" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="newton-form-of-interpolation" class="section level2 hasAnchor" number="4.6">
+<h2><span class="header-section-number">4.6</span> 6. Newton Form of Interpolation<a href="lecture-2-condition-numbers-interpolation.html#newton-form-of-interpolation" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p><strong>Motivation:</strong>
 In Lagrange form, if one more node is added, all terms must change. We want a representation where adding points is computationally cheaper.</p>
 <p><strong>Recursive Structure:</strong>
@@ -305,7 +317,7 @@ where <span class="math inline">\(q_n \in \mathbb{P}_n\)</span> and <span class=
           </div>
         </div>
       </div>
-<a href="lecture1.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="ma-563-applied-computational-analysis.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
 <a href="lecture-3-newton-form-error-analysis-and-spline-interpolation.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>

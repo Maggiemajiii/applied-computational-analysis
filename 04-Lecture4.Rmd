@@ -1,0 +1,29 @@
+---
+title: "Lecture 4"
+date: "`r Sys.Date()`"
+---
+# Lecture 4: Differentiation
+
+Background: consider the numerical approximation of the diffefrentiation of a function:
+- $f$ is given 
+- value of $f$ at a set of points given
+
+Some comcepts for description f accuracy:
+
+1. if a formula used for approximation satisfies its approximation error is zero for polynomials of degree $k$, then we say the approximation has degree of accuracy $k$.
+
+2. The approximation has order of accuracy $p$ if teh eroor scales like $O(h^p)$ as $h \rightarrow 0$ where $h$ denotes the grid spacing / interval width.
+
+**Def:**
+Stencil: the set of points used in approximation.
+
+//plot
+
+Questions: how to derive a formula to approximate differentiation at point $x$?
+
+## First Attempt: Polynomial interpolation
+
+
+
+
+
