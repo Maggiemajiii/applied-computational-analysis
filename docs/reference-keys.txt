@@ -1,7 +1,6 @@
 applied-computational-analysis-course-notes
 table-of-contents
 lecture1
-ma-563-applied-computational-analysis
 introduction-themes-concepts-and-examples
 to-study-the-approximation
 floating-point-arithmetic
@@ -33,4 +32,15 @@ cubic-splines-k3
 deriving-the-system
 boundary-conditions
 solving
+lecture-4-numerical-differentiation
+introduction
+concepts-of-accuracy
+stencils
+method-1-polynomial-interpolation
+example-central-difference-3-points
+method-2-taylor-series-expansion
+example-a-central-difference-for-fx
+example-b-backward-difference-for-fx-extrapolation
+summary-table
+lecture-5-numerical-integration
 refs

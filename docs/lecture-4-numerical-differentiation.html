@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Section 5 Lecture 4: Numerical Differentiation | Lecture 5</title>
+  <meta name="description" content="Section 5 Lecture 4: Numerical Differentiation | Lecture 5" />
+  <meta name="generator" content="bookdown 0.45 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Section 5 Lecture 4: Numerical Differentiation | Lecture 5" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Section 5 Lecture 4: Numerical Differentiation | Lecture 5" />
+  
+  
+  
+
+<meta name="author" content="Maggie Zhang" />
+
+
+<meta name="date" content="2026-02-04" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="lecture-3-newton-form-error-analysis-and-spline-interpolation.html"/>
+<link rel="next" href="lecture-5-numerical-integration.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./index.html">🏠 Home</a></li>
+<li><a href="https://github.com/Maggiemajiii/applied-computational-analysis" target="_blank">🔗 GitHub Repository</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Applied Computational Analysis Course Notes</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#table-of-contents"><i class="fa fa-check"></i><b>1.1</b> Table of Contents</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="lecture1.html"><a href="lecture1.html"><i class="fa fa-check"></i><b>2</b> Lecture 1</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="lecture1.html"><a href="lecture1.html#introduction-themes-concepts-and-examples"><i class="fa fa-check"></i><b>2.1</b> 1. Introduction: Themes, Concepts, and Examples</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="lecture1.html"><a href="lecture1.html#to-study-the-approximation"><i class="fa fa-check"></i><b>2.1.1</b> To study the approximation:</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="lecture1.html"><a href="lecture1.html#floating-point-arithmetic"><i class="fa fa-check"></i><b>2.2</b> 2. Floating Point Arithmetic</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="lecture1.html"><a href="lecture1.html#example-double-precision-t53-beta2"><i class="fa fa-check"></i><b>2.2.1</b> Example: Double Precision (<span class="math inline">\(t=53, \beta=2\)</span>)</a></li>
+<li class="chapter" data-level="2.2.2" data-path="lecture1.html"><a href="lecture1.html#machine-epsilon-epsilon_machine"><i class="fa fa-check"></i><b>2.2.2</b> Machine Epsilon (<span class="math inline">\(\epsilon_{machine}\)</span>)</a></li>
+<li class="chapter" data-level="2.2.3" data-path="lecture1.html"><a href="lecture1.html#accumulation-of-error"><i class="fa fa-check"></i><b>2.2.3</b> Accumulation of Error</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="lecture1.html"><a href="lecture1.html#condition-sensitivity"><i class="fa fa-check"></i><b>2.3</b> 3. Condition / Sensitivity</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="lecture1.html"><a href="lecture1.html#definitions"><i class="fa fa-check"></i><b>2.3.1</b> Definitions</a></li>
+<li class="chapter" data-level="2.3.2" data-path="lecture1.html"><a href="lecture1.html#relative-condition-number-kappa"><i class="fa fa-check"></i><b>2.3.2</b> Relative Condition Number (<span class="math inline">\(\kappa\)</span>)</a></li>
+<li class="chapter" data-level="2.3.3" data-path="lecture1.html"><a href="lecture1.html#examples"><i class="fa fa-check"></i><b>2.3.3</b> Examples</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="lecture-2-condition-numbers-interpolation.html"><a href="lecture-2-condition-numbers-interpolation.html"><i class="fa fa-check"></i><b>3</b> Lecture 2: Condition Numbers &amp; Interpolation</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="lecture-2-condition-numbers-interpolation.html"><a href="lecture-2-condition-numbers-interpolation.html#condition-of-matrix-vector-multiplication"><i class="fa fa-check"></i><b>3.1</b> 1. Condition of Matrix-Vector Multiplication</a></li>
+<li class="chapter" data-level="3.2" data-path="lecture-2-condition-numbers-interpolation.html"><a href="lecture-2-condition-numbers-interpolation.html#numerical-instability"><i class="fa fa-check"></i><b>3.2</b> 2. Numerical Instability</a></li>
+<li class="chapter" data-level="3.3" data-path="lecture-2-condition-numbers-interpolation.html"><a href="lecture-2-condition-numbers-interpolation.html#polynomial-interpolation"><i class="fa fa-check"></i><b>3.3</b> 3. Polynomial Interpolation</a></li>
+<li class="chapter" data-level="3.4" data-path="lecture-2-condition-numbers-interpolation.html"><a href="lecture-2-condition-numbers-interpolation.html#interpolation-problem-lagrange-form"><i class="fa fa-check"></i><b>3.4</b> 4. Interpolation Problem &amp; Lagrange Form</a></li>
+<li class="chapter" data-level="3.5" data-path="lecture-2-condition-numbers-interpolation.html"><a href="lecture-2-condition-numbers-interpolation.html#interpolation-error"><i class="fa fa-check"></i><b>3.5</b> 5. Interpolation Error</a></li>
+<li class="chapter" data-level="3.6" data-path="lecture-2-condition-numbers-interpolation.html"><a href="lecture-2-condition-numbers-interpolation.html#newton-form-of-interpolation"><i class="fa fa-check"></i><b>3.6</b> 6. Newton Form of Interpolation</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="lecture-3-newton-form-error-analysis-and-spline-interpolation.html"><a href="lecture-3-newton-form-error-analysis-and-spline-interpolation.html"><i class="fa fa-check"></i><b>4</b> Lecture 3: Newton Form, Error Analysis, and Spline Interpolation</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="lecture-3-newton-form-error-analysis-and-spline-interpolation.html"><a href="lecture-3-newton-form-error-analysis-and-spline-interpolation.html#newton-form-of-interpolation-recap-details"><i class="fa fa-check"></i><b>4.1</b> 1. Newton Form of Interpolation (Recap &amp; Details)</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="lecture-3-newton-form-error-analysis-and-spline-interpolation.html"><a href="lecture-3-newton-form-error-analysis-and-spline-interpolation.html#newton-form-structure"><i class="fa fa-check"></i><b>4.1.1</b> Newton Form Structure</a></li>
+<li class="chapter" data-level="4.1.2" data-path="lecture-3-newton-form-error-analysis-and-spline-interpolation.html"><a href="lecture-3-newton-form-error-analysis-and-spline-interpolation.html#divided-differences"><i class="fa fa-check"></i><b>4.1.2</b> Divided Differences</a></li>
+<li class="chapter" data-level="4.1.3" data-path="lecture-3-newton-form-error-analysis-and-spline-interpolation.html"><a href="lecture-3-newton-form-error-analysis-and-spline-interpolation.html#example"><i class="fa fa-check"></i><b>4.1.3</b> Example</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="lecture-3-newton-form-error-analysis-and-spline-interpolation.html"><a href="lecture-3-newton-form-error-analysis-and-spline-interpolation.html#interpolation-error-analysis"><i class="fa fa-check"></i><b>4.2</b> 2. Interpolation Error Analysis</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="lecture-3-newton-form-error-analysis-and-spline-interpolation.html"><a href="lecture-3-newton-form-error-analysis-and-spline-interpolation.html#the-problem-with-high-degree-interpolation"><i class="fa fa-check"></i><b>4.2.1</b> The Problem with High-Degree Interpolation</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="lecture-3-newton-form-error-analysis-and-spline-interpolation.html"><a href="lecture-3-newton-form-error-analysis-and-spline-interpolation.html#spline-interpolation"><i class="fa fa-check"></i><b>4.3</b> 3. Spline Interpolation</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="lecture-3-newton-form-error-analysis-and-spline-interpolation.html"><a href="lecture-3-newton-form-error-analysis-and-spline-interpolation.html#definition-spline-of-order-k"><i class="fa fa-check"></i><b>4.3.1</b> Definition: Spline of Order <span class="math inline">\(k\)</span></a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="lecture-3-newton-form-error-analysis-and-spline-interpolation.html"><a href="lecture-3-newton-form-error-analysis-and-spline-interpolation.html#linear-splines-k1"><i class="fa fa-check"></i><b>4.4</b> 4. Linear Splines (<span class="math inline">\(k=1\)</span>)</a></li>
+<li class="chapter" data-level="4.5" data-path="lecture-3-newton-form-error-analysis-and-spline-interpolation.html"><a href="lecture-3-newton-form-error-analysis-and-spline-interpolation.html#cubic-splines-k3"><i class="fa fa-check"></i><b>4.5</b> 5. Cubic Splines (<span class="math inline">\(k=3\)</span>)</a>
+<ul>
+<li class="chapter" data-level="4.5.1" data-path="lecture-3-newton-form-error-analysis-and-spline-interpolation.html"><a href="lecture-3-newton-form-error-analysis-and-spline-interpolation.html#deriving-the-system"><i class="fa fa-check"></i><b>4.5.1</b> Deriving the System</a></li>
+<li class="chapter" data-level="4.5.2" data-path="lecture-3-newton-form-error-analysis-and-spline-interpolation.html"><a href="lecture-3-newton-form-error-analysis-and-spline-interpolation.html#boundary-conditions"><i class="fa fa-check"></i><b>4.5.2</b> Boundary Conditions</a></li>
+<li class="chapter" data-level="4.5.3" data-path="lecture-3-newton-form-error-analysis-and-spline-interpolation.html"><a href="lecture-3-newton-form-error-analysis-and-spline-interpolation.html#solving"><i class="fa fa-check"></i><b>4.5.3</b> Solving</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="lecture-4-numerical-differentiation.html"><a href="lecture-4-numerical-differentiation.html"><i class="fa fa-check"></i><b>5</b> Lecture 4: Numerical Differentiation</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="lecture-4-numerical-differentiation.html"><a href="lecture-4-numerical-differentiation.html#introduction"><i class="fa fa-check"></i><b>5.1</b> 1. Introduction</a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="lecture-4-numerical-differentiation.html"><a href="lecture-4-numerical-differentiation.html#concepts-of-accuracy"><i class="fa fa-check"></i><b>5.1.1</b> Concepts of Accuracy</a></li>
+<li class="chapter" data-level="5.1.2" data-path="lecture-4-numerical-differentiation.html"><a href="lecture-4-numerical-differentiation.html#stencils"><i class="fa fa-check"></i><b>5.1.2</b> Stencils</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="lecture-4-numerical-differentiation.html"><a href="lecture-4-numerical-differentiation.html#method-1-polynomial-interpolation"><i class="fa fa-check"></i><b>5.2</b> 2. Method 1: Polynomial Interpolation</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="lecture-4-numerical-differentiation.html"><a href="lecture-4-numerical-differentiation.html#example-central-difference-3-points"><i class="fa fa-check"></i><b>5.2.1</b> Example: Central Difference (3 points)</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="lecture-4-numerical-differentiation.html"><a href="lecture-4-numerical-differentiation.html#method-2-taylor-series-expansion"><i class="fa fa-check"></i><b>5.3</b> 3. Method 2: Taylor Series Expansion</a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="lecture-4-numerical-differentiation.html"><a href="lecture-4-numerical-differentiation.html#example-a-central-difference-for-fx"><i class="fa fa-check"></i><b>5.3.1</b> Example A: Central Difference for <span class="math inline">\(f&#39;&#39;(x)\)</span></a></li>
+<li class="chapter" data-level="5.3.2" data-path="lecture-4-numerical-differentiation.html"><a href="lecture-4-numerical-differentiation.html#example-b-backward-difference-for-fx-extrapolation"><i class="fa fa-check"></i><b>5.3.2</b> Example B: Backward Difference for <span class="math inline">\(f&#39;(x)\)</span> (Extrapolation)</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="lecture-4-numerical-differentiation.html"><a href="lecture-4-numerical-differentiation.html#summary-table"><i class="fa fa-check"></i><b>5.4</b> 4. Summary Table</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="lecture-5-numerical-integration.html"><a href="lecture-5-numerical-integration.html"><i class="fa fa-check"></i><b>6</b> Lecture 5: Numerical Integration</a></li>
+<li class="chapter" data-level="7" data-path="refs.html"><a href="refs.html"><i class="fa fa-check"></i><b>7</b> Bibliography</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Lecture 5</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<!-- ✅ Busuanzi Stats (Visitors + Views) -->
+<script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<!-- ✅ Stats bar at TOP -->
+<div id="stats-bar"
+     style="margin:20px 0; padding:10px 0; font-size:14px; color:#444;
+            display:flex; align-items:center; gap:16px; flex-wrap:wrap;">
+
+  <!-- 🔗 GitHub Repository Link -->
+  <span>
+    <a href="https://github.com/Maggiemajiii/applied-computational-analysis" 
+       target="_blank" 
+       style="color:#444; text-decoration:none; display:inline-flex; align-items:center; gap:4px;">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" style="vertical-align:middle;">
+        <path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"/>
+      </svg>
+      GitHub
+    </a>
+  </span>
+
+  <!-- 👥 Unique Visitors (site-wide) -->
+  <span>👥 <span id="busuanzi_value_site_uv"></span> visitors</span>
+
+  <!-- 👁 Page Views -->
+  <span>👁 <span id="busuanzi_value_page_pv"></span> views</span>
+
+</div>
+<div id="lecture-4-numerical-differentiation" class="section level1 hasAnchor" number="5">
+<h1><span class="header-section-number">Section 5</span> Lecture 4: Numerical Differentiation<a href="lecture-4-numerical-differentiation.html#lecture-4-numerical-differentiation" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="introduction" class="section level2 hasAnchor" number="5.1">
+<h2><span class="header-section-number">5.1</span> 1. Introduction<a href="lecture-4-numerical-differentiation.html#introduction" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>We consider the numerical approximation of the differentiation of a function <span class="math inline">\(f\)</span>, given values of <span class="math inline">\(f\)</span> at a set of points (a grid).</p>
+<div id="concepts-of-accuracy" class="section level3 hasAnchor" number="5.1.1">
+<h3><span class="header-section-number">5.1.1</span> Concepts of Accuracy<a href="lecture-4-numerical-differentiation.html#concepts-of-accuracy" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ol style="list-style-type: decimal">
+<li><strong>Degree of Accuracy (<span class="math inline">\(k\)</span>):</strong> If an approximation formula has zero error for polynomials of degree <span class="math inline">\(k\)</span>, we say it has a degree of accuracy <span class="math inline">\(k\)</span>.</li>
+<li><strong>Order of Accuracy (<span class="math inline">\(p\)</span>):</strong> The approximation has order of accuracy <span class="math inline">\(p\)</span> if the error scales like <span class="math inline">\(O(h^p)\)</span> as <span class="math inline">\(h \to 0\)</span>, where <span class="math inline">\(h\)</span> denotes the grid spacing (interval width).</li>
+</ol>
+</div>
+<div id="stencils" class="section level3 hasAnchor" number="5.1.2">
+<h3><span class="header-section-number">5.1.2</span> Stencils<a href="lecture-4-numerical-differentiation.html#stencils" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The <strong>stencil</strong> is the set of points used in the approximation.</p>
+<ul>
+<li><strong>Forward:</strong> Uses points <span class="math inline">\(\ge x\)</span> (e.g., <span class="math inline">\(x, x+h\)</span>).</li>
+<li><strong>Backward:</strong> Uses points <span class="math inline">\(\le x\)</span> (e.g., <span class="math inline">\(x, x-h\)</span>).</li>
+<li><strong>Central:</strong> Uses points surrounding <span class="math inline">\(x\)</span> (e.g., <span class="math inline">\(x-h, x, x+h\)</span>).</li>
+</ul>
+<hr />
+</div>
+</div>
+<div id="method-1-polynomial-interpolation" class="section level2 hasAnchor" number="5.2">
+<h2><span class="header-section-number">5.2</span> 2. Method 1: Polynomial Interpolation<a href="lecture-4-numerical-differentiation.html#method-1-polynomial-interpolation" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>This method fits a polynomial to the data points and differentiates it.</p>
+<p><strong>Recall Lagrange Form:</strong>
+<span class="math display">\[\Pi_n f(x) = \sum_{i=0}^n f_i l_i(x)\]</span>
+where <span class="math inline">\(l_i(x) = \prod_{j \neq i} \frac{x - x_j}{x_i - x_j}\)</span>.</p>
+<p>By taking the derivative of the interpolant:
+<span class="math display">\[f&#39;(x_k) \approx \sum_{i=0}^n f_i l_i&#39;(x_k) = \sum_{i=0}^n c_i f_i\]</span>
+where the weights are <span class="math inline">\(c_i = l_i&#39;(x_k)\)</span>.</p>
+<div id="example-central-difference-3-points" class="section level3 hasAnchor" number="5.2.1">
+<h3><span class="header-section-number">5.2.1</span> Example: Central Difference (3 points)<a href="lecture-4-numerical-differentiation.html#example-central-difference-3-points" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>We want to approximate <span class="math inline">\(f&#39;(x_1)\)</span> (or <span class="math inline">\(f&#39;(0)\)</span>) using the stencil <span class="math inline">\(\{-h, 0, h\}\)</span>.</p>
+<p><strong>1. Define Lagrange Basis:</strong>
+<span class="math display">\[
+\begin{aligned}
+l_0(x) &amp;= \frac{(x-0)(x-h)}{(-h-0)(-h-h)} = \frac{x(x-h)}{2h^2} \\
+l_1(x) &amp;= \frac{(x+h)(x-h)}{(0+h)(0-h)} = \frac{-(x+h)(x-h)}{h^2} \\
+l_2(x) &amp;= \frac{(x+h)(x-0)}{(h+h)(h-0)} = \frac{x(x+h)}{2h^2}
+\end{aligned}
+\]</span></p>
+<p><strong>2. Differentiate and Evaluate at <span class="math inline">\(x_1 = 0\)</span>:</strong>
+<span class="math display">\[
+\begin{aligned}
+c_0 &amp;= l_0&#39;(0) = -\frac{1}{2h} \\
+c_1 &amp;= l_1&#39;(0) = 0 \\
+c_2 &amp;= l_2&#39;(0) = \frac{1}{2h}
+\end{aligned}
+\]</span></p>
+<p><strong>3. Final Formula:</strong>
+<span class="math display">\[f&#39;(0) \approx -\frac{1}{2h}f(-h) + 0 \cdot f(0) + \frac{1}{2h}f(h) = \frac{f(h) - f(-h)}{2h}\]</span></p>
+<p><strong>Accuracy:</strong>
+This central difference formula has <strong>Order <span class="math inline">\(O(h^2)\)</span></strong> and <strong>Degree 2</strong>.</p>
+<p>For a general stencil with <span class="math inline">\((n+1)\)</span> points, the order of accuracy for differentiation is generally <strong><span class="math inline">\(n\)</span></strong>.</p>
+<hr />
+</div>
+</div>
+<div id="method-2-taylor-series-expansion" class="section level2 hasAnchor" number="5.3">
+<h2><span class="header-section-number">5.3</span> 3. Method 2: Taylor Series Expansion<a href="lecture-4-numerical-differentiation.html#method-2-taylor-series-expansion" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Interpolation does not generalize well to higher-order derivatives. Instead, we use Taylor series expansions with undetermined coefficients.</p>
+<div id="example-a-central-difference-for-fx" class="section level3 hasAnchor" number="5.3.1">
+<h3><span class="header-section-number">5.3.1</span> Example A: Central Difference for <span class="math inline">\(f&#39;&#39;(x)\)</span><a href="lecture-4-numerical-differentiation.html#example-a-central-difference-for-fx" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>We use the stencil <span class="math inline">\(\{x-h, x, x+h\}\)</span> to approximate <span class="math inline">\(f&#39;&#39;(x)\)</span>.</p>
+<p><strong>Ansatz:</strong>
+<span class="math display">\[\delta^2 f = \frac{a f(x-h) + b f(x) + c f(x+h)}{h^2}\]</span></p>
+<p><strong>Taylor Expansion:</strong>
+<span class="math display">\[f(x \pm h) = f(x) \pm hf&#39;(x) + \frac{h^2}{2}f&#39;&#39;(x) \pm \frac{h^3}{6}f^{(3)}(x) + \frac{h^4}{24}f^{(4)}(\xi)\]</span></p>
+<p>Plugging these into the ansatz, we set up a system of linear equations to match coefficients:</p>
+<ol style="list-style-type: decimal">
+<li><span class="math inline">\(a + b + c = 0\)</span> (coefficient of <span class="math inline">\(f(x)\)</span>)</li>
+<li><span class="math inline">\(c - a = 0\)</span> (coefficient of <span class="math inline">\(f&#39;(x)\)</span>)</li>
+<li><span class="math inline">\(\frac{1}{2}(c + a) = 1\)</span> (coefficient of <span class="math inline">\(f&#39;&#39;(x)\)</span>)</li>
+</ol>
+<p><strong>Solution:</strong> <span class="math inline">\(a=1, b=-2, c=1\)</span>.</p>
+<p><strong>Resulting Formula:</strong>
+<span class="math display">\[f&#39;&#39;(x) \approx \frac{f(x-h) - 2f(x) + f(x+h)}{h^2}\]</span></p>
+<p><strong>Error Analysis:</strong>
+<span class="math display">\[E(x) = \frac{h^2}{24}[f^{(4)}(\xi_{-}) + f^{(4)}(\xi_{+})] = \frac{h^2}{12}f^{(4)}(\xi)\]</span>
+Due to the symmetry of the central difference, odd error terms cancel out, giving us one extra order of accuracy for free (<span class="math inline">\(O(h^2)\)</span>).</p>
+</div>
+<div id="example-b-backward-difference-for-fx-extrapolation" class="section level3 hasAnchor" number="5.3.2">
+<h3><span class="header-section-number">5.3.2</span> Example B: Backward Difference for <span class="math inline">\(f&#39;(x)\)</span> (Extrapolation)<a href="lecture-4-numerical-differentiation.html#example-b-backward-difference-for-fx-extrapolation" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>We use the stencil <span class="math inline">\(\{x-2h, x-h, x\}\)</span> to approximate <span class="math inline">\(f&#39;(x)\)</span>.</p>
+<p><strong>Ansatz:</strong>
+<span class="math display">\[D(h) = \frac{a f(x) + b f(x-h) + c f(x-2h)}{h}\]</span></p>
+<p><strong>Taylor Expansion:</strong>
+<span class="math display">\[
+\begin{aligned}
+f(x-h) &amp;= f(x) - hf&#39;(x) + \frac{h^2}{2}f&#39;&#39;(x) - \dots \\
+f(x-2h) &amp;= f(x) - 2hf&#39;(x) + 2h^2f&#39;&#39;(x) - \dots
+\end{aligned}
+\]</span></p>
+<p><strong>System of Equations:</strong>
+1. <span class="math inline">\(a + b + c = 0\)</span>
+2. <span class="math inline">\(-b - 2c = 1\)</span>
+3. <span class="math inline">\(\frac{1}{2}b + 2c = 0\)</span></p>
+<p><strong>Solution:</strong> <span class="math inline">\(a = 3/2, b = -2, c = 1/2\)</span>.</p>
+<p><strong>Resulting Formula:</strong>
+<span class="math display">\[f&#39;(x) \approx \frac{\frac{3}{2}f(x) - 2f(x-h) + \frac{1}{2}f(x-2h)}{h}\]</span></p>
+<hr />
+</div>
+</div>
+<div id="summary-table" class="section level2 hasAnchor" number="5.4">
+<h2><span class="header-section-number">5.4</span> 4. Summary Table<a href="lecture-4-numerical-differentiation.html#summary-table" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<table>
+<colgroup>
+<col width="25%" />
+<col width="25%" />
+<col width="25%" />
+<col width="25%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">Points (<span class="math inline">\(n+1\)</span>)</th>
+<th align="left"><span class="math inline">\(f(x)\)</span> Interpolation</th>
+<th align="left"><span class="math inline">\(f&#39;(x)\)</span> Approximation</th>
+<th align="left"><span class="math inline">\(f&#39;&#39;(x)\)</span> Approximation</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><strong>Order</strong></td>
+<td align="left"><span class="math inline">\(O(h^{n+1})\)</span></td>
+<td align="left"><span class="math inline">\(O(h^n)\)</span></td>
+<td align="left"><span class="math inline">\(O(h^{n-1})\)</span></td>
+</tr>
+</tbody>
+</table>
+<p><em>Note: The 3-point central difference for <span class="math inline">\(f&#39;&#39;(x)\)</span> yields <span class="math inline">\(O(h^2)\)</span> due to symmetry.</em></p>
+
+</div>
+</div>
+<hr style="margin-top:50px;">
+
+<script src="https://giscus.app/client.js"
+        data-repo="Maggiemajiii/applied-computational-analysis"
+        data-repo-id="R_kgDOQQJWxA"
+        data-category="General"
+        data-category-id="DIC_kwDOQQJWxM4Cxg5s"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="light"
+        data-lang="en"
+        crossorigin="anonymous"
+        async>
+</script>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="lecture-3-newton-form-error-analysis-and-spline-interpolation.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="lecture-5-numerical-integration.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": {
+    "github": false,
+    "facebook": true,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": null,
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": null,
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "section"
+  },
+  "mathjax": "https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

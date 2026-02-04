@@ -1,0 +1,7 @@
+---
+title: "Lecture 5"
+date: "`r Sys.Date()`"
+---
+# Lecture 5: Numerical Integration
+
+

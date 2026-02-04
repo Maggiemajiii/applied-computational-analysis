@@ -8,6 +8,7 @@ rmd_files:
   - 02-Lecture2.Rmd
   - 03-Lecture3.Rmd
   - 04-Lecture4.Rmd
+  - 05-Lecture5.Rmd
   - 99-bibliography.Rmd
 
 language:
