@@ -2,7 +2,7 @@
 title: "Lecture 3"
 date: "`r Sys.Date()`"
 ---
-# Lecture 3: Newton Form, Error Analysis, and Spline Interpolation
+# Lecture 3: Newton Form, Error Analysis, and Spline Interpolation {#lecture3}
 
 ## 1. Newton Form of Interpolation (Recap & Details)
 

@@ -1,0 +1,5 @@
+---
+title: "Lecture 6"
+date: "`r Sys.Date()`"
+---
+# Lecture 6: {#lecture6}

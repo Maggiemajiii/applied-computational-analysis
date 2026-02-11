@@ -3,7 +3,7 @@ title: "Lecture 2"
 date: "`r Sys.Date()`"
 ---
 
-# Lecture 2: Condition Numbers & Interpolation
+# Lecture 2: Condition Numbers & Interpolation {#lecture2}
 
 ## 1. Condition of Matrix-Vector Multiplication
 Consider the function $f(\vec{x}) = A\vec{x}$, where $A \in \mathbb{R}^{m \times n}$.

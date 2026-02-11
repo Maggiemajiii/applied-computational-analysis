@@ -1,0 +1,257 @@
+---
+title: "MA563 HW3"
+author: "Maggie Zhang (cz239)"
+date: "`r Sys.Date()`"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+```
+
+## Question 1
+
+Use Taylor series to derive a four-point formula for $f'(0)$ using the nodes $x = 0, -h, -2h, -3h$. Determine the degree of accuracy and the order of accuracy.
+
+---
+
+We seek a linear combination of function values such that:
+$$f'(0) \approx A f(0) + B f(-h) + C f(-2h) + D f(-3h)$$
+
+We expand each term around $x = 0$ using Taylor's Theorem:
+$$f(-h) = f(0) - hf'(0) + \frac{h^2}{2}f''(0) - \frac{h^3}{6}f'''(0) + \frac{h^4}{24}f^{(4)}(0) + O(h^5)$$
+$$f(-2h) = f(0) - 2hf'(0) + \frac{4h^2}{2}f''(0) - \frac{8h^3}{6}f'''(0) + \frac{16h^4}{24}f^{(4)}(0) + O(h^5)$$
+$$f(-3h) = f(0) - 3hf'(0) + \frac{9h^2}{2}f''(0) - \frac{27h^3}{6}f'''(0) + \frac{81h^4}{24}f^{(4)}(0) + O(h^5)$$
+
+Substituting these expansions into our approximation formula and grouping by derivatives of $f$ at $0$:
+
+* Terms of $f(0)$: $A + B + C + D = 0$
+* Terms of $f'(0)$: $-hB - 2hC - 3hD = 1$
+* Terms of $f''(0)$: $\frac{h^2}{2}B + \frac{4h^2}{2}C + \frac{9h^2}{2}D = 0$
+* Terms of $f'''(0)$: $-\frac{h^3}{6}B - \frac{8h^3}{6}C - \frac{27h^3}{6}D = 0$
+
+Dividing out the $h$ factors, we obtain the system:
+
+1.  $A + B + C + D = 0$
+
+2.  $B + 2C + 3D = -\frac{1}{h}$
+
+3.  $B + 4C + 9D = 0$
+
+4.  $B + 8C + 27D = 0$
+
+Solving the system of equations 
+
+* From (3) and (4): $4C + 18D = 0 \implies C = -4.5D$
+
+* Substituting into (2) and (3): $\mathbf{D = -\frac{1}{3h}}$, $\mathbf{C = \frac{3}{2h}}$, $\mathbf{B = -\frac{3}{h}}$, $\mathbf{A = \frac{11}{6h}}$
+
+Substituting the coefficients back into the original expression:
+$$f'(0) = \frac{11f(0) - 18f(-h) + 9f(-2h) - 2f(-3h)}{6h} + E(f)$$
+
+To find the error term $E(f)$, look at the first non-vanishing term in the Taylor expansion, which is the $f^{(4)}(0)$ term:
+$$E(f) = \left[ B\frac{h^4}{24} + C\frac{16h^4}{24} + D\frac{81h^4}{24} \right] f^{(4)}(\eta)$$
+Substituting our values for $B, C,$ and $D$:
+$$E(f) = \frac{h^4}{24} \left[ -\frac{3}{h} + \frac{24}{h} - \frac{27}{h} \right] f^{(4)}(\eta) = -\frac{6h^3}{24} f^{(4)}(\eta)$$
+$$\mathbf{E(f) = -\frac{1}{4}h^3 f^{(4)}(\eta)}$$
+
+* Degree of Accuracy: **3** (The formula is exact for polynomials $P(x)$ where $\text{deg}(P) \le 3$).
+
+* Order of Accuracy: **$O(h^3)$** (Third-order accurate).
+
+---
+
+## Question 2 Richardson extrapolation
+We are given a three-point forward difference formula $D(h)$ with an error expansion where the terms do not have a gap in powers (unlike central differences):
+$$f'(x) = D(h) + c_2 h^2 + c_3 h^3 + c_4 h^4 + \dots$$
+The goal is to eliminate the leading error terms sequentially using Richardson Extrapolation.
+
+---
+
+## (a) Derivation of $D_1(h)$
+To eliminate the $h^2$ term, we compare $D(h)$ and $D(h/2)$:
+
+1. $f'(x) = D(h) + c_2 h^2 + c_3 h^3 + \dots$
+
+2. $f'(x) = D(h/2) + c_2 (\frac{h}{2})^2 + c_3 (\frac{h}{2})^3 + \dots = D(h/2) + \frac{c_2}{4} h^2 + \frac{c_3}{8} h^3 + \dots$
+
+We seek a combination $D_1(h) = B D(h/2) + A D(h)$ such that the $c_2$ terms cancel:
+
+* $A + B = 1$
+
+* $A c_2 h^2 + B \frac{c_2}{4} h^2 = 0 \implies A + \frac{1}{4}B = 0$
+
+$B = \frac{4}{3}$ and $A = -\frac{1}{3}$. 
+
+Thus:
+$$\mathbf{D_1(h) = \frac{4 D(h/2) - D(h)}{3}}$$
+
+New Error Term:
+
+The $h^3$ term becomes: $\left( \frac{4}{3} \cdot \frac{c_3}{8} - \frac{1}{3} c_3 \right) h^3 = -\frac{1}{6} c_3 h^3$.
+So, $D_1(h) = f'(x) + O(h^3)$.
+
+---
+
+## (b) General Recurrence for $D_k(h)$
+Assume that after $k$ extrapolations, the approximation $D_k(h)$ has an error order of $O(h^{k+2})$:
+$$f'(x) = D_k(h) + c_{k+2} h^{k+2} + O(h^{k+3})$$
+
+Following the same logic to eliminate the $h^{k+2}$ term, we solve for weights $A_k$ and $B_k$:
+
+* $A_k + B_k = 1$
+
+* $A_k (1) + B_k (\frac{1}{2})^{k+2} = 0$
+
+This gives:
+$$B_k = \frac{2^{k+2}}{2^{k+2} - 1}, \quad A_k = -\frac{1}{2^{k+2} - 1}$$
+
+For $k = 0, 1, 2, \dots$ with $D_0(h) = D(h)$:
+$$\mathbf{D_{k+1}(h) = \frac{2^{k+2} D_k(h/2) - D_k(h)}{2^{k+2} - 1}}$$
+Each subsequent $D_k(h)$ is an approximation of order **$O(h^{k+2})$**.
+
+---
+
+## Question 3 
+
+### (a) Symmetry of the Nodal Polynomial
+
+We consider the closed Newton-Cotes formula with nodes $x_j = a + jh$ for $j = 0, \dots, n$ and $h = (b-a)/n$. For an even $n$, we aim to show that the integral of the nodal polynomial $\omega_n(x) = \prod_{j=0}^n (x - x_j)$ over $[a, b]$ is zero.
+
+**Proof:**
+Let $c = (a+b)/2$ be the midpoint of the interval. Since $n$ is even, $c$ is a node ($x_{n/2}$). Define the relative distances $d_j = x_j - c$. By symmetry, $d_{n-j} = -d_j$. 
+
+Substituting $x = c + u$:
+$$\omega_n(c+u) = \prod_{j=0}^n (c+u - x_j) = \prod_{j=0}^n (u - d_j)$$
+
+Now consider $\omega_n(c-u)$:
+$$\omega_n(c-u) = \prod_{j=0}^n (c-u - x_j) = \prod_{j=0}^n (-u - d_j) = (-1)^{n+1} \prod_{j=0}^n (u + d_j)$$
+
+Since the set $\{d_j\}$ is symmetric about zero, $\prod (u + d_j) = \prod (u - d_j)$. For even $n$, the exponent $n+1$ is odd, making $(-1)^{n+1} = -1$. Thus:
+$$\omega_n(c-u) = -\omega_n(c+u)$$
+
+This proves $\omega_n$ is an odd function about $c$. Integrating over the symmetric interval $[a, b]$:
+$$\int_a^b \omega_n(x) \, dx = \int_{-(b-a)/2}^{(b-a)/2} \omega_n(c+u) \, du = 0$$
+
+---
+
+### (b) Derivation of Simpson's Rule
+
+We approximate $\int_0^1 f(s) \, ds$ using nodes $s_0 = 0, s_1 = \frac{1}{2}, s_2 = 1$.
+
+The Lagrange basis polynomials are:
+
+* $L_0(s) = \frac{(s-1/2)(s-1)}{(0-1/2)(0-1)} = 2(s-1/2)(s-1)$
+
+* $L_1(s) = \frac{(s-0)(s-1)}{(1/2-0)(1/2-1)} = -4s(s-1)$
+
+* $L_2(s) = \frac{(s-0)(s-1/2)}{(1-0)(1-1/2)} = 2s(s-1/2)$
+
+Integrating these weights over $[0, 1]$:
+
+* $c_0 = \int_0^1 L_0(s) ds = \frac{1}{6}$
+
+* $c_1 = \int_0^1 L_1(s) ds = \frac{4}{6} = \frac{2}{3}$
+
+* $c_2 = \int_0^1 L_2(s) ds = \frac{1}{6}$
+
+**Simpson's Rule:** $\int_0^1 f(s) \, ds \approx \frac{1}{6} f(0) + \frac{2}{3} f(1/2) + \frac{1}{6} f(1)$.
+
+Degree of Accuracy:
+
+We test the rule for polynomials $f(s) = s^k$:
+
+* **$k=0$:** Exact = $1$, Approx = $1/6 + 4/6 + 1/6 = 1$ (Exact)
+
+* **$k=1$:** Exact = $1/2$, Approx = $2/3(1/2) + 1/6(1) = 1/2$ (Exact)
+
+* **$k=2$:** Exact = $1/3$, Approx = $2/3(1/4) + 1/6(1) = 1/3$ (Exact)
+
+* **$k=3$:** Exact = $1/4$, Approx = $2/3(1/8) + 1/6(1) = 1/4$ (Exact)
+
+The degree of accuracy is **3**.
+
+---
+
+### (c) Composite Midpoint Rule
+
+Given data at midpoints $x_{i+1/2}$ for $i=0, \dots, n-1$ on subintervals of width $h$:
+
+The composite rule is the sum of local midpoint approximations:
+$$\int_a^b f(x) \, dx \approx h \sum_{i=0}^{n-1} f(x_{i+1/2})$$
+
+The local error on $[x_i, x_{i+1}]$ is $\frac{h^3}{24} f''(\xi_i)$. Summing these:
+$$E_{total} = \sum_{i=0}^{n-1} \frac{h^3}{24} f''(\xi_i) = \frac{h^3}{24} \cdot n \cdot \left[ \frac{1}{n} \sum_{i=0}^{n-1} f''(\xi_i) \right]$$
+
+By the Intermediate Value Theorem, there exists $\eta \in (a, b)$ such that $f''(\eta) = \frac{1}{n} \sum f''(\xi_i)$. Substituting $nh = (b-a)$:
+$$E_{total} = \frac{(b-a)h^2}{24} f''(\eta)$$
+
+**Bound:**
+$$|E| \leq \frac{(b-a)h^2}{24} \max_{x \in [a, b]} |f''(x)|$$
+
+---
+
+## Question 4
+
+We estimate the following integrals using the composite trapezoidal rule over the interval $[0, 2\pi]$:
+
+$I_1 = \int_0^{2\pi} \sin^4 x \, dx = \frac{3\pi}{4}$
+
+$I_2 = \int_0^{2\pi} \frac{1}{1+16\sin^2 x} \, dx = \frac{2\pi}{\sqrt{17}}$
+
+For periodic functions integrated over a full period, the trapezoidal rule simplifies to:
+$$T_M = h \sum_{j=0}^{M-1} f(jh), \quad h = \frac{2\pi}{M}$$
+
+
+```{r}
+n_vals <- 1:10
+exact_1 <- 3 * pi / 4
+exact_2 <- 2 * pi / sqrt(17)
+
+f1 <- function(x) sin(x)^4
+f2 <- function(x) 1 / (1 + 16 * sin(x)^2)
+
+calc_trap_error <- function(f, exact, n) {
+  N <- 2^n
+  h <- 2 * pi / N
+  # Use (0, N-1) to get exactly N unique periodic points
+  x <- (0:(N-1)) * h 
+  approx <- h * sum(f(x))
+  return(abs(approx - exact))
+}
+
+# Generate Data
+h_vals <- (2 * pi) / (2^n_vals)
+errors_1 <- sapply(n_vals, function(n) calc_trap_error(f1, exact_1, n))
+errors_2 <- sapply(n_vals, function(n) calc_trap_error(f2, exact_2, n))
+
+par(mfrow=c(1, 2), mar=c(5, 4, 4, 2) + 0.1)
+
+# Case (i) Plot
+plot(h_vals, errors_1, log="y", type="b", pch=19, col="blue",
+     main=expression(paste("Error in ", sin^4(x))),
+     xlab="h", ylab="Absolute Error", ylim=c(1e-18, 10))
+lines(h_vals, h_vals^2, lty=2, col="red") # Reference slope
+legend("bottomright", legend=c("Error", "h^2 ref"), col=c("blue", "red"), lty=1:2, cex=0.8)
+
+# Case (ii) Plot
+plot(h_vals, errors_2, log="y", type="b", pch=19, col="darkgreen",
+     main="Error in Rational Trig",
+     xlab="h", ylab="Absolute Error", ylim=c(1e-18, 10))
+lines(h_vals, h_vals^2, lty=2, col="red") # Reference slope
+legend("bottomright", legend=c("Error", "h^2 ref"), col=c("darkgreen", "red"), lty=1:2, cex=0.8)
+
+```
+Observations and Convergence Rates
+
+Case (i): $\sin^4 x$
+
+As seen in the plot, the error follows the $O(h^2)$ reference initially but drops abruptly to machine precision ($\sim 10^{-16}$) at $h \approx 0.785$ ($M=8$). This is because $\sin^4 x$ is a trigonometric polynomial of degree 4. The trapezoidal rule is exact for trigonometric polynomials when the number of points $M$ exceeds the degree of the polynomial. This demonstrates spectral accuracy.
+
+Case (ii): $(1+16\sin^2 x)^{-1}$
+
+The error curve (green) lies consistently below the $h^2$ reference curve and exhibits a slope that increases as h decreases. The convergenece is much faster than the second order. This might due to the fact that the denominator is positive everywhere. For such functions, the trapozoidal rule exhibits exponential convergence. ($E(h) \sim e^{-c/h}$). 
+
+Overall, the composite trapezoidal rule performs significantly better than the standard $O(h^2)$ bound for these periodic cases. While Case (i) achieves exactness once the frequency is resolved, Case (ii) demonstrates the efficiency of spectral methods for smooth, analytic periodic integrands.
+
+

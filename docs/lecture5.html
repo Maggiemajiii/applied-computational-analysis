@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Section 4 Lecture 3: Newton Form, Error Analysis, and Spline Interpolation | Lecture 5</title>
-  <meta name="description" content="Section 4 Lecture 3: Newton Form, Error Analysis, and Spline Interpolation | Lecture 5" />
+  <title>Section 6 Lecture 5: Numerical Integration | Lecture 5</title>
+  <meta name="description" content="Section 6 Lecture 5: Numerical Integration | Lecture 5" />
   <meta name="generator" content="bookdown 0.45 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Section 4 Lecture 3: Newton Form, Error Analysis, and Spline Interpolation | Lecture 5" />
+  <meta property="og:title" content="Section 6 Lecture 5: Numerical Integration | Lecture 5" />
   <meta property="og:type" content="book" />
   
   
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Section 4 Lecture 3: Newton Form, Error Analysis, and Spline Interpolation | Lecture 5" />
+  <meta name="twitter:title" content="Section 6 Lecture 5: Numerical Integration | Lecture 5" />
   
   
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="lecture-2-condition-numbers-interpolation.html"/>
-<link rel="next" href="lecture4.html"/>
+<link rel="prev" href="lecture4.html"/>
+<link rel="next" href="refs.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -218,140 +218,149 @@
   <span>👁 <span id="busuanzi_value_page_pv"></span> views</span>
 
 </div>
-<div id="lecture-3-newton-form-error-analysis-and-spline-interpolation" class="section level1 hasAnchor" number="4">
-<h1><span class="header-section-number">Section 4</span> Lecture 3: Newton Form, Error Analysis, and Spline Interpolation<a href="lecture-3-newton-form-error-analysis-and-spline-interpolation.html#lecture-3-newton-form-error-analysis-and-spline-interpolation" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<div id="newton-form-of-interpolation-recap-details" class="section level2 hasAnchor" number="4.1">
-<h2><span class="header-section-number">4.1</span> 1. Newton Form of Interpolation (Recap &amp; Details)<a href="lecture-3-newton-form-error-analysis-and-spline-interpolation.html#newton-form-of-interpolation-recap-details" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div id="newton-form-structure" class="section level3 hasAnchor" number="4.1.1">
-<h3><span class="header-section-number">4.1.1</span> Newton Form Structure<a href="lecture-3-newton-form-error-analysis-and-spline-interpolation.html#newton-form-structure" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Recall that adding points to the Lagrange form is computationally expensive. The <strong>Newton Form</strong> allows for efficient updates when new nodes are added.</p>
-<p>The polynomial is written as:
-<span class="math display">\[\Pi_n(x) = c_0 + c_1(x-x_0) + c_2(x-x_0)(x-x_1) + \dots + c_n \prod_{i=0}^{n-1}(x-x_i)\]</span></p>
-<p>This can be written compactly as:
-<span class="math display">\[\Pi_n(x) = \sum_{j=0}^{n} c_j \prod_{i=0}^{j-1}(x-x_i)\]</span></p>
+<div id="lecture5" class="section level1 hasAnchor" number="6">
+<h1><span class="header-section-number">Section 6</span> Lecture 5: Numerical Integration<a href="lecture5.html#lecture5" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="richardson-extrapolation" class="section level2 hasAnchor" number="6.1">
+<h2><span class="header-section-number">6.1</span> Richardson Extrapolation<a href="lecture5.html#richardson-extrapolation" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The core idea of Richardson extrapolation is to improve the accuracy of a numerical formula and estimate the error by canceling out the leading terms of an asymptotic expansion.</p>
+<div id="theoretical-foundation" class="section level3 hasAnchor" number="6.1.1">
+<h3><span class="header-section-number">6.1.1</span> Theoretical Foundation<a href="lecture5.html#theoretical-foundation" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Recall the Taylor series expansion for a function <span class="math inline">\(f(x)\)</span>:
+<span class="math display">\[f(x) = T_{n}(x) + \frac{f^{(n+1)}(\xi)}{(n+1)!}(x - x_{0})^{n+1}\]</span>
+The error can be expressed as an asymptotic series:
+<span class="math display">\[E(x) = C_{n+1}(x - x_{0})^{n+1} + C_{n+2}(x - x_{0})^{n+2} + \dots\]</span>
+where the coefficients <span class="math inline">\(C_j\)</span> are known. Since each term is asymptotically smaller than the previous one as <span class="math inline">\(x \to x_0\)</span>, we can combine different step sizes to cancel the largest error terms.</p>
 </div>
-<div id="divided-differences" class="section level3 hasAnchor" number="4.1.2">
-<h3><span class="header-section-number">4.1.2</span> Divided Differences<a href="lecture-3-newton-form-error-analysis-and-spline-interpolation.html#divided-differences" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>The coefficients <span class="math inline">\(c_j\)</span> are called the <strong><span class="math inline">\(n\)</span>-th Newton divided differences</strong>.
-Notation: <span class="math inline">\(c_j = f[x_0, x_1, \dots, x_j]\)</span>.</p>
-<p><strong>Recursive Definition:</strong>
-* <strong>0-th order:</strong> <span class="math inline">\(c_0 = f[x_0] = f(x_0) = y_0\)</span>.
-* <strong>1-st order:</strong> <span class="math inline">\(c_1 = f[x_0, x_1] = \frac{f[x_1] - f[x_0]}{x_1 - x_0}\)</span>.
-* <strong>2-nd order:</strong> <span class="math inline">\(c_2 = f[x_0, x_1, x_2] = \frac{f[x_1, x_2] - f[x_0, x_1]}{x_2 - x_0}\)</span>.
-* <strong>General Recursive Formula:</strong>
-<span class="math display">\[c_n = f[x_0, \dots, x_n] = \frac{f[x_1, \dots, x_n] - f[x_0, \dots, x_{n-1}]}{x_n - x_0}\]</span></p>
+<div id="application-to-derivatives" class="section level3 hasAnchor" number="6.1.2">
+<h3><span class="header-section-number">6.1.2</span> Application to Derivatives<a href="lecture5.html#application-to-derivatives" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Consider the central difference approximation for <span class="math inline">\(L = f&#39;(x)\)</span>:
+<span class="math display">\[A(h) = \frac{f(x+h) - f(x-h)}{2h}\]</span>
+The Taylor expansion shows that:
+<span class="math display">\[A(h) = L + C_2 h^2 + C_4 h^4 + C_6 h^6 + \dots\]</span></p>
+<p>If we compute <span class="math inline">\(A\)</span> with step size <span class="math inline">\(h\)</span> and <span class="math inline">\(h/2\)</span>, we can eliminate the <span class="math inline">\(h^2\)</span> term:
+<span class="math display">\[A_1(h) = \frac{4A(\frac{h}{2}) - A(h)}{3} = L + O(h^4)\]</span></p>
 </div>
-<div id="example" class="section level3 hasAnchor" number="4.1.3">
-<h3><span class="header-section-number">4.1.3</span> Example<a href="lecture-3-newton-form-error-analysis-and-spline-interpolation.html#example" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Exact function: <span class="math inline">\(f(x) = x^3 - 2x^2 + 1\)</span>.
-Nodes: <span class="math inline">\(x_i = 0, 1, 2, 3\)</span>.
-Values:
-* <span class="math inline">\(f(0) = 1\)</span>
-* <span class="math inline">\(f(1) = 0\)</span>
-* <span class="math inline">\(f(2) = 1\)</span>
-* <span class="math inline">\(f(3) = 10\)</span></p>
-<p>By computing the divided difference table, the polynomial is:
-<span class="math display">\[\Pi_3(x) = 1 - x + x(x-1) + x(x-1)(x-2)\]</span>
-<span class="math display">\[= 1 - x + x^2 - x + x(x^2 - 3x + 2)\]</span>
-<em>(Simplifies back to original function)</em>.</p>
+<div id="general-iteration-formula" class="section level3 hasAnchor" number="6.1.3">
+<h3><span class="header-section-number">6.1.3</span> General Iteration Formula<a href="lecture5.html#general-iteration-formula" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Iterating this process yields a table of approximations where <span class="math inline">\(A_k(h) = L + O(h^{2k})\)</span>:
+<span class="math display">\[A_k(h) = \frac{1}{4^{k}-1} \left( 4^{k} A_{k-1}\left(\frac{h}{2}\right) - A_{k-1}(h) \right)\]</span></p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Step Size</th>
+<th align="left"><span class="math inline">\(O(h^2)\)</span></th>
+<th align="left"><span class="math inline">\(O(h^4)\)</span></th>
+<th align="left"><span class="math inline">\(O(h^6)\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><span class="math inline">\(h\)</span></td>
+<td align="left"><span class="math inline">\(A(h)\)</span></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left"><span class="math inline">\(h/2\)</span></td>
+<td align="left"><span class="math inline">\(A(h/2)\)</span></td>
+<td align="left"><span class="math inline">\(A_1(h)\)</span></td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left"><span class="math inline">\(h/4\)</span></td>
+<td align="left"><span class="math inline">\(A(h/4)\)</span></td>
+<td align="left"><span class="math inline">\(A_1(h/2)\)</span></td>
+<td align="left"><span class="math inline">\(A_2(h)\)</span></td>
+</tr>
+</tbody>
+</table>
 <hr />
 </div>
 </div>
-<div id="interpolation-error-analysis" class="section level2 hasAnchor" number="4.2">
-<h2><span class="header-section-number">4.2</span> 2. Interpolation Error Analysis<a href="lecture-3-newton-form-error-analysis-and-spline-interpolation.html#interpolation-error-analysis" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p><strong>Theorem:</strong> Let <span class="math inline">\(x_0, \dots, x_n\)</span> be distinct nodes. Assume <span class="math inline">\(f \in C^{n+1}(I_x)\)</span>.
-The error is given by:
-<span class="math display">\[E_n(x) = f(x) - \Pi_n(x) = \frac{f^{(n+1)}(\xi)}{(n+1)!} w_{n+1}(x)\]</span>
-Where <span class="math inline">\(w_{n+1}(x)\)</span> is the <strong>nodal polynomial</strong>:
-<span class="math display">\[w_{n+1}(x) = \prod_{i=0}^{n} (x - x_i)\]</span></p>
-<p><strong>Error Bound:</strong>
-<span class="math display">\[|E_n(x)| \le \frac{M}{(n+1)!} \max |w_{n+1}(x)|\]</span>
-Where <span class="math inline">\(M = \max |f^{(n+1)}(x)|\)</span>.</p>
-<div id="the-problem-with-high-degree-interpolation" class="section level3 hasAnchor" number="4.2.1">
-<h3><span class="header-section-number">4.2.1</span> The Problem with High-Degree Interpolation<a href="lecture-3-newton-form-error-analysis-and-spline-interpolation.html#the-problem-with-high-degree-interpolation" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p><strong>Question:</strong> Does increasing the number of nodes always reduce error?</p>
-<p><strong>Example 1:</strong> <span class="math inline">\(f(x) = e^x\)</span> on <span class="math inline">\([0, 1]\)</span>.
-* Error decreases as <span class="math inline">\(n\)</span> increases (well-behaved).</p>
-<p><strong>Example 2 (Runge’s Phenomenon):</strong>
-<span class="math display">\[f(x) = \frac{1}{1+25x^2}, \quad x \in [-1, 1]\]</span>
-* With equally spaced nodes, the maximum error grows <strong>exponentially</strong> as <span class="math inline">\(n \to \infty\)</span>.
-* High-degree polynomials oscillate wildly near the endpoints.</p>
-<p><strong>Solution: Chebyshev Interpolation</strong>
-Instead of equally spaced nodes, we choose nodes to minimize <span class="math inline">\(\max |w_{n+1}(x)|\)</span>.
-<span class="math display">\[x_j = \cos \left( \frac{2j+1}{2n+2} \pi \right)\]</span>
-* <strong>Remark:</strong> There is no universal optimal choice of nodes for all functions (Faber’s Theorem), but Chebyshev is often much better than equidistant.</p>
-<hr />
+<div id="numerical-integration-newton-cotes" class="section level2 hasAnchor" number="6.2">
+<h2><span class="header-section-number">6.2</span> Numerical Integration (Newton-Cotes)<a href="lecture5.html#numerical-integration-newton-cotes" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Numerical integration approximates <span class="math inline">\(\int_{a}^{b} f(x) dx\)</span> by integrating a Lagrange interpolating polynomial <span class="math inline">\(P_n(x)\)</span> constructed using equally spaced nodes.</p>
+<div id="coordinate-transformation" class="section level3 hasAnchor" number="6.2.1">
+<h3><span class="header-section-number">6.2.1</span> Coordinate Transformation<a href="lecture5.html#coordinate-transformation" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>To simplify, we often integrate over <span class="math inline">\(s \in [0, 1]\)</span> and then transform back to <span class="math inline">\(x \in [a, b]\)</span> using:
+* <span class="math inline">\(x = a + (b-a)s = a + hs\)</span>
+* <span class="math inline">\(dx = (b-a)ds = h ds\)</span></p>
 </div>
+<div id="trapezoidal-rule-closed-n1" class="section level3 hasAnchor" number="6.2.2">
+<h3><span class="header-section-number">6.2.2</span> 1. Trapezoidal Rule (Closed, <span class="math inline">\(n=1\)</span>)<a href="lecture5.html#trapezoidal-rule-closed-n1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Uses nodes at the endpoints <span class="math inline">\(s_0=0\)</span> and <span class="math inline">\(s_1=1\)</span>.
+<span class="math display">\[\int_{a}^{b} f(x) dx \approx \frac{h}{2} [f(a) + f(b)]\]</span>
+<strong>Error term:</strong> <span class="math inline">\(-\frac{h^3}{12} f&#39;&#39;(\xi) = O(h^3)\)</span></p>
 </div>
-<div id="spline-interpolation" class="section level2 hasAnchor" number="4.3">
-<h2><span class="header-section-number">4.3</span> 3. Spline Interpolation<a href="lecture-3-newton-form-error-analysis-and-spline-interpolation.html#spline-interpolation" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Given the issues with high-degree polynomials (Runge’s phenomenon), we use a different approach: <strong>Use low-degree polynomials in sub-intervals.</strong></p>
-<div id="definition-spline-of-order-k" class="section level3 hasAnchor" number="4.3.1">
-<h3><span class="header-section-number">4.3.1</span> Definition: Spline of Order <span class="math inline">\(k\)</span><a href="lecture-3-newton-form-error-analysis-and-spline-interpolation.html#definition-spline-of-order-k" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Given nodes <span class="math inline">\(a = x_0 &lt; x_1 &lt; \dots &lt; x_n = b\)</span>.
-A function <span class="math inline">\(S_k\)</span> is a spline of order <span class="math inline">\(k\)</span> if:
-1. <strong>Piecewise Polynomial:</strong> On each sub-interval <span class="math inline">\([x_j, x_{j+1}]\)</span>, <span class="math inline">\(S_k\)</span> is a polynomial of degree <span class="math inline">\(\le k\)</span>.
-2. <strong>Smoothness:</strong> <span class="math inline">\(S_k \in C^{k-1}[a, b]\)</span> (Continuous up to the <span class="math inline">\((k-1)\)</span>-th derivative).</p>
-<hr />
+<div id="midpoint-rule-open-n0" class="section level3 hasAnchor" number="6.2.3">
+<h3><span class="header-section-number">6.2.3</span> 2. Midpoint Rule (Open, <span class="math inline">\(n=0\)</span>)<a href="lecture5.html#midpoint-rule-open-n0" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Uses the interior node <span class="math inline">\(s_0 = 1/2\)</span>.
+<span class="math display">\[\int_{a}^{b} f(x) dx \approx (b-a) f\left(\frac{a+b}{2}\right)\]</span>
+<strong>Error term:</strong> <span class="math inline">\(\frac{(b-a)^3}{24} f&#39;&#39;(\xi)\)</span></p>
 </div>
+<div id="closed-newton-cotes-weights-i_nf-h-sum-w_i-f_i" class="section level3 hasAnchor" number="6.2.4">
+<h3><span class="header-section-number">6.2.4</span> Closed Newton-Cotes Weights (<span class="math inline">\(I_n(f) = h \sum w_i f_i\)</span>)<a href="lecture5.html#closed-newton-cotes-weights-i_nf-h-sum-w_i-f_i" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<table>
+<thead>
+<tr class="header">
+<th align="left"><span class="math inline">\(n\)</span></th>
+<th align="left">Rule</th>
+<th align="left"><span class="math inline">\(w_0\)</span></th>
+<th align="left"><span class="math inline">\(w_1\)</span></th>
+<th align="left"><span class="math inline">\(w_2\)</span></th>
+<th align="left"><span class="math inline">\(w_3\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">1</td>
+<td align="left">Trapezoidal</td>
+<td align="left"><span class="math inline">\(1/2\)</span></td>
+<td align="left"><span class="math inline">\(1/2\)</span></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left">2</td>
+<td align="left">Simpson’s</td>
+<td align="left"><span class="math inline">\(1/3\)</span></td>
+<td align="left"><span class="math inline">\(4/3\)</span></td>
+<td align="left"><span class="math inline">\(1/3\)</span></td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left">3</td>
+<td align="left">Simpson’s 3/8</td>
+<td align="left"><span class="math inline">\(3/8\)</span></td>
+<td align="left"><span class="math inline">\(9/8\)</span></td>
+<td align="left"><span class="math inline">\(9/8\)</span></td>
+<td align="left"><span class="math inline">\(3/8\)</span></td>
+</tr>
+</tbody>
+</table>
 </div>
-<div id="linear-splines-k1" class="section level2 hasAnchor" number="4.4">
-<h2><span class="header-section-number">4.4</span> 4. Linear Splines (<span class="math inline">\(k=1\)</span>)<a href="lecture-3-newton-form-error-analysis-and-spline-interpolation.html#linear-splines-k1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Connect the data points with straight lines.</p>
+<div id="error-characteristics" class="section level3 hasAnchor" number="6.2.5">
+<h3><span class="header-section-number">6.2.5</span> Error Characteristics<a href="lecture5.html#error-characteristics" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <ul>
-<li><strong>Properties:</strong>
-<ul>
-<li><span class="math inline">\(S_1\)</span> is a polynomial of degree 1 on each interval.</li>
-<li><span class="math inline">\(S_1 \in C^0[a, b]\)</span> (Continuous, but derivative is discontinuous).</li>
-<li><span class="math inline">\(S_1(x_j) = f(x_j)\)</span>.</li>
-</ul></li>
-<li><strong>Error Analysis:</strong>
-Let <span class="math inline">\(h_j = x_{j+1} - x_j\)</span> (interval width).
-<span class="math display">\[|S_1(x) - f(x)| \le \frac{1}{4} \max |f&#39;&#39;(x)| h_{max}^2\]</span>
-<ul>
-<li>As the max spacing <span class="math inline">\(h_{max} \to 0\)</span>, the error converges to 0 with order <span class="math inline">\(O(h^2)\)</span>.</li>
-</ul></li>
+<li><strong>Degree of Exactness:</strong> The highest degree of polynomial for which the rule is exact.</li>
+<li>For <strong>even <span class="math inline">\(n\)</span></strong>: Degree of exactness is <span class="math inline">\(n+1\)</span>; Error is <span class="math inline">\(O(h^{n+3})\)</span>.</li>
+<li>For <strong>odd <span class="math inline">\(n\)</span></strong>: Degree of exactness is <span class="math inline">\(n\)</span>; Error is <span class="math inline">\(O(h^{n+2})\)</span>.</li>
 </ul>
 <hr />
 </div>
-<div id="cubic-splines-k3" class="section level2 hasAnchor" number="4.5">
-<h2><span class="header-section-number">4.5</span> 5. Cubic Splines (<span class="math inline">\(k=3\)</span>)<a href="lecture-3-newton-form-error-analysis-and-spline-interpolation.html#cubic-splines-k3" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>We often want a smoother approximation (e.g., <span class="math inline">\(C^2\)</span> continuity).</p>
-<ul>
-<li><strong>Properties:</strong>
-<ol style="list-style-type: decimal">
-<li>Restricted to <span class="math inline">\([x_j, x_{j+1}]\)</span>, it is a polynomial of degree 3 (<span class="math inline">\(P_i \in \mathbb{P}_3\)</span>).</li>
-<li><span class="math inline">\(S_3 \in C^2[a, b]\)</span> (Function, 1st deriv, and 2nd deriv are continuous).</li>
-<li><span class="math inline">\(S_3(x_j) = f(x_j)\)</span> (Interpolation condition).</li>
-</ol></li>
-</ul>
-<div id="deriving-the-system" class="section level3 hasAnchor" number="4.5.1">
-<h3><span class="header-section-number">4.5.1</span> Deriving the System<a href="lecture-3-newton-form-error-analysis-and-spline-interpolation.html#deriving-the-system" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Let <span class="math inline">\(P_i(x)\)</span> be the cubic polynomial on interval <span class="math inline">\([x_i, x_{i+1}]\)</span>.
-<span class="math display">\[P_i(x) = a_i + b_i(x-x_i) + c_i(x-x_i)^2 + d_i(x-x_i)^3\]</span></p>
-<p><strong>Unknowns:</strong> <span class="math inline">\(4n\)</span> unknowns (since there are <span class="math inline">\(n\)</span> intervals).</p>
-<p><strong>Constraints:</strong>
-1. <strong>Interpolation:</strong> <span class="math inline">\(P_i(x_i) = a_i = f(x_i)\)</span>. (Determines <span class="math inline">\(a_i\)</span>).
-2. <strong>Continuity (<span class="math inline">\(C^0\)</span>):</strong> <span class="math inline">\(P_i(x_{i+1}) = P_{i+1}(x_{i+1})\)</span>.
-<span class="math display">\[a_i + b_i h_i + c_i h_i^2 + d_i h_i^3 = a_{i+1}\]</span>
-3. <strong>Smoothness (<span class="math inline">\(C^1\)</span>):</strong> <span class="math inline">\(P&#39;_i(x_{i+1}) = P&#39;_{i+1}(x_{i+1})\)</span>.
-<span class="math display">\[b_i + 2c_i h_i + 3d_i h_i^2 = b_{i+1}\]</span>
-4. <strong>Curvature (<span class="math inline">\(C^2\)</span>):</strong> <span class="math inline">\(P&#39;&#39;_i(x_{i+1}) = P&#39;&#39;_{i+1}(x_{i+1})\)</span>.
-<span class="math display">\[2c_i + 6d_i h_i = 2c_{i+1} \implies c_i + 3d_i h_i = c_{i+1}\]</span></p>
 </div>
-<div id="boundary-conditions" class="section level3 hasAnchor" number="4.5.2">
-<h3><span class="header-section-number">4.5.2</span> Boundary Conditions<a href="lecture-3-newton-form-error-analysis-and-spline-interpolation.html#boundary-conditions" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>The internal conditions give <span class="math inline">\((3n-2)\)</span> equations for <span class="math inline">\(3n\)</span> unknowns. We need 2 more conditions at the endpoints (<span class="math inline">\(x_0\)</span> and <span class="math inline">\(x_n\)</span>).</p>
-<p><strong>Natural Spline Boundary:</strong>
-<span class="math display">\[S&#39;&#39;(a) = S&#39;&#39;(b) = 0\]</span></p>
+<div id="composite-formulas" class="section level2 hasAnchor" number="6.3">
+<h2><span class="header-section-number">6.3</span> Composite Formulas<a href="lecture5.html#composite-formulas" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>To integrate over a large interval, we divide <span class="math inline">\([a, b]\)</span> into <span class="math inline">\(n\)</span> sub-intervals and apply low-degree formulas to each.</p>
+<div id="composite-trapezoidal-rule" class="section level3 hasAnchor" number="6.3.1">
+<h3><span class="header-section-number">6.3.1</span> Composite Trapezoidal Rule<a href="lecture5.html#composite-trapezoidal-rule" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><span class="math display">\[\int_{a}^{b} f(x) dx \approx \frac{h}{2} \left[ f(x_0) + 2\sum_{k=1}^{n-1} f(x_k) + f(x_n) \right]\]</span>
+<strong>Total Error:</strong> <span class="math inline">\(|E_T| \le \frac{M(b-a)h^2}{12}\)</span> where <span class="math inline">\(M = \max |f&#39;&#39;(x)|\)</span>.</p>
 </div>
-<div id="solving" class="section level3 hasAnchor" number="4.5.3">
-<h3><span class="header-section-number">4.5.3</span> Solving<a href="lecture-3-newton-form-error-analysis-and-spline-interpolation.html#solving" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>The system can be formulated as a matrix equation:
-<span class="math display">\[A \vec{c} = \vec{r}\]</span>
-Where <span class="math inline">\(\vec{c}\)</span> contains the unknown coefficients.
-* The matrix <span class="math inline">\(A\)</span> is <strong>Tridiagonal</strong>.
-* This system can be solved very efficiently (linear time, <span class="math inline">\(O(n)\)</span>) using algorithms like the Thomas algorithm.</p>
+<div id="composite-simpsons-rule" class="section level3 hasAnchor" number="6.3.2">
+<h3><span class="header-section-number">6.3.2</span> Composite Simpson’s Rule<a href="lecture5.html#composite-simpsons-rule" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Divides the interval into an even number of sub-intervals.
+<strong>Total Error:</strong> <span class="math inline">\(|E_S| \le \frac{M(b-a)h^4}{180}\)</span> where <span class="math inline">\(M = \max |f^{(4)}(x)|\)</span>.</p>
 
 </div>
 </div>
@@ -378,8 +387,8 @@ Where <span class="math inline">\(\vec{c}\)</span> contains the unknown coeffici
           </div>
         </div>
       </div>
-<a href="lecture-2-condition-numbers-interpolation.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="lecture4.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="lecture4.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="refs.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

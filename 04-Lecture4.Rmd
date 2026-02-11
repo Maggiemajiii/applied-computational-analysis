@@ -3,7 +3,7 @@ title: "Lecture 4"
 date: "`r Sys.Date()`"
 ---
 
-# Lecture 4: Numerical Differentiation
+# Lecture 4: Numerical Differentiation {#lecture4}
 
 ## 1. Introduction
 

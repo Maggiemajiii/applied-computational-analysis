@@ -12,8 +12,6 @@ link-citations: true
 
 # Applied Computational Analysis Course Notes
 
-Welcome! 👋  
-
 This site contains my course notes for Applied Computational Analysis. The notes are organized by lecture and cover topics in numerical methods, computational mathematics, and their applications.
 
 ---
@@ -23,6 +21,9 @@ This site contains my course notes for Applied Computational Analysis. The notes
 - [Lecture 1](#lecture1)
 - [Lecture 2](#lecture2)
 - [Lecture 3](#lecture3)
+- [Lecture 4](#lecture4)
+- [Lecture 5](#lecture5)
+- [Lecture 6](#lecture6)
 - [Bibliography](#refs)
 
 ---
