@@ -103,6 +103,7 @@ $$\Pi_n(x_i) = y_i \quad \text{for } i = 0, 1, ..., n$$
 **Lagrange Form:**
 
 Can we find a basis of $\mathbb{P}_n$ that leads to a simpler form?
+
 Define Lagrange basis (Characteristic polynomials) $l_i(x)$:
 $$l_i(x) = \prod_{j=0, j \ne i}^{n} \frac{x - x_j}{x_i - x_j}$$
 
@@ -112,6 +113,7 @@ $$l_i(x) = \prod_{j=0, j \ne i}^{n} \frac{x - x_j}{x_i - x_j}$$
     $$\Pi_n(x) = \sum_{i=0}^n y_i l_i(x)$$
 
 **Alternate form using Nodal Polynomial:**
+
 Let $w_{n+1}(x) = \prod_{i=0}^n (x - x_i)$ be the "nodal polynomial".
 $$\Pi_n(x) = \sum_{i=0}^n \frac{w_{n+1}(x)}{(x-x_i) w'_{n+1}(x_i)} y_i$$
 
@@ -119,42 +121,66 @@ $$\Pi_n(x) = \sum_{i=0}^n \frac{w_{n+1}(x)}{(x-x_i) w'_{n+1}(x_i)} y_i$$
 
 ## 5. Interpolation Error
 
-**Theorem:**
-Let $x_0, ..., x_n$ be distinct nodes. Assume $f \in C^{n+1}(I_x)$. The error $E_n(x)$ is:
-$$E_n(x) = f(x) - \Pi_n(x) = \frac{f^{(n+1)}(\xi)}{(n+1)!} w_{n+1}(x)$$
+**Theorem 8.2:**
 
-* This is similar to the Taylor expansion remainder, but Taylor uses one point with derivatives, while interpolation uses $(n+1)$ distinct points.
+Let $x_0, x_1, \dots, x_n$ be $(n+1)$ distinct nodes and $x$ be a point in the domain of $f$. Assume $f \in C^{n+1}(I_x)$, where $I_x$ is the smallest interval containing the nodes and $x$. The interpolation error is:
 
-**Error Bound:**
+$$E_n(x) = f(x) - \Pi_n f(x) = \frac{f^{(n+1)}(\xi)}{(n+1)!} w_{n+1}(x)$$
+
+where $\xi \in I_x$ and $w_{n+1}(x) = \prod_{i=0}^{n}(x - x_i)$ is the **nodal polynomial** of degree $n+1$.
+
+### Comparison between Taylor vs. Interpolation
+Both methods provide polynomial approximations of $f(x) \in \mathbb{P}_n$, but they utilize different information:
+
+* **Taylor Polynomial:** Uses information from **one point** (the point $x_0$ and its derivatives).
+
+* **Interpolation Polynomial:** Uses information from **$(n+1)$ distinct points**.
+
+We seek an error bound where $\max |E_n(x)|$ is minimized. If $M = \max_{x \in [a,b]} |f^{(n+1)}(x)|$, then:
 $$\max_{x \in [a,b]} |E_n(x)| \le \frac{M}{(n+1)!} \max_{x \in [a,b]} |w_{n+1}(x)|$$
-where $M = \max |f^{(n+1)}(x)|$.
 
-**Runge's Counter Example:**
-Consider $f(x) = \frac{1}{1+25x^2}$ on $[-1, 1]$ with equally spaced nodes.
+* **Example 1 (Convergence):** $f(x) = e^x$ on $[0, 1]$ with equally spaced nodes.
+    * $M \le e$.
+    * Using Stirling's approximation, $|w_n(x)| \le (n+1)! (\frac{1}{n})^{n+1} \approx C\sqrt{n}e^{-n}$.
+    * The error decays as $n$ increases.
 
-* The maximum error grows exponentially as $n \to \infty$.
-
-* Equally spaced nodes are not optimal.
-
-* **Solution:** Chebyshev interpolation (pick nodes to minimize $w_{n+1}$). Choose nodes $x_j = \cos(\frac{2j+1}{2n+2}\pi)$.
-
+* **Example 2 (Divergence - Runge's Counter Example):** $f(x) = \frac{1}{1+25x^2}$ on $[-1, 1]$ with equally spaced nodes.
+    * As $n \to \infty$, the maximum error **grows exponentially**.
+    * While $|w_{n+1}(x)|$ decays, the term $\frac{f^{(n+1)}(\xi)}{(n+1)!}$ grows much faster.
+    * **Conclusion:** High-degree interpolants with equally spaced nodes can be "disastrous."
+    
 ---
 
 ## 6. Newton Form of Interpolation
 
-**Motivation:**
-In Lagrange form, if one more node is added, all terms must change. We want a representation where adding points is computationally cheaper.
+**Motivation**
 
-**Recursive Structure:**
+In the Lagrange representation, adding a new node or collecting an additional data point requires changing every term in the formula. To improve efficiency, we use the Newton form, which allows for adding points at a much lower computational cost.
+
+**Recursive Structure**
+
+The interpolating polynomial of degree $n$ is built by adding a correction term to the previous polynomial of degree $n-1$:
 $$\Pi_n(x) = \Pi_{n-1}(x) + q_n(x)$$
-where $q_n \in \mathbb{P}_n$ and $q_n(x_i) = 0$ for $i=0, ..., n-1$.
+To ensure that $\Pi_n(x)$ still passes through all previous points $x_0, \dots, x_{n-1}$, the correction term $q_n(x)$ must satisfy:
 
-* This implies $q_n(x) = c_n w_n(x)$.
+* **$q_n \in \mathbb{P}_n$** (it is a polynomial of degree at most $n$)
 
-* We can solve for $c_n$:
-    $$c_n = \frac{f(x_n) - \Pi_{n-1}(x_n)}{w_n(x_n)}$$
+* **$q_n(x_i) = 0$** for $i = 0, 1, \dots, n-1$
 
-**Newton Form:**
-$$\Pi_n(x) = c_0 + c_1(x-x_0) + c_2(x-x_0)(x-x_1) + ... + c_n \prod_{i=0}^{n-1}(x-x_i)$$
+**Nodal Polynomials and Coefficients**
 
-* Adding a new node only requires computing the next term $c_{n+1} w_{n+1}(x)$.
+Since $q_n$ has roots at $x_0, \dots, x_{n-1}$, it must be a multiple of the nodal polynomial $w_n(x)$. We define this as:
+$$q_n(x) = c_n w_n(x)$$
+where $w_n(x) = \prod_{i=0}^{n-1}(x-x_i)$. To find the specific coefficient $c_n$, we evaluate the polynomial at the new node $x_n$:
+$$c_n = \frac{q_n(x_n)}{w_n(x_n)} = \frac{f(x_n) - \Pi_{n-1}(x_n)}{w_n(x_n)}$$
+
+**The Complete Newton Form**
+
+By applying this recursive logic from $c_0$ up to $c_n$, we arrive at the full representation:
+$$\Pi_n(x) = c_0 + c_1(x-x_0) + c_2(x-x_0)(x-x_1) + \dots + c_n(x-x_0)(x-x_1)\dots(x-x_{n-1})$$
+In compact summation notation:
+$$\Pi_n(x) = \sum_{j=0}^{n} c_j \prod_{i=0}^{j-1} (x-x_i)$$
+
+**Computational Efficiency**
+
+Adding a new node $x_{n+1}$ is simple because we only need to compute one additional coefficient $c_{n+1}$ and the next nodal polynomial $w_{n+1}(x)$. The existing terms of $\Pi_n(x)$ remain unchanged. These coefficients $c_n$ are typically computed using a divided differences table to maximize efficiency.

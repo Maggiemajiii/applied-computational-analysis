@@ -17,6 +17,7 @@ numerical-instability
 polynomial-interpolation
 interpolation-problem-lagrange-form
 interpolation-error
+comparison-between-taylor-vs.-interpolation
 newton-form-of-interpolation
 lecture3
 newton-form-of-interpolation-recap-details

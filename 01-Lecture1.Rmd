@@ -46,6 +46,7 @@ Digital computers use a finite number of bits to represent a real number.
 $$x = \pm (m / \beta^t) \beta^e$$
 
 Where:
+
 * $\beta > 2$: **Base** (an integer, given by computer).
 
 * $t \ge 1$: **Precision** (an integer, given by computer). e.g., 24 for single precision, 53 for double precision.
@@ -62,14 +63,18 @@ The numbers in this range are:
 $$1, 1+2^{-52}, 1+2 \times 2^{-52}, ..., 2 - 2^{-52}$$
 
 * Smallest mantissa: $m = 2^{52}$.
+
 * Largest mantissa: $m = 2^{53} - 1$.
+
 * Next number (let $e=2$): $x = \frac{2^{52}}{2^{53}} \cdot 2^2 = 2$.
+
 * $x_{max} = \frac{2^{53}-1}{2^{53}} 2^1 \approx 2 - 2^{-52}$ (approx).
 
 *(See textbook section 2.5 for details)*.
 
 ### Machine Epsilon ($\epsilon_{machine}$)
 How large is the gap between numbers in $F$?
+
 Define machine epsilon:
 $$\epsilon_{machine} = \frac{1}{2} \beta^{1-t}$$
 
@@ -98,6 +103,7 @@ $$y = \sum_{n=1}^{1000} \frac{(-1)^n}{2n+1}$$
 ## 3. Condition / Sensitivity
 
 Consider a problem with an input $x$ and an output $f(x)$.
+
 When $x$ is changed by an amount $\delta x$ (of size $||\delta x|| \le \epsilon$), the output becomes $f(x+\delta x)$.
 
 The difference is:

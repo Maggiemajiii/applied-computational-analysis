@@ -106,7 +106,10 @@
 <li class="chapter" data-level="3.2" data-path="lecture2.html"><a href="lecture2.html#numerical-instability"><i class="fa fa-check"></i><b>3.2</b> 2. Numerical Instability</a></li>
 <li class="chapter" data-level="3.3" data-path="lecture2.html"><a href="lecture2.html#polynomial-interpolation"><i class="fa fa-check"></i><b>3.3</b> 3. Polynomial Interpolation</a></li>
 <li class="chapter" data-level="3.4" data-path="lecture2.html"><a href="lecture2.html#interpolation-problem-lagrange-form"><i class="fa fa-check"></i><b>3.4</b> 4. Interpolation Problem &amp; Lagrange Form</a></li>
-<li class="chapter" data-level="3.5" data-path="lecture2.html"><a href="lecture2.html#interpolation-error"><i class="fa fa-check"></i><b>3.5</b> 5. Interpolation Error</a></li>
+<li class="chapter" data-level="3.5" data-path="lecture2.html"><a href="lecture2.html#interpolation-error"><i class="fa fa-check"></i><b>3.5</b> 5. Interpolation Error</a>
+<ul>
+<li class="chapter" data-level="3.5.1" data-path="lecture2.html"><a href="lecture2.html#comparison-between-taylor-vs.-interpolation"><i class="fa fa-check"></i><b>3.5.1</b> Comparison between Taylor vs. Interpolation</a></li>
+</ul></li>
 <li class="chapter" data-level="3.6" data-path="lecture2.html"><a href="lecture2.html#newton-form-of-interpolation"><i class="fa fa-check"></i><b>3.6</b> 6. Newton Form of Interpolation</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="lecture3.html"><a href="lecture3.html"><i class="fa fa-check"></i><b>4</b> Lecture 3: Newton Form, Error Analysis, and Spline Interpolation</a>
@@ -300,56 +303,75 @@ The condition of the problem is inherent to the problem itself. A correct algori
 <li><p><strong>Theorem 8.1:</strong> Given distinct nodes, there exists a <strong>unique</strong> polynomial <span class="math inline">\(\Pi_n \in \mathbb{P}_n\)</span> satisfying the condition.</p></li>
 </ul>
 <p><strong>Lagrange Form:</strong></p>
-<p>Can we find a basis of <span class="math inline">\(\mathbb{P}_n\)</span> that leads to a simpler form?
-Define Lagrange basis (Characteristic polynomials) <span class="math inline">\(l_i(x)\)</span>:
+<p>Can we find a basis of <span class="math inline">\(\mathbb{P}_n\)</span> that leads to a simpler form?</p>
+<p>Define Lagrange basis (Characteristic polynomials) <span class="math inline">\(l_i(x)\)</span>:
 <span class="math display">\[l_i(x) = \prod_{j=0, j \ne i}^{n} \frac{x - x_j}{x_i - x_j}\]</span></p>
 <ul>
 <li><p>Property: <span class="math inline">\(l_i(x_j) = \delta_{ij}\)</span> (1 if <span class="math inline">\(i=j\)</span>, 0 if <span class="math inline">\(i \ne j\)</span>).</p></li>
 <li><p>Interpolant:
 <span class="math display">\[\Pi_n(x) = \sum_{i=0}^n y_i l_i(x)\]</span></p></li>
 </ul>
-<p><strong>Alternate form using Nodal Polynomial:</strong>
-Let <span class="math inline">\(w_{n+1}(x) = \prod_{i=0}^n (x - x_i)\)</span> be the “nodal polynomial”.
+<p><strong>Alternate form using Nodal Polynomial:</strong></p>
+<p>Let <span class="math inline">\(w_{n+1}(x) = \prod_{i=0}^n (x - x_i)\)</span> be the “nodal polynomial”.
 <span class="math display">\[\Pi_n(x) = \sum_{i=0}^n \frac{w_{n+1}(x)}{(x-x_i) w&#39;_{n+1}(x_i)} y_i\]</span></p>
 <hr />
 </div>
 <div id="interpolation-error" class="section level2 hasAnchor" number="3.5">
 <h2><span class="header-section-number">3.5</span> 5. Interpolation Error<a href="lecture2.html#interpolation-error" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p><strong>Theorem:</strong>
-Let <span class="math inline">\(x_0, ..., x_n\)</span> be distinct nodes. Assume <span class="math inline">\(f \in C^{n+1}(I_x)\)</span>. The error <span class="math inline">\(E_n(x)\)</span> is:
-<span class="math display">\[E_n(x) = f(x) - \Pi_n(x) = \frac{f^{(n+1)}(\xi)}{(n+1)!} w_{n+1}(x)\]</span></p>
+<p><strong>Theorem 8.2:</strong></p>
+<p>Let <span class="math inline">\(x_0, x_1, \dots, x_n\)</span> be <span class="math inline">\((n+1)\)</span> distinct nodes and <span class="math inline">\(x\)</span> be a point in the domain of <span class="math inline">\(f\)</span>. Assume <span class="math inline">\(f \in C^{n+1}(I_x)\)</span>, where <span class="math inline">\(I_x\)</span> is the smallest interval containing the nodes and <span class="math inline">\(x\)</span>. The interpolation error is:</p>
+<p><span class="math display">\[E_n(x) = f(x) - \Pi_n f(x) = \frac{f^{(n+1)}(\xi)}{(n+1)!} w_{n+1}(x)\]</span></p>
+<p>where <span class="math inline">\(\xi \in I_x\)</span> and <span class="math inline">\(w_{n+1}(x) = \prod_{i=0}^{n}(x - x_i)\)</span> is the <strong>nodal polynomial</strong> of degree <span class="math inline">\(n+1\)</span>.</p>
+<div id="comparison-between-taylor-vs.-interpolation" class="section level3 hasAnchor" number="3.5.1">
+<h3><span class="header-section-number">3.5.1</span> Comparison between Taylor vs. Interpolation<a href="lecture2.html#comparison-between-taylor-vs.-interpolation" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Both methods provide polynomial approximations of <span class="math inline">\(f(x) \in \mathbb{P}_n\)</span>, but they utilize different information:</p>
 <ul>
-<li>This is similar to the Taylor expansion remainder, but Taylor uses one point with derivatives, while interpolation uses <span class="math inline">\((n+1)\)</span> distinct points.</li>
+<li><p><strong>Taylor Polynomial:</strong> Uses information from <strong>one point</strong> (the point <span class="math inline">\(x_0\)</span> and its derivatives).</p></li>
+<li><p><strong>Interpolation Polynomial:</strong> Uses information from <strong><span class="math inline">\((n+1)\)</span> distinct points</strong>.</p></li>
 </ul>
-<p><strong>Error Bound:</strong>
-<span class="math display">\[\max_{x \in [a,b]} |E_n(x)| \le \frac{M}{(n+1)!} \max_{x \in [a,b]} |w_{n+1}(x)|\]</span>
-where <span class="math inline">\(M = \max |f^{(n+1)}(x)|\)</span>.</p>
-<p><strong>Runge’s Counter Example:</strong>
-Consider <span class="math inline">\(f(x) = \frac{1}{1+25x^2}\)</span> on <span class="math inline">\([-1, 1]\)</span> with equally spaced nodes.</p>
+<p>We seek an error bound where <span class="math inline">\(\max |E_n(x)|\)</span> is minimized. If <span class="math inline">\(M = \max_{x \in [a,b]} |f^{(n+1)}(x)|\)</span>, then:
+<span class="math display">\[\max_{x \in [a,b]} |E_n(x)| \le \frac{M}{(n+1)!} \max_{x \in [a,b]} |w_{n+1}(x)|\]</span></p>
 <ul>
-<li><p>The maximum error grows exponentially as <span class="math inline">\(n \to \infty\)</span>.</p></li>
-<li><p>Equally spaced nodes are not optimal.</p></li>
-<li><p><strong>Solution:</strong> Chebyshev interpolation (pick nodes to minimize <span class="math inline">\(w_{n+1}\)</span>). Choose nodes <span class="math inline">\(x_j = \cos(\frac{2j+1}{2n+2}\pi)\)</span>.</p></li>
+<li><strong>Example 1 (Convergence):</strong> <span class="math inline">\(f(x) = e^x\)</span> on <span class="math inline">\([0, 1]\)</span> with equally spaced nodes.
+<ul>
+<li><span class="math inline">\(M \le e\)</span>.</li>
+<li>Using Stirling’s approximation, <span class="math inline">\(|w_n(x)| \le (n+1)! (\frac{1}{n})^{n+1} \approx C\sqrt{n}e^{-n}\)</span>.</li>
+<li>The error decays as <span class="math inline">\(n\)</span> increases.</li>
+</ul></li>
+<li><strong>Example 2 (Divergence - Runge’s Counter Example):</strong> <span class="math inline">\(f(x) = \frac{1}{1+25x^2}\)</span> on <span class="math inline">\([-1, 1]\)</span> with equally spaced nodes.
+<ul>
+<li>As <span class="math inline">\(n \to \infty\)</span>, the maximum error <strong>grows exponentially</strong>.</li>
+<li>While <span class="math inline">\(|w_{n+1}(x)|\)</span> decays, the term <span class="math inline">\(\frac{f^{(n+1)}(\xi)}{(n+1)!}\)</span> grows much faster.</li>
+<li><strong>Conclusion:</strong> High-degree interpolants with equally spaced nodes can be “disastrous.”</li>
+</ul></li>
 </ul>
 <hr />
 </div>
+</div>
 <div id="newton-form-of-interpolation" class="section level2 hasAnchor" number="3.6">
 <h2><span class="header-section-number">3.6</span> 6. Newton Form of Interpolation<a href="lecture2.html#newton-form-of-interpolation" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p><strong>Motivation:</strong>
-In Lagrange form, if one more node is added, all terms must change. We want a representation where adding points is computationally cheaper.</p>
-<p><strong>Recursive Structure:</strong>
+<p><strong>Motivation</strong></p>
+<p>In the Lagrange representation, adding a new node or collecting an additional data point requires changing every term in the formula. To improve efficiency, we use the Newton form, which allows for adding points at a much lower computational cost.</p>
+<p><strong>Recursive Structure</strong></p>
+<p>The interpolating polynomial of degree <span class="math inline">\(n\)</span> is built by adding a correction term to the previous polynomial of degree <span class="math inline">\(n-1\)</span>:
 <span class="math display">\[\Pi_n(x) = \Pi_{n-1}(x) + q_n(x)\]</span>
-where <span class="math inline">\(q_n \in \mathbb{P}_n\)</span> and <span class="math inline">\(q_n(x_i) = 0\)</span> for <span class="math inline">\(i=0, ..., n-1\)</span>.</p>
+To ensure that <span class="math inline">\(\Pi_n(x)\)</span> still passes through all previous points <span class="math inline">\(x_0, \dots, x_{n-1}\)</span>, the correction term <span class="math inline">\(q_n(x)\)</span> must satisfy:</p>
 <ul>
-<li><p>This implies <span class="math inline">\(q_n(x) = c_n w_n(x)\)</span>.</p></li>
-<li><p>We can solve for <span class="math inline">\(c_n\)</span>:
-<span class="math display">\[c_n = \frac{f(x_n) - \Pi_{n-1}(x_n)}{w_n(x_n)}\]</span></p></li>
+<li><p><strong><span class="math inline">\(q_n \in \mathbb{P}_n\)</span></strong> (it is a polynomial of degree at most <span class="math inline">\(n\)</span>)</p></li>
+<li><p><strong><span class="math inline">\(q_n(x_i) = 0\)</span></strong> for <span class="math inline">\(i = 0, 1, \dots, n-1\)</span></p></li>
 </ul>
-<p><strong>Newton Form:</strong>
-<span class="math display">\[\Pi_n(x) = c_0 + c_1(x-x_0) + c_2(x-x_0)(x-x_1) + ... + c_n \prod_{i=0}^{n-1}(x-x_i)\]</span></p>
-<ul>
-<li>Adding a new node only requires computing the next term <span class="math inline">\(c_{n+1} w_{n+1}(x)\)</span>.</li>
-</ul>
+<p><strong>Nodal Polynomials and Coefficients</strong></p>
+<p>Since <span class="math inline">\(q_n\)</span> has roots at <span class="math inline">\(x_0, \dots, x_{n-1}\)</span>, it must be a multiple of the nodal polynomial <span class="math inline">\(w_n(x)\)</span>. We define this as:
+<span class="math display">\[q_n(x) = c_n w_n(x)\]</span>
+where <span class="math inline">\(w_n(x) = \prod_{i=0}^{n-1}(x-x_i)\)</span>. To find the specific coefficient <span class="math inline">\(c_n\)</span>, we evaluate the polynomial at the new node <span class="math inline">\(x_n\)</span>:
+<span class="math display">\[c_n = \frac{q_n(x_n)}{w_n(x_n)} = \frac{f(x_n) - \Pi_{n-1}(x_n)}{w_n(x_n)}\]</span></p>
+<p><strong>The Complete Newton Form</strong></p>
+<p>By applying this recursive logic from <span class="math inline">\(c_0\)</span> up to <span class="math inline">\(c_n\)</span>, we arrive at the full representation:
+<span class="math display">\[\Pi_n(x) = c_0 + c_1(x-x_0) + c_2(x-x_0)(x-x_1) + \dots + c_n(x-x_0)(x-x_1)\dots(x-x_{n-1})\]</span>
+In compact summation notation:
+<span class="math display">\[\Pi_n(x) = \sum_{j=0}^{n} c_j \prod_{i=0}^{j-1} (x-x_i)\]</span></p>
+<p><strong>Computational Efficiency</strong></p>
+<p>Adding a new node <span class="math inline">\(x_{n+1}\)</span> is simple because we only need to compute one additional coefficient <span class="math inline">\(c_{n+1}\)</span> and the next nodal polynomial <span class="math inline">\(w_{n+1}(x)\)</span>. The existing terms of <span class="math inline">\(\Pi_n(x)\)</span> remain unchanged. These coefficients <span class="math inline">\(c_n\)</span> are typically computed using a divided differences table to maximize efficiency.</p>
 
 </div>
 </div>
