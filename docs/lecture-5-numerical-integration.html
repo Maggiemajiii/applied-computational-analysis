@@ -23,7 +23,7 @@
 <meta name="author" content="Maggie Zhang" />
 
 
-<meta name="date" content="2026-02-04" />
+<meta name="date" content="2026-02-10" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -151,7 +151,28 @@
 </ul></li>
 <li class="chapter" data-level="5.4" data-path="lecture-4-numerical-differentiation.html"><a href="lecture-4-numerical-differentiation.html#summary-table"><i class="fa fa-check"></i><b>5.4</b> 4. Summary Table</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="lecture-5-numerical-integration.html"><a href="lecture-5-numerical-integration.html"><i class="fa fa-check"></i><b>6</b> Lecture 5: Numerical Integration</a></li>
+<li class="chapter" data-level="6" data-path="lecture-5-numerical-integration.html"><a href="lecture-5-numerical-integration.html"><i class="fa fa-check"></i><b>6</b> Lecture 5: Numerical Integration</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="lecture-5-numerical-integration.html"><a href="lecture-5-numerical-integration.html#richardson-extrapolation"><i class="fa fa-check"></i><b>6.1</b> Richardson Extrapolation</a>
+<ul>
+<li class="chapter" data-level="6.1.1" data-path="lecture-5-numerical-integration.html"><a href="lecture-5-numerical-integration.html#theoretical-foundation"><i class="fa fa-check"></i><b>6.1.1</b> Theoretical Foundation</a></li>
+<li class="chapter" data-level="6.1.2" data-path="lecture-5-numerical-integration.html"><a href="lecture-5-numerical-integration.html#application-to-derivatives"><i class="fa fa-check"></i><b>6.1.2</b> Application to Derivatives</a></li>
+<li class="chapter" data-level="6.1.3" data-path="lecture-5-numerical-integration.html"><a href="lecture-5-numerical-integration.html#general-iteration-formula"><i class="fa fa-check"></i><b>6.1.3</b> General Iteration Formula</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="lecture-5-numerical-integration.html"><a href="lecture-5-numerical-integration.html#numerical-integration-newton-cotes"><i class="fa fa-check"></i><b>6.2</b> Numerical Integration (Newton-Cotes)</a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="lecture-5-numerical-integration.html"><a href="lecture-5-numerical-integration.html#coordinate-transformation"><i class="fa fa-check"></i><b>6.2.1</b> Coordinate Transformation</a></li>
+<li class="chapter" data-level="6.2.2" data-path="lecture-5-numerical-integration.html"><a href="lecture-5-numerical-integration.html#trapezoidal-rule-closed-n1"><i class="fa fa-check"></i><b>6.2.2</b> 1. Trapezoidal Rule (Closed, <span class="math inline">\(n=1\)</span>)</a></li>
+<li class="chapter" data-level="6.2.3" data-path="lecture-5-numerical-integration.html"><a href="lecture-5-numerical-integration.html#midpoint-rule-open-n0"><i class="fa fa-check"></i><b>6.2.3</b> 2. Midpoint Rule (Open, <span class="math inline">\(n=0\)</span>)</a></li>
+<li class="chapter" data-level="6.2.4" data-path="lecture-5-numerical-integration.html"><a href="lecture-5-numerical-integration.html#closed-newton-cotes-weights-i_nf-h-sum-w_i-f_i"><i class="fa fa-check"></i><b>6.2.4</b> Closed Newton-Cotes Weights (<span class="math inline">\(I_n(f) = h \sum w_i f_i\)</span>)</a></li>
+<li class="chapter" data-level="6.2.5" data-path="lecture-5-numerical-integration.html"><a href="lecture-5-numerical-integration.html#error-characteristics"><i class="fa fa-check"></i><b>6.2.5</b> Error Characteristics</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="lecture-5-numerical-integration.html"><a href="lecture-5-numerical-integration.html#composite-formulas"><i class="fa fa-check"></i><b>6.3</b> Composite Formulas</a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="lecture-5-numerical-integration.html"><a href="lecture-5-numerical-integration.html#composite-trapezoidal-rule"><i class="fa fa-check"></i><b>6.3.1</b> Composite Trapezoidal Rule</a></li>
+<li class="chapter" data-level="6.3.2" data-path="lecture-5-numerical-integration.html"><a href="lecture-5-numerical-integration.html#composite-simpsons-rule"><i class="fa fa-check"></i><b>6.3.2</b> Composite Simpson’s Rule</a></li>
+</ul></li>
+</ul></li>
 <li class="chapter" data-level="7" data-path="refs.html"><a href="refs.html"><i class="fa fa-check"></i><b>7</b> Bibliography</a></li>
 </ul>
 
@@ -199,7 +220,150 @@
 </div>
 <div id="lecture-5-numerical-integration" class="section level1 hasAnchor" number="6">
 <h1><span class="header-section-number">Section 6</span> Lecture 5: Numerical Integration<a href="lecture-5-numerical-integration.html#lecture-5-numerical-integration" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="richardson-extrapolation" class="section level2 hasAnchor" number="6.1">
+<h2><span class="header-section-number">6.1</span> Richardson Extrapolation<a href="lecture-5-numerical-integration.html#richardson-extrapolation" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The core idea of Richardson extrapolation is to improve the accuracy of a numerical formula and estimate the error by canceling out the leading terms of an asymptotic expansion.</p>
+<div id="theoretical-foundation" class="section level3 hasAnchor" number="6.1.1">
+<h3><span class="header-section-number">6.1.1</span> Theoretical Foundation<a href="lecture-5-numerical-integration.html#theoretical-foundation" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Recall the Taylor series expansion for a function <span class="math inline">\(f(x)\)</span>:
+<span class="math display">\[f(x) = T_{n}(x) + \frac{f^{(n+1)}(\xi)}{(n+1)!}(x - x_{0})^{n+1}\]</span>
+The error can be expressed as an asymptotic series:
+<span class="math display">\[E(x) = C_{n+1}(x - x_{0})^{n+1} + C_{n+2}(x - x_{0})^{n+2} + \dots\]</span>
+where the coefficients <span class="math inline">\(C_j\)</span> are known. Since each term is asymptotically smaller than the previous one as <span class="math inline">\(x \to x_0\)</span>, we can combine different step sizes to cancel the largest error terms.</p>
+</div>
+<div id="application-to-derivatives" class="section level3 hasAnchor" number="6.1.2">
+<h3><span class="header-section-number">6.1.2</span> Application to Derivatives<a href="lecture-5-numerical-integration.html#application-to-derivatives" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Consider the central difference approximation for <span class="math inline">\(L = f&#39;(x)\)</span>:
+<span class="math display">\[A(h) = \frac{f(x+h) - f(x-h)}{2h}\]</span>
+The Taylor expansion shows that:
+<span class="math display">\[A(h) = L + C_2 h^2 + C_4 h^4 + C_6 h^6 + \dots\]</span></p>
+<p>If we compute <span class="math inline">\(A\)</span> with step size <span class="math inline">\(h\)</span> and <span class="math inline">\(h/2\)</span>, we can eliminate the <span class="math inline">\(h^2\)</span> term:
+<span class="math display">\[A_1(h) = \frac{4A(\frac{h}{2}) - A(h)}{3} = L + O(h^4)\]</span></p>
+</div>
+<div id="general-iteration-formula" class="section level3 hasAnchor" number="6.1.3">
+<h3><span class="header-section-number">6.1.3</span> General Iteration Formula<a href="lecture-5-numerical-integration.html#general-iteration-formula" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Iterating this process yields a table of approximations where <span class="math inline">\(A_k(h) = L + O(h^{2k})\)</span>:
+<span class="math display">\[A_k(h) = \frac{1}{4^{k}-1} \left( 4^{k} A_{k-1}\left(\frac{h}{2}\right) - A_{k-1}(h) \right)\]</span></p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Step Size</th>
+<th align="left"><span class="math inline">\(O(h^2)\)</span></th>
+<th align="left"><span class="math inline">\(O(h^4)\)</span></th>
+<th align="left"><span class="math inline">\(O(h^6)\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><span class="math inline">\(h\)</span></td>
+<td align="left"><span class="math inline">\(A(h)\)</span></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left"><span class="math inline">\(h/2\)</span></td>
+<td align="left"><span class="math inline">\(A(h/2)\)</span></td>
+<td align="left"><span class="math inline">\(A_1(h)\)</span></td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left"><span class="math inline">\(h/4\)</span></td>
+<td align="left"><span class="math inline">\(A(h/4)\)</span></td>
+<td align="left"><span class="math inline">\(A_1(h/2)\)</span></td>
+<td align="left"><span class="math inline">\(A_2(h)\)</span></td>
+</tr>
+</tbody>
+</table>
+<hr />
+</div>
+</div>
+<div id="numerical-integration-newton-cotes" class="section level2 hasAnchor" number="6.2">
+<h2><span class="header-section-number">6.2</span> Numerical Integration (Newton-Cotes)<a href="lecture-5-numerical-integration.html#numerical-integration-newton-cotes" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Numerical integration approximates <span class="math inline">\(\int_{a}^{b} f(x) dx\)</span> by integrating a Lagrange interpolating polynomial <span class="math inline">\(P_n(x)\)</span> constructed using equally spaced nodes.</p>
+<div id="coordinate-transformation" class="section level3 hasAnchor" number="6.2.1">
+<h3><span class="header-section-number">6.2.1</span> Coordinate Transformation<a href="lecture-5-numerical-integration.html#coordinate-transformation" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>To simplify, we often integrate over <span class="math inline">\(s \in [0, 1]\)</span> and then transform back to <span class="math inline">\(x \in [a, b]\)</span> using:
+* <span class="math inline">\(x = a + (b-a)s = a + hs\)</span>
+* <span class="math inline">\(dx = (b-a)ds = h ds\)</span></p>
+</div>
+<div id="trapezoidal-rule-closed-n1" class="section level3 hasAnchor" number="6.2.2">
+<h3><span class="header-section-number">6.2.2</span> 1. Trapezoidal Rule (Closed, <span class="math inline">\(n=1\)</span>)<a href="lecture-5-numerical-integration.html#trapezoidal-rule-closed-n1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Uses nodes at the endpoints <span class="math inline">\(s_0=0\)</span> and <span class="math inline">\(s_1=1\)</span>.
+<span class="math display">\[\int_{a}^{b} f(x) dx \approx \frac{h}{2} [f(a) + f(b)]\]</span>
+<strong>Error term:</strong> <span class="math inline">\(-\frac{h^3}{12} f&#39;&#39;(\xi) = O(h^3)\)</span></p>
+</div>
+<div id="midpoint-rule-open-n0" class="section level3 hasAnchor" number="6.2.3">
+<h3><span class="header-section-number">6.2.3</span> 2. Midpoint Rule (Open, <span class="math inline">\(n=0\)</span>)<a href="lecture-5-numerical-integration.html#midpoint-rule-open-n0" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Uses the interior node <span class="math inline">\(s_0 = 1/2\)</span>.
+<span class="math display">\[\int_{a}^{b} f(x) dx \approx (b-a) f\left(\frac{a+b}{2}\right)\]</span>
+<strong>Error term:</strong> <span class="math inline">\(\frac{(b-a)^3}{24} f&#39;&#39;(\xi)\)</span></p>
+</div>
+<div id="closed-newton-cotes-weights-i_nf-h-sum-w_i-f_i" class="section level3 hasAnchor" number="6.2.4">
+<h3><span class="header-section-number">6.2.4</span> Closed Newton-Cotes Weights (<span class="math inline">\(I_n(f) = h \sum w_i f_i\)</span>)<a href="lecture-5-numerical-integration.html#closed-newton-cotes-weights-i_nf-h-sum-w_i-f_i" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<table>
+<thead>
+<tr class="header">
+<th align="left"><span class="math inline">\(n\)</span></th>
+<th align="left">Rule</th>
+<th align="left"><span class="math inline">\(w_0\)</span></th>
+<th align="left"><span class="math inline">\(w_1\)</span></th>
+<th align="left"><span class="math inline">\(w_2\)</span></th>
+<th align="left"><span class="math inline">\(w_3\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">1</td>
+<td align="left">Trapezoidal</td>
+<td align="left"><span class="math inline">\(1/2\)</span></td>
+<td align="left"><span class="math inline">\(1/2\)</span></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left">2</td>
+<td align="left">Simpson’s</td>
+<td align="left"><span class="math inline">\(1/3\)</span></td>
+<td align="left"><span class="math inline">\(4/3\)</span></td>
+<td align="left"><span class="math inline">\(1/3\)</span></td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left">3</td>
+<td align="left">Simpson’s 3/8</td>
+<td align="left"><span class="math inline">\(3/8\)</span></td>
+<td align="left"><span class="math inline">\(9/8\)</span></td>
+<td align="left"><span class="math inline">\(9/8\)</span></td>
+<td align="left"><span class="math inline">\(3/8\)</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="error-characteristics" class="section level3 hasAnchor" number="6.2.5">
+<h3><span class="header-section-number">6.2.5</span> Error Characteristics<a href="lecture-5-numerical-integration.html#error-characteristics" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li><strong>Degree of Exactness:</strong> The highest degree of polynomial for which the rule is exact.</li>
+<li>For <strong>even <span class="math inline">\(n\)</span></strong>: Degree of exactness is <span class="math inline">\(n+1\)</span>; Error is <span class="math inline">\(O(h^{n+3})\)</span>.</li>
+<li>For <strong>odd <span class="math inline">\(n\)</span></strong>: Degree of exactness is <span class="math inline">\(n\)</span>; Error is <span class="math inline">\(O(h^{n+2})\)</span>.</li>
+</ul>
+<hr />
+</div>
+</div>
+<div id="composite-formulas" class="section level2 hasAnchor" number="6.3">
+<h2><span class="header-section-number">6.3</span> Composite Formulas<a href="lecture-5-numerical-integration.html#composite-formulas" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>To integrate over a large interval, we divide <span class="math inline">\([a, b]\)</span> into <span class="math inline">\(n\)</span> sub-intervals and apply low-degree formulas to each.</p>
+<div id="composite-trapezoidal-rule" class="section level3 hasAnchor" number="6.3.1">
+<h3><span class="header-section-number">6.3.1</span> Composite Trapezoidal Rule<a href="lecture-5-numerical-integration.html#composite-trapezoidal-rule" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><span class="math display">\[\int_{a}^{b} f(x) dx \approx \frac{h}{2} \left[ f(x_0) + 2\sum_{k=1}^{n-1} f(x_k) + f(x_n) \right]\]</span>
+<strong>Total Error:</strong> <span class="math inline">\(|E_T| \le \frac{M(b-a)h^2}{12}\)</span> where <span class="math inline">\(M = \max |f&#39;&#39;(x)|\)</span>.</p>
+</div>
+<div id="composite-simpsons-rule" class="section level3 hasAnchor" number="6.3.2">
+<h3><span class="header-section-number">6.3.2</span> Composite Simpson’s Rule<a href="lecture-5-numerical-integration.html#composite-simpsons-rule" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Divides the interval into an even number of sub-intervals.
+<strong>Total Error:</strong> <span class="math inline">\(|E_S| \le \frac{M(b-a)h^4}{180}\)</span> where <span class="math inline">\(M = \max |f^{(4)}(x)|\)</span>.</p>
 
+</div>
+</div>
 </div>
 <hr style="margin-top:50px;">
 

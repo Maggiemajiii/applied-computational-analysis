@@ -43,4 +43,17 @@ example-a-central-difference-for-fx
 example-b-backward-difference-for-fx-extrapolation
 summary-table
 lecture-5-numerical-integration
+richardson-extrapolation
+theoretical-foundation
+application-to-derivatives
+general-iteration-formula
+numerical-integration-newton-cotes
+coordinate-transformation
+trapezoidal-rule-closed-n1
+midpoint-rule-open-n0
+closed-newton-cotes-weights-i_nf-h-sum-w_i-f_i
+error-characteristics
+composite-formulas
+composite-trapezoidal-rule
+composite-simpsons-rule
 refs
