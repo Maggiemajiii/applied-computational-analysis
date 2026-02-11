@@ -11,14 +11,14 @@ condition-sensitivity
 definitions
 relative-condition-number-kappa
 examples
-lecture-2-condition-numbers-interpolation
+lecture2
 condition-of-matrix-vector-multiplication
 numerical-instability
 polynomial-interpolation
 interpolation-problem-lagrange-form
 interpolation-error
 newton-form-of-interpolation
-lecture-3-newton-form-error-analysis-and-spline-interpolation
+lecture3
 newton-form-of-interpolation-recap-details
 newton-form-structure
 divided-differences
@@ -56,4 +56,5 @@ error-characteristics
 composite-formulas
 composite-trapezoidal-rule
 composite-simpsons-rule
+lecture6
 refs

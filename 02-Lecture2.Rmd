@@ -131,8 +131,11 @@ where $M = \max |f^{(n+1)}(x)|$.
 
 **Runge's Counter Example:**
 Consider $f(x) = \frac{1}{1+25x^2}$ on $[-1, 1]$ with equally spaced nodes.
+
 * The maximum error grows exponentially as $n \to \infty$.
+
 * Equally spaced nodes are not optimal.
+
 * **Solution:** Chebyshev interpolation (pick nodes to minimize $w_{n+1}$). Choose nodes $x_j = \cos(\frac{2j+1}{2n+2}\pi)$.
 
 ---
@@ -147,6 +150,7 @@ $$\Pi_n(x) = \Pi_{n-1}(x) + q_n(x)$$
 where $q_n \in \mathbb{P}_n$ and $q_n(x_i) = 0$ for $i=0, ..., n-1$.
 
 * This implies $q_n(x) = c_n w_n(x)$.
+
 * We can solve for $c_n$:
     $$c_n = \frac{f(x_n) - \Pi_{n-1}(x_n)}{w_n(x_n)}$$
 

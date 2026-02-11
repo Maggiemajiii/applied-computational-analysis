@@ -10,8 +10,11 @@ date: "`r Sys.Date()`"
 Mathematical problems can be approximately solved with computers. Most problems do not have explicit solution formulas.
 
 **Example:**
+
 * Find roots of: $x^5 + x^4 + 3x^2 + 2x + 2 = 0$.
+
 * **Abel's Impossibility Theorem:** There is no algebraic solution (explicit solution formula) for general polynomial equations of degree five or higher with arbitrary constants.
+
 * Most partial differential equations (PDEs) have no explicit solution formula.
 
 ### To study the approximation:
@@ -34,7 +37,9 @@ Mathematical problems can be approximately solved with computers. Most problems 
 ## 2. Floating Point Arithmetic
 
 Digital computers use a finite number of bits to represent a real number.
+
 * $F$: The set of Floating point numbers.
+
 * The position of decimal (or binary) point is stored separately from the digits.
 
 **Form of elements in F:**
@@ -42,8 +47,11 @@ $$x = \pm (m / \beta^t) \beta^e$$
 
 Where:
 * $\beta > 2$: **Base** (an integer, given by computer).
+
 * $t \ge 1$: **Precision** (an integer, given by computer). e.g., 24 for single precision, 53 for double precision.
+
 * $e$: **Exponent** (integer). Bounds $e_{min} \le e \le e_{max}$ given by computer.
+
 * $m$: **Mantissa** (integer), $\beta^{t-1} \le m \le \beta^t - 1$.
 
 ### Example: Double Precision ($t=53, \beta=2$)
@@ -80,7 +88,9 @@ When you compute with floating numbers:
 $$y = \sum_{n=1}^{1000} \frac{(-1)^n}{2n+1}$$
 
 * This involves 1000 additions.
+
 * **Relative error:** $1000 \times \epsilon_{machine} \approx 10^{-13}$.
+
 * Need to pay attention when designing algorithms so that errors are not amplified to the point of spoiling the solution.
 
 ---
@@ -95,6 +105,7 @@ $$\delta f = f(x + \delta x) - f(x)$$
 
 ### Definitions
 * **Well-conditioned:** A problem is called well-conditioned if small changes in the input lead to small changes in the output.
+
 * **Ill-conditioned:** If it is sensitive to the change of $\delta x$, then the problem is called ill-conditioned.
 
 ### Relative Condition Number ($\kappa$)
@@ -106,6 +117,7 @@ Using the Jacobian $J = f'$:
 $$\kappa = \frac{||J|| \cdot ||x||}{||f(x)||}$$
 
 * A problem is **well-conditioned** if $\kappa$ is small (e.g., $1, 10, 10^2...$).
+
 * A problem is **ill-conditioned** if $\kappa$ is large (e.g., $10^6, 10^7...$).
 
 *Remark:* For $f: \mathbb{R}^m \to \mathbb{R}^n$, use $||\cdot||$ for norm of $x$ and norm of $f(x)$. (Check textbook 1.10 for def of norms).
@@ -118,6 +130,7 @@ $$J = f'(x) = \frac{1}{2} x^{-1/2}$$
 $$\kappa = \frac{||J|| \cdot ||x||}{||f(x)||} = \frac{\frac{1}{2}x^{-1/2} \cdot x}{\sqrt{x}} = \frac{1}{2}$$
 
 * $\kappa = 1/2$ is small.
+
 * This is a **well-conditioned** problem.
 
 **2. Consider $f(x) = x_1 - x_2$, where $x = [x_1, x_2]^T$**
@@ -128,10 +141,13 @@ Let's consider the condition number w.r.t. $\infty$-norm.
 $$\kappa = \frac{||J||_\infty}{||f||_\infty / ||x||_\infty} = \frac{2 \cdot ||x||_\infty}{|x_1 - x_2|}$$
 
 *Details:*
+
 * $||J||_\infty = \sup_{||y||_\infty=1} ||Jy|| = \sup |y_1 - y_2| = 2$.
+
 * $||x||_\infty = \max \{ |x_1|, |x_2| \}$.
 
 Take $x_1 = 1, x_2 = -1 \implies ||x||_\infty = 1$. Then $\kappa$ is reasonable.
+
 However, when $x_1$ and $x_2$ are very close ($x_1 \approx x_2$), the denominator $|x_1 - x_2|$ is small, so $\kappa$ can be very large.
 
 **"Cancellation Error":** We should avoid subtraction of very close vectors in designing algorithms.

@@ -43,7 +43,9 @@ Numerical integration approximates $\int_{a}^{b} f(x) dx$ by integrating a Lagra
 
 ### Coordinate Transformation
 To simplify, we often integrate over $s \in [0, 1]$ and then transform back to $x \in [a, b]$ using:
+
 * $x = a + (b-a)s = a + hs$
+
 * $dx = (b-a)ds = h ds$
 
 ### 1. Trapezoidal Rule (Closed, $n=1$)
@@ -66,7 +68,9 @@ $$\int_{a}^{b} f(x) dx \approx (b-a) f\left(\frac{a+b}{2}\right)$$
 
 ### Error Characteristics
 * **Degree of Exactness:** The highest degree of polynomial for which the rule is exact.
+
 * For **even $n$**: Degree of exactness is $n+1$; Error is $O(h^{n+3})$.
+
 * For **odd $n$**: Degree of exactness is $n$; Error is $O(h^{n+2})$.
 
 ---
@@ -77,8 +81,10 @@ To integrate over a large interval, we divide $[a, b]$ into $n$ sub-intervals an
 
 ### Composite Trapezoidal Rule
 $$\int_{a}^{b} f(x) dx \approx \frac{h}{2} \left[ f(x_0) + 2\sum_{k=1}^{n-1} f(x_k) + f(x_n) \right]$$
+
 **Total Error:** $|E_T| \le \frac{M(b-a)h^2}{12}$ where $M = \max |f''(x)|$.
 
 ### Composite Simpson's Rule
 Divides the interval into an even number of sub-intervals.
+
 **Total Error:** $|E_S| \le \frac{M(b-a)h^4}{180}$ where $M = \max |f^{(4)}(x)|$.

@@ -12,6 +12,7 @@ We consider the numerical approximation of the differentiation of a function $f$
 ### Concepts of Accuracy
 
 1.  **Degree of Accuracy ($k$):** If an approximation formula has zero error for polynomials of degree $k$, we say it has a degree of accuracy $k$.
+
 2.  **Order of Accuracy ($p$):** The approximation has order of accuracy $p$ if the error scales like $O(h^p)$ as $h \to 0$, where $h$ denotes the grid spacing (interval width).
 
 ### Stencils
@@ -19,7 +20,9 @@ We consider the numerical approximation of the differentiation of a function $f$
 The **stencil** is the set of points used in the approximation.
 
 * **Forward:** Uses points $\ge x$ (e.g., $x, x+h$).
+
 * **Backward:** Uses points $\le x$ (e.g., $x, x-h$).
+
 * **Central:** Uses points surrounding $x$ (e.g., $x-h, x, x+h$).
 
 ---
@@ -83,7 +86,9 @@ $$f(x \pm h) = f(x) \pm hf'(x) + \frac{h^2}{2}f''(x) \pm \frac{h^3}{6}f^{(3)}(x)
 Plugging these into the ansatz, we set up a system of linear equations to match coefficients:
 
 1.  $a + b + c = 0$ (coefficient of $f(x)$)
+
 2.  $c - a = 0$ (coefficient of $f'(x)$)
+
 3.  $\frac{1}{2}(c + a) = 1$ (coefficient of $f''(x)$)
 
 **Solution:** $a=1, b=-2, c=1$.
@@ -110,8 +115,11 @@ f(x-2h) &= f(x) - 2hf'(x) + 2h^2f''(x) - \dots
 $$
 
 **System of Equations:**
+
 1.  $a + b + c = 0$
+
 2.  $-b - 2c = 1$
+
 3.  $\frac{1}{2}b + 2c = 0$
 
 **Solution:** $a = 3/2, b = -2, c = 1/2$.
