@@ -2,4 +2,215 @@
 title: "Lecture 6"
 date: "`r Sys.Date()`"
 ---
-# Lecture 6: {#lecture6}
+# Lecture 6: Approximation with Orthogonal Bases {#lecture6}
+
+Previously, we discussed interpolation, which uses polynomials to approximate a function given values at specific points. However, if we have more comprehensive information about a function $f$, we might want to approximate $f$ within a space of simple functions using orthogonal bases. This approach is highly convenient for both mathematical analysis and computation.
+
+For an interval $[a, b]$, we seek a basis $\{\Phi_j\}$ such that the first $n$ terms can be used to accurately approximate the function.
+
+---
+
+## 1. The Weighted $L^2$ Norm and Inner Product
+
+Let $w(x) > 0$ be a nonnegative integrable weight function on the interval $[a, b]$. For a complex-valued function $f$ on $[a, b]$, we define the **weighted $L^2$ norm**:
+
+$$||f||_w = \left(\int_a^b |f(x)|^2 w(x) dx\right)^{\frac{1}{2}}$$
+
+This norm has an associated **inner product** (where $\overline{g}(x)$ denotes the complex conjugate):
+
+$$\langle f, g \rangle_w = \int_a^b f(x)\overline{g}(x) w(x) dx$$
+
+We consider approximating functions within the weighted $L^2$ space:
+
+$$L_w^2([a,b]) = \left\{ f: [a,b] \rightarrow \mathbb{C} \text{ s.t. } \int_a^b |f(x)|^2 w(x) dx < \infty \right\}$$
+
+A basis $\{\Phi_j\}$ (for $j = 1, 2, \dots$) for $L_w^2([a,b])$ is a set of functions such that any $f$ in the space can be uniquely expressed as a series:
+
+$$f = \sum_{j=1}^\infty c_j \Phi_j$$
+
+This convergence is in the sense of the $||\cdot||_w$ norm:
+
+$$\lim_{N \rightarrow \infty} \left|\left| f - \sum_{j=1}^N c_j \Phi_j \right|\right|_w = 0$$
+
+A set of functions $\{\Phi_j\}$ is called **orthogonal** with respect to $w$ if $\langle \Phi_i, \Phi_j \rangle_w = 0$ for $i \neq j$.
+
+---
+
+## 2. Properties of Orthogonality
+
+Given an orthogonal basis $\{\Phi_j\}$ of $L_w^2([a,b])$, we have several useful properties:
+
+### 1. Coefficient Computation
+The coefficients $c_k$ in the representation $f = \sum_{j=1}^\infty c_j \Phi_j$ can be found by taking the inner product of $f$ with $\Phi_k$:
+
+$$\langle f, \Phi_k \rangle_w = \left\langle \sum_{j=1}^\infty c_j \Phi_j, \Phi_k \right\rangle_w = c_k \langle \Phi_k, \Phi_k \rangle_w$$
+
+Solving for $c_k$ yields:
+
+$$c_k = \frac{\langle f, \Phi_k \rangle_w}{\langle \Phi_k, \Phi_k \rangle_w}$$
+
+### 2. Best Approximation Property
+Let $f_N = \sum_{j=1}^N c_j \Phi_j$ be the first $N$ terms of the series. $f_N$ is the *best approximation* of $f$ in the subspace $S_N = \text{span}\{\Phi_1, \Phi_2, \dots, \Phi_N\}$. That is:
+
+$$f_N = \text{argmin}_{g \in S_N} ||f - g||_w$$
+
+*(Hint for proof: Expand $|| \sum_{j=1}^N d_j \Phi_j - f ||_w^2$ and complete the square for the coefficients).*
+
+### 3. Approximation Error
+By **Parseval's theorem**, the approximation error is given by:
+
+$$\left|\left| f - \sum_{j=1}^N c_j \Phi_j \right|\right|_w^2 = \sum_{j=N+1}^\infty c_j^2 ||\Phi_j||_w^2$$
+
+If $c_j$ decays at a certain rate with respect to $j$, we can use this to estimate the corresponding approximation error.
+
+---
+
+## 3. Generating Orthogonal Bases
+
+### The Gram-Schmidt Process
+Given a standard basis $\{f_j\}$ of a function space, we can convert it into an orthogonal basis $\{\Phi_j\}$:
+
+* $\Phi_0 = f_0$
+
+* $\Phi_1 = f_1 - \frac{\langle f_1, \Phi_0 \rangle_w}{\langle \Phi_0, \Phi_0 \rangle_w} \Phi_0$
+
+* $\Phi_j = f_j - \sum_{k=0}^{j-1} \frac{\langle f_j, \Phi_k \rangle_w}{\langle \Phi_k, \Phi_k \rangle_w} \Phi_k$
+
+*Note: We can further normalize the basis by scaling, and different scaling conventions may be used.*
+
+### The Three-Term Recurrence (Simplification for Polynomials)
+Consider the polynomial space $\mathbb{P}_j$. We want to derive an orthogonal basis $\{\Phi_j\}$. Suppose we have orthogonalized up to $\Phi_{j-1}$. 
+
+Instead of applying Gram-Schmidt to $f_{j+1} = x^{j+1}$, consider choosing $f_{j+1} = x\Phi_j$. Because $x\Phi_j \in \mathbb{P}_{j+1}$, we can use it to find the next orthogonal polynomial. 
+
+Recall that for $k \le j-2$, we have $x\Phi_k \in \mathbb{P}_{j-1}$. Therefore:
+$$\langle x\Phi_j, \Phi_k \rangle_w = \langle \Phi_j, x\Phi_k \rangle_w = 0 \quad \text{for } k \le j-2$$
+
+This drastically simplifies the Gram-Schmidt process to just three terms:
+
+$$\Phi_{j+1} = x\Phi_j - \frac{\langle x\Phi_j, \Phi_j \rangle_w}{\langle \Phi_j, \Phi_j \rangle_w} \Phi_j - \frac{\langle x\Phi_j, \Phi_{j-1} \rangle_w}{\langle \Phi_{j-1}, \Phi_{j-1} \rangle_w} \Phi_{j-1}$$
+
+This can be written as:
+$$\Phi_{j+1} = (x - \alpha_j)\Phi_j - \beta_j \Phi_{j-1}$$
+where $\alpha_j$ and $\beta_j$ are constants. This is computationally much more convenient.
+
+---
+
+## 4. Legendre Polynomials
+
+Consider the interval $[a,b] = [-1, 1]$ and the weight function $w(x) = 1$. Using the Gram-Schmidt process and the three-term recurrence trick, we generate the Legendre polynomials:
+
+* $\Phi_0(x) = 1$
+
+* $\Phi_1(x) = x - \frac{\langle x, 1 \rangle}{\langle 1, 1 \rangle} 1 = x$
+
+* $\Phi_2(x) = x \cdot x - \frac{\langle x^2, x \rangle}{\langle x, x \rangle} x - \frac{\langle x^2, 1 \rangle}{\langle 1, 1 \rangle} 1 = x^2 - 0 - \frac{1}{3} = x^2 - \frac{1}{3}$
+
+* $\Phi_3(x) = x(x^2 - \frac{1}{3}) - \frac{\langle x\Phi_2, \Phi_2 \rangle}{\langle \Phi_2, \Phi_2 \rangle} \Phi_2 - \frac{\langle x\Phi_2, \Phi_1 \rangle}{\langle \Phi_1, \Phi_1 \rangle} \Phi_1 = x^3 - \frac{3}{5}x$
+
+These satisfy $\int_{-1}^1 \Phi_i(x) \Phi_j(x) dx = 0$ for $i \neq j$. 
+
+*Convention:* Legendre polynomials are typically normalized such that $\Phi_j(1) = 1$. By this process, the recurrence is: $(j+1)\Phi_{j+1} - (2j+1)x\Phi_j + j\Phi_{j-1} = 0$.
+
+### Example: Linear Approximation
+Construct the best least squares line for $f(x) = e^x$ on the interval $[0, 1]$.
+
+1.  **Map domain:** Introduce $s \in [-1, 1]$ where $x = \frac{s+1}{2}$. Thus, $s = 2x - 1$.
+
+2.  **Transform function:** $g(s) = f\left(\frac{s+1}{2}\right) = e^{\frac{s+1}{2}}$.
+
+3.  **Compute coefficients:** Represent $g(s) = \sum_{j=0}^\infty c_j \Phi_j(s)$. The first two terms give the best linear approximation in the least-squares sense:
+
+    * $c_0 = \frac{\langle g, \Phi_0 \rangle}{\langle \Phi_0, \Phi_0 \rangle} = \frac{\int_{-1}^1 e^{\frac{s+1}{2}} 1 ds}{\int_{-1}^1 1 ds} = e - 1$
+
+    * $c_1 = \frac{\langle g, \Phi_1 \rangle}{\langle \Phi_1, \Phi_1 \rangle} = \dots = 9 - 3e$
+
+4.  **Result:** $g(s) \approx (e - 1) + (9 - 3e)s$. Substituting back to $x$:
+    $$f(x) \approx (e - 1) + (9 - 3e)(2x - 1)$$
+
+---
+
+## 5. Chebyshev Polynomials
+
+Let's consider a different orthogonal basis for $L_w^2([-1, 1])$ using the weight function $w(x) = \frac{1}{\sqrt{1 - x^2}}$.
+
+The inner product is:
+$$\langle f, g \rangle_w = \int_{-1}^1 \frac{f(x)g(x)}{\sqrt{1 - x^2}} dx$$
+
+Using the substitution $x = \cos\theta$ (where $\theta \in [0, \pi]$), this transforms into:
+$$\langle f, g \rangle_w = \int_0^\pi f(\cos\theta)g(\cos\theta) d\theta$$
+
+We know that $\{\cos(k\theta)\}$ is an orthogonal set on $[0, \pi]$. Let $f(\cos\theta) = \cos(k\theta)$. Since $\theta = \cos^{-1}(x)$, this suggests polynomials of the form:
+$$T_j(x) = \cos(j \cos^{-1}(x))$$
+
+Trigonometric identities guarantee that these form valid polynomials, known as the **Chebyshev polynomials**.
+
+* $T_0(x) = 1$
+
+* $T_1(x) = x$
+
+* $T_2(x) = \cos(2\cos^{-1}(x)) = 2x^2 - 1$
+
+**Recurrence Relation:** $T_{j+1}(x) = 2x T_j(x) - T_{j-1}(x)$.
+
+*(Proof leverages the sum and difference trigonometric identities: $\cos((j+1)\theta) + \cos((j-1)\theta) = 2\cos(j\theta)\cos\theta$).*
+
+### Chebyshev Nodes
+The roots of $T_j(x) = 0$ are the **Chebyshev nodes**. Setting $\cos(j \cos^{-1}(x)) = 0$ yields:
+$$x_n = \cos\left(\frac{(n + \frac{1}{2})\pi}{j}\right) \quad \text{for } n = 0, 1, \dots, j-1$$
+
+These roots cluster near the endpoints $\pm 1$ and help produce less oscillatory interpolants. 
+
+### Minimax Property
+A **monic polynomial** has a leading coefficient of 1. Since $T_{j+1} = 2x T_j - T_{j-1}$, the leading coefficient of $T_j(x)$ is $2^{j-1}$. Thus, the monic Chebyshev polynomials are defined as $\tilde{T}_j = 2^{1-j} T_j$.
+
+**Theorem:** The monic Chebyshev polynomials $\tilde{T}_j$ have the minimax property. They minimize:
+$$\max_{x \in [-1, 1]} |p(x)| \quad \text{for monic } p \in \mathbb{P}_j$$
+Since $|T_j(x)| \le 1$ and reaches 1, the minimum possible maximum for a monic polynomial of degree $j$ on $[-1, 1]$ is exactly $2^{1-j}$. 
+
+Equivalently, using Chebyshev nodes for interpolation minimizes the upper bound of the error term $\prod_{k=0}^{j-1}(x - x_k)$ to $2^{1-j}$. *(Proof by contradiction: Assume a monic polynomial $w_j$ has a smaller maximum, and evaluate $f_j = \tilde{T}_j - w_j$ at the extrema of $T_j$ to show it has too many roots).*
+
+---
+
+## 6. Numerical Integration (Gaussian Quadrature)
+
+For weighted integrals $I = \int_a^b f(x)w(x)dx$, we previously used Newton-Cotes formulas with equally spaced nodes (degree of exactness $n$ or $n+1$).
+
+Now, we allow both the nodes $\{x_k\}_{k=0}^n$ and the coefficients $C_k$ to be unknowns. With $2n+2$ unknowns, we can construct a formula with a higher degree of accuracy ($2n+1$).
+
+**Theorem:** Let $\{\Phi_n\}$ be a set of orthogonal polynomials with respect to $\langle f, g \rangle_w$. Let $x_0, x_1, \dots, x_n$ be the $(n+1)$ distinct real zeros of $\Phi_{n+1}(x)$ in $[a,b]$. Let $l_k(x)$ be the $k$-th Lagrange basis polynomial for these zeros, and let weights be:
+$$C_k = \int_a^b l_k(x)w(x)dx$$
+Then the **Gaussian Quadrature** formula $\sum_{k=0}^n C_k f(x_k)$ has a degree of accuracy of $2n+1$.
+
+**Proof Outline:**
+Suppose $f \in \mathbb{P}_{2n+1}$. By polynomial division, $f(x) = q(x)\Phi_{n+1}(x) + r(x)$, where degrees of $q$ and $r$ are $\le n$.
+
+The exact integral is:
+
+$$I = \langle q, \Phi_{n+1} \rangle_w + \int_a^b r(x)w(x)dx$$
+
+By orthogonality, $\langle q, \Phi_{n+1} \rangle_w = 0$. 
+
+For the approximation:
+$$I_{\text{approx}} = \sum_{k=0}^n C_k (q(x_k)\Phi_{n+1}(x_k) + r(x_k))$$
+
+Since the nodes $x_k$ are roots of $\Phi_{n+1}$, the first term vanishes. Thus, $I_{\text{approx}} = \sum_{k=0}^n C_k r(x_k)$. Because $r \in \mathbb{P}_n$, the quadrature rule integrates it exactly, making $I = I_{\text{approx}}$.
+
+### Convergence and Examples
+Convergence holds for Gaussian quadrature as $n \rightarrow \infty$:
+
+$$\lim_{n \rightarrow \infty} \left| \int_{-1}^1 f(x)w(x)dx - \sum_{k=0}^n C_k f(x_k) \right| = 0$$
+
+**Example ($n=1$, $w(x)=1$ on $[-1, 1]$):**
+
+We use the roots of the Legendre polynomial $\Phi_2(x) = \frac{1}{2}(3x^2 - 1)$.
+
+The roots are $x_0 = -\frac{1}{\sqrt{3}}$ and $x_1 = \frac{1}{\sqrt{3}}$.
+
+Calculating the weights $C_0$ and $C_1$ via integrals of the Lagrange basis polynomials yields $C_0 = 1$ and $C_1 = 1$.
+
+The approximation is:
+$$\int_{-1}^1 f(x)dx \approx f\left(-\frac{1}{\sqrt{3}}\right) + f\left(\frac{1}{\sqrt{3}}\right)$$
+This simple 2-point formula has a degree of accuracy of 3. 
+
+*(Note: Standard Gaussian quadrature does not use the endpoints $a$ and $b$. When including the endpoints is necessary, we use **Gaussian-Lobatto quadrature**).*

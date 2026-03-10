@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Section 7 Lecture 6: | Lecture 6</title>
-  <meta name="description" content="Section 7 Lecture 6: | Lecture 6" />
+  <title>Section 7 Lecture 6: Approximation with Orthogonal Bases | Lecture 6</title>
+  <meta name="description" content="Section 7 Lecture 6: Approximation with Orthogonal Bases | Lecture 6" />
   <meta name="generator" content="bookdown 0.45 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Section 7 Lecture 6: | Lecture 6" />
+  <meta property="og:title" content="Section 7 Lecture 6: Approximation with Orthogonal Bases | Lecture 6" />
   <meta property="og:type" content="book" />
   
   
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Section 7 Lecture 6: | Lecture 6" />
+  <meta name="twitter:title" content="Section 7 Lecture 6: Approximation with Orthogonal Bases | Lecture 6" />
   
   
   
@@ -23,7 +23,7 @@
 <meta name="author" content="Maggie Zhang" />
 
 
-<meta name="date" content="2026-02-11" />
+<meta name="date" content="2026-03-10" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -176,7 +176,34 @@
 <li class="chapter" data-level="6.3.2" data-path="lecture5.html"><a href="lecture5.html#composite-simpsons-rule"><i class="fa fa-check"></i><b>6.3.2</b> Composite Simpson’s Rule</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="lecture6.html"><a href="lecture6.html"><i class="fa fa-check"></i><b>7</b> Lecture 6:</a></li>
+<li class="chapter" data-level="7" data-path="lecture6.html"><a href="lecture6.html"><i class="fa fa-check"></i><b>7</b> Lecture 6: Approximation with Orthogonal Bases</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="lecture6.html"><a href="lecture6.html#the-weighted-l2-norm-and-inner-product"><i class="fa fa-check"></i><b>7.1</b> 1. The Weighted <span class="math inline">\(L^2\)</span> Norm and Inner Product</a></li>
+<li class="chapter" data-level="7.2" data-path="lecture6.html"><a href="lecture6.html#properties-of-orthogonality"><i class="fa fa-check"></i><b>7.2</b> 2. Properties of Orthogonality</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="lecture6.html"><a href="lecture6.html#coefficient-computation"><i class="fa fa-check"></i><b>7.2.1</b> 1. Coefficient Computation</a></li>
+<li class="chapter" data-level="7.2.2" data-path="lecture6.html"><a href="lecture6.html#best-approximation-property"><i class="fa fa-check"></i><b>7.2.2</b> 2. Best Approximation Property</a></li>
+<li class="chapter" data-level="7.2.3" data-path="lecture6.html"><a href="lecture6.html#approximation-error"><i class="fa fa-check"></i><b>7.2.3</b> 3. Approximation Error</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="lecture6.html"><a href="lecture6.html#generating-orthogonal-bases"><i class="fa fa-check"></i><b>7.3</b> 3. Generating Orthogonal Bases</a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="lecture6.html"><a href="lecture6.html#the-gram-schmidt-process"><i class="fa fa-check"></i><b>7.3.1</b> The Gram-Schmidt Process</a></li>
+<li class="chapter" data-level="7.3.2" data-path="lecture6.html"><a href="lecture6.html#the-three-term-recurrence-simplification-for-polynomials"><i class="fa fa-check"></i><b>7.3.2</b> The Three-Term Recurrence (Simplification for Polynomials)</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="lecture6.html"><a href="lecture6.html#legendre-polynomials"><i class="fa fa-check"></i><b>7.4</b> 4. Legendre Polynomials</a>
+<ul>
+<li class="chapter" data-level="7.4.1" data-path="lecture6.html"><a href="lecture6.html#example-linear-approximation"><i class="fa fa-check"></i><b>7.4.1</b> Example: Linear Approximation</a></li>
+</ul></li>
+<li class="chapter" data-level="7.5" data-path="lecture6.html"><a href="lecture6.html#chebyshev-polynomials"><i class="fa fa-check"></i><b>7.5</b> 5. Chebyshev Polynomials</a>
+<ul>
+<li class="chapter" data-level="7.5.1" data-path="lecture6.html"><a href="lecture6.html#chebyshev-nodes"><i class="fa fa-check"></i><b>7.5.1</b> Chebyshev Nodes</a></li>
+<li class="chapter" data-level="7.5.2" data-path="lecture6.html"><a href="lecture6.html#minimax-property"><i class="fa fa-check"></i><b>7.5.2</b> Minimax Property</a></li>
+</ul></li>
+<li class="chapter" data-level="7.6" data-path="lecture6.html"><a href="lecture6.html#numerical-integration-gaussian-quadrature"><i class="fa fa-check"></i><b>7.6</b> 6. Numerical Integration (Gaussian Quadrature)</a>
+<ul>
+<li class="chapter" data-level="7.6.1" data-path="lecture6.html"><a href="lecture6.html#convergence-and-examples"><i class="fa fa-check"></i><b>7.6.1</b> Convergence and Examples</a></li>
+</ul></li>
+</ul></li>
 <li class="chapter" data-level="8" data-path="refs.html"><a href="refs.html"><i class="fa fa-check"></i><b>8</b> Bibliography</a></li>
 </ul>
 
@@ -223,8 +250,166 @@
 
 </div>
 <div id="lecture6" class="section level1 hasAnchor" number="7">
-<h1><span class="header-section-number">Section 7</span> Lecture 6:<a href="lecture6.html#lecture6" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<h1><span class="header-section-number">Section 7</span> Lecture 6: Approximation with Orthogonal Bases<a href="lecture6.html#lecture6" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>Previously, we discussed interpolation, which uses polynomials to approximate a function given values at specific points. However, if we have more comprehensive information about a function <span class="math inline">\(f\)</span>, we might want to approximate <span class="math inline">\(f\)</span> within a space of simple functions using orthogonal bases. This approach is highly convenient for both mathematical analysis and computation.</p>
+<p>For an interval <span class="math inline">\([a, b]\)</span>, we seek a basis <span class="math inline">\(\{\Phi_j\}\)</span> such that the first <span class="math inline">\(n\)</span> terms can be used to accurately approximate the function.</p>
+<hr />
+<div id="the-weighted-l2-norm-and-inner-product" class="section level2 hasAnchor" number="7.1">
+<h2><span class="header-section-number">7.1</span> 1. The Weighted <span class="math inline">\(L^2\)</span> Norm and Inner Product<a href="lecture6.html#the-weighted-l2-norm-and-inner-product" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Let <span class="math inline">\(w(x) &gt; 0\)</span> be a nonnegative integrable weight function on the interval <span class="math inline">\([a, b]\)</span>. For a complex-valued function <span class="math inline">\(f\)</span> on <span class="math inline">\([a, b]\)</span>, we define the <strong>weighted <span class="math inline">\(L^2\)</span> norm</strong>:</p>
+<p><span class="math display">\[||f||_w = \left(\int_a^b |f(x)|^2 w(x) dx\right)^{\frac{1}{2}}\]</span></p>
+<p>This norm has an associated <strong>inner product</strong> (where <span class="math inline">\(\overline{g}(x)\)</span> denotes the complex conjugate):</p>
+<p><span class="math display">\[\langle f, g \rangle_w = \int_a^b f(x)\overline{g}(x) w(x) dx\]</span></p>
+<p>We consider approximating functions within the weighted <span class="math inline">\(L^2\)</span> space:</p>
+<p><span class="math display">\[L_w^2([a,b]) = \left\{ f: [a,b] \rightarrow \mathbb{C} \text{ s.t. } \int_a^b |f(x)|^2 w(x) dx &lt; \infty \right\}\]</span></p>
+<p>A basis <span class="math inline">\(\{\Phi_j\}\)</span> (for <span class="math inline">\(j = 1, 2, \dots\)</span>) for <span class="math inline">\(L_w^2([a,b])\)</span> is a set of functions such that any <span class="math inline">\(f\)</span> in the space can be uniquely expressed as a series:</p>
+<p><span class="math display">\[f = \sum_{j=1}^\infty c_j \Phi_j\]</span></p>
+<p>This convergence is in the sense of the <span class="math inline">\(||\cdot||_w\)</span> norm:</p>
+<p><span class="math display">\[\lim_{N \rightarrow \infty} \left|\left| f - \sum_{j=1}^N c_j \Phi_j \right|\right|_w = 0\]</span></p>
+<p>A set of functions <span class="math inline">\(\{\Phi_j\}\)</span> is called <strong>orthogonal</strong> with respect to <span class="math inline">\(w\)</span> if <span class="math inline">\(\langle \Phi_i, \Phi_j \rangle_w = 0\)</span> for <span class="math inline">\(i \neq j\)</span>.</p>
+<hr />
+</div>
+<div id="properties-of-orthogonality" class="section level2 hasAnchor" number="7.2">
+<h2><span class="header-section-number">7.2</span> 2. Properties of Orthogonality<a href="lecture6.html#properties-of-orthogonality" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Given an orthogonal basis <span class="math inline">\(\{\Phi_j\}\)</span> of <span class="math inline">\(L_w^2([a,b])\)</span>, we have several useful properties:</p>
+<div id="coefficient-computation" class="section level3 hasAnchor" number="7.2.1">
+<h3><span class="header-section-number">7.2.1</span> 1. Coefficient Computation<a href="lecture6.html#coefficient-computation" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The coefficients <span class="math inline">\(c_k\)</span> in the representation <span class="math inline">\(f = \sum_{j=1}^\infty c_j \Phi_j\)</span> can be found by taking the inner product of <span class="math inline">\(f\)</span> with <span class="math inline">\(\Phi_k\)</span>:</p>
+<p><span class="math display">\[\langle f, \Phi_k \rangle_w = \left\langle \sum_{j=1}^\infty c_j \Phi_j, \Phi_k \right\rangle_w = c_k \langle \Phi_k, \Phi_k \rangle_w\]</span></p>
+<p>Solving for <span class="math inline">\(c_k\)</span> yields:</p>
+<p><span class="math display">\[c_k = \frac{\langle f, \Phi_k \rangle_w}{\langle \Phi_k, \Phi_k \rangle_w}\]</span></p>
+</div>
+<div id="best-approximation-property" class="section level3 hasAnchor" number="7.2.2">
+<h3><span class="header-section-number">7.2.2</span> 2. Best Approximation Property<a href="lecture6.html#best-approximation-property" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Let <span class="math inline">\(f_N = \sum_{j=1}^N c_j \Phi_j\)</span> be the first <span class="math inline">\(N\)</span> terms of the series. <span class="math inline">\(f_N\)</span> is the <em>best approximation</em> of <span class="math inline">\(f\)</span> in the subspace <span class="math inline">\(S_N = \text{span}\{\Phi_1, \Phi_2, \dots, \Phi_N\}\)</span>. That is:</p>
+<p><span class="math display">\[f_N = \text{argmin}_{g \in S_N} ||f - g||_w\]</span></p>
+<p><em>(Hint for proof: Expand <span class="math inline">\(|| \sum_{j=1}^N d_j \Phi_j - f ||_w^2\)</span> and complete the square for the coefficients).</em></p>
+</div>
+<div id="approximation-error" class="section level3 hasAnchor" number="7.2.3">
+<h3><span class="header-section-number">7.2.3</span> 3. Approximation Error<a href="lecture6.html#approximation-error" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>By <strong>Parseval’s theorem</strong>, the approximation error is given by:</p>
+<p><span class="math display">\[\left|\left| f - \sum_{j=1}^N c_j \Phi_j \right|\right|_w^2 = \sum_{j=N+1}^\infty c_j^2 ||\Phi_j||_w^2\]</span></p>
+<p>If <span class="math inline">\(c_j\)</span> decays at a certain rate with respect to <span class="math inline">\(j\)</span>, we can use this to estimate the corresponding approximation error.</p>
+<hr />
+</div>
+</div>
+<div id="generating-orthogonal-bases" class="section level2 hasAnchor" number="7.3">
+<h2><span class="header-section-number">7.3</span> 3. Generating Orthogonal Bases<a href="lecture6.html#generating-orthogonal-bases" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="the-gram-schmidt-process" class="section level3 hasAnchor" number="7.3.1">
+<h3><span class="header-section-number">7.3.1</span> The Gram-Schmidt Process<a href="lecture6.html#the-gram-schmidt-process" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Given a standard basis <span class="math inline">\(\{f_j\}\)</span> of a function space, we can convert it into an orthogonal basis <span class="math inline">\(\{\Phi_j\}\)</span>:</p>
+<ul>
+<li><p><span class="math inline">\(\Phi_0 = f_0\)</span></p></li>
+<li><p><span class="math inline">\(\Phi_1 = f_1 - \frac{\langle f_1, \Phi_0 \rangle_w}{\langle \Phi_0, \Phi_0 \rangle_w} \Phi_0\)</span></p></li>
+<li><p><span class="math inline">\(\Phi_j = f_j - \sum_{k=0}^{j-1} \frac{\langle f_j, \Phi_k \rangle_w}{\langle \Phi_k, \Phi_k \rangle_w} \Phi_k\)</span></p></li>
+</ul>
+<p><em>Note: We can further normalize the basis by scaling, and different scaling conventions may be used.</em></p>
+</div>
+<div id="the-three-term-recurrence-simplification-for-polynomials" class="section level3 hasAnchor" number="7.3.2">
+<h3><span class="header-section-number">7.3.2</span> The Three-Term Recurrence (Simplification for Polynomials)<a href="lecture6.html#the-three-term-recurrence-simplification-for-polynomials" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Consider the polynomial space <span class="math inline">\(\mathbb{P}_j\)</span>. We want to derive an orthogonal basis <span class="math inline">\(\{\Phi_j\}\)</span>. Suppose we have orthogonalized up to <span class="math inline">\(\Phi_{j-1}\)</span>.</p>
+<p>Instead of applying Gram-Schmidt to <span class="math inline">\(f_{j+1} = x^{j+1}\)</span>, consider choosing <span class="math inline">\(f_{j+1} = x\Phi_j\)</span>. Because <span class="math inline">\(x\Phi_j \in \mathbb{P}_{j+1}\)</span>, we can use it to find the next orthogonal polynomial.</p>
+<p>Recall that for <span class="math inline">\(k \le j-2\)</span>, we have <span class="math inline">\(x\Phi_k \in \mathbb{P}_{j-1}\)</span>. Therefore:
+<span class="math display">\[\langle x\Phi_j, \Phi_k \rangle_w = \langle \Phi_j, x\Phi_k \rangle_w = 0 \quad \text{for } k \le j-2\]</span></p>
+<p>This drastically simplifies the Gram-Schmidt process to just three terms:</p>
+<p><span class="math display">\[\Phi_{j+1} = x\Phi_j - \frac{\langle x\Phi_j, \Phi_j \rangle_w}{\langle \Phi_j, \Phi_j \rangle_w} \Phi_j - \frac{\langle x\Phi_j, \Phi_{j-1} \rangle_w}{\langle \Phi_{j-1}, \Phi_{j-1} \rangle_w} \Phi_{j-1}\]</span></p>
+<p>This can be written as:
+<span class="math display">\[\Phi_{j+1} = (x - \alpha_j)\Phi_j - \beta_j \Phi_{j-1}\]</span>
+where <span class="math inline">\(\alpha_j\)</span> and <span class="math inline">\(\beta_j\)</span> are constants. This is computationally much more convenient.</p>
+<hr />
+</div>
+</div>
+<div id="legendre-polynomials" class="section level2 hasAnchor" number="7.4">
+<h2><span class="header-section-number">7.4</span> 4. Legendre Polynomials<a href="lecture6.html#legendre-polynomials" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Consider the interval <span class="math inline">\([a,b] = [-1, 1]\)</span> and the weight function <span class="math inline">\(w(x) = 1\)</span>. Using the Gram-Schmidt process and the three-term recurrence trick, we generate the Legendre polynomials:</p>
+<ul>
+<li><p><span class="math inline">\(\Phi_0(x) = 1\)</span></p></li>
+<li><p><span class="math inline">\(\Phi_1(x) = x - \frac{\langle x, 1 \rangle}{\langle 1, 1 \rangle} 1 = x\)</span></p></li>
+<li><p><span class="math inline">\(\Phi_2(x) = x \cdot x - \frac{\langle x^2, x \rangle}{\langle x, x \rangle} x - \frac{\langle x^2, 1 \rangle}{\langle 1, 1 \rangle} 1 = x^2 - 0 - \frac{1}{3} = x^2 - \frac{1}{3}\)</span></p></li>
+<li><p><span class="math inline">\(\Phi_3(x) = x(x^2 - \frac{1}{3}) - \frac{\langle x\Phi_2, \Phi_2 \rangle}{\langle \Phi_2, \Phi_2 \rangle} \Phi_2 - \frac{\langle x\Phi_2, \Phi_1 \rangle}{\langle \Phi_1, \Phi_1 \rangle} \Phi_1 = x^3 - \frac{3}{5}x\)</span></p></li>
+</ul>
+<p>These satisfy <span class="math inline">\(\int_{-1}^1 \Phi_i(x) \Phi_j(x) dx = 0\)</span> for <span class="math inline">\(i \neq j\)</span>.</p>
+<p><em>Convention:</em> Legendre polynomials are typically normalized such that <span class="math inline">\(\Phi_j(1) = 1\)</span>. By this process, the recurrence is: <span class="math inline">\((j+1)\Phi_{j+1} - (2j+1)x\Phi_j + j\Phi_{j-1} = 0\)</span>.</p>
+<div id="example-linear-approximation" class="section level3 hasAnchor" number="7.4.1">
+<h3><span class="header-section-number">7.4.1</span> Example: Linear Approximation<a href="lecture6.html#example-linear-approximation" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Construct the best least squares line for <span class="math inline">\(f(x) = e^x\)</span> on the interval <span class="math inline">\([0, 1]\)</span>.</p>
+<ol style="list-style-type: decimal">
+<li><p><strong>Map domain:</strong> Introduce <span class="math inline">\(s \in [-1, 1]\)</span> where <span class="math inline">\(x = \frac{s+1}{2}\)</span>. Thus, <span class="math inline">\(s = 2x - 1\)</span>.</p></li>
+<li><p><strong>Transform function:</strong> <span class="math inline">\(g(s) = f\left(\frac{s+1}{2}\right) = e^{\frac{s+1}{2}}\)</span>.</p></li>
+<li><p><strong>Compute coefficients:</strong> Represent <span class="math inline">\(g(s) = \sum_{j=0}^\infty c_j \Phi_j(s)\)</span>. The first two terms give the best linear approximation in the least-squares sense:</p>
+<ul>
+<li><p><span class="math inline">\(c_0 = \frac{\langle g, \Phi_0 \rangle}{\langle \Phi_0, \Phi_0 \rangle} = \frac{\int_{-1}^1 e^{\frac{s+1}{2}} 1 ds}{\int_{-1}^1 1 ds} = e - 1\)</span></p></li>
+<li><p><span class="math inline">\(c_1 = \frac{\langle g, \Phi_1 \rangle}{\langle \Phi_1, \Phi_1 \rangle} = \dots = 9 - 3e\)</span></p></li>
+</ul></li>
+<li><p><strong>Result:</strong> <span class="math inline">\(g(s) \approx (e - 1) + (9 - 3e)s\)</span>. Substituting back to <span class="math inline">\(x\)</span>:
+<span class="math display">\[f(x) \approx (e - 1) + (9 - 3e)(2x - 1)\]</span></p></li>
+</ol>
+<hr />
+</div>
+</div>
+<div id="chebyshev-polynomials" class="section level2 hasAnchor" number="7.5">
+<h2><span class="header-section-number">7.5</span> 5. Chebyshev Polynomials<a href="lecture6.html#chebyshev-polynomials" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Let’s consider a different orthogonal basis for <span class="math inline">\(L_w^2([-1, 1])\)</span> using the weight function <span class="math inline">\(w(x) = \frac{1}{\sqrt{1 - x^2}}\)</span>.</p>
+<p>The inner product is:
+<span class="math display">\[\langle f, g \rangle_w = \int_{-1}^1 \frac{f(x)g(x)}{\sqrt{1 - x^2}} dx\]</span></p>
+<p>Using the substitution <span class="math inline">\(x = \cos\theta\)</span> (where <span class="math inline">\(\theta \in [0, \pi]\)</span>), this transforms into:
+<span class="math display">\[\langle f, g \rangle_w = \int_0^\pi f(\cos\theta)g(\cos\theta) d\theta\]</span></p>
+<p>We know that <span class="math inline">\(\{\cos(k\theta)\}\)</span> is an orthogonal set on <span class="math inline">\([0, \pi]\)</span>. Let <span class="math inline">\(f(\cos\theta) = \cos(k\theta)\)</span>. Since <span class="math inline">\(\theta = \cos^{-1}(x)\)</span>, this suggests polynomials of the form:
+<span class="math display">\[T_j(x) = \cos(j \cos^{-1}(x))\]</span></p>
+<p>Trigonometric identities guarantee that these form valid polynomials, known as the <strong>Chebyshev polynomials</strong>.</p>
+<ul>
+<li><p><span class="math inline">\(T_0(x) = 1\)</span></p></li>
+<li><p><span class="math inline">\(T_1(x) = x\)</span></p></li>
+<li><p><span class="math inline">\(T_2(x) = \cos(2\cos^{-1}(x)) = 2x^2 - 1\)</span></p></li>
+</ul>
+<p><strong>Recurrence Relation:</strong> <span class="math inline">\(T_{j+1}(x) = 2x T_j(x) - T_{j-1}(x)\)</span>.</p>
+<p><em>(Proof leverages the sum and difference trigonometric identities: <span class="math inline">\(\cos((j+1)\theta) + \cos((j-1)\theta) = 2\cos(j\theta)\cos\theta\)</span>).</em></p>
+<div id="chebyshev-nodes" class="section level3 hasAnchor" number="7.5.1">
+<h3><span class="header-section-number">7.5.1</span> Chebyshev Nodes<a href="lecture6.html#chebyshev-nodes" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The roots of <span class="math inline">\(T_j(x) = 0\)</span> are the <strong>Chebyshev nodes</strong>. Setting <span class="math inline">\(\cos(j \cos^{-1}(x)) = 0\)</span> yields:
+<span class="math display">\[x_n = \cos\left(\frac{(n + \frac{1}{2})\pi}{j}\right) \quad \text{for } n = 0, 1, \dots, j-1\]</span></p>
+<p>These roots cluster near the endpoints <span class="math inline">\(\pm 1\)</span> and help produce less oscillatory interpolants.</p>
+</div>
+<div id="minimax-property" class="section level3 hasAnchor" number="7.5.2">
+<h3><span class="header-section-number">7.5.2</span> Minimax Property<a href="lecture6.html#minimax-property" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>A <strong>monic polynomial</strong> has a leading coefficient of 1. Since <span class="math inline">\(T_{j+1} = 2x T_j - T_{j-1}\)</span>, the leading coefficient of <span class="math inline">\(T_j(x)\)</span> is <span class="math inline">\(2^{j-1}\)</span>. Thus, the monic Chebyshev polynomials are defined as <span class="math inline">\(\tilde{T}_j = 2^{1-j} T_j\)</span>.</p>
+<p><strong>Theorem:</strong> The monic Chebyshev polynomials <span class="math inline">\(\tilde{T}_j\)</span> have the minimax property. They minimize:
+<span class="math display">\[\max_{x \in [-1, 1]} |p(x)| \quad \text{for monic } p \in \mathbb{P}_j\]</span>
+Since <span class="math inline">\(|T_j(x)| \le 1\)</span> and reaches 1, the minimum possible maximum for a monic polynomial of degree <span class="math inline">\(j\)</span> on <span class="math inline">\([-1, 1]\)</span> is exactly <span class="math inline">\(2^{1-j}\)</span>.</p>
+<p>Equivalently, using Chebyshev nodes for interpolation minimizes the upper bound of the error term <span class="math inline">\(\prod_{k=0}^{j-1}(x - x_k)\)</span> to <span class="math inline">\(2^{1-j}\)</span>. <em>(Proof by contradiction: Assume a monic polynomial <span class="math inline">\(w_j\)</span> has a smaller maximum, and evaluate <span class="math inline">\(f_j = \tilde{T}_j - w_j\)</span> at the extrema of <span class="math inline">\(T_j\)</span> to show it has too many roots).</em></p>
+<hr />
+</div>
+</div>
+<div id="numerical-integration-gaussian-quadrature" class="section level2 hasAnchor" number="7.6">
+<h2><span class="header-section-number">7.6</span> 6. Numerical Integration (Gaussian Quadrature)<a href="lecture6.html#numerical-integration-gaussian-quadrature" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>For weighted integrals <span class="math inline">\(I = \int_a^b f(x)w(x)dx\)</span>, we previously used Newton-Cotes formulas with equally spaced nodes (degree of exactness <span class="math inline">\(n\)</span> or <span class="math inline">\(n+1\)</span>).</p>
+<p>Now, we allow both the nodes <span class="math inline">\(\{x_k\}_{k=0}^n\)</span> and the coefficients <span class="math inline">\(C_k\)</span> to be unknowns. With <span class="math inline">\(2n+2\)</span> unknowns, we can construct a formula with a higher degree of accuracy (<span class="math inline">\(2n+1\)</span>).</p>
+<p><strong>Theorem:</strong> Let <span class="math inline">\(\{\Phi_n\}\)</span> be a set of orthogonal polynomials with respect to <span class="math inline">\(\langle f, g \rangle_w\)</span>. Let <span class="math inline">\(x_0, x_1, \dots, x_n\)</span> be the <span class="math inline">\((n+1)\)</span> distinct real zeros of <span class="math inline">\(\Phi_{n+1}(x)\)</span> in <span class="math inline">\([a,b]\)</span>. Let <span class="math inline">\(l_k(x)\)</span> be the <span class="math inline">\(k\)</span>-th Lagrange basis polynomial for these zeros, and let weights be:
+<span class="math display">\[C_k = \int_a^b l_k(x)w(x)dx\]</span>
+Then the <strong>Gaussian Quadrature</strong> formula <span class="math inline">\(\sum_{k=0}^n C_k f(x_k)\)</span> has a degree of accuracy of <span class="math inline">\(2n+1\)</span>.</p>
+<p><strong>Proof Outline:</strong>
+Suppose <span class="math inline">\(f \in \mathbb{P}_{2n+1}\)</span>. By polynomial division, <span class="math inline">\(f(x) = q(x)\Phi_{n+1}(x) + r(x)\)</span>, where degrees of <span class="math inline">\(q\)</span> and <span class="math inline">\(r\)</span> are <span class="math inline">\(\le n\)</span>.</p>
+<p>The exact integral is:</p>
+<p><span class="math display">\[I = \langle q, \Phi_{n+1} \rangle_w + \int_a^b r(x)w(x)dx\]</span></p>
+<p>By orthogonality, <span class="math inline">\(\langle q, \Phi_{n+1} \rangle_w = 0\)</span>.</p>
+<p>For the approximation:
+<span class="math display">\[I_{\text{approx}} = \sum_{k=0}^n C_k (q(x_k)\Phi_{n+1}(x_k) + r(x_k))\]</span></p>
+<p>Since the nodes <span class="math inline">\(x_k\)</span> are roots of <span class="math inline">\(\Phi_{n+1}\)</span>, the first term vanishes. Thus, <span class="math inline">\(I_{\text{approx}} = \sum_{k=0}^n C_k r(x_k)\)</span>. Because <span class="math inline">\(r \in \mathbb{P}_n\)</span>, the quadrature rule integrates it exactly, making <span class="math inline">\(I = I_{\text{approx}}\)</span>.</p>
+<div id="convergence-and-examples" class="section level3 hasAnchor" number="7.6.1">
+<h3><span class="header-section-number">7.6.1</span> Convergence and Examples<a href="lecture6.html#convergence-and-examples" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Convergence holds for Gaussian quadrature as <span class="math inline">\(n \rightarrow \infty\)</span>:</p>
+<p><span class="math display">\[\lim_{n \rightarrow \infty} \left| \int_{-1}^1 f(x)w(x)dx - \sum_{k=0}^n C_k f(x_k) \right| = 0\]</span></p>
+<p><strong>Example (<span class="math inline">\(n=1\)</span>, <span class="math inline">\(w(x)=1\)</span> on <span class="math inline">\([-1, 1]\)</span>):</strong></p>
+<p>We use the roots of the Legendre polynomial <span class="math inline">\(\Phi_2(x) = \frac{1}{2}(3x^2 - 1)\)</span>.</p>
+<p>The roots are <span class="math inline">\(x_0 = -\frac{1}{\sqrt{3}}\)</span> and <span class="math inline">\(x_1 = \frac{1}{\sqrt{3}}\)</span>.</p>
+<p>Calculating the weights <span class="math inline">\(C_0\)</span> and <span class="math inline">\(C_1\)</span> via integrals of the Lagrange basis polynomials yields <span class="math inline">\(C_0 = 1\)</span> and <span class="math inline">\(C_1 = 1\)</span>.</p>
+<p>The approximation is:
+<span class="math display">\[\int_{-1}^1 f(x)dx \approx f\left(-\frac{1}{\sqrt{3}}\right) + f\left(\frac{1}{\sqrt{3}}\right)\]</span>
+This simple 2-point formula has a degree of accuracy of 3.</p>
+<p><em>(Note: Standard Gaussian quadrature does not use the endpoints <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span>. When including the endpoints is necessary, we use <strong>Gaussian-Lobatto quadrature</strong>).</em></p>
 
+</div>
+</div>
 </div>
 <hr style="margin-top:50px;">
 

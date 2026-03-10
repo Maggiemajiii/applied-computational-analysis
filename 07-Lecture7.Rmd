@@ -1,0 +1,383 @@
+---
+title: "Lecture 7"
+date: "`r Sys.Date()`"
+---
+# Lecture 7: The Discrete Fourier Transform (DFT) {#lecture7}
+
+The Discrete Fourier Transform is a fundamental tool in:
+
+- **Digital signal processing**
+- **Image processing**
+- **Solving PDEs**
+
+---
+
+## 1. Fourier Series
+
+Consider functions in $[0, 2\pi]$. We can write:
+
+$$f(x) = \sum_{k=-\infty}^{\infty} c_k e^{ikx}$$
+
+The functions $e_k(x) = e^{ikx}$ are **orthogonal** in the inner product:
+
+$$\langle f, g \rangle = \int_0^{2\pi} f(x)\overline{g(x)}\, dx$$
+
+In this section, $[0, 2\pi]$ is considered as the space of **$2\pi$-periodic functions**:
+
+$$f(x + 2\pi) = f(x) \quad \text{for all } x \in \mathbb{R}$$
+
+By this periodicity property, we only need to consider $f(x)$ within one period $[0, 2\pi]$. If we require $f$ to have continuity at the boundary, then $f(0) = f(2\pi)$.
+
+### Fourier Coefficients
+
+The Fourier coefficients are computed by:
+
+$$c_k = \frac{1}{2\pi}\int_0^{2\pi} f(x) e^{-ikx}\, dx = \frac{\langle f, e^{ikx} \rangle}{2\pi}$$
+
+### Real Form of the Fourier Series
+
+For a **real-valued** function $f$, we have $c_{-k} = \overline{c_k}$, and we can write:
+
+$$c_k = \frac{1}{2}(a_k - ib_k), \quad c_{-k} = \frac{1}{2}(a_k + ib_k)$$
+
+where:
+
+$$a_k = \frac{1}{\pi}\int_0^{2\pi} f(x)\cos(kx)\, dx, \quad b_k = \frac{1}{\pi}\int_0^{2\pi} f(x)\sin(kx)\, dx$$
+
+The **Fourier series in real form** is:
+
+$$f(x) = \frac{a_0}{2} + \sum_{k=1}^{\infty}(a_k \cos(kx) + b_k \sin(kx))$$
+
+### Partial Sums and Best Approximation
+
+The $N$-th partial sum is:
+
+$$S_N(x) = \frac{a_0}{2} + \sum_{k=1}^{N}(a_k \cos(kx) + b_k \sin(kx)) = \sum_{k=-N}^{N} c_k e^{ikx}$$
+
+$S_N$ is the **least-squares approximation** of $f$ in $\text{span}\{e^{ikx}\}_{k=-N}^{N}$ in the $L^2$ norm.
+
+### Examples
+
+- **Triangle wave**: $f(x) = x$ for $x \in (-\pi, \pi]$, extended $2\pi$-periodically.
+- **Square wave**: $f(x) = \begin{cases} 1 & x > 0 \\ -1 & x < 0 \end{cases}$, extended $2\pi$-periodically.
+
+---
+
+## 2. Convergence of Fourier Series
+
+### Norm Convergence
+
+If $f$ is real-valued in $L^2([-\pi, \pi])$:
+
+$$\lim_{N\to\infty} \|f - S_N\|_2 = 0$$
+
+### Pointwise Convergence
+
+For $f \in L^1([-\pi, \pi])$, if $f$ and $f'$ are piecewise continuous:
+
+$$\lim_{n\to\infty} S_n(x) = \begin{cases} f(x) & \text{if } f \text{ is continuous at } x \\[6pt] \dfrac{f(x^+) + f(x^-)}{2} & \text{if } f \text{ has a jump at } x \end{cases}$$
+
+where $f(x^+) = \lim_{\varepsilon \to 0^+} f(x+\varepsilon)$ and $f(x^-) = \lim_{\varepsilon \to 0^+} f(x-\varepsilon)$.
+
+### Gibbs Phenomenon
+
+The convergence is **not uniform** near a discontinuity. The partial sums exhibit an overshoot of approximately **9% of the jump size** near a jump discontinuity, regardless of how many terms are included. This is known as the **Gibbs phenomenon**.
+
+---
+
+## 3. Smoothness and Convergence Rate
+
+How fast $S_N$ converges to $f(x)$ is related to the **decay rate** of the coefficients $a_n$ and $b_n$, which in turn is related to the **regularity (smoothness)** of $f$.
+
+We have $\|f - S_N\| \leq \sum_{|k|>N}(|a_k| + |b_k|)$, so faster decay of coefficients means faster convergence.
+
+### Case 1: Piecewise Continuous with a Jump
+
+If $f$ is piecewise continuous with a jump discontinuity:
+
+$$|a_n|, |b_n| = O\!\left(\frac{1}{n}\right)$$
+
+and the convergence is slow (the series won't converge uniformly).
+
+### Case 2: $f \in C^p$ (p-times Differentiable)
+
+If $f \in C^p([-\pi,\pi])$ with derivatives up to $f^{(p)}$ continuous as a periodic function, and $f^{(p)}$ is piecewise continuous (with at most finitely many jumps), then for some constant $C$:
+
+$$|a_n|,\, |b_n| \leq \frac{C}{n^p}$$
+
+This implies:
+
+$$\|f - S_N\| \leq C \cdot O\!\left(\frac{1}{N^p}\right)$$
+
+> **Exercise**: Prove this estimate by integration by parts $p$ times.
+
+### Case 3: Smooth Functions ($f \in C^\infty$)
+
+If $f$ is smooth (infinitely differentiable), then:
+
+$$|a_n|, |b_n| = O(e^{-\alpha n}) \quad \text{for some constant } \alpha > 0$$
+
+This gives **exponential accuracy**: the partial sums converge to $f$ faster than any polynomial rate $n^{-p}$.
+
+---
+
+## 4. The Discrete Fourier Transform (DFT)
+
+### Derivation
+
+Computing Fourier coefficients requires estimating the integral:
+
+$$c_k = \frac{1}{2\pi}\int_0^{2\pi} f(x) e^{-ikx}\, dx$$
+
+Let $x_j = jh$ where $h = 2\pi/N$, and let $f_j = f(x_j)$ for $j = 0, 1, \ldots, N-1$.
+
+Applying the **composite trapezoidal rule**:
+
+$$c_k \approx \frac{1}{N}\sum_{j=0}^{N-1} f_j e^{-ikx_j} = \frac{1}{N}\sum_{j=0}^{N-1} f_j e^{-2\pi ijk/N} = \frac{F_k}{N}$$
+
+The quantity $F_k = \sum_{j=0}^{N-1} f_j e^{-2\pi ijk/N}$ is called the **Discrete Fourier Transform** of the sequence $[f_j]$.
+
+### Alternative Derivation via Discrete Inner Product
+
+Define the **discrete inner product**:
+
+$$\langle f, g \rangle_d = \sum_{j=0}^{N-1} f(x_j)\overline{g(x_j)}$$
+
+The basis functions $e^{ikx}$ are orthogonal under this discrete inner product:
+
+$$\langle e^{ijx}, e^{ikx} \rangle_d = \begin{cases} 0 & \text{if } j \neq k \pmod{N} \\ N & \text{if } j = k \pmod{N} \end{cases}$$
+
+So $\{e^{ikx}\}$ is also a basis in the **discrete inner product** sense. For a function $f$, we can find an approximation under $\langle \cdot, \cdot \rangle_d$:
+
+$$F_k = \langle f, e^{ikx} \rangle_d = \sum_{j=0}^{N-1} f_j e^{-ikx_j}$$
+
+### Definition
+
+**Definition**: Suppose $f(x)$ is a $2\pi$-periodic function. Let $x_j = jh$, $h = 2\pi/N$, and $f_j = f(x_j)$.
+
+The **Discrete Fourier Transform** (DFT) of the vector $[f_j]_{j=0}^{N-1}$ is the vector $[F_k]_{k=0}^{N-1}$ where:
+
+$$F_k = \sum_{j=0}^{N-1} f_j\, W_N^{jk}, \quad W_N = e^{-2\pi i/N}$$
+
+The **Inverse DFT** is:
+
+$$f_j = \frac{1}{N}\sum_{k=0}^{N-1} F_k\, W_N^{-jk}$$
+
+The DFT can be represented as matrix multiplication $F = W\mathbf{f}$, where $W_{jk} = W_N^{jk}$.
+
+### Proof of Inverse DFT
+
+To verify the inverse formula, substitute and use orthogonality:
+
+$$\frac{1}{N}\sum_{k=0}^{N-1} F_k W_N^{-jk} = \frac{1}{N}\sum_{k=0}^{N-1}\left(\sum_{m=0}^{N-1}f_m W_N^{mk}\right)W_N^{-jk} = \sum_{m=0}^{N-1} f_m \left(\frac{1}{N}\sum_{k=0}^{N-1} W_N^{(m-j)k}\right) = f_j$$
+
+since $\frac{1}{N}\sum_{k=0}^{N-1} W_N^{(m-j)k} = \delta_{mj}$ (equals 1 only when $m = j$, and 0 otherwise).
+
+**Remark**: The DFT is **cyclic**: the indices are taken modulo $N$.
+
+---
+
+## 5. Aliasing
+
+Consider $f(x) = \cos(2x) + 2\sin(4x)$, which has frequencies 2 and 4.
+
+When we compute the DFT with $N = 16$ equally spaced samples, we can resolve all frequencies. If we shift the DFT output to be symmetric around 0 (i.e., using frequencies $-N/2, \ldots, N/2-1$), we recover the correct coefficients.
+
+**What if $N$ is smaller?** For example, $N = 6$, the available frequencies are $k = 0, \pm 1, \pm 2, \pm 3$. When we want frequency 4, there are **not enough samples** to resolve it.
+
+The high-frequency components get **aliased**: they appear as low-frequency components in the sampled data. This effect is called **aliasing** or **undersampling**.
+
+> The high-frequency part will be aliased when we try to sample a signal with a frequency greater than the **Nyquist frequency** $N/2$.
+
+---
+
+## 6. Trigonometric Interpolation
+
+**Definition**: A **trigonometric polynomial of degree $d$** is a polynomial in $e^{ix}$ of degree $d$, i.e., a linear combination of $\{e^{ikx} : |k| \leq d\}$.
+
+For example, $2\cos(x) + \sin(2x)$ is a trigonometric polynomial of degree 2.
+
+### DFT and Trigonometric Interpolation
+
+The **inverse DFT formula** defines a function:
+
+$$P_N(x) = \frac{1}{N}\sum_{k=0}^{N-1} F_k\, e^{ikx}$$
+
+This is a trigonometric polynomial in $x$, and satisfies:
+
+$$P_N(x_j) = f(x_j) \quad \text{for } j = 0, 1, \ldots, N-1$$
+
+Thus $P_N$ is a **trigonometric interpolant** for the data $(x_j, f_j)$.
+
+**Remark**: Trigonometric interpolation is not always a good choice for general function interpolation, as the Gibbs phenomenon can degrade accuracy near discontinuities.
+
+---
+
+## 7. The Fast Fourier Transform (FFT)
+
+### Computational Cost of Naive DFT
+
+The DFT formula $F_k = \sum_{j=0}^{N-1} f_j W_N^{jk}$ requires $O(N^2)$ operations (for each of $N$ values of $k$, we sum $N$ terms).
+
+### FFT Algorithm (Cooley-Tukey)
+
+Assume $N = 2^M$ for some integer $M$. Let $W = e^{-2\pi i/N}$.
+
+**Split into even and odd indexed terms:**
+
+$$F_k = \sum_{j=0}^{N-1} f_j W^{jk} = \sum_{m=0}^{N/2-1} f_{2m} W^{2mk} + \sum_{m=0}^{N/2-1} f_{2m+1} W^{(2m+1)k}$$
+
+Define:
+
+$$S_k = \sum_{m=0}^{N/2-1} f_{2m}\, (W^2)^{mk} = \text{DFT of even-indexed elements } (f_0, f_2, \ldots, f_{N-2})$$
+
+$$T_k = \sum_{m=0}^{N/2-1} f_{2m+1}\, (W^2)^{mk} = \text{DFT of odd-indexed elements } (f_1, f_3, \ldots, f_{N-1})$$
+
+Note that $W^2 = e^{-2\pi i/(N/2)}$, so $S_k$ and $T_k$ are DFTs of length $N/2$. Then:
+
+$$F_k = S_k + W^k T_k, \quad k = 0, 1, \ldots, N/2 - 1$$
+$$F_{k+N/2} = S_k - W^k T_k, \quad k = 0, 1, \ldots, N/2 - 1$$
+
+### Complexity
+
+The DFT of length $N$ requires:
+- Two DFTs of length $N/2$ (for even and odd parts)
+- $O(N)$ additional operations to combine
+
+Applying this recursively:
+
+$$T(N) = 2T(N/2) + O(N) \implies T(N) = O(N \log N)$$
+
+### Example
+
+For $N = 2^{12} = 4096$ points:
+- **Direct DFT**: requires $\sim 7 \times 10^7$ flops
+- **FFT**: requires $\sim 10^5$ flops
+- **FFT is approximately 700 times faster**
+
+---
+
+## 8. Applications of DFT
+
+### 8.1 Convolution
+
+The **convolution** of two $2\pi$-periodic functions $f$ and $g$ is:
+
+$$(f * g)(x) = \int_0^{2\pi} f(x - y)g(y)\, dy$$
+
+From Fourier analysis, the Fourier transform of a convolution is the **product of transforms**:
+
+$$\widehat{f * g}(k) = \hat{f}(k) \cdot \hat{g}(k)$$
+
+The same holds for the DFT. The **discrete circular convolution** of data vectors $\mathbf{f} = (f_0, f_1, \ldots, f_{N-1})$ and $\mathbf{g} = (g_0, g_1, \ldots, g_{N-1})$ sampled from periodic functions is:
+
+$$(f * g)_j = \sum_{\ell=0}^{N-1} f_\ell\, g_{j-\ell}, \quad j = 0, 1, \ldots, N-1$$
+
+where the indices are taken **mod $N$** (so the convolution "wraps around").
+
+**Key theorem**: If $[F_k] = \text{DFT}(\mathbf{f})$ and $[G_k] = \text{DFT}(\mathbf{g})$, then:
+
+$$\text{DFT}(f * g)_k = N \cdot F_k \cdot G_k$$
+
+**Proof**:
+
+$$\text{DFT}(f*g)_j = \sum_j (f*g)_j W^{jk} = \sum_j \sum_\ell f_\ell g_{j-\ell} W^{jk} = N F_k G_k$$
+
+This provides an efficient way to compute convolutions: instead of $O(N^2)$ direct computation, use FFT to compute DFTs in $O(N \log N)$, multiply pointwise in $O(N)$, then apply inverse FFT.
+
+**Remark**: There are different conventions for the DFT across different fields. In this course we use:
+
+$$F_k = \sum_{j=0}^{N-1} f_j e^{-2\pi ijk/N}, \quad f_j = \frac{1}{N}\sum_{k=0}^{N-1} F_k e^{2\pi ijk/N}$$
+
+---
+
+### 8.2 Spectral Accuracy of the Trapezoidal Rule
+
+**Revisiting the trapezoidal rule**: Consider the integral $I = \int_0^{2\pi} f(x)\, dx$ approximated using $N$ equally spaced points $x_0, \ldots, x_{N-1}$, $h = 2\pi/N$:
+
+$$T_h[f] = h\sum_{j=0}^{N-1} f(x_j)$$
+
+Consider $f(x) = e^{ikx}$ on $[0, 2\pi]$. The exact integral is:
+
+$$I = \int_0^{2\pi} e^{ikx}\, dx = \begin{cases} 2\pi & k = 0 \\ 0 & k \neq 0 \end{cases}$$
+
+The trapezoidal approximation is:
+
+$$T_h[e^{ikx}] = h\sum_{j=0}^{N-1} e^{ikjh} = \begin{cases} 2\pi & k \equiv 0 \pmod{N} \\ 0 & \text{otherwise} \end{cases}$$
+
+So the trapezoidal rule is **exact** for $e^{ikx}$ unless $k$ is a multiple of $N$.
+
+**Consequence**: Suppose $f(x)$ has Fourier series $f(x) = \sum_k c_k e^{ikx}$. Each point added to the trapezoidal rule improves the accuracy by capturing one more term in the Fourier series. The trapezoidal rule **inherits the same convergence rate as the Fourier series**:
+
+$$\|T_h[f] - I\| = O(h^p) \quad \text{for any } p, \text{ if } f \in C^\infty$$
+
+### 8.3 Accuracy of Trigonometric Interpolation
+
+Recall the trigonometric interpolant $P_N(x) = \frac{1}{N}\sum_k F_k e^{ikx}$.
+
+The approximation $F_k/N$ differs from the true Fourier coefficient $c_k$ by a trapezoidal rule error. Thus:
+
+$$\|P_N - S_N\| \leq \text{trapezoidal rule error}$$
+
+Since both $\|f - S_N\|$ and $\|P_N - S_N\|$ are related to the smoothness of $f$:
+
+$$\|f - P_N\| \leq \|f - S_N\| + \|S_N - P_N\|$$
+
+is also related to the smoothness of $f$. The interpolant achieves the same spectral accuracy as the Fourier partial sum.
+
+---
+
+### 8.4 Discrete Cosine Transform (DCT)
+
+For a **real-valued** function on $[0, \pi]$, it is more convenient to use only cosine functions to define the transform and interpolation (a "cutoff" version of the Fourier transform).
+
+**Setup**: Consider $f(x)$ real-valued on $[0, \pi]$, given at $N$ points $x_j = j\pi/(N-1)$, $j = 0, 1, \ldots, N-1$.
+
+**Even extension**: Extend the data symmetrically:
+
+$$\tilde{f}(x_j) = f_j, \quad \tilde{f}(x_{2N-2-j}) = f_j, \quad j = 0, 1, \ldots, N-1$$
+
+This creates $2(N-1)$ points on $[0, 2\pi)$ with the even extension satisfying $f_0 = f_{2N-2}$.
+
+Compute the DFT of the extended data $[\tilde{f}_j]$. Using the even-extension symmetry:
+
+$$e^{-ikx_{2N-2-j}} + e^{-ikx_j} = 2\cos(kx_j)$$
+
+so the DFT reduces to:
+
+$$F_k = \sum_{j=0}^{N-1} \tilde{f}_j e^{-ikx_j} \longrightarrow \tilde{F}_k = \sum_{j=0}^{N-1} f_j \cos(kx_j)$$
+
+This is the **Discrete Cosine Transform (DCT)**, which involves only real arithmetic.
+
+---
+
+### 8.5 Discrete Derivatives via DFT
+
+Suppose we have data $[f_j]$ for a real-valued function $f$ on $[a, b]$. Recall that numerical approximations to derivatives can be derived by taking derivatives of an interpolant.
+
+**Key idea**: For periodic $f(x)$ on $[0, 2\pi]$, use DFT to compute derivatives **spectrally**.
+
+If $f(x) = \sum_k c_k e^{ikx}$, then:
+
+$$f'(x) = \sum_k (ik)\, c_k\, e^{ikx}$$
+
+**Differentiation in $x$ corresponds to multiplication by $ik$ in frequency domain.**
+
+**Algorithm for spectral differentiation** (assuming $N = 2m$):
+
+1. Compute $[F_k] = \text{DFT}([f_j])$
+2. Multiply: $\hat{F}_k = (ik) F_k$ for $k = -m+1, \ldots, m-1$, and $\hat{F}_{\pm m} = 0$ (the Nyquist mode is set to zero)
+3. Compute $[f'_j] = \text{IDFT}([\hat{F}_k])$
+
+In other words, the approximate derivative at the grid points is:
+
+$$f'(x_j) \approx \frac{1}{N}\sum_{k} (ik) F_k\, e^{ikx_j}$$
+
+**Comparison with finite differences**:
+
+| Method | Cost | Accuracy |
+|---|---|---|
+| Finite difference (order $p$) | $O(N)$ | $O(h^p)$ |
+| Spectral (DFT-based) | $O(N \log N)$ | Exponential (for smooth $f$) |
+
+The spectral method achieves **spectral accuracy**: exponentially convergent for smooth periodic functions, at the cost of $O(N \log N)$ operations using the FFT.

@@ -23,7 +23,7 @@
 <meta name="author" content="Maggie Zhang" />
 
 
-<meta name="date" content="2026-02-11" />
+<meta name="date" content="2026-03-10" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -176,7 +176,34 @@
 <li class="chapter" data-level="6.3.2" data-path="lecture5.html"><a href="lecture5.html#composite-simpsons-rule"><i class="fa fa-check"></i><b>6.3.2</b> Composite Simpson’s Rule</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="lecture6.html"><a href="lecture6.html"><i class="fa fa-check"></i><b>7</b> Lecture 6:</a></li>
+<li class="chapter" data-level="7" data-path="lecture6.html"><a href="lecture6.html"><i class="fa fa-check"></i><b>7</b> Lecture 6: Approximation with Orthogonal Bases</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="lecture6.html"><a href="lecture6.html#the-weighted-l2-norm-and-inner-product"><i class="fa fa-check"></i><b>7.1</b> 1. The Weighted <span class="math inline">\(L^2\)</span> Norm and Inner Product</a></li>
+<li class="chapter" data-level="7.2" data-path="lecture6.html"><a href="lecture6.html#properties-of-orthogonality"><i class="fa fa-check"></i><b>7.2</b> 2. Properties of Orthogonality</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="lecture6.html"><a href="lecture6.html#coefficient-computation"><i class="fa fa-check"></i><b>7.2.1</b> 1. Coefficient Computation</a></li>
+<li class="chapter" data-level="7.2.2" data-path="lecture6.html"><a href="lecture6.html#best-approximation-property"><i class="fa fa-check"></i><b>7.2.2</b> 2. Best Approximation Property</a></li>
+<li class="chapter" data-level="7.2.3" data-path="lecture6.html"><a href="lecture6.html#approximation-error"><i class="fa fa-check"></i><b>7.2.3</b> 3. Approximation Error</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="lecture6.html"><a href="lecture6.html#generating-orthogonal-bases"><i class="fa fa-check"></i><b>7.3</b> 3. Generating Orthogonal Bases</a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="lecture6.html"><a href="lecture6.html#the-gram-schmidt-process"><i class="fa fa-check"></i><b>7.3.1</b> The Gram-Schmidt Process</a></li>
+<li class="chapter" data-level="7.3.2" data-path="lecture6.html"><a href="lecture6.html#the-three-term-recurrence-simplification-for-polynomials"><i class="fa fa-check"></i><b>7.3.2</b> The Three-Term Recurrence (Simplification for Polynomials)</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="lecture6.html"><a href="lecture6.html#legendre-polynomials"><i class="fa fa-check"></i><b>7.4</b> 4. Legendre Polynomials</a>
+<ul>
+<li class="chapter" data-level="7.4.1" data-path="lecture6.html"><a href="lecture6.html#example-linear-approximation"><i class="fa fa-check"></i><b>7.4.1</b> Example: Linear Approximation</a></li>
+</ul></li>
+<li class="chapter" data-level="7.5" data-path="lecture6.html"><a href="lecture6.html#chebyshev-polynomials"><i class="fa fa-check"></i><b>7.5</b> 5. Chebyshev Polynomials</a>
+<ul>
+<li class="chapter" data-level="7.5.1" data-path="lecture6.html"><a href="lecture6.html#chebyshev-nodes"><i class="fa fa-check"></i><b>7.5.1</b> Chebyshev Nodes</a></li>
+<li class="chapter" data-level="7.5.2" data-path="lecture6.html"><a href="lecture6.html#minimax-property"><i class="fa fa-check"></i><b>7.5.2</b> Minimax Property</a></li>
+</ul></li>
+<li class="chapter" data-level="7.6" data-path="lecture6.html"><a href="lecture6.html#numerical-integration-gaussian-quadrature"><i class="fa fa-check"></i><b>7.6</b> 6. Numerical Integration (Gaussian Quadrature)</a>
+<ul>
+<li class="chapter" data-level="7.6.1" data-path="lecture6.html"><a href="lecture6.html#convergence-and-examples"><i class="fa fa-check"></i><b>7.6.1</b> Convergence and Examples</a></li>
+</ul></li>
+</ul></li>
 <li class="chapter" data-level="8" data-path="refs.html"><a href="refs.html"><i class="fa fa-check"></i><b>8</b> Bibliography</a></li>
 </ul>
 
@@ -265,9 +292,9 @@
 </ul>
 <p><strong>Form of elements in F:</strong>
 <span class="math display">\[x = \pm (m / \beta^t) \beta^e\]</span></p>
-<p>Where:
-* <span class="math inline">\(\beta &gt; 2\)</span>: <strong>Base</strong> (an integer, given by computer).</p>
+<p>Where:</p>
 <ul>
+<li><p><span class="math inline">\(\beta &gt; 2\)</span>: <strong>Base</strong> (an integer, given by computer).</p></li>
 <li><p><span class="math inline">\(t \ge 1\)</span>: <strong>Precision</strong> (an integer, given by computer). e.g., 24 for single precision, 53 for double precision.</p></li>
 <li><p><span class="math inline">\(e\)</span>: <strong>Exponent</strong> (integer). Bounds <span class="math inline">\(e_{min} \le e \le e_{max}\)</span> given by computer.</p></li>
 <li><p><span class="math inline">\(m\)</span>: <strong>Mantissa</strong> (integer), <span class="math inline">\(\beta^{t-1} \le m \le \beta^t - 1\)</span>.</p></li>
@@ -279,17 +306,17 @@
 <p>The numbers in this range are:
 <span class="math display">\[1, 1+2^{-52}, 1+2 \times 2^{-52}, ..., 2 - 2^{-52}\]</span></p>
 <ul>
-<li>Smallest mantissa: <span class="math inline">\(m = 2^{52}\)</span>.</li>
-<li>Largest mantissa: <span class="math inline">\(m = 2^{53} - 1\)</span>.</li>
-<li>Next number (let <span class="math inline">\(e=2\)</span>): <span class="math inline">\(x = \frac{2^{52}}{2^{53}} \cdot 2^2 = 2\)</span>.</li>
-<li><span class="math inline">\(x_{max} = \frac{2^{53}-1}{2^{53}} 2^1 \approx 2 - 2^{-52}\)</span> (approx).</li>
+<li><p>Smallest mantissa: <span class="math inline">\(m = 2^{52}\)</span>.</p></li>
+<li><p>Largest mantissa: <span class="math inline">\(m = 2^{53} - 1\)</span>.</p></li>
+<li><p>Next number (let <span class="math inline">\(e=2\)</span>): <span class="math inline">\(x = \frac{2^{52}}{2^{53}} \cdot 2^2 = 2\)</span>.</p></li>
+<li><p><span class="math inline">\(x_{max} = \frac{2^{53}-1}{2^{53}} 2^1 \approx 2 - 2^{-52}\)</span> (approx).</p></li>
 </ul>
 <p><em>(See textbook section 2.5 for details)</em>.</p>
 </div>
 <div id="machine-epsilon-epsilon_machine" class="section level3 hasAnchor" number="2.2.2">
 <h3><span class="header-section-number">2.2.2</span> Machine Epsilon (<span class="math inline">\(\epsilon_{machine}\)</span>)<a href="lecture1.html#machine-epsilon-epsilon_machine" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>How large is the gap between numbers in <span class="math inline">\(F\)</span>?
-Define machine epsilon:
+<p>How large is the gap between numbers in <span class="math inline">\(F\)</span>?</p>
+<p>Define machine epsilon:
 <span class="math display">\[\epsilon_{machine} = \frac{1}{2} \beta^{1-t}\]</span></p>
 <p>For all <span class="math inline">\(x \in \mathbb{R}\)</span>, there exists <span class="math inline">\(x&#39; \in F\)</span> such that:
 <span class="math display">\[|x - x&#39;| \le \epsilon_{machine} |x|\]</span></p>
@@ -313,8 +340,8 @@ For <span class="math inline">\(x \in \mathbb{R}\)</span>, with <span class="mat
 </div>
 <div id="condition-sensitivity" class="section level2 hasAnchor" number="2.3">
 <h2><span class="header-section-number">2.3</span> 3. Condition / Sensitivity<a href="lecture1.html#condition-sensitivity" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Consider a problem with an input <span class="math inline">\(x\)</span> and an output <span class="math inline">\(f(x)\)</span>.
-When <span class="math inline">\(x\)</span> is changed by an amount <span class="math inline">\(\delta x\)</span> (of size <span class="math inline">\(||\delta x|| \le \epsilon\)</span>), the output becomes <span class="math inline">\(f(x+\delta x)\)</span>.</p>
+<p>Consider a problem with an input <span class="math inline">\(x\)</span> and an output <span class="math inline">\(f(x)\)</span>.</p>
+<p>When <span class="math inline">\(x\)</span> is changed by an amount <span class="math inline">\(\delta x\)</span> (of size <span class="math inline">\(||\delta x|| \le \epsilon\)</span>), the output becomes <span class="math inline">\(f(x+\delta x)\)</span>.</p>
 <p>The difference is:
 <span class="math display">\[\delta f = f(x + \delta x) - f(x)\]</span></p>
 <div id="definitions" class="section level3 hasAnchor" number="2.3.1">
