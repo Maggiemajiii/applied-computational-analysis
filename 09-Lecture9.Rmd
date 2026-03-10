@@ -2,5 +2,5 @@
 title: "Lecture 8"
 date: "`r Sys.Date()`"
 ---
-# Lecture 8:  {#lecture8}
+# Lecture 9:  {#lecture9}
 

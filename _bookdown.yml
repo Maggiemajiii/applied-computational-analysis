@@ -3,17 +3,17 @@ output_dir: "docs"
 delete_merged_file: true
 
 rmd_files:
-      - index.Rmd
-      - 01-Lecture1.Rmd
-      - 02-Lecture2.Rmd
-      - 03-Lecture3.Rmd
-      - 04-Lecture4.Rmd
-      - 05-Lecture5.Rmd
-      - 06-Lecture6.Rmd
-      - 07-Lecture7.Rmd
-      - 08-Lecture8.Rmd
-      - 09-Lecture9.Rmd
-      - 99-bibliography.Rmd
+  - index.Rmd
+  - 01-Lecture1.Rmd
+  - 02-Lecture2.Rmd
+  - 03-Lecture3.Rmd
+  - 04-Lecture4.Rmd
+  - 05-Lecture5.Rmd
+  - 06-Lecture6.Rmd
+  - 07-Lecture7.Rmd
+  - 08-Lecture8.Rmd
+  - 09-Lecture9.Rmd
+  - 99-bibliography.Rmd
       
 language:
   ui:
