@@ -14,8 +14,7 @@ knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
 
 # Problem 1: Euler Methods and Stiffness in ODEs
 
-Consider the initial value problem:
-$$y' = -15y, \quad y(0) = 1$$
+Consider the initial value problem: $$y' = -15y, \quad y(0) = 1$$
 
 The exact solution is $y(t) = e^{-15t}$.
 
@@ -23,62 +22,23 @@ The exact solution is $y(t) = e^{-15t}$.
 
 ### Forward Euler Method
 
-The forward Euler method applied to $y' = \lambda y$ gives:
-$$u_{n+1} = u_n + h\lambda u_n = (1 + h\lambda)u_n$$
+The forward Euler method applied to $y' = \lambda y$ gives: $$u_{n+1} = u_n + h\lambda u_n = (1 + h\lambda)u_n$$
 
 Thus $u_n = (1 + h\lambda)^n u_0$, and we need $|1 + h\lambda| < 1$ for $u_n \to 0$ as $n \to \infty$.
 
-The **region of absolute stability** for forward Euler is:
-$$\mathcal{R}_{FE} = \{z \in \mathbb{C} : |1 + z| < 1\}$$
+The **region of absolute stability** for forward Euler is: $$\mathcal{R}_{FE} = \{z \in \mathbb{C} : |1 + z| < 1\}$$
 
 This is the open disk of radius 1 centered at $z = -1$ in the complex plane.
 
-For our problem, $\lambda = -15$, so $z = h\lambda = -15h$. We need:
-$$|1 - 15h| < 1 \quad \Longrightarrow \quad -1 < 1 - 15h < 1 \quad \Longrightarrow \quad 0 < h < \frac{2}{15}$$
+For our problem, $\lambda = -15$, so $z = h\lambda = -15h$. We need: $$|1 - 15h| < 1 \quad \Longrightarrow \quad -1 < 1 - 15h < 1 \quad \Longrightarrow \quad 0 < h < \frac{2}{15}$$
 
 ### Backward Euler Method
 
-The backward Euler method applied to $y' = \lambda y$ gives:
-$$u_{n+1} = u_n + h\lambda u_{n+1} \quad \Longrightarrow \quad u_{n+1} = \frac{1}{1 - h\lambda} u_n$$
+The backward Euler method applied to $y' = \lambda y$ gives: $$u_{n+1} = u_n + h\lambda u_{n+1} \quad \Longrightarrow \quad u_{n+1} = \frac{1}{1 - h\lambda} u_n$$
 
 Thus $u_n = \left(\frac{1}{1 - h\lambda}\right)^n u_0$, and we need $|1 - h\lambda| > 1$ for $u_n \to 0$.
 
-The **region of absolute stability** for backward Euler is:
-$$\mathcal{R}_{BE} = \{z \in \mathbb{C} : |1 - z| > 1\}$$
-
-This is the **exterior** of the unit disk centered at $z = 1$. Since $\mathbb{C}^- \subset \mathcal{R}_{BE}$, backward Euler is **A-stable**.
-
-For our problem, $z = -15h < 0$ for all $h > 0$, and $|1 - (-15h)| = 1 + 15h > 1$ for all $h > 0$. So backward Euler is absolutely stable **for any step size** $h > 0$.
-
-```{r stability-regions, fig.width=8, fig.height=4}
-par(mfrow = c(1, 2), mar = c(4, 4, 3, 1))
-
-# Forward Euler stability region
-theta <- seq(0, 2*pi, length.out = 500)
-x_fe <- -1 + cos(theta)
-y_fe <- sin(theta)
-
-plot(x_fe, y_fe, type = "l", col = "blue", lwd = 2,
-     xlim = c(-3, 1), ylim = c(-1.5, 1.5),
-     xlab = "Re(z)", ylab = "Im(z)",
-     main = "Forward Euler Stability Region")
-abline(h = 0, v = 0, col = "gray", lty = 2)
-polygon(x_fe, y_fe, col = rgb(0, 0, 1, 0.1), border = NA)
-points(-15*c(0.05, 0.1, 0.16), 0, pch = 16,
-       col = c("green", "orange", "red"), cex = 1.5)
-legend("topleft",
-       legend = c("h=0.05 (z=-0.75)", "h=0.1 (z=-1.5)", "h=0.16 (z=-2.4)"),
-       col = c("green", "orange", "red"), pch = 16, cex = 0.7)
-
-# Backward Euler stability region
-plot(1 + cos(theta), sin(theta), type = "l", col = "red", lwd = 2, lty = 2,
-     xlim = c(-3, 3), ylim = c(-2, 2),
-     xlab = "Re(z)", ylab = "Im(z)",
-     main = "Backward Euler Stability Region")
-abline(h = 0, v = 0, col = "gray", lty = 2)
-text(1.5, 0.5, "UNSTABLE\n(interior)", col = "red", cex = 0.8)
-text(-1.5, 1.2, "STABLE\n(exterior)", col = "blue", cex = 0.8)
-```
+The **region of absolute stability** for backward Euler is: $$\mathcal{R}_{BE} = \{z \in \mathbb{C} : |1 - z| > 1\}$$
 
 ## Part (b): Forward Euler Method
 
@@ -122,19 +82,19 @@ abline(h = 0, col = "gray", lty = 3)
 
 **Analysis**:
 
-- **$h = 0.05$**: $z = -15 \times 0.05 = -0.75$, and $|1 + z| = |1 - 0.75| = 0.25 < 1$. The method is absolutely stable, and the numerical solution converges to the exact solution.
+-   $h = 0.05$: $z = -15 \times 0.05 = -0.75$, and $|1 + z| = |1 - 0.75| = 0.25 < 1$. The method is absolutely stable, and the numerical solution converges to the exact solution.
 
-- **$h = 0.1$**: $z = -15 \times 0.1 = -1.5$, and $|1 + z| = |1 - 1.5| = 0.5 < 1$. Still absolutely stable (within the stability region), but the numerical solution oscillates in sign because $1 + z = -0.5 < 0$. The solution converges.
+-   $h = 0.1$: $z = -15 \times 0.1 = -1.5$, and $|1 + z| = |1 - 1.5| = 0.5 < 1$. Still absolutely stable (within the stability region), but the numerical solution oscillates in sign because $1 + z = -0.5 < 0$. The solution converges.
 
-- **$h = 0.16$**: $z = -15 \times 0.16 = -2.4$, and $|1 + z| = |1 - 2.4| = 1.4 > 1$. The method is **outside the stability region**, so the numerical solution **diverges** (explodes) as $t \to \infty$.
+-   $h = 0.16$: $z = -15 \times 0.16 = -2.4$, and $|1 + z| = |1 - 2.4| = 1.4 > 1$. The method is **outside the stability region**, so the numerical solution **diverges** (explodes) as $t \to \infty$.
 
 **Explanation using key concepts**:
 
-- **Consistency**: Forward Euler has LTE $= O(h)$, so it is first-order consistent for all step sizes. This property is about the local approximation quality and holds regardless of $h$.
+-   **Consistency**: Forward Euler has LTE $= O(h)$, so it is first-order consistent for all step sizes. This property is about the local approximation quality and holds regardless of $h$.
 
-- **Zero-stability**: Forward Euler is zero-stable (as proved in lecture). This ensures convergence as $h \to 0$.
+-   **Zero-stability**: Forward Euler is zero-stable (as proved in lecture). This ensures convergence as $h \to 0$.
 
-- **Absolute stability**: The critical stability threshold is $h < 2/15 \approx 0.133$. For $h = 0.05$ and $h = 0.1$, $z = h\lambda$ lies inside the stability region, so the solution remains bounded. For $h = 0.16$, $z$ lies outside, and the amplification factor $|1 + z| > 1$ causes exponential growth.
+-   **Absolute stability**: The critical stability threshold is $h < 2/15 \approx 0.133$. For $h = 0.05$ and $h = 0.1$, $z = h\lambda$ lies inside the stability region, so the solution remains bounded. For $h = 0.16$, $z$ lies outside, and the amplification factor $|1 + z| > 1$ causes exponential growth.
 
 ## Part (c): Backward Euler Method
 
@@ -170,118 +130,93 @@ legend("topright",
 
 **Analysis**:
 
-For backward Euler with $\lambda = -15$, the amplification factor is:
-$$g = \frac{1}{1 - h\lambda} = \frac{1}{1 + 15h}$$
+For backward Euler with $\lambda = -15$, the amplification factor is: $$g = \frac{1}{1 - h\lambda} = \frac{1}{1 + 15h}$$
 
-- **$h = 0.05$**: $g = \frac{1}{1.75} \approx 0.571$. Stable and accurate.
-- **$h = 0.1$**: $g = \frac{1}{2.5} = 0.4$. Stable, slightly less accurate but bounded.
-- **$h = 0.16$**: $g = \frac{1}{3.4} \approx 0.294$. Stable, less accurate but still bounded.
+-   $h = 0.05$: $g = \frac{1}{1.75} \approx 0.571$. Stable and accurate.
+-   $h = 0.1$: $g = \frac{1}{2.5} = 0.4$. Stable, slightly less accurate but bounded.
+-   $h = 0.16$: $g = \frac{1}{3.4} \approx 0.294$. Stable, less accurate but still bounded.
 
 All three solutions **converge to the exact solution** as $h \to 0$, and all remain **bounded** as $t \to \infty$.
 
 **Explanation using key concepts**:
 
-- **Consistency**: Backward Euler has LTE $= O(h)$, so it is first-order consistent.
+-   **Consistency**: Backward Euler has LTE $= O(h)$, so it is first-order consistent.
 
-- **Zero-stability**: Backward Euler is zero-stable.
+-   **Zero-stability**: Backward Euler is zero-stable.
 
-- **Absolute stability**: Backward Euler is **A-stable**: its stability region $\mathcal{R}_{BE} = \{z : |1-z| > 1\}$ contains the entire left half-plane $\mathbb{C}^-$. Since $\lambda = -15 < 0$, we have $z = -15h < 0$ for all $h > 0$, which is always in $\mathcal{R}_{BE}$. There is **no stability constraint** on $h$, so the solution is bounded for any step size.
+-   **Absolute stability**: Backward Euler is **A-stable**: its stability region $\mathcal{R}_{BE} = \{z : |1-z| > 1\}$ contains the entire left half-plane $\mathbb{C}^-$. Since $\lambda = -15 < 0$, we have $z = -15h < 0$ for all $h > 0$, which is always in $\mathcal{R}_{BE}$. There is **no stability constraint** on $h$, so the solution is bounded for any step size.
 
 The only constraint on $h$ for backward Euler is **accuracy** (smaller $h$ gives better approximation), not stability. This makes backward Euler ideal for **stiff problems** like this one where $|\lambda| = 15$ is moderately large.
 
----
+------------------------------------------------------------------------
 
 # Problem 2: Family of One-Step Methods
 
-Consider:
-$$u_{n+1} = u_n + h\left[\left(1 - \frac{\alpha}{2}\right) f(t_n, u_n) + \frac{\alpha}{2} f(t_{n+1}, u_{n+1})\right]$$
+Consider: $$u_{n+1} = u_n + h\left[\left(1 - \frac{\alpha}{2}\right) f(t_n, u_n) + \frac{\alpha}{2} f(t_{n+1}, u_{n+1})\right]$$
 
 ## Part (a): Order of Consistency
 
 To determine the order of consistency, we substitute the exact solution $y(t)$ into the scheme and compute the local truncation error.
 
-The LTE is defined by:
-$$\tau_{n+1} = \frac{y_{n+1} - y_n}{h} - \left[\left(1 - \frac{\alpha}{2}\right) f(t_n, y_n) + \frac{\alpha}{2} f(t_{n+1}, y_{n+1})\right]$$
+The Local Truncation Error (LTE) is defined by:
 
-**Expand the LHS** using Taylor series around $t_n$:
-$$\frac{y_{n+1} - y_n}{h} = y_n' + \frac{h}{2}y_n'' + \frac{h^2}{6}y_n''' + O(h^3)$$
+$$
+f(t_n, y_n)= \left(1 - \frac{\alpha}{2}\right) f(t_n, y_n) + \frac{\alpha}{2} f(t_{n+1}, y_{n+1})
+$$
 
-**Expand the RHS**: Since $y' = f(t, y)$, we have $f(t_n, y_n) = y_n'$ and
-$$f(t_{n+1}, y_{n+1}) = y_{n+1}' = y_n' + hy_n'' + \frac{h^2}{2}y_n''' + O(h^3)$$
+$$\tau_{n+1} = \frac{y_{n+1} - y_n}{h} - f(t_n, y_n)$$
 
-Therefore:
-$$\text{RHS} = \left(1 - \frac{\alpha}{2}\right)y_n' + \frac{\alpha}{2}\left(y_n' + hy_n'' + \frac{h^2}{2}y_n''' + O(h^3)\right)$$
-$$= y_n' + \frac{\alpha}{2}hy_n'' + \frac{\alpha}{4}h^2 y_n''' + O(h^3)$$
+**Expand the LHS** using Taylor series around $t_n$: $$\frac{y_{n+1} - y_n}{h} = y_n' + \frac{h}{2}y_n'' + \frac{h^2}{6}y_n''' + O(h^3)$$
 
-**LTE**:
-$$\tau_{n+1} = \left(y_n' + \frac{h}{2}y_n'' + \frac{h^2}{6}y_n''' + O(h^3)\right) - \left(y_n' + \frac{\alpha}{2}hy_n'' + \frac{\alpha}{4}h^2 y_n''' + O(h^3)\right)$$
-$$= \left(\frac{1}{2} - \frac{\alpha}{2}\right)hy_n'' + \left(\frac{1}{6} - \frac{\alpha}{4}\right)h^2 y_n''' + O(h^3)$$
+**Expand the RHS**: Since $y' = f(t, y)$, we have $f(t_n, y_n) = y_n'$ and $$f(t_{n+1}, y_{n+1}) = y_{n+1}' = y_n' + hy_n'' + \frac{h^2}{2}y_n''' + O(h^3)$$
+
+Therefore: $$\text{RHS} = \left(1 - \frac{\alpha}{2}\right)y_n' + \frac{\alpha}{2}\left(y_n' + hy_n'' + \frac{h^2}{2}y_n''' + O(h^3)\right)$$ $$= y_n' + \frac{\alpha}{2}hy_n'' + \frac{\alpha}{4}h^2 y_n''' + O(h^3)$$
+
+**LTE**: $$\tau_{n+1} = \left(y_n' + \frac{h}{2}y_n'' + \frac{h^2}{6}y_n''' + O(h^3)\right) - \left(y_n' + \frac{\alpha}{2}hy_n'' + \frac{\alpha}{4}h^2 y_n''' + O(h^3)\right)$$ $$= \left(\frac{1}{2} - \frac{\alpha}{2}\right)hy_n'' + \left(\frac{1}{6} - \frac{\alpha}{4}\right)h^2 y_n''' + O(h^3)$$
 
 **Analysis by cases**:
 
-- **If $\alpha \neq 1$**: The leading term is $\left(\frac{1 - \alpha}{2}\right)hy_n'' \neq 0$, so $\tau_{n+1} = O(h)$. The method is **first-order consistent**.
+-   **If** $\alpha \neq 1$: The leading term is $\left(\frac{1 - \alpha}{2}\right)hy_n'' \neq 0$, so $\tau_{n+1} = O(h)$. The method is **first-order consistent**.
 
-- **If $\alpha = 1$**: The $O(h)$ term vanishes ($\frac{1-1}{2} = 0$), and the leading term becomes $\left(\frac{1}{6} - \frac{1}{4}\right)h^2 y_n''' = -\frac{1}{12}h^2 y_n'''$, so $\tau_{n+1} = O(h^2)$. The method is **second-order consistent**.
+-   **If** $\alpha = 1$: The $O(h)$ term vanishes ($\frac{1-1}{2} = 0$), and the leading term becomes $\left(\frac{1}{6} - \frac{1}{4}\right)h^2 y_n''' = -\frac{1}{12}h^2 y_n'''$, so $\tau_{n+1} = O(h^2)$. The method is **second-order consistent**.
 
 **Summary**: The method is order 1 for $\alpha \neq 1$ and order 2 for $\alpha = 1$ (which is the **trapezoidal method**).
 
 ## Part (b): Region of Absolute Stability for $\alpha = 1$
 
-When $\alpha = 1$, the method becomes:
-$$u_{n+1} = u_n + h\left[\frac{1}{2}f(t_n, u_n) + \frac{1}{2}f(t_{n+1}, u_{n+1})\right]$$
+When $\alpha = 1$, the method becomes: $$u_{n+1} = u_n + h\left[\frac{1}{2}f(t_n, u_n) + \frac{1}{2}f(t_{n+1}, u_{n+1})\right]$$
 
 This is the **trapezoidal method**. Apply to the test equation $y' = \lambda y$ ($f(t,y) = \lambda y$):
 
-$$u_{n+1} = u_n + h\left[\frac{1}{2}\lambda u_n + \frac{1}{2}\lambda u_{n+1}\right]$$
-$$u_{n+1} - \frac{h\lambda}{2}u_{n+1} = u_n + \frac{h\lambda}{2}u_n$$
-$$u_{n+1}\left(1 - \frac{z}{2}\right) = u_n\left(1 + \frac{z}{2}\right)$$
+$$u_{n+1} = u_n + h\left[\frac{1}{2}\lambda u_n + \frac{1}{2}\lambda u_{n+1}\right]$$ $$u_{n+1} - \frac{h\lambda}{2}u_{n+1} = u_n + \frac{h\lambda}{2}u_n$$ $$u_{n+1}\left(1 - \frac{z}{2}\right) = u_n\left(1 + \frac{z}{2}\right)$$
 
 where $z = h\lambda$. The stability function is:
 
 $$R(z) = \frac{1 + z/2}{1 - z/2}$$
 
-The **region of absolute stability** is:
-$$\mathcal{R} = \left\{z \in \mathbb{C} : \left|\frac{1 + z/2}{1 - z/2}\right| < 1\right\}$$
+The **region of absolute stability** is: $$\mathcal{R} = \left\{z \in \mathbb{C} : \left|\frac{1 + z/2}{1 - z/2}\right| < 1\right\}$$
 
 We need $|1 + z/2| < |1 - z/2|$. Let $z = x + iy$:
 
-$$|1 + z/2|^2 < |1 - z/2|^2$$
-$$(1 + x/2)^2 + (y/2)^2 < (1 - x/2)^2 + (y/2)^2$$
-$$1 + x + x^2/4 < 1 - x + x^2/4$$
-$$2x < 0 \quad \Longrightarrow \quad x < 0$$
+$$|1 + z/2|^2 < |1 - z/2|^2$$ $$(1 + x/2)^2 + (y/2)^2 < (1 - x/2)^2 + (y/2)^2$$ $$1 + x + x^2/4 < 1 - x + x^2/4$$ $$2x < 0 \quad \Longrightarrow \quad x < 0$$
 
 Therefore: $\mathcal{R} = \{z \in \mathbb{C} : \text{Re}(z) < 0\} = \mathbb{C}^-$
 
-The trapezoidal method is **A-stable**: its stability region is the entire open left half-plane.
+(The trapezoidal method is **A-stable**: its stability region is the entire open left half-plane.)
 
-```{r trapezoidal-stability, fig.width=6, fig.height=5}
-# Visualize: |R(z)| = 1 boundary is Re(z) = 0
-plot(NULL, xlim = c(-4, 4), ylim = c(-3, 3),
-     xlab = "Re(z)", ylab = "Im(z)",
-     main = "Trapezoidal Method: Stability Region (alpha = 1)")
-rect(-4, -3, 0, 3, col = rgb(0, 0, 1, 0.15), border = NA)
-abline(v = 0, col = "blue", lwd = 2)
-abline(h = 0, col = "gray", lty = 2)
-text(-2, 1.5, "STABLE\nRe(z) < 0", col = "blue", cex = 1.2)
-text(2, 1.5, "UNSTABLE\nRe(z) > 0", col = "red", cex = 1.2)
-```
-
----
+------------------------------------------------------------------------
 
 # Problem 3: Trade-offs Between Order and Stability in RK Methods
 
 ## Part (a): Two-Stage Second-Order RK Method
 
-Consider:
-$$f_1 = f(u_n), \quad f_2 = f(u_n + ahf_1)$$
-$$u_{n+1} = u_n + h\left[\left(1 - \frac{1}{2a}\right)f_1 + \frac{1}{2a}f_2\right]$$
+Consider: $$f_1 = f(u_n), \quad f_2 = f(u_n + ahf_1)$$ $$u_{n+1} = u_n + h\left[\left(1 - \frac{1}{2a}\right)f_1 + \frac{1}{2a}f_2\right]$$
 
 ### (1) Stability Function $R(z)$
 
 Apply to the test equation $y' = \lambda y$, let $z = h\lambda$:
 
-$$f_1 = \lambda u_n$$
-$$f_2 = \lambda(u_n + ah\lambda u_n) = \lambda u_n(1 + az)$$
+$$f_1 = \lambda u_n$$ $$f_2 = \lambda(u_n + ah\lambda u_n) = \lambda u_n(1 + az)$$
 
 $$u_{n+1} = u_n + h\left[\left(1 - \frac{1}{2a}\right)\lambda u_n + \frac{1}{2a}\lambda u_n(1 + az)\right]$$
 
@@ -319,18 +254,6 @@ We need $-1 \leq q(z) \leq 1$.
 
 Therefore: the real-axis stability interval is $\boxed{(-2, 0)}$, i.e., $b = 2$.
 
-```{r rk2-stability, fig.width=6, fig.height=4}
-z <- seq(-3, 1, length.out = 1000)
-q_z <- 1 + z + z^2 / 2
-
-plot(z, abs(q_z), type = "l", col = "blue", lwd = 2,
-     xlab = "z (real)", ylab = "|q(z)|",
-     main = "RK2: |q(z)| on the Real Axis")
-abline(h = 1, col = "red", lty = 2, lwd = 1.5)
-abline(v = c(-2, 0), col = "gray", lty = 3)
-text(-1, 0.3, "Stability interval\n(-2, 0)", col = "darkgreen", cex = 0.9)
-```
-
 ## Part (b): First-Order RK with Extended Stability
 
 Now consider $q(z) = 1 + z + cz^2$ for some $c > 0$ (first-order accurate since the $z^2/2$ coefficient is replaced by $c \neq 1/2$).
@@ -341,9 +264,9 @@ We want $|q(z)| \leq 1$ on the real negative axis.
 
 **Lower bound** $q(z) \geq -1$: $cz^2 + z + 2 \geq 0$. The discriminant is $1 - 8c$.
 
-- If $c \geq 1/8$: discriminant $\leq 0$, so $cz^2 + z + 2 > 0$ for all real $z$. Thus $q(z) \geq -1$ always.
+-   If $c \geq 1/8$: discriminant $\leq 0$, so $cz^2 + z + 2 > 0$ for all real $z$. Thus $q(z) \geq -1$ always.
 
-- If $c < 1/8$: the quadratic has real roots, and $q(z) = -1$ at $z = \frac{-1 \pm \sqrt{1-8c}}{2c}$.
+-   If $c < 1/8$: the quadratic has real roots, and $q(z) = -1$ at $z = \frac{-1 \pm \sqrt{1-8c}}{2c}$.
 
 When $c \geq 1/8$, the stability interval is determined only by the upper bound:
 
@@ -359,7 +282,7 @@ $$q(z) = 1 + z + \frac{1}{4}z^2$$
 
 has stability interval $(-4, 0)$, which is **twice as long** as the second-order method's interval $(-2, 0)$.
 
-Let's verify: at $z = -4$: $q(-4) = 1 - 4 + \frac{1}{4}(16) = 1 - 4 + 4 = 1$, so $|q(-4)| = 1$. For $z \in (-4, 0)$: $|q(z)| < 1$. Confirmed.
+Verification: at $z = -4$: $q(-4) = 1 - 4 + \frac{1}{4}(16) = 1 - 4 + 4 = 1$, so $|q(-4)| = 1$. For $z \in (-4, 0)$: $|q(z)| < 1$. 
 
 ```{r rk1-extended-stability, fig.width=8, fig.height=5}
 z <- seq(-6, 1, length.out = 1000)
@@ -382,30 +305,20 @@ legend("topright",
        col = c("blue", "red", "darkgreen"), lwd = 2, cex = 0.8)
 ```
 
-**Summary**: For $c \in [1/8, 1/2]$, the stability interval is $(-1/c, 0)$:
-
-| $c$ | Order | Stability interval |
-|-----|-------|--------------------|
-| $1/2$ | 2 | $(-2, 0)$ |
-| $1/4$ | 1 | $(-4, 0)$ |
-| $1/8$ | 1 | $(-8, 0)$ |
-
 ## Part (c): Interpretation of the Trade-off
 
-### What is gained and what is lost?
+**Gained**: By relaxing the second-order accuracy requirement, we gain freedom to choose the parameter $c$ to enlarge the stability region. With $c = 1/4$, the real-axis stability interval doubles from $(-2, 0)$ to $(-4, 0)$. This means we can use a step size twice as large while maintaining absolute stability.
 
-**Gained**: By relaxing the second-order accuracy requirement, we gain freedom to choose the parameter $c$ to **enlarge the stability region**. With $c = 1/4$, the real-axis stability interval doubles from $(-2, 0)$ to $(-4, 0)$. This means we can use a step size **twice as large** while maintaining absolute stability.
-
-**Lost**: The method drops from **second-order** to **first-order** accuracy. This means the local truncation error is $O(h)$ instead of $O(h^2)$, and for a given step size, the numerical solution will be less accurate.
+**Lost**: The method drops from second-order to first-order accuracy. This means the local truncation error is $O(h)$ instead of $O(h^2)$, and for a given step size, the numerical solution will be less accurate.
 
 ### When is this trade-off advantageous?
 
 This trade-off is advantageous for **stiff problems** where:
 
-1. **Stability dominates accuracy**: The step size $h$ is primarily limited by stability constraints rather than accuracy requirements. In stiff problems, the eigenvalues of the Jacobian have large negative real parts, requiring very small $h$ for an explicit method to remain stable. By extending the stability interval, we can use a larger $h$.
+1.  **Stability dominates accuracy**: The step size $h$ is primarily limited by stability constraints rather than accuracy requirements. In stiff problems, the eigenvalues of the Jacobian have large negative real parts, requiring very small $h$ for an explicit method to remain stable. By extending the stability interval, we can use a larger $h$.
 
-2. **Moderate accuracy suffices**: When the solution varies slowly (after initial transients decay), high-order accuracy is not critical. A first-order method with a larger stable step size may be more efficient than a second-order method forced to use a tiny step size.
+2.  **Moderate accuracy suffices**: When the solution varies slowly (after initial transients decay), high-order accuracy is not critical. A first-order method with a larger stable step size may be more efficient than a second-order method forced to use a tiny step size.
 
-3. **Computational cost per step is important**: If function evaluations are expensive, being able to take larger steps (even with lower order) can reduce overall computational cost.
+3.  **Computational cost per step is important**: If function evaluations are expensive, being able to take larger steps (even with lower order) can reduce overall computational cost.
 
-In summary, for **stability-dominated problems** (stiff ODEs), it can be more efficient to use a lower-order method with a larger stability region than a higher-order method with a smaller stability region. This is the fundamental principle behind **stabilized explicit Runge-Kutta methods**.
+Overall, for stability-dominated problems (stiff ODEs), it can be more efficient to use a lower-order method with a larger stability region than a higher-order method with a smaller stability region. This is the fundamental principle behind stabilized explicit Runge-Kutta methods.
