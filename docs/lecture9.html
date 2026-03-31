@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>10 Lecture 9: | Lecture 8</title>
-  <meta name="description" content="10 Lecture 9: | Lecture 8" />
+  <title>10 Lecture 9: Multi-Step Methods and Runge-Kutta Methods | Lecture 9</title>
+  <meta name="description" content="10 Lecture 9: Multi-Step Methods and Runge-Kutta Methods | Lecture 9" />
   <meta name="generator" content="bookdown 0.45 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="10 Lecture 9: | Lecture 8" />
+  <meta property="og:title" content="10 Lecture 9: Multi-Step Methods and Runge-Kutta Methods | Lecture 9" />
   <meta property="og:type" content="book" />
   
   
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="10 Lecture 9: | Lecture 8" />
+  <meta name="twitter:title" content="10 Lecture 9: Multi-Step Methods and Runge-Kutta Methods | Lecture 9" />
   
   
   
@@ -23,7 +23,7 @@
 <meta name="author" content="Maggie Zhang" />
 
 
-<meta name="date" content="2026-03-10" />
+<meta name="date" content="2026-03-31" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -164,16 +164,16 @@
 </ul></li>
 <li class="chapter" data-level="6.2" data-path="lecture5.html"><a href="lecture5.html#numerical-integration-newton-cotes"><i class="fa fa-check"></i><b>6.2</b> Numerical Integration (Newton-Cotes)</a>
 <ul>
-<li class="chapter" data-level="6.2.1" data-path="lecture5.html"><a href="lecture5.html#coordinate-transformation"><i class="fa fa-check"></i><b>6.2.1</b> Coordinate Transformation</a></li>
-<li class="chapter" data-level="6.2.2" data-path="lecture5.html"><a href="lecture5.html#trapezoidal-rule-closed-n1"><i class="fa fa-check"></i><b>6.2.2</b> 1. Trapezoidal Rule (Closed, <span class="math inline">\(n=1\)</span>)</a></li>
-<li class="chapter" data-level="6.2.3" data-path="lecture5.html"><a href="lecture5.html#midpoint-rule-open-n0"><i class="fa fa-check"></i><b>6.2.3</b> 2. Midpoint Rule (Open, <span class="math inline">\(n=0\)</span>)</a></li>
-<li class="chapter" data-level="6.2.4" data-path="lecture5.html"><a href="lecture5.html#closed-newton-cotes-weights-i_nf-h-sum-w_i-f_i"><i class="fa fa-check"></i><b>6.2.4</b> Closed Newton-Cotes Weights (<span class="math inline">\(I_n(f) = h \sum w_i f_i\)</span>)</a></li>
-<li class="chapter" data-level="6.2.5" data-path="lecture5.html"><a href="lecture5.html#error-characteristics"><i class="fa fa-check"></i><b>6.2.5</b> Error Characteristics</a></li>
-</ul></li>
-<li class="chapter" data-level="6.3" data-path="lecture5.html"><a href="lecture5.html#composite-formulas"><i class="fa fa-check"></i><b>6.3</b> Composite Formulas</a>
-<ul>
-<li class="chapter" data-level="6.3.1" data-path="lecture5.html"><a href="lecture5.html#composite-trapezoidal-rule"><i class="fa fa-check"></i><b>6.3.1</b> Composite Trapezoidal Rule</a></li>
-<li class="chapter" data-level="6.3.2" data-path="lecture5.html"><a href="lecture5.html#composite-simpsons-rule"><i class="fa fa-check"></i><b>6.3.2</b> Composite Simpson’s Rule</a></li>
+<li class="chapter" data-level="6.2.1" data-path="lecture5.html"><a href="lecture5.html#problem-setup"><i class="fa fa-check"></i><b>6.2.1</b> Problem Setup</a></li>
+<li class="chapter" data-level="6.2.2" data-path="lecture5.html"><a href="lecture5.html#the-generalized-mean-value-theorem-for-integrals"><i class="fa fa-check"></i><b>6.2.2</b> The Generalized Mean Value Theorem for Integrals</a></li>
+<li class="chapter" data-level="6.2.3" data-path="lecture5.html"><a href="lecture5.html#example-1-trapezoidal-rule"><i class="fa fa-check"></i><b>6.2.3</b> Example 1: Trapezoidal Rule</a></li>
+<li class="chapter" data-level="6.2.4" data-path="lecture5.html"><a href="lecture5.html#example-2-midpoint-rule"><i class="fa fa-check"></i><b>6.2.4</b> Example 2: Midpoint Rule</a></li>
+<li class="chapter" data-level="6.2.5" data-path="lecture5.html"><a href="lecture5.html#open-vs.-closed-newton-cotes-formulas"><i class="fa fa-check"></i><b>6.2.5</b> Open vs. Closed Newton-Cotes Formulas</a></li>
+<li class="chapter" data-level="6.2.6" data-path="lecture5.html"><a href="lecture5.html#general-weights-via-change-of-variable"><i class="fa fa-check"></i><b>6.2.6</b> General Weights via Change of Variable</a></li>
+<li class="chapter" data-level="6.2.7" data-path="lecture5.html"><a href="lecture5.html#error-analysis-for-general-newton-cotes"><i class="fa fa-check"></i><b>6.2.7</b> Error Analysis for General Newton-Cotes</a></li>
+<li class="chapter" data-level="6.2.8" data-path="lecture5.html"><a href="lecture5.html#composite-formulas"><i class="fa fa-check"></i><b>6.2.8</b> Composite Formulas</a></li>
+<li class="chapter" data-level="6.2.9" data-path="lecture5.html"><a href="lecture5.html#summary-table-1"><i class="fa fa-check"></i><b>6.2.9</b> Summary Table</a></li>
+<li class="chapter" data-level="6.2.10" data-path="lecture5.html"><a href="lecture5.html#key-takeaways"><i class="fa fa-check"></i><b>6.2.10</b> Key Takeaways</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="7" data-path="lecture6.html"><a href="lecture6.html"><i class="fa fa-check"></i><b>7</b> Lecture 6: Approximation with Orthogonal Bases</a>
@@ -253,8 +253,103 @@
 <li class="chapter" data-level="8.8.5" data-path="lecture7.html"><a href="lecture7.html#discrete-derivatives-via-dft"><i class="fa fa-check"></i><b>8.8.5</b> 8.5 Discrete Derivatives via DFT</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="9" data-path="lecture8.html"><a href="lecture8.html"><i class="fa fa-check"></i><b>9</b> Lecture 8:</a></li>
-<li class="chapter" data-level="10" data-path="lecture9.html"><a href="lecture9.html"><i class="fa fa-check"></i><b>10</b> Lecture 9:</a></li>
+<li class="chapter" data-level="9" data-path="lecture8.html"><a href="lecture8.html"><i class="fa fa-check"></i><b>9</b> Lecture 8: ODE Initial Value Problems and Euler Methods</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="lecture8.html"><a href="lecture8.html#review-of-odes"><i class="fa fa-check"></i><b>9.1</b> 1. Review of ODEs</a>
+<ul>
+<li class="chapter" data-level="9.1.1" data-path="lecture8.html"><a href="lecture8.html#initial-value-problem-ivp"><i class="fa fa-check"></i><b>9.1.1</b> Initial Value Problem (IVP)</a></li>
+<li class="chapter" data-level="9.1.2" data-path="lecture8.html"><a href="lecture8.html#remarks"><i class="fa fa-check"></i><b>9.1.2</b> Remarks</a></li>
+</ul></li>
+<li class="chapter" data-level="9.2" data-path="lecture8.html"><a href="lecture8.html#theorems-for-ivp-uniqueness-and-stability"><i class="fa fa-check"></i><b>9.2</b> 2. Theorems for IVP: Uniqueness and Stability</a>
+<ul>
+<li class="chapter" data-level="9.2.1" data-path="lecture8.html"><a href="lecture8.html#lipschitz-condition"><i class="fa fa-check"></i><b>9.2.1</b> Lipschitz Condition</a></li>
+<li class="chapter" data-level="9.2.2" data-path="lecture8.html"><a href="lecture8.html#main-theorem-existencestability"><i class="fa fa-check"></i><b>9.2.2</b> Main Theorem (Existence/Stability)</a></li>
+</ul></li>
+<li class="chapter" data-level="9.3" data-path="lecture8.html"><a href="lecture8.html#eulers-method-forward-euler-method"><i class="fa fa-check"></i><b>9.3</b> 3. Euler’s Method (Forward Euler Method)</a>
+<ul>
+<li class="chapter" data-level="9.3.1" data-path="lecture8.html"><a href="lecture8.html#setup"><i class="fa fa-check"></i><b>9.3.1</b> Setup</a></li>
+<li class="chapter" data-level="9.3.2" data-path="lecture8.html"><a href="lecture8.html#global-error"><i class="fa fa-check"></i><b>9.3.2</b> Global Error</a></li>
+<li class="chapter" data-level="9.3.3" data-path="lecture8.html"><a href="lecture8.html#convergence"><i class="fa fa-check"></i><b>9.3.3</b> Convergence</a></li>
+<li class="chapter" data-level="9.3.4" data-path="lecture8.html"><a href="lecture8.html#derivation-of-forward-euler-method"><i class="fa fa-check"></i><b>9.3.4</b> Derivation of Forward Euler Method</a></li>
+</ul></li>
+<li class="chapter" data-level="9.4" data-path="lecture8.html"><a href="lecture8.html#local-truncation-error-and-consistency"><i class="fa fa-check"></i><b>9.4</b> 4. Local Truncation Error and Consistency</a>
+<ul>
+<li class="chapter" data-level="9.4.1" data-path="lecture8.html"><a href="lecture8.html#relationship-between-ode-and-fde"><i class="fa fa-check"></i><b>9.4.1</b> Relationship Between ODE and FDE</a></li>
+<li class="chapter" data-level="9.4.2" data-path="lecture8.html"><a href="lecture8.html#local-truncation-error-lte"><i class="fa fa-check"></i><b>9.4.2</b> Local Truncation Error (LTE)</a></li>
+<li class="chapter" data-level="9.4.3" data-path="lecture8.html"><a href="lecture8.html#the-operator-a_h"><i class="fa fa-check"></i><b>9.4.3</b> The Operator <span class="math inline">\(A_h\)</span></a></li>
+<li class="chapter" data-level="9.4.4" data-path="lecture8.html"><a href="lecture8.html#definition-consistency"><i class="fa fa-check"></i><b>9.4.4</b> Definition (Consistency)</a></li>
+</ul></li>
+<li class="chapter" data-level="9.5" data-path="lecture8.html"><a href="lecture8.html#zero-stability"><i class="fa fa-check"></i><b>9.5</b> 5. Zero-Stability</a>
+<ul>
+<li class="chapter" data-level="9.5.1" data-path="lecture8.html"><a href="lecture8.html#definition-zero-stability"><i class="fa fa-check"></i><b>9.5.1</b> Definition (Zero-Stability)</a></li>
+<li class="chapter" data-level="9.5.2" data-path="lecture8.html"><a href="lecture8.html#remark"><i class="fa fa-check"></i><b>9.5.2</b> Remark</a></li>
+<li class="chapter" data-level="9.5.3" data-path="lecture8.html"><a href="lecture8.html#the-fundamental-theorem"><i class="fa fa-check"></i><b>9.5.3</b> The Fundamental Theorem</a></li>
+</ul></li>
+<li class="chapter" data-level="9.6" data-path="lecture8.html"><a href="lecture8.html#convergence-proof-for-forward-euler-method"><i class="fa fa-check"></i><b>9.6</b> 6. Convergence Proof for Forward Euler Method</a></li>
+<li class="chapter" data-level="9.7" data-path="lecture8.html"><a href="lecture8.html#other-methods"><i class="fa fa-check"></i><b>9.7</b> 7. Other Methods</a>
+<ul>
+<li class="chapter" data-level="9.7.1" data-path="lecture8.html"><a href="lecture8.html#forward-euler-method"><i class="fa fa-check"></i><b>9.7.1</b> Forward Euler Method</a></li>
+<li class="chapter" data-level="9.7.2" data-path="lecture8.html"><a href="lecture8.html#backward-euler-method"><i class="fa fa-check"></i><b>9.7.2</b> Backward Euler Method</a></li>
+<li class="chapter" data-level="9.7.3" data-path="lecture8.html"><a href="lecture8.html#trapezoidal-method"><i class="fa fa-check"></i><b>9.7.3</b> Trapezoidal Method</a></li>
+</ul></li>
+<li class="chapter" data-level="9.8" data-path="lecture8.html"><a href="lecture8.html#absolute-stability-and-stiffness"><i class="fa fa-check"></i><b>9.8</b> 8. Absolute Stability and Stiffness</a>
+<ul>
+<li class="chapter" data-level="9.8.1" data-path="lecture8.html"><a href="lecture8.html#motivation"><i class="fa fa-check"></i><b>9.8.1</b> Motivation</a></li>
+<li class="chapter" data-level="9.8.2" data-path="lecture8.html"><a href="lecture8.html#the-model-problem"><i class="fa fa-check"></i><b>9.8.2</b> The Model Problem</a></li>
+<li class="chapter" data-level="9.8.3" data-path="lecture8.html"><a href="lecture8.html#definition-absolute-stability"><i class="fa fa-check"></i><b>9.8.3</b> Definition (Absolute Stability)</a></li>
+<li class="chapter" data-level="9.8.4" data-path="lecture8.html"><a href="lecture8.html#forward-euler-applied-to-the-model-problem"><i class="fa fa-check"></i><b>9.8.4</b> Forward Euler Applied to the Model Problem</a></li>
+<li class="chapter" data-level="9.8.5" data-path="lecture8.html"><a href="lecture8.html#definition-region-of-absolute-stability"><i class="fa fa-check"></i><b>9.8.5</b> Definition (Region of Absolute Stability)</a></li>
+<li class="chapter" data-level="9.8.6" data-path="lecture8.html"><a href="lecture8.html#stability-regions-of-various-methods"><i class="fa fa-check"></i><b>9.8.6</b> Stability Regions of Various Methods</a></li>
+<li class="chapter" data-level="9.8.7" data-path="lecture8.html"><a href="lecture8.html#a-stability"><i class="fa fa-check"></i><b>9.8.7</b> A-Stability</a></li>
+<li class="chapter" data-level="9.8.8" data-path="lecture8.html"><a href="lecture8.html#stiffness"><i class="fa fa-check"></i><b>9.8.8</b> Stiffness</a></li>
+<li class="chapter" data-level="9.8.9" data-path="lecture8.html"><a href="lecture8.html#remark-general-odes"><i class="fa fa-check"></i><b>9.8.9</b> Remark: General ODEs</a></li>
+<li class="chapter" data-level="9.8.10" data-path="lecture8.html"><a href="lecture8.html#example-stiff-problem"><i class="fa fa-check"></i><b>9.8.10</b> Example: Stiff Problem</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="lecture9.html"><a href="lecture9.html"><i class="fa fa-check"></i><b>10</b> Lecture 9: Multi-Step Methods and Runge-Kutta Methods</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="lecture9.html"><a href="lecture9.html#multi-step-methods"><i class="fa fa-check"></i><b>10.1</b> 1. Multi-Step Methods</a>
+<ul>
+<li class="chapter" data-level="10.1.1" data-path="lecture9.html"><a href="lecture9.html#definition-1"><i class="fa fa-check"></i><b>10.1.1</b> Definition</a></li>
+<li class="chapter" data-level="10.1.2" data-path="lecture9.html"><a href="lecture9.html#general-linear-multi-step-method"><i class="fa fa-check"></i><b>10.1.2</b> General Linear Multi-Step Method</a></li>
+<li class="chapter" data-level="10.1.3" data-path="lecture9.html"><a href="lecture9.html#adams-bashforth-ab-methods-explicit"><i class="fa fa-check"></i><b>10.1.3</b> 1.1 Adams-Bashforth (AB) Methods (Explicit)</a></li>
+<li class="chapter" data-level="10.1.4" data-path="lecture9.html"><a href="lecture9.html#adams-moulton-am-methods-implicit"><i class="fa fa-check"></i><b>10.1.4</b> 1.2 Adams-Moulton (AM) Methods (Implicit)</a></li>
+<li class="chapter" data-level="10.1.5" data-path="lecture9.html"><a href="lecture9.html#backward-differentiation-formula-bdf"><i class="fa fa-check"></i><b>10.1.5</b> 1.3 Backward Differentiation Formula (BDF)</a></li>
+<li class="chapter" data-level="10.1.6" data-path="lecture9.html"><a href="lecture9.html#stability-of-multi-step-methods"><i class="fa fa-check"></i><b>10.1.6</b> 1.4 Stability of Multi-Step Methods</a></li>
+<li class="chapter" data-level="10.1.7" data-path="lecture9.html"><a href="lecture9.html#example-bdf-2"><i class="fa fa-check"></i><b>10.1.7</b> Example: BDF-2</a></li>
+</ul></li>
+<li class="chapter" data-level="10.2" data-path="lecture9.html"><a href="lecture9.html#review-key-concepts-for-solving-ivps"><i class="fa fa-check"></i><b>10.2</b> 2. Review: Key Concepts for Solving IVPs</a></li>
+<li class="chapter" data-level="10.3" data-path="lecture9.html"><a href="lecture9.html#runge-kutta-methods"><i class="fa fa-check"></i><b>10.3</b> 3. Runge-Kutta Methods</a>
+<ul>
+<li class="chapter" data-level="10.3.1" data-path="lecture9.html"><a href="lecture9.html#motivation-and-derivation"><i class="fa fa-check"></i><b>10.3.1</b> 3.1 Motivation and Derivation</a></li>
+<li class="chapter" data-level="10.3.2" data-path="lecture9.html"><a href="lecture9.html#computing-higher-derivatives"><i class="fa fa-check"></i><b>10.3.2</b> Computing Higher Derivatives</a></li>
+<li class="chapter" data-level="10.3.3" data-path="lecture9.html"><a href="lecture9.html#the-runge-kutta-approach"><i class="fa fa-check"></i><b>10.3.3</b> The Runge-Kutta Approach</a></li>
+<li class="chapter" data-level="10.3.4" data-path="lecture9.html"><a href="lecture9.html#deriving-the-conditions"><i class="fa fa-check"></i><b>10.3.4</b> Deriving the Conditions</a></li>
+<li class="chapter" data-level="10.3.5" data-path="lecture9.html"><a href="lecture9.html#the-improved-euler-method"><i class="fa fa-check"></i><b>10.3.5</b> The Improved Euler Method</a></li>
+<li class="chapter" data-level="10.3.6" data-path="lecture9.html"><a href="lecture9.html#the-classical-rk-4-method"><i class="fa fa-check"></i><b>10.3.6</b> 3.2 The Classical RK-4 Method</a></li>
+<li class="chapter" data-level="10.3.7" data-path="lecture9.html"><a href="lecture9.html#general-explicit-rk-methods-and-butcher-tableau"><i class="fa fa-check"></i><b>10.3.7</b> 3.3 General Explicit RK Methods and Butcher Tableau</a></li>
+<li class="chapter" data-level="10.3.8" data-path="lecture9.html"><a href="lecture9.html#butcher-tableau"><i class="fa fa-check"></i><b>10.3.8</b> Butcher Tableau</a></li>
+<li class="chapter" data-level="10.3.9" data-path="lecture9.html"><a href="lecture9.html#theorem-butcher"><i class="fa fa-check"></i><b>10.3.9</b> Theorem (Butcher)</a></li>
+<li class="chapter" data-level="10.3.10" data-path="lecture9.html"><a href="lecture9.html#convergence-and-stability-of-explicit-rk-methods"><i class="fa fa-check"></i><b>10.3.10</b> 3.4 Convergence and Stability of Explicit RK Methods</a></li>
+<li class="chapter" data-level="10.3.11" data-path="lecture9.html"><a href="lecture9.html#absolute-stability-of-rk-methods"><i class="fa fa-check"></i><b>10.3.11</b> Absolute Stability of RK Methods</a></li>
+</ul></li>
+<li class="chapter" data-level="10.4" data-path="lecture9.html"><a href="lecture9.html#adaptive-time-stepping"><i class="fa fa-check"></i><b>10.4</b> 4. Adaptive Time Stepping</a>
+<ul>
+<li class="chapter" data-level="10.4.1" data-path="lecture9.html"><a href="lecture9.html#motivation-1"><i class="fa fa-check"></i><b>10.4.1</b> Motivation</a></li>
+<li class="chapter" data-level="10.4.2" data-path="lecture9.html"><a href="lecture9.html#algorithm"><i class="fa fa-check"></i><b>10.4.2</b> Algorithm</a></li>
+<li class="chapter" data-level="10.4.3" data-path="lecture9.html"><a href="lecture9.html#error-estimation-via-two-methods"><i class="fa fa-check"></i><b>10.4.3</b> Error Estimation via Two Methods</a></li>
+<li class="chapter" data-level="10.4.4" data-path="lecture9.html"><a href="lecture9.html#embedded-pairs"><i class="fa fa-check"></i><b>10.4.4</b> Embedded Pairs</a></li>
+<li class="chapter" data-level="10.4.5" data-path="lecture9.html"><a href="lecture9.html#practical-pairs"><i class="fa fa-check"></i><b>10.4.5</b> Practical Pairs</a></li>
+</ul></li>
+<li class="chapter" data-level="10.5" data-path="lecture9.html"><a href="lecture9.html#operator-splitting"><i class="fa fa-check"></i><b>10.5</b> 5. Operator Splitting</a>
+<ul>
+<li class="chapter" data-level="10.5.1" data-path="lecture9.html"><a href="lecture9.html#motivation-2"><i class="fa fa-check"></i><b>10.5.1</b> Motivation</a></li>
+<li class="chapter" data-level="10.5.2" data-path="lecture9.html"><a href="lecture9.html#analysis-splitting-error"><i class="fa fa-check"></i><b>10.5.2</b> Analysis: Splitting Error</a></li>
+<li class="chapter" data-level="10.5.3" data-path="lecture9.html"><a href="lecture9.html#order-of-splitting"><i class="fa fa-check"></i><b>10.5.3</b> Order of Splitting</a></li>
+<li class="chapter" data-level="10.5.4" data-path="lecture9.html"><a href="lecture9.html#combining-with-numerical-methods"><i class="fa fa-check"></i><b>10.5.4</b> Combining with Numerical Methods</a></li>
+<li class="chapter" data-level="10.5.5" data-path="lecture9.html"><a href="lecture9.html#strang-splitting-second-order"><i class="fa fa-check"></i><b>10.5.5</b> Strang Splitting (Second-Order)</a></li>
+</ul></li>
+</ul></li>
 <li class="chapter" data-level="11" data-path="refs.html"><a href="refs.html"><i class="fa fa-check"></i><b>11</b> Bibliography</a></li>
 </ul>
 
@@ -265,7 +360,7 @@
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Lecture 8</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Lecture 9</a>
           </h1>
         </div>
 
@@ -301,8 +396,336 @@
 
 </div>
 <div id="lecture9" class="section level1 hasAnchor" number="10">
-<h1><span class="header-section-number">10</span> Lecture 9:<a href="lecture9.html#lecture9" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<h1><span class="header-section-number">10</span> Lecture 9: Multi-Step Methods and Runge-Kutta Methods<a href="lecture9.html#lecture9" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<hr />
+<div id="multi-step-methods" class="section level2 hasAnchor" number="10.1">
+<h2><span class="header-section-number">10.1</span> 1. Multi-Step Methods<a href="lecture9.html#multi-step-methods" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Multi-step methods achieve <strong>higher order of accuracy</strong> by using information from multiple previous time steps.</p>
+<div id="definition-1" class="section level3 hasAnchor" number="10.1.1">
+<h3><span class="header-section-number">10.1.1</span> Definition<a href="lecture9.html#definition-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>An <strong><span class="math inline">\(m\)</span>-step method</strong> (<span class="math inline">\(m \geq 1\)</span>) is a method for which, for all <span class="math inline">\(n \geq m - 1\)</span>, <span class="math inline">\(u_{n+1}\)</span> depends on <span class="math inline">\(u_{n+1-m}\)</span> but not on the values <span class="math inline">\(u_k\)</span> with <span class="math inline">\(k &lt; n + 1 - m\)</span>.</p>
+<p><strong>Example</strong> (Midpoint method): <span class="math inline">\(u_{n+1} = u_{n-1} + 2hf_n\)</span>, <span class="math inline">\(n \geq 1\)</span>. This is a <strong>two-step method</strong>.</p>
+</div>
+<div id="general-linear-multi-step-method" class="section level3 hasAnchor" number="10.1.2">
+<h3><span class="header-section-number">10.1.2</span> General Linear Multi-Step Method<a href="lecture9.html#general-linear-multi-step-method" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>A linear multi-step method for <span class="math inline">\(y&#39; = f(t, y)\)</span> has the form:</p>
+<p><span class="math display">\[\frac{1}{h} \sum_{j=0}^{m} a_j u_{n-j} = \sum_{j=0}^{m} b_j f_{n-j}\]</span></p>
+<hr />
+</div>
+<div id="adams-bashforth-ab-methods-explicit" class="section level3 hasAnchor" number="10.1.3">
+<h3><span class="header-section-number">10.1.3</span> 1.1 Adams-Bashforth (AB) Methods (Explicit)<a href="lecture9.html#adams-bashforth-ab-methods-explicit" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The multi-step method can be derived from the <strong>integration form</strong>:</p>
+<p><span class="math display">\[y_n = y_{n-1} + \int_{t_{n-1}}^{t_n} f(s, y(s))\, ds\]</span></p>
+<p>The AB method approximates the integral with a <strong>Newton-Cotes formula</strong>, using the <span class="math inline">\(m\)</span> previous steps at <span class="math inline">\(t_{n-1}, t_{n-2}, \ldots, t_{n-m}\)</span>.</p>
+<p>Recall that interpolation with <span class="math inline">\(m\)</span> points has an error of <span class="math inline">\(O(h^m)\)</span>, and the integral formula has error <span class="math inline">\(O(h^{m+1})\)</span>. Therefore:</p>
+<p><span class="math display">\[\frac{y_n - y_{n-1}}{h} = \frac{1}{h} \int_{t_{n-1}}^{t_n} f(s, y(s))\, ds = \sum_{j=1}^{m} b_j f_{n-j} + O(h^m)\]</span></p>
+<p>The <strong>Adams-Bashforth formula</strong> is:</p>
+<p><span class="math display">\[u_n = u_{n-1} + h \sum_{j=1}^{m} b_j f_{n-j}\]</span></p>
+<p><strong>Example: AB-2 (<span class="math inline">\(m = 2\)</span>)</strong></p>
+<p><span class="math display">\[u_n = u_{n-1} + h(a f_{n-1} + b f_{n-2})\]</span></p>
+<p>We expect <span class="math inline">\(O(h^2)\)</span> error. Using Taylor series to determine <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span>:</p>
+<p><strong>LHS</strong>: <span class="math inline">\(\frac{1}{h}(y_n - y_{n-1}) = y_n&#39; - \frac{h}{2}y_n&#39;&#39; + O(h^2)\)</span></p>
+<p><strong>RHS</strong>: <span class="math inline">\(a(y_n&#39; - hy_n&#39;&#39; + O(h^2)) + b(y_n&#39; - 2hy_n&#39;&#39; + O(h^2)) + O(h^2)\)</span></p>
+<p><span class="math inline">\(= (a + b)y_n&#39; + h(-a - 2b)y_n&#39;&#39; + O(h^2)\)</span></p>
+<p>Matching coefficients:</p>
+<p><span class="math display">\[\begin{cases} a + b = 1 \\ -a - 2b = -\frac{1}{2} \end{cases} \quad \Rightarrow \quad \begin{cases} a = \frac{3}{2} \\ b = -\frac{1}{2} \end{cases}\]</span></p>
+<p><span class="math display">\[\boxed{u_n = u_{n-1} + h\left(\frac{3}{2}f_{n-1} - \frac{1}{2}f_{n-2}\right), \quad \tau_n = O(h^2)}\]</span></p>
+<p><strong>Remark</strong>: The AB approach is popular as it is <strong>efficient to compute</strong>: to go from <span class="math inline">\(u_n\)</span> to <span class="math inline">\(u_{n+1}\)</span>, only <strong>one function evaluation</strong> is required. Yet it requires more than one starting value. The first <span class="math inline">\(m - 1\)</span> steps must be computed by some other method.</p>
+<hr />
+</div>
+<div id="adams-moulton-am-methods-implicit" class="section level3 hasAnchor" number="10.1.4">
+<h3><span class="header-section-number">10.1.4</span> 1.2 Adams-Moulton (AM) Methods (Implicit)<a href="lecture9.html#adams-moulton-am-methods-implicit" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>When approximating <span class="math inline">\(\int_{t_{n-1}}^{t_n} f(s, y(s))\, ds\)</span>, if <span class="math inline">\(t_n\)</span> is used as one of the interpolation points, the resulting formula is <strong>implicit</strong>, and is called the <strong>Adams-Moulton method</strong>.</p>
+<p>When <span class="math inline">\(m = 1\)</span>, the AM method is the <strong>trapezoidal rule</strong>:</p>
+<p><span class="math display">\[u_n = u_{n-1} + \frac{h}{2}(f_{n-1} + f_n)\]</span></p>
+<p>In general:</p>
+<p><span class="math display">\[\frac{1}{h}(y_n - y_{n-1}) = \frac{1}{h}\int_{t_{n-1}}^{t_n} f(s, y(s))\, ds = \sum_{j=0}^{m} b_j f_{n-j} + O(h^{m+1})\]</span></p>
+<p>The order of this method is <span class="math inline">\(m + 1\)</span> (one order higher than AB with the same number of steps), because we have an extra interpolation point.</p>
+<hr />
+</div>
+<div id="backward-differentiation-formula-bdf" class="section level3 hasAnchor" number="10.1.5">
+<h3><span class="header-section-number">10.1.5</span> 1.3 Backward Differentiation Formula (BDF)<a href="lecture9.html#backward-differentiation-formula-bdf" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Instead of approximating the integral of <span class="math inline">\(f\)</span>, one can also approximate <span class="math inline">\(y&#39;\)</span> directly.</p>
+<p>For <span class="math inline">\(y&#39; = f(t, y)\)</span>, use points <span class="math inline">\(t_n, t_{n-1}, \ldots, t_{n-m}\)</span>:</p>
+<p><span class="math display">\[\frac{1}{h} \sum_{j=0}^{m} a_j y_{n-j} = f_n + \tau_n, \quad \tau_n = O(h^m)\]</span></p>
+<p>When <span class="math inline">\(m = 1\)</span>: backward Euler: <span class="math inline">\(\frac{1}{h}(u_n - u_{n-1}) = f_n\)</span></p>
+<p>When <span class="math inline">\(m = 2\)</span>: <strong>BDF-2</strong> method:</p>
+<p><span class="math display">\[\boxed{\frac{1}{2h}(3u_n - 4u_{n-1} + u_{n-2}) = f_n}\]</span></p>
+<p>(See textbook p. 502 for details on higher-order BDF.)</p>
+<hr />
+</div>
+<div id="stability-of-multi-step-methods" class="section level3 hasAnchor" number="10.1.6">
+<h3><span class="header-section-number">10.1.6</span> 1.4 Stability of Multi-Step Methods<a href="lecture9.html#stability-of-multi-step-methods" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><strong>Main result: Dahlquist Equivalence Theorem</strong></p>
+<p>A linear multi-step method <span class="math inline">\(\frac{1}{h}\sum_{j=0}^{m} a_j u_{n-j} = \sum_{j=0}^{m} b_j f_{n-j}\)</span> is <strong>zero-stable</strong> if and only if all solutions <span class="math inline">\(u_n\)</span> stay <strong>bounded</strong> when the method is applied to the trivial ODE <span class="math inline">\(y&#39; = 0\)</span>.</p>
+<p>That is, it is zero-stable if and only if all solutions to <span class="math inline">\(\sum_{j=0}^{m} a_j u_{n-j} = 0\)</span> stay bounded as <span class="math inline">\(n \to \infty\)</span>.</p>
+</div>
+<div id="example-bdf-2" class="section level3 hasAnchor" number="10.1.7">
+<h3><span class="header-section-number">10.1.7</span> Example: BDF-2<a href="lecture9.html#example-bdf-2" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Consider the backward differentiation formula: <span class="math inline">\(\frac{3u_n - 4u_{n-1} + u_{n-2}}{2h} = f(t_n, u_n)\)</span>.</p>
+<p>To check zero-stability, apply it to <span class="math inline">\(y&#39; = 0\)</span>:</p>
+<p><span class="math display">\[3u_n - 4u_{n-1} + u_{n-2} = 0\]</span></p>
+<p>This is a <strong>linear constant-coefficient difference equation</strong>. The <strong>characteristic polynomial</strong> is:</p>
+<p><span class="math display">\[3r^2 - 4r + 1 = 0\]</span></p>
+<p><span class="math display">\[r_1 = 1, \quad r_2 = \frac{1}{3}\]</span></p>
+<p>General solution: <span class="math inline">\(u_n = a \cdot 1^n + b \cdot \left(\frac{1}{3}\right)^n\)</span></p>
+<p>Since both roots have <span class="math inline">\(|r| \leq 1\)</span> (and the root of modulus 1 is simple), the solution is <strong>bounded</strong> <span class="math inline">\(\Rightarrow\)</span> BDF-2 is <strong>zero-stable</strong>.</p>
+<hr />
+</div>
+</div>
+<div id="review-key-concepts-for-solving-ivps" class="section level2 hasAnchor" number="10.2">
+<h2><span class="header-section-number">10.2</span> 2. Review: Key Concepts for Solving IVPs<a href="lecture9.html#review-key-concepts-for-solving-ivps" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>To solve the IVP: <span class="math inline">\(\frac{dy}{dt} = f(t, y), \quad y(0) = y_0\)</span></p>
+<p><strong>Method 1: Forward Euler’s method</strong> (explicit)</p>
+<ul>
+<li>Scheme: <span class="math inline">\(\frac{u_{n+1} - u_n}{h} = f(t_n, u_n)\)</span></li>
+<li>Convergence requires: (1) Consistency: <span class="math inline">\(\text{LTE} = O(h^p)\)</span>, and (2) Zero-stability</li>
+</ul>
+<p><strong>Method 2: Absolute stability</strong></p>
+<ul>
+<li>When approximately solving <span class="math inline">\(y&#39; = \lambda y\)</span>: <span class="math inline">\(|u_n| \to 0\)</span> as <span class="math inline">\(t_n \to \infty\)</span></li>
+<li>This depends on both <span class="math inline">\(\lambda\)</span> and <span class="math inline">\(h\)</span></li>
+<li>For stiff problems, the stability constraint is a significant issue</li>
+</ul>
+<p><strong>Method 3: Multi-step methods</strong> — when we need higher order</p>
+<ul>
+<li>Use <span class="math inline">\(u_{n-1}, u_{n-2}, \ldots\)</span> to update to <span class="math inline">\(u_{n+1}\)</span></li>
+<li>Example: AB-2: <span class="math inline">\(u_n = u_{n-1} + h\left(\frac{3}{2}f_{n-1} - \frac{1}{2}f_{n-2}\right)\)</span></li>
+<li>The first <span class="math inline">\(m - 1\)</span> steps need to be computed with another method</li>
+</ul>
+<hr />
+</div>
+<div id="runge-kutta-methods" class="section level2 hasAnchor" number="10.3">
+<h2><span class="header-section-number">10.3</span> 3. Runge-Kutta Methods<a href="lecture9.html#runge-kutta-methods" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="motivation-and-derivation" class="section level3 hasAnchor" number="10.3.1">
+<h3><span class="header-section-number">10.3.1</span> 3.1 Motivation and Derivation<a href="lecture9.html#motivation-and-derivation" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>From the Taylor expansion:</p>
+<p><span class="math display">\[y_{n+1} = y_n + hy_n&#39; + \frac{h^2}{2}y_n&#39;&#39; + \cdots + \frac{h^p}{p!}y_n^{(p)} + O(h^{p+1}) \tag{1}\]</span></p>
+<p>The forward Euler method uses only the first-order term:</p>
+<p><span class="math display">\[u_{n+1} = u_n + hf(t_n, u_n)\]</span></p>
+<p>To derive a method of higher order, we could use multi-step methods. Alternatively, we can use <strong>one-step methods</strong> with multiple <strong>stages</strong>.</p>
+</div>
+<div id="computing-higher-derivatives" class="section level3 hasAnchor" number="10.3.2">
+<h3><span class="header-section-number">10.3.2</span> Computing Higher Derivatives<a href="lecture9.html#computing-higher-derivatives" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><span class="math display">\[y&#39;&#39; = \frac{d^2 y}{dt^2} = \frac{d}{dt}(f(t, y(t))) = \frac{\partial f}{\partial t} + \frac{\partial f}{\partial y}\frac{dy}{dt} = f_t + f_y \cdot f\]</span></p>
+<p>where <span class="math inline">\(f_t = \frac{\partial f}{\partial t}\)</span>, <span class="math inline">\(f_y = \frac{\partial f}{\partial y}\)</span>.</p>
+<p>This is <strong>undesirable</strong> as the expression involves partial derivatives of <span class="math inline">\(f\)</span>, which are complicated to compute.</p>
+</div>
+<div id="the-runge-kutta-approach" class="section level3 hasAnchor" number="10.3.3">
+<h3><span class="header-section-number">10.3.3</span> The Runge-Kutta Approach<a href="lecture9.html#the-runge-kutta-approach" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><strong>Two-stage RK</strong>: Instead of computing derivatives of <span class="math inline">\(f\)</span>, evaluate <span class="math inline">\(f\)</span> at multiple points:</p>
+<p><span class="math display">\[f_1 = f(t_n, y_n)\]</span>
+<span class="math display">\[f_2 = f(t_n + ch, y_n + hbf_1)\]</span>
+<span class="math display">\[y_{n+1} = y_n + h(w_1 f_1 + w_2 f_2) + O(h^3)\]</span></p>
+<p>Here <span class="math inline">\(b, c, w_1, w_2\)</span> all need to be determined to ensure the method is second-order consistent.</p>
+</div>
+<div id="deriving-the-conditions" class="section level3 hasAnchor" number="10.3.4">
+<h3><span class="header-section-number">10.3.4</span> Deriving the Conditions<a href="lecture9.html#deriving-the-conditions" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>We want <span class="math inline">\(\frac{y_{n+1} - y_n}{h} = w_1 f_1 + w_2 f_2 + \tau_{n+1}\)</span> with <span class="math inline">\(\tau_{n+1} = O(h^2)\)</span>.</p>
+<p><strong>LHS</strong> (Taylor expansion around <span class="math inline">\((t_n, y_n)\)</span>):</p>
+<p><span class="math display">\[\frac{1}{h}(y_{n+1} - y_n) = y_n&#39; + \frac{h}{2}y_n&#39;&#39; + O(h^2) = f + \frac{h}{2}(f_t + f \cdot f_y) + O(h^2)\]</span></p>
+<p><strong>RHS</strong>: <span class="math inline">\(f_1 = f\)</span> and using 2D Taylor series:</p>
+<p><span class="math display">\[f_2 = f(t_n + ch, y_n + hbf_1) = f + ch f_t + bhf_1 f_y + O(h^2)\]</span></p>
+<p>Thus:</p>
+<p><span class="math display">\[\text{RHS} = w_1 f + w_2(f + chf_t + bhf \cdot f_y + O(h^2))\]</span></p>
+<p>Matching LHS = RHS:</p>
+<p><span class="math display">\[f + \frac{h}{2}(f_t + f \cdot f_y) + O(h^2) = (w_1 + w_2)f + w_2 ch f_t + w_2 bh f \cdot f_y + O(h^2)\]</span></p>
+<p>This gives three constraints with four unknowns:</p>
+<p><span class="math display">\[\begin{cases} w_1 + w_2 = 1 \\ c w_2 = \frac{1}{2} \\ b w_2 = \frac{1}{2} \end{cases}\]</span></p>
+<p>Thus we have <strong>one free parameter</strong>. Let <span class="math inline">\(w_2 = \theta\)</span>, <span class="math inline">\(w_1 = 1 - \theta\)</span>, <span class="math inline">\(c = b = \frac{1}{2\theta}\)</span>.</p>
+<p>For any <span class="math inline">\(\theta \neq 0\)</span>:</p>
+<p><span class="math display">\[f_1 = f(t_n, y_n)\]</span>
+<span class="math display">\[f_2 = f\!\left(t_n + \frac{h}{2\theta}, \; y_n + \frac{h}{2\theta}f_1\right)\]</span>
+<span class="math display">\[y_{n+1} = y_n + h\big(\theta f_1 + (1 - \theta)f_2\big) + O(h^3)\]</span></p>
+<p><strong>Question</strong>: Would any choice of <span class="math inline">\(\theta\)</span> lead to higher order? In practice, <strong>no</strong>.</p>
+</div>
+<div id="the-improved-euler-method" class="section level3 hasAnchor" number="10.3.5">
+<h3><span class="header-section-number">10.3.5</span> The Improved Euler Method<a href="lecture9.html#the-improved-euler-method" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>A special case with <span class="math inline">\(\theta = 1/2\)</span> (<span class="math inline">\(w_1 = w_2 = 1/2\)</span>, <span class="math inline">\(c = b = 1\)</span>):</p>
+<p><span class="math display">\[k_1 = f(x_n, y_n)\]</span>
+<span class="math display">\[u_{n+1} = y_n + h \cdot k_1\]</span>
+<span class="math display">\[k_2 = f(x_{n+1}, u_{n+1})\]</span>
+<span class="math display">\[y_{n+1} = y_n + h \cdot \frac{1}{2}(k_1 + k_2)\]</span></p>
+<p>This is also known as <strong>Heun’s method</strong>.</p>
+<hr />
+</div>
+<div id="the-classical-rk-4-method" class="section level3 hasAnchor" number="10.3.6">
+<h3><span class="header-section-number">10.3.6</span> 3.2 The Classical RK-4 Method<a href="lecture9.html#the-classical-rk-4-method" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>We can use more stages, giving more free parameters and leading to several “families” of methods.</p>
+<p>The <strong>classical RK-4 method</strong>:</p>
+<p><span class="math display">\[f_1 = f(t_n, y_n)\]</span>
+<span class="math display">\[f_2 = f\!\left(t_n + \frac{h}{2}, \; y_n + \frac{h}{2}f_1\right)\]</span>
+<span class="math display">\[f_3 = f\!\left(t_n + \frac{h}{2}, \; y_n + \frac{h}{2}f_2\right)\]</span>
+<span class="math display">\[f_4 = f(t_n + h, \; y_n + hf_3)\]</span>
+<span class="math display">\[\boxed{y_{n+1} = y_n + \frac{h}{6}(f_1 + 2f_2 + 2f_3 + f_4) + O(h^5)}\]</span></p>
+<p><strong>Remark</strong>: This is an <strong>order 4 method</strong>. It provides an optimal gain in efficiency per step: each step requires 4 function evaluations and achieves fourth-order accuracy.</p>
+<hr />
+</div>
+<div id="general-explicit-rk-methods-and-butcher-tableau" class="section level3 hasAnchor" number="10.3.7">
+<h3><span class="header-section-number">10.3.7</span> 3.3 General Explicit RK Methods and Butcher Tableau<a href="lecture9.html#general-explicit-rk-methods-and-butcher-tableau" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><strong>Definition (RK Methods)</strong>: A general explicit Runge-Kutta (RK) method uses <span class="math inline">\(m\)</span> “stages” to get from <span class="math inline">\(u_n\)</span> to <span class="math inline">\(u_{n+1}\)</span> and has the form:</p>
+<p><span class="math display">\[f_1 = f(t_n, u_n)\]</span>
+<span class="math display">\[f_2 = f(t_n + c_2 h, \; u_n + ha_{21}f_1)\]</span>
+<span class="math display">\[f_3 = f(t_n + c_3 h, \; u_n + ha_{31}f_1 + ha_{32}f_2)\]</span>
+<span class="math display">\[\vdots\]</span>
+<span class="math display">\[f_m = f(t_n + c_m h, \; u_n + ha_{m1}f_1 + \cdots + ha_{m,m-1}f_{m-1})\]</span>
+<span class="math display">\[u_{n+1} = u_n + h(w_1 f_1 + \cdots + w_m f_m)\]</span></p>
+<p>Each stage <span class="math inline">\(f_j\)</span> is an evaluation of <span class="math inline">\(f\)</span> at an intermediate point <span class="math inline">\((t_n + c_j h, \tilde{u}_j)\)</span> where <span class="math inline">\(\tilde{u}_j\)</span> involves a linear combination of previous <span class="math inline">\(f\)</span>’s. The next value <span class="math inline">\(u_{n+1}\)</span> is a weighted average of the <span class="math inline">\(f\)</span>’s.</p>
+</div>
+<div id="butcher-tableau" class="section level3 hasAnchor" number="10.3.8">
+<h3><span class="header-section-number">10.3.8</span> Butcher Tableau<a href="lecture9.html#butcher-tableau" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The RK method is compactly represented by a <strong>Butcher tableau</strong>:</p>
+<p><span class="math display">\[\begin{array}{c|cccc}
+c_1 &amp; &amp; &amp; &amp; \\
+c_2 &amp; a_{21} &amp; &amp; &amp; \\
+c_3 &amp; a_{31} &amp; a_{32} &amp; &amp; \\
+\vdots &amp; \vdots &amp; &amp; \ddots &amp; \\
+c_m &amp; a_{m1} &amp; a_{m2} &amp; \cdots &amp; a_{m,m-1} \\
+\hline
+&amp; w_1 &amp; w_2 &amp; \cdots &amp; w_{m-1} &amp; w_m
+\end{array}\]</span></p>
+<p>For <strong>explicit</strong> RK methods, the coefficient matrix is <strong>strictly lower triangular</strong>. For <strong>implicit</strong> RK methods, it is a full matrix.</p>
+<p>(See textbook p. 525 for the Butcher tableau of implicit RK methods.)</p>
+</div>
+<div id="theorem-butcher" class="section level3 hasAnchor" number="10.3.9">
+<h3><span class="header-section-number">10.3.9</span> Theorem (Butcher)<a href="lecture9.html#theorem-butcher" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>An <span class="math inline">\(m\)</span>-stage RK method can be at best <span class="math inline">\(m\)</span>-th order:</p>
+<ul>
+<li>For <span class="math inline">\(m \leq 4\)</span>, the best possible order is exactly <span class="math inline">\(m\)</span>.</li>
+<li>For <span class="math inline">\(m &gt; 4\)</span>, the best possible order is strictly less than <span class="math inline">\(m\)</span>. For instance, <span class="math inline">\(m = 6\)</span> stages are required to get a fifth-order method.</li>
+</ul>
+<p>Thus the <strong>sweet spot</strong> for RK methods is around <strong>4 stages</strong> (RK-4).</p>
+<hr />
+</div>
+<div id="convergence-and-stability-of-explicit-rk-methods" class="section level3 hasAnchor" number="10.3.10">
+<h3><span class="header-section-number">10.3.10</span> 3.4 Convergence and Stability of Explicit RK Methods<a href="lecture9.html#convergence-and-stability-of-explicit-rk-methods" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>In an explicit Runge-Kutta method:</p>
+<p><span class="math display">\[u_{n+1} = u_n + h\,\Psi(h, t_n, u_n)\]</span></p>
+<p>where <span class="math inline">\(\Psi\)</span> encapsulates all the intermediate quantities derived from <span class="math inline">\(f\)</span>.</p>
+<p><strong>Consistency</strong>: Automatic from the derivation.</p>
+<p><strong>Zero-stability</strong>: If <span class="math inline">\(\Psi\)</span> is Lipschitz in <span class="math inline">\(y\)</span>, the scheme is zero-stable (as proved for Euler’s method). If <span class="math inline">\(f(t, y)\)</span> is Lipschitz in <span class="math inline">\(y\)</span>, so is <span class="math inline">\(\Psi\)</span>.</p>
+</div>
+<div id="absolute-stability-of-rk-methods" class="section level3 hasAnchor" number="10.3.11">
+<h3><span class="header-section-number">10.3.11</span> Absolute Stability of RK Methods<a href="lecture9.html#absolute-stability-of-rk-methods" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Consider the test equation <span class="math inline">\(y&#39; = \lambda y\)</span>, let <span class="math inline">\(z = h\lambda\)</span>.</p>
+<p>For an <span class="math inline">\(m\)</span>-stage explicit RK method, each stage <span class="math inline">\(hf_j\)</span> is a polynomial of degree <span class="math inline">\(j\)</span> in <span class="math inline">\(z\)</span> times <span class="math inline">\(u_n\)</span>. Thus:</p>
+<p><span class="math display">\[u_{n+1} = u_n + \sum_{j=1}^{m} w_j(hf_j) = g(z)\, u_n\]</span></p>
+<p>where <span class="math inline">\(g(z)\)</span> is a <strong>polynomial of degree <span class="math inline">\(m\)</span></strong> in <span class="math inline">\(z\)</span>.</p>
+<p>The <strong>stability region</strong> is:</p>
+<p><span class="math display">\[\mathcal{R} = \{z \in \mathbb{C} : |g(z)| \leq 1\}\]</span></p>
+<p>Since <span class="math inline">\(|g(z)| \sim C|z|^m\)</span> as <span class="math inline">\(|z| \to \infty\)</span>, and if <span class="math inline">\(|g(z)| &gt; 1\)</span>, then <span class="math inline">\(u_n\)</span> grows unbounded. Thus the region of absolute stability is <strong>bounded</strong> for all explicit RK methods.</p>
+<p>All explicit RK methods have a <strong>stability constraint</strong> on <span class="math inline">\(h\)</span>.</p>
+<hr />
+</div>
+</div>
+<div id="adaptive-time-stepping" class="section level2 hasAnchor" number="10.4">
+<h2><span class="header-section-number">10.4</span> 4. Adaptive Time Stepping<a href="lecture9.html#adaptive-time-stepping" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="motivation-1" class="section level3 hasAnchor" number="10.4.1">
+<h3><span class="header-section-number">10.4.1</span> Motivation<a href="lecture9.html#motivation-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><strong>Question</strong>: How do we choose grid size <span class="math inline">\(h\)</span>?</p>
+<ul>
+<li>Smaller <span class="math inline">\(h \to\)</span> better accuracy + longer run time</li>
+<li>Need to ensure stability</li>
+</ul>
+<p>Since for a one-step method, only the values at the previous step (step <span class="math inline">\(n\)</span>) are used to update to <span class="math inline">\(n + 1\)</span>, we can choose a <strong>new <span class="math inline">\(h\)</span> for each step</strong>.</p>
+</div>
+<div id="algorithm" class="section level3 hasAnchor" number="10.4.2">
+<h3><span class="header-section-number">10.4.2</span> Algorithm<a href="lecture9.html#algorithm" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Given an error tolerance <span class="math inline">\(\varepsilon\)</span>:</p>
+<ol style="list-style-type: decimal">
+<li>Take a single step of size <span class="math inline">\(h_0\)</span></li>
+<li><strong>Estimate the error</strong> between the exact solution and the updated value</li>
+<li>If error is larger than <span class="math inline">\(\varepsilon\)</span> <span class="math inline">\(\Rightarrow\)</span> retry the step with a smaller step size (e.g., <span class="math inline">\(h_0/2\)</span>)</li>
+<li>If error is smaller than <span class="math inline">\(\varepsilon\)</span>, accept it and go back to (1)</li>
+</ol>
+</div>
+<div id="error-estimation-via-two-methods" class="section level3 hasAnchor" number="10.4.3">
+<h3><span class="header-section-number">10.4.3</span> Error Estimation via Two Methods<a href="lecture9.html#error-estimation-via-two-methods" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>To estimate the error, we use <strong>two numerical methods of different order</strong> to approximate the exact solution:</p>
+<p><strong>Method A</strong> (order <span class="math inline">\(p\)</span>): produces <span class="math inline">\(u_n\)</span> from <span class="math inline">\(u_{n-1}\)</span>, with local error <span class="math inline">\(e_n(h) = Ch^{p+1} + O(h^{p+2})\)</span></p>
+<p><strong>Method B</strong> (order <span class="math inline">\(p + 1\)</span>): produces <span class="math inline">\(\tilde{u}_n\)</span> from <span class="math inline">\(u_{n-1}\)</span>, with local error <span class="math inline">\(\tilde{e}_n(h) = O(h^{p+2})\)</span></p>
+<p>Assuming the value at time <span class="math inline">\(n - 1\)</span> is exact:</p>
+<p><span class="math display">\[y(t_n) = u_n + e_n(h) = u_n + Ch^{p+1} + O(h^{p+2})\]</span>
+<span class="math display">\[y(t_n) = \tilde{u}_n + \tilde{e}_n(h) = \tilde{u}_n + O(h^{p+2})\]</span></p>
+<p>Therefore:</p>
+<p><span class="math display">\[Ch^{p+1} + O(h^{p+2}) = e_n(h) = \tilde{u}_n - u_n + O(h^{p+2})\]</span></p>
+<p>So <span class="math inline">\(\tilde{u}_n - u_n\)</span> approximates the <strong>leading-order term</strong> of <span class="math inline">\(e_n(h)\)</span>.</p>
+<p>Check if <span class="math inline">\(|\tilde{u}_n - u_n|\)</span> is bounded by <span class="math inline">\(\varepsilon\)</span> to decide whether to accept or reject the step.</p>
+</div>
+<div id="embedded-pairs" class="section level3 hasAnchor" number="10.4.4">
+<h3><span class="header-section-number">10.4.4</span> Embedded Pairs<a href="lecture9.html#embedded-pairs" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>In general, the “two method” approach requires <strong>twice as much work</strong> as using one fixed step. We can create <strong>overlap in the computation</strong> to save work.</p>
+<p><strong>Example</strong>: Forward Euler (Method A, order 1) and Modified Euler (Method B, order 2):</p>
+<ul>
+<li>Method A: <span class="math inline">\(u_{n+1} = u_n + hf(t_n, u_n)\)</span></li>
+<li>Method B:
+<ul>
+<li><span class="math inline">\(f_1 = f(t_n, u_n)\)</span></li>
+<li><span class="math inline">\(f_2 = f(t_n + h/2, \; u_n + \frac{h}{2}f_1)\)</span></li>
+<li><span class="math inline">\(\tilde{u}_{n+1} = u_n + hf_2\)</span></li>
+</ul></li>
+</ul>
+<p>Only <strong>two function evaluations</strong> total are done because <span class="math inline">\(f_1\)</span> is shared between both methods (Euler method is <strong>embedded</strong> in the modified one).</p>
+</div>
+<div id="practical-pairs" class="section level3 hasAnchor" number="10.4.5">
+<h3><span class="header-section-number">10.4.5</span> Practical Pairs<a href="lecture9.html#practical-pairs" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><strong>Runge-Kutta-Fehlberg</strong> and <strong>Dormand-Prince</strong> pairs use a pair of <strong>fourth/fifth order</strong> RK methods to adaptively select step size. These are the default choice for solving ODEs in most software (e.g., MATLAB’s <code>ode45</code>).</p>
+<hr />
+</div>
+</div>
+<div id="operator-splitting" class="section level2 hasAnchor" number="10.5">
+<h2><span class="header-section-number">10.5</span> 5. Operator Splitting<a href="lecture9.html#operator-splitting" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>An idea widely used in numerical analysis for solving complex problems.</p>
+<div id="motivation-2" class="section level3 hasAnchor" number="10.5.1">
+<h3><span class="header-section-number">10.5.1</span> Motivation<a href="lecture9.html#motivation-2" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Consider a PDE as a simple example:</p>
+<p><span class="math display">\[\frac{\partial u}{\partial t} = \mathcal{L}_1 u + \mathcal{L}_2 u\]</span></p>
+<p>For instance, a <strong>convection-diffusion equation</strong>:</p>
+<p><span class="math display">\[\frac{\partial u}{\partial t} = -c\frac{\partial u}{\partial x} + k\frac{\partial^2 u}{\partial x^2}\]</span></p>
+<p>One can solve two simpler equations separately:</p>
+<p><span class="math display">\[\frac{\partial u}{\partial t} = -c\frac{\partial u}{\partial x} \quad \text{and} \quad \frac{\partial u}{\partial t} = k\frac{\partial^2 u}{\partial x^2}\]</span></p>
+<p>Taking one step for the convection part, then one step for the diffusion part.</p>
+</div>
+<div id="analysis-splitting-error" class="section level3 hasAnchor" number="10.5.2">
+<h3><span class="header-section-number">10.5.2</span> Analysis: Splitting Error<a href="lecture9.html#analysis-splitting-error" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>There will be error associated with splitting. Consider a simplified problem:</p>
+<p><span class="math display">\[\frac{d\vec{y}}{dt} = A\vec{y} + B\vec{y}, \quad y(0) = y_0\]</span></p>
+<p>Even simpler: <span class="math inline">\(\frac{dy}{dt} = ay + by\)</span>, <span class="math inline">\(y(0) = y_0\)</span>.</p>
+<p>If we solve <span class="math inline">\(y&#39; = by\)</span>, get <span class="math inline">\(w(t) = e^{bt}y_0\)</span>, then solve <span class="math inline">\(y&#39; = ay\)</span>:</p>
+<p><span class="math display">\[y(t) = e^{at}e^{bt}y_0\]</span></p>
+<p>For the matrix form: if <span class="math inline">\(\vec{w}\)</span> solves <span class="math inline">\(\vec{y}&#39; = B\vec{y}\)</span>, then <span class="math inline">\(\vec{w} = e^{Bt}\vec{y}_0\)</span>.</p>
+<p>Let <span class="math inline">\(\vec{y}\)</span> solve <span class="math inline">\(\vec{y}&#39; = A\vec{y}\)</span> with initial condition <span class="math inline">\(\vec{w}\)</span>:</p>
+<p><span class="math display">\[\vec{y} = e^{At}e^{Bt}\vec{y}_0\]</span></p>
+<p>The exact solution should be <span class="math inline">\(\vec{y} = e^{(A+B)t}\vec{y}_0\)</span>.</p>
+<p><strong>Key issue</strong>: <span class="math inline">\(e^{(A+B)t} \neq e^{At} \cdot e^{Bt}\)</span> in general (unless <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> commute).</p>
+</div>
+<div id="order-of-splitting" class="section level3 hasAnchor" number="10.5.3">
+<h3><span class="header-section-number">10.5.3</span> Order of Splitting<a href="lecture9.html#order-of-splitting" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Using the <strong>Baker-Campbell-Hausdorff theorem</strong>: <span class="math inline">\(e^X e^Y = e^Z\)</span> where:</p>
+<p><span class="math display">\[Z = X + Y + \frac{1}{2}[X, Y] + \frac{1}{12}[X, [X, Y]] + \frac{1}{12}[Y, [Y, X]] + \cdots\]</span></p>
+<p>with <span class="math inline">\([X, Y] = XY - YX\)</span> (the Lie bracket/commutator).</p>
+<p>Therefore: <span class="math inline">\(e^{hA}e^{hB} = e^{h(A+B) + O(h^2)}\)</span></p>
+<p>We can expect <strong>local error of <span class="math inline">\(O(h^2)\)</span></strong>, so the method is <strong>order 1</strong>.</p>
+</div>
+<div id="combining-with-numerical-methods" class="section level3 hasAnchor" number="10.5.4">
+<h3><span class="header-section-number">10.5.4</span> Combining with Numerical Methods<a href="lecture9.html#combining-with-numerical-methods" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>When <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> are not constant-coefficient matrices, we can replace <span class="math inline">\(e^{hA}\)</span> and <span class="math inline">\(e^{hB}\)</span> by numerical schemes.</p>
+<p>If we use forward Euler:</p>
+<p><span class="math display">\[\vec{w}_n = \vec{u}_{n-1} + hB\vec{u}_{n-1} = (I + hB)\vec{u}_{n-1}\]</span>
+<span class="math display">\[\vec{u}_n = \vec{w}_n + hA\vec{w}_n = (I + hA)(I + hB)\vec{u}_{n-1}\]</span></p>
+<p>Compare splitting version vs. forward Euler without splitting:</p>
+<p><span class="math display">\[\vec{u}_n = [I + h(A + B)]\vec{u}_{n-1} \quad \text{(forward Euler)}\]</span></p>
+<p><span class="math display">\[(I + hA)(I + hB) = I + h(A + B) + O(h^2) \quad \text{(splitting)}\]</span></p>
+<p>The splitting version has <span class="math inline">\(O(h^2)\)</span> additional local error, matching the order of the splitting itself.</p>
+</div>
+<div id="strang-splitting-second-order" class="section level3 hasAnchor" number="10.5.5">
+<h3><span class="header-section-number">10.5.5</span> Strang Splitting (Second-Order)<a href="lecture9.html#strang-splitting-second-order" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Instead of <span class="math inline">\(e^{hA}e^{hB}\)</span>, use:</p>
+<p><span class="math display">\[e^{\frac{h}{2}A}\, e^{hB}\, e^{\frac{h}{2}A}\]</span></p>
+<p>This achieves <span class="math inline">\(O(h^3)\)</span> local error (i.e., <strong>second-order</strong> method), providing a significant improvement in accuracy.</p>
 
+</div>
+</div>
 </div>
 <hr style="margin-top:50px;">
 

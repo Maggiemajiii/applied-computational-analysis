@@ -2,5 +2,407 @@
 title: "Lecture 8"
 date: "`r Sys.Date()`"
 ---
-# Lecture 8:  {#lecture8}
+# Lecture 8: ODE Initial Value Problems and Euler Methods {#lecture8}
 
+Numerical methods for solving ordinary differential equations (ODEs).
+
+Previously we have learned approximation of functions, derivatives, and integrals. Now we study **approximation of solutions of ODEs**, focusing on:
+
+- **Convergence**
+- **Stability**
+
+---
+
+## 1. Review of ODEs
+
+### Initial Value Problem (IVP)
+
+An **initial value problem (IVP)** in one dimension:
+
+$$y' = f(t, y), \quad y(t_0) = y_0$$
+
+where $t$ is the independent variable and $y$ is the dependent variable. The solution $y(t)$ depends on the solution at previous times. This is also called the **Cauchy problem**.
+
+Typically we consider solving the ODE "forward in time" $t > t_0$.
+
+### Remarks
+
+1. Most numerical methods for the first-order IVP can be extended to **systems** of first-order equations:
+
+$$\begin{cases} y_1' = f_1(t, y_1, y_2, \ldots, y_N) \\ y_2' = f_2(t, y_1, y_2, \ldots, y_N) \\ \quad \vdots \\ y_N' = f_N(t, y_1, y_2, \ldots, y_N) \end{cases}$$
+
+2. An **$n$-th order ODE** can be converted to a first-order system.
+
+**Example**: $y'' = 3y' + 4y + t^2$. Let $w_1 = y$, $w_2 = y'$. Then:
+
+$$\begin{cases} w_1' = w_2 \\ w_2' = 3w_2 + 4w_1 + t^2 \end{cases}$$
+
+---
+
+## 2. Theorems for IVP: Uniqueness and Stability
+
+### Lipschitz Condition
+
+**Definition**: Let $D$ be a simply connected domain in the $(t, y)$ plane. A function $f: \mathbb{R}^2 \to \mathbb{R}$ is **Lipschitz in $y$** if:
+
+$$|f(t, y_1) - f(t, y_2)| \leq L |y_1 - y_2|$$
+
+for all $(t, y_1), (t, y_2) \in D$, for some constant $L > 0$.
+
+### Main Theorem (Existence/Stability)
+
+Consider the initial value problem:
+
+$$y'(t) = f(t, y(t)), \quad y(a) = y_0$$
+
+and the "strip" in the $(t, y)$ plane:
+
+$$R = \{(t, y) : a \leq t \leq b, \; y \in \mathbb{R}\}$$
+
+If $f$ is **Lipschitz in $y$** with constant $L$ within $R$, then:
+
+**(i)** The IVP has a **unique solution** $y(t)$ in $[a, b]$.
+
+**(ii)** If $z(t)$ is a solution starting with "perturbed data" $z(a) = z_0$, then:
+
+$$|y(t) - z(t)| \leq e^{L(t - t_0)} |y_0 - z_0| \quad \text{in } R$$
+
+**(iii)** If $z(t)$ solves the "perturbed" problem:
+
+$$z'(t) = f(t, z) + h(t, z), \quad z(a) = z_0$$
+
+and the perturbation satisfies $|h(t, z)| \leq M$ in $R$, then:
+
+$$|y(t) - z(t)| \leq e^{L(t - t_0)} |y_0 - z_0| + M \frac{e^{L(t - t_0)} - 1}{L}$$
+
+In particular, $z(t) \to y(t)$ uniformly in $[a, b]$ as $M, |y_0 - z_0| \to 0$ (the perturbed solution approaches the original as the perturbation goes to zero).
+
+---
+
+## 3. Euler's Method (Forward Euler Method)
+
+### Setup
+
+Given $y' = f(t, y)$ for $t \in [0, b]$, $y(0) = y_0$.
+
+We **discretize** the problem: seek a solution that is defined on **grid points**:
+
+$$0 = t_0 < t_1 < \cdots < t_N = b$$
+
+Let $y_n = y(t_n)$ denote the **exact solution** at each grid point.
+
+Let $u_n$ represent the **approximation** of the solution:
+
+$$u_n \approx y_n = y(t_n), \quad n = 0, 1, \ldots, N$$
+
+The approximation $\{u_n\}$ is called a **grid function**. The spacing $h_n = t_{n+1} - t_n$ is the **step size**.
+
+### Global Error
+
+We define the **global error** of the grid function by:
+
+$$\|\vec{u} - \vec{y}\|_\infty = \max_{0 \leq n \leq N} |u_n - y(t_n)|$$
+
+### Convergence
+
+A method is said to be **convergent with order $p$** if:
+
+$$\max_{0 \leq n \leq N} |u_n - y(t_n)| = O(h^p) \quad \text{as } h \to 0$$
+
+### Derivation of Forward Euler Method
+
+The forward Euler method can be derived from **Taylor expansion**. Consider equal spacing grid points, i.e., $h_i = h$ for all $i$.
+
+Then $y'(t_n) = f(t_n, y_n)$.
+
+If we do Taylor expansion at $t_n$:
+
+$$y(t_{n+1}) = y(t_n) + y'(t_n)(t_{n+1} - t_n) + \frac{h^2}{2} y''(\xi_{n+1})$$
+
+where $\xi_{n+1} \in [t_n, t_{n+1}]$. Plugging in $y' = f(t, y)$:
+
+$$y_{n+1} = y_n + f(t_n, y_n) h + \frac{h^2}{2} y''(\xi_{n+1})$$
+
+Dropping the error term gives the **forward Euler method**:
+
+$$\boxed{u_{n+1} = u_n + h f(t_n, u_n), \quad u_0 = y_0}$$
+
+This computable formula is called a **finite difference equation (FDE)**.
+
+---
+
+## 4. Local Truncation Error and Consistency
+
+### Relationship Between ODE and FDE
+
+Let us summarize the relationship:
+
+**ODE**: $y' = f(t, y)$
+
+**Exact solution** satisfies:
+
+$$\frac{y_{n+1} - y_n}{h} = f(t_n, y_n) + \frac{h}{2} y''(\xi_{n+1})$$
+
+**FDE** (Forward Euler):
+
+$$\frac{u_{n+1} - u_n}{h} = f(t_n, u_n)$$
+
+### Local Truncation Error (LTE)
+
+We define the **local truncation error (LTE)** of the formula as:
+
+$$\tau_{n+1} = \frac{y_{n+1} - y_n}{h} - f(t_n, y_n)$$
+
+It is the error of applying the finite difference formula to the **exact solution**.
+
+### The Operator $A_h$
+
+Define $A_h$ with the formula $\tau_{n+1} = A_h y_n$:
+
+$$A_h v_n := \frac{v_{n+1} - v_n}{h} - f(t_n, v_n)$$
+
+Note that $A_h u_n = 0$ if $\{u_n\}$ is derived with the scheme. The definition can be extended to other finite difference formulas: $\text{LTE} = \tau_{n+1} = A_h y(t_n)$.
+
+In our case:
+
+$$\tau_{n+1} = A_h y_n = \frac{h}{2} y''(\xi_{n+1})$$
+
+### Definition (Consistency)
+
+A finite difference formula is **consistent (with order $p$)** if:
+
+$$\text{LTE} = O(h^p)$$
+
+For the forward Euler method, $\text{LTE} = O(h)$, so it is **first-order consistent**.
+
+**Question**: Does consistency guarantee the convergence of the solution?
+
+---
+
+## 5. Zero-Stability
+
+Recall the definitions:
+
+- **Convergence**: $\max_{0 \leq n \leq N} |u_n - y_n| = O(h^p)$
+- **Consistency** of forward Euler method: $\frac{y_{n+1} - y_n}{h} - f(t_n, y_n) = O(h^p)$, i.e., the FDE is consistent with the ODE.
+
+The missing piece: **consistency + ? $\Rightarrow$ convergence**.
+
+### Definition (Zero-Stability)
+
+The FDE is **zero-stable** if for small enough $h$, there exists a constant $M$ such that for any two grid functions $v_n, w_n$:
+
+$$|v_n - w_n| \leq M \left( |v_0 - w_0| + \max_{0 \leq j \leq N-1} |A_h v(t_j) - A_h w(t_j)| \right)$$
+
+for $1 \leq n \leq N$.
+
+That is, small perturbations in the initial data ($v_0 \to w_0$) or in the formula at time $j$ lead to small changes in the result.
+
+### Remark
+
+Ideally, $A_h v(t_j) = A_h w(t_j) = 0$, but there might be rounding error and other perturbations when computing the FDE.
+
+### The Fundamental Theorem
+
+**Zero-stability + consistency (of order $p$) $\Rightarrow$ convergence (of order $p$)**:
+
+$$|y_n - u_n| \leq M \left( |y_0 - u_0| + \max_{0 \leq j \leq N} (A_h y(t_j) - A_h u_j) \right) = O(h^p)$$
+
+if the method is consistent with order $p$.
+
+---
+
+## 6. Convergence Proof for Forward Euler Method
+
+Assume $f(t, y)$ is **Lipschitz in $y$** for $t \in [0, b]$.
+
+Let $v_n, w_n$ be two grid functions. By definition of $A_h$:
+
+$$v_{n+1} = v_n + h f(t_n, v_n) + h A_h v(t_n)$$
+$$w_{n+1} = w_n + h f(t_n, w_n) + h A_h w(t_n)$$
+
+Let $\tau = \max_{1 \leq j \leq N} |A_h v(t_j) - A_h w(t_j)|$.
+
+Taking the difference:
+
+$$|v_{n+1} - w_{n+1}| = |v_n - w_n + h(f(t_n, v_n) - f(t_n, w_n)) + h(A_h v(t_n) - A_h w(t_n))|$$
+
+Using the Lipschitz condition on $f$ in $y$:
+
+$$\leq |v_n - w_n| + hL|v_n - w_n| + h\tau$$
+
+Let $d_n = v_n - w_n$, then:
+
+$$|d_{n+1}| \leq (1 + hL)|d_n| + h\tau$$
+
+**Iterating the bound**:
+
+$$|d_{n+1}| \leq (1 + hL)^n |d_0| + h\tau \sum_{j=0}^{n-1} (1 + hL)^j$$
+
+$$\leq (1 + hL)^n |d_0| + h\tau \cdot \frac{(1 + hL)^n - 1}{hL}$$
+
+Using the inequality $1 + x \leq e^x$, so $1 + hL \leq e^{hL}$, and since $nh < b$:
+
+$$|d_{n+1}| \leq e^{nhL} |d_0| + \frac{\tau}{L}(e^{nhL} - 1)$$
+
+$$\leq e^{bL} |d_0| + \frac{e^{bL} - 1}{L} \tau$$
+
+This proves **zero-stability**. Combined with consistency, we obtain convergence.
+
+---
+
+## 7. Other Methods
+
+### Forward Euler Method
+
+Uses the **forward difference** approximation: $y'(t_n) \approx \frac{y_{n+1} - y_n}{h}$.
+
+$$u_{n+1} = u_n + h f(t_n, u_n)$$
+
+### Backward Euler Method
+
+Uses the **backward difference** approximation: $y'(t_n) \approx \frac{y(t_n) - y(t_{n-1})}{h}$.
+
+$$\boxed{u_{n+1} = u_n + h f(t_{n+1}, u_{n+1})}$$
+
+The scheme is:
+
+$$\frac{u_{n+1} - u_n}{h} = f(t_{n+1}, u_{n+1})$$
+
+**Is it consistent?** The local truncation error:
+
+$$\tau_n = \frac{y_{n+1} - y_n}{h} - f(t_{n+1}, y_{n+1}) = y'(t_{n+1}) - \frac{h}{2}y''(\xi_n) - y'(t_{n+1}) = -\frac{h}{2}y''(\xi_n) = O(h)$$
+
+So it is **first-order consistent** ($O(h)$).
+
+It is **implicit**, meaning that to compute the "next" value $u_{n+1}$ involves both previously known values ($u_n$) and itself. Thus each step involves solving a **nonlinear equation**:
+
+$$0 = g(z) := z - u_n - f(t_{n+1}, z)$$
+
+### Trapezoidal Method
+
+From the ODE, we know the exact solution satisfies:
+
+$$y(t_{n+1}) = y(t_n) + \int_{t_n}^{t_{n+1}} f(s, y(s))\, ds$$
+
+Applying the **trapezoidal rule** to the integral:
+
+$$y_{n+1} = y_n + \frac{h}{2}(f_n + f_{n+1}) - \frac{h^3}{12} y''(\xi_{n+1})$$
+
+The **trapezoidal method**:
+
+$$\boxed{u_{n+1} = u_n + \frac{h}{2}\big(f(t_n, u_n) + f(t_{n+1}, u_{n+1})\big)}$$
+
+Properties:
+
+- **Consistency**: $\tau_{n+1} = A_h y = \frac{y_{n+1} - y_n}{h} - \frac{1}{2}(f_n + f_{n+1}) = O(h^2)$, so it is **second-order consistent**.
+- It is **implicit** (like backward Euler).
+
+---
+
+## 8. Absolute Stability and Stiffness
+
+### Motivation
+
+Recall that **zero-stability** is about behavior for small $h$ (as $h \to 0$, $u_n$ converges to exact solution).
+
+**Absolute stability** is about the **asymptotic behavior** of $u_n$: for fixed $h$, whether $u_n$ will remain bounded as $t_n \to +\infty$.
+
+### The Model Problem
+
+Consider the simple ODE:
+
+$$y'(t) = \lambda y(t), \quad t > 0, \quad y(0) = 1 \tag{1}$$
+
+where $f(t, y) = \lambda y$. The exact solution is $y = e^{\lambda t}$.
+
+If $\text{Re}(\lambda) < 0$, then $\lim_{t \to \infty} |y(t)| = 0$.
+
+If $\lambda \geq 1$, then $y = e^t \to +\infty$ as $t \to +\infty$.
+
+We hope that the numerical solution $u_n$ has the **same behavior**.
+
+### Definition (Absolute Stability)
+
+A numerical method approximating (1) is **absolutely stable** if $|u_n| \to 0$ as $t_n \to +\infty$.
+
+Whether a method is absolutely stable depends on **both $\lambda$ and $h$**.
+
+### Forward Euler Applied to the Model Problem
+
+$$u_{n+1} = u_n + h\lambda u_n = (1 + h\lambda) u_n$$
+
+$$\Rightarrow u_n = (1 + h\lambda)^n u_0$$
+
+- When $n \to \infty$: $u_n \to 0$ if $|1 + h\lambda| < 1$
+- $u_n \to \infty$ if $|1 + h\lambda| > 1$
+
+We need $z = h\lambda$ to satisfy $|1 + h\lambda| < 1$ for absolute stability.
+
+### Definition (Region of Absolute Stability)
+
+The **region of absolute stability** of a numerical method for (1), denoted by $\mathcal{R}$, is the set of complex numbers $z = h\lambda$ such that:
+
+$$|u_n| \to 0 \quad \text{as } n \to \infty$$
+
+### Stability Regions of Various Methods
+
+**Forward Euler**: $\mathcal{R} = \{z \in \mathbb{C} : |1 + z| < 1\}$
+
+This is the interior of the **unit circle centered at $(-1, 0)$** in the complex plane.
+
+**Example**: For $y' = -20y$, $\lambda = -20$. The region of absolute stability requires $|1 + z| < 1$ where $z = -20h$. We need $h \in (0, 1/10)$. If $h > 1/10$, $u_n$ will grow exponentially (unstable). This is a "**stability constraint on $h$**."
+
+**Backward Euler**: Applied to $y' = \lambda y$:
+
+$$u_{n+1} = u_n + h\lambda u_{n+1} \quad \Rightarrow \quad u_{n+1} = \frac{1}{1 - h\lambda} u_n$$
+
+$$\Rightarrow u_n = \frac{1}{(1 - h\lambda)^n}, \quad n \geq 0$$
+
+We need $|1 - h\lambda| > 1$ for $u_n \to 0$ as $t_n \to \infty$.
+
+$\mathcal{R} = \{z \in \mathbb{C} : |1 - z| > 1\}$, i.e., the **exterior** of the unit circle centered at $(1, 0)$.
+
+**Trapezoidal Method**:
+
+$$u_n = \left[\frac{1 + \frac{1}{2}\lambda h}{1 - \frac{1}{2}\lambda h}\right]^n$$
+
+The stability condition is satisfied for any $\lambda h \in \mathbb{C}^- = \{z \in \mathbb{C} : \text{Re}(z) < 0\}$.
+
+### A-Stability
+
+**Definition**: A method with absolute stability region $\mathcal{R}$ containing $\mathbb{C}^- = \{z \in \mathbb{C} : \text{Re}(z) < 0\}$ is called **A-stable**.
+
+**Backward Euler** and **Trapezoidal method** are **A-stable**: when $\text{Re}(\lambda) < 0$, there is no stability constraint when choosing $h$.
+
+### Stiffness
+
+When choosing grid size $h$, we need to consider both **stability** and **convergence** at the same time:
+
+- When $h$ is small: $O(h^p)$ error (convergence)
+- $\lambda h$ needs to be within $\mathcal{R}$ for a reasonable solution (stability)
+
+**Definition**: A problem is called **stiff** when the stability constraint is a significant issue, i.e., the step size required for stability is much smaller than what would be needed for accuracy alone.
+
+### Remark: General ODEs
+
+For a general ODE $y' = f(t, y(t))$ (not just $y' = \lambda y$):
+
+If there exist two positive constants $\mu_{\max}$ and $\mu_{\min}$ such that:
+
+$$-\mu_{\max} < \frac{\partial f}{\partial y}(t, y) < -\mu_{\min}$$
+
+then $-\mu_{\max}$ plays the role of $\lambda$ in the stability analysis.
+
+### Example: Stiff Problem
+
+$$y' = -20(y - \sin t) + \cos t, \quad y(0) = 1$$
+
+Exact solution: $y(t) = e^{-20t} + \sin t$.
+
+Here $\partial f / \partial y \approx -20$, so $\lambda \approx -20$, and the stability region $\mathcal{R}$ requires $h < 0.1$ for forward Euler.
+
+- **Forward Euler**: needs $h < 0.1$; for $h = 0.15$ or $0.11$ the solution oscillates wildly; for $h = 0.10$ and $0.09$ it converges.
+- **Backward Euler**: any $h > 0$ will lead to $h(-100) \in \mathcal{R}$ (A-stable). With $h = 0.005$, the solution is very accurate; with $h = 0.1$, the solution is less accurate but still **bounded**.
+
+The **accuracy constraint** ($h \to 0$ for $O(h^p)$ convergence) may be much less restrictive than the **stability constraint** ($\lambda h \in \mathcal{R}$).

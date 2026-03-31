@@ -195,7 +195,7 @@ The high-frequency components get **aliased**: they appear as low-frequency comp
 
 **Definition**: A **trigonometric polynomial of degree $d$** is a polynomial in $e^{ix}$ of degree $d$, i.e., a linear combination of $\{e^{ikx} : |k| \leq d\}$.
 
-For example, $2\cos(x) + \sin(2x)$ is a trigonometric polynomial of degree 2.
+For example, $2\cos^2(x) + \sin^2(2x)$ is a trigonometric polynomial of degree 2.
 
 ### DFT and Trigonometric Interpolation
 
@@ -287,7 +287,7 @@ This provides an efficient way to compute convolutions: instead of $O(N^2)$ dire
 
 **Remark**: There are different conventions for the DFT across different fields. In this course we use:
 
-$$F_k = \sum_{j=0}^{N-1} f_j e^{-2\pi ijk/N}, \quad f_j = \frac{1}{N}\sum_{k=0}^{N-1} F_k e^{2\pi ijk/N}$$
+$$F_k = \frac{1}{N}\sum_{j=0}^{N-1} f_j e^{-ikx_j}, \quad f_j = \sum_{k=0}^{N-1} F_k e^{ikx_j}$$
 
 ---
 

@@ -1,6 +1,457 @@
 ---
-title: "Lecture 8"
+title: "Lecture 9"
 date: "`r Sys.Date()`"
 ---
-# Lecture 9:  {#lecture9}
+# Lecture 9: Multi-Step Methods and Runge-Kutta Methods {#lecture9}
 
+---
+
+## 1. Multi-Step Methods
+
+Multi-step methods achieve **higher order of accuracy** by using information from multiple previous time steps.
+
+### Definition
+
+An **$m$-step method** ($m \geq 1$) is a method for which, for all $n \geq m - 1$, $u_{n+1}$ depends on $u_{n+1-m}$ but not on the values $u_k$ with $k < n + 1 - m$.
+
+**Example** (Midpoint method): $u_{n+1} = u_{n-1} + 2hf_n$, $n \geq 1$. This is a **two-step method**.
+
+### General Linear Multi-Step Method
+
+A linear multi-step method for $y' = f(t, y)$ has the form:
+
+$$\frac{1}{h} \sum_{j=0}^{m} a_j u_{n-j} = \sum_{j=0}^{m} b_j f_{n-j}$$
+
+---
+
+### 1.1 Adams-Bashforth (AB) Methods (Explicit)
+
+The multi-step method can be derived from the **integration form**:
+
+$$y_n = y_{n-1} + \int_{t_{n-1}}^{t_n} f(s, y(s))\, ds$$
+
+The AB method approximates the integral with a **Newton-Cotes formula**, using the $m$ previous steps at $t_{n-1}, t_{n-2}, \ldots, t_{n-m}$.
+
+Recall that interpolation with $m$ points has an error of $O(h^m)$, and the integral formula has error $O(h^{m+1})$. Therefore:
+
+$$\frac{y_n - y_{n-1}}{h} = \frac{1}{h} \int_{t_{n-1}}^{t_n} f(s, y(s))\, ds = \sum_{j=1}^{m} b_j f_{n-j} + O(h^m)$$
+
+The **Adams-Bashforth formula** is:
+
+$$u_n = u_{n-1} + h \sum_{j=1}^{m} b_j f_{n-j}$$
+
+**Example: AB-2 ($m = 2$)**
+
+$$u_n = u_{n-1} + h(a f_{n-1} + b f_{n-2})$$
+
+We expect $O(h^2)$ error. Using Taylor series to determine $a$ and $b$:
+
+**LHS**: $\frac{1}{h}(y_n - y_{n-1}) = y_n' - \frac{h}{2}y_n'' + O(h^2)$
+
+**RHS**: $a(y_n' - hy_n'' + O(h^2)) + b(y_n' - 2hy_n'' + O(h^2)) + O(h^2)$
+
+$= (a + b)y_n' + h(-a - 2b)y_n'' + O(h^2)$
+
+Matching coefficients:
+
+$$\begin{cases} a + b = 1 \\ -a - 2b = -\frac{1}{2} \end{cases} \quad \Rightarrow \quad \begin{cases} a = \frac{3}{2} \\ b = -\frac{1}{2} \end{cases}$$
+
+$$\boxed{u_n = u_{n-1} + h\left(\frac{3}{2}f_{n-1} - \frac{1}{2}f_{n-2}\right), \quad \tau_n = O(h^2)}$$
+
+**Remark**: The AB approach is popular as it is **efficient to compute**: to go from $u_n$ to $u_{n+1}$, only **one function evaluation** is required. Yet it requires more than one starting value. The first $m - 1$ steps must be computed by some other method.
+
+---
+
+### 1.2 Adams-Moulton (AM) Methods (Implicit)
+
+When approximating $\int_{t_{n-1}}^{t_n} f(s, y(s))\, ds$, if $t_n$ is used as one of the interpolation points, the resulting formula is **implicit**, and is called the **Adams-Moulton method**.
+
+When $m = 1$, the AM method is the **trapezoidal rule**:
+
+$$u_n = u_{n-1} + \frac{h}{2}(f_{n-1} + f_n)$$
+
+In general:
+
+$$\frac{1}{h}(y_n - y_{n-1}) = \frac{1}{h}\int_{t_{n-1}}^{t_n} f(s, y(s))\, ds = \sum_{j=0}^{m} b_j f_{n-j} + O(h^{m+1})$$
+
+The order of this method is $m + 1$ (one order higher than AB with the same number of steps), because we have an extra interpolation point.
+
+---
+
+### 1.3 Backward Differentiation Formula (BDF)
+
+Instead of approximating the integral of $f$, one can also approximate $y'$ directly.
+
+For $y' = f(t, y)$, use points $t_n, t_{n-1}, \ldots, t_{n-m}$:
+
+$$\frac{1}{h} \sum_{j=0}^{m} a_j y_{n-j} = f_n + \tau_n, \quad \tau_n = O(h^m)$$
+
+When $m = 1$: backward Euler: $\frac{1}{h}(u_n - u_{n-1}) = f_n$
+
+When $m = 2$: **BDF-2** method:
+
+$$\boxed{\frac{1}{2h}(3u_n - 4u_{n-1} + u_{n-2}) = f_n}$$
+
+(See textbook p. 502 for details on higher-order BDF.)
+
+---
+
+### 1.4 Stability of Multi-Step Methods
+
+**Main result: Dahlquist Equivalence Theorem**
+
+A linear multi-step method $\frac{1}{h}\sum_{j=0}^{m} a_j u_{n-j} = \sum_{j=0}^{m} b_j f_{n-j}$ is **zero-stable** if and only if all solutions $u_n$ stay **bounded** when the method is applied to the trivial ODE $y' = 0$.
+
+That is, it is zero-stable if and only if all solutions to $\sum_{j=0}^{m} a_j u_{n-j} = 0$ stay bounded as $n \to \infty$.
+
+### Example: BDF-2
+
+Consider the backward differentiation formula: $\frac{3u_n - 4u_{n-1} + u_{n-2}}{2h} = f(t_n, u_n)$.
+
+To check zero-stability, apply it to $y' = 0$:
+
+$$3u_n - 4u_{n-1} + u_{n-2} = 0$$
+
+This is a **linear constant-coefficient difference equation**. The **characteristic polynomial** is:
+
+$$3r^2 - 4r + 1 = 0$$
+
+$$r_1 = 1, \quad r_2 = \frac{1}{3}$$
+
+General solution: $u_n = a \cdot 1^n + b \cdot \left(\frac{1}{3}\right)^n$
+
+Since both roots have $|r| \leq 1$ (and the root of modulus 1 is simple), the solution is **bounded** $\Rightarrow$ BDF-2 is **zero-stable**.
+
+---
+
+## 2. Review: Key Concepts for Solving IVPs
+
+To solve the IVP: $\frac{dy}{dt} = f(t, y), \quad y(0) = y_0$
+
+**Method 1: Forward Euler's method** (explicit)
+
+- Scheme: $\frac{u_{n+1} - u_n}{h} = f(t_n, u_n)$
+- Convergence requires: (1) Consistency: $\text{LTE} = O(h^p)$, and (2) Zero-stability
+
+**Method 2: Absolute stability**
+
+- When approximately solving $y' = \lambda y$: $|u_n| \to 0$ as $t_n \to \infty$
+- This depends on both $\lambda$ and $h$
+- For stiff problems, the stability constraint is a significant issue
+
+**Method 3: Multi-step methods** — when we need higher order
+
+- Use $u_{n-1}, u_{n-2}, \ldots$ to update to $u_{n+1}$
+- Example: AB-2: $u_n = u_{n-1} + h\left(\frac{3}{2}f_{n-1} - \frac{1}{2}f_{n-2}\right)$
+- The first $m - 1$ steps need to be computed with another method
+
+---
+
+## 3. Runge-Kutta Methods
+
+### 3.1 Motivation and Derivation
+
+From the Taylor expansion:
+
+$$y_{n+1} = y_n + hy_n' + \frac{h^2}{2}y_n'' + \cdots + \frac{h^p}{p!}y_n^{(p)} + O(h^{p+1}) \tag{1}$$
+
+The forward Euler method uses only the first-order term:
+
+$$u_{n+1} = u_n + hf(t_n, u_n)$$
+
+To derive a method of higher order, we could use multi-step methods. Alternatively, we can use **one-step methods** with multiple **stages**.
+
+### Computing Higher Derivatives
+
+$$y'' = \frac{d^2 y}{dt^2} = \frac{d}{dt}(f(t, y(t))) = \frac{\partial f}{\partial t} + \frac{\partial f}{\partial y}\frac{dy}{dt} = f_t + f_y \cdot f$$
+
+where $f_t = \frac{\partial f}{\partial t}$, $f_y = \frac{\partial f}{\partial y}$.
+
+This is **undesirable** as the expression involves partial derivatives of $f$, which are complicated to compute.
+
+### The Runge-Kutta Approach
+
+**Two-stage RK**: Instead of computing derivatives of $f$, evaluate $f$ at multiple points:
+
+$$f_1 = f(t_n, y_n)$$
+$$f_2 = f(t_n + ch, y_n + hbf_1)$$
+$$y_{n+1} = y_n + h(w_1 f_1 + w_2 f_2) + O(h^3)$$
+
+Here $b, c, w_1, w_2$ all need to be determined to ensure the method is second-order consistent.
+
+### Deriving the Conditions
+
+We want $\frac{y_{n+1} - y_n}{h} = w_1 f_1 + w_2 f_2 + \tau_{n+1}$ with $\tau_{n+1} = O(h^2)$.
+
+**LHS** (Taylor expansion around $(t_n, y_n)$):
+
+$$\frac{1}{h}(y_{n+1} - y_n) = y_n' + \frac{h}{2}y_n'' + O(h^2) = f + \frac{h}{2}(f_t + f \cdot f_y) + O(h^2)$$
+
+**RHS**: $f_1 = f$ and using 2D Taylor series:
+
+$$f_2 = f(t_n + ch, y_n + hbf_1) = f + ch f_t + bhf_1 f_y + O(h^2)$$
+
+Thus:
+
+$$\text{RHS} = w_1 f + w_2(f + chf_t + bhf \cdot f_y + O(h^2))$$
+
+Matching LHS = RHS:
+
+$$f + \frac{h}{2}(f_t + f \cdot f_y) + O(h^2) = (w_1 + w_2)f + w_2 ch f_t + w_2 bh f \cdot f_y + O(h^2)$$
+
+This gives three constraints with four unknowns:
+
+$$\begin{cases} w_1 + w_2 = 1 \\ c w_2 = \frac{1}{2} \\ b w_2 = \frac{1}{2} \end{cases}$$
+
+Thus we have **one free parameter**. Let $w_2 = \theta$, $w_1 = 1 - \theta$, $c = b = \frac{1}{2\theta}$.
+
+For any $\theta \neq 0$:
+
+$$f_1 = f(t_n, y_n)$$
+$$f_2 = f\!\left(t_n + \frac{h}{2\theta}, \; y_n + \frac{h}{2\theta}f_1\right)$$
+$$y_{n+1} = y_n + h\big(\theta f_1 + (1 - \theta)f_2\big) + O(h^3)$$
+
+**Question**: Would any choice of $\theta$ lead to higher order? In practice, **no**.
+
+### The Improved Euler Method
+
+A special case with $\theta = 1/2$ ($w_1 = w_2 = 1/2$, $c = b = 1$):
+
+$$k_1 = f(x_n, y_n)$$
+$$u_{n+1} = y_n + h \cdot k_1$$
+$$k_2 = f(x_{n+1}, u_{n+1})$$
+$$y_{n+1} = y_n + h \cdot \frac{1}{2}(k_1 + k_2)$$
+
+This is also known as **Heun's method**.
+
+---
+
+### 3.2 The Classical RK-4 Method
+
+We can use more stages, giving more free parameters and leading to several "families" of methods.
+
+The **classical RK-4 method**:
+
+$$f_1 = f(t_n, y_n)$$
+$$f_2 = f\!\left(t_n + \frac{h}{2}, \; y_n + \frac{h}{2}f_1\right)$$
+$$f_3 = f\!\left(t_n + \frac{h}{2}, \; y_n + \frac{h}{2}f_2\right)$$
+$$f_4 = f(t_n + h, \; y_n + hf_3)$$
+$$\boxed{y_{n+1} = y_n + \frac{h}{6}(f_1 + 2f_2 + 2f_3 + f_4) + O(h^5)}$$
+
+**Remark**: This is an **order 4 method**. It provides an optimal gain in efficiency per step: each step requires 4 function evaluations and achieves fourth-order accuracy.
+
+---
+
+### 3.3 General Explicit RK Methods and Butcher Tableau
+
+**Definition (RK Methods)**: A general explicit Runge-Kutta (RK) method uses $m$ "stages" to get from $u_n$ to $u_{n+1}$ and has the form:
+
+$$f_1 = f(t_n, u_n)$$
+$$f_2 = f(t_n + c_2 h, \; u_n + ha_{21}f_1)$$
+$$f_3 = f(t_n + c_3 h, \; u_n + ha_{31}f_1 + ha_{32}f_2)$$
+$$\vdots$$
+$$f_m = f(t_n + c_m h, \; u_n + ha_{m1}f_1 + \cdots + ha_{m,m-1}f_{m-1})$$
+$$u_{n+1} = u_n + h(w_1 f_1 + \cdots + w_m f_m)$$
+
+Each stage $f_j$ is an evaluation of $f$ at an intermediate point $(t_n + c_j h, \tilde{u}_j)$ where $\tilde{u}_j$ involves a linear combination of previous $f$'s. The next value $u_{n+1}$ is a weighted average of the $f$'s.
+
+### Butcher Tableau
+
+The RK method is compactly represented by a **Butcher tableau**:
+
+$$\begin{array}{c|cccc}
+c_1 & & & & \\
+c_2 & a_{21} & & & \\
+c_3 & a_{31} & a_{32} & & \\
+\vdots & \vdots & & \ddots & \\
+c_m & a_{m1} & a_{m2} & \cdots & a_{m,m-1} \\
+\hline
+& w_1 & w_2 & \cdots & w_{m-1} & w_m
+\end{array}$$
+
+For **explicit** RK methods, the coefficient matrix is **strictly lower triangular**. For **implicit** RK methods, it is a full matrix.
+
+(See textbook p. 525 for the Butcher tableau of implicit RK methods.)
+
+### Theorem (Butcher)
+
+An $m$-stage RK method can be at best $m$-th order:
+
+- For $m \leq 4$, the best possible order is exactly $m$.
+- For $m > 4$, the best possible order is strictly less than $m$. For instance, $m = 6$ stages are required to get a fifth-order method.
+
+Thus the **sweet spot** for RK methods is around **4 stages** (RK-4).
+
+---
+
+### 3.4 Convergence and Stability of Explicit RK Methods
+
+In an explicit Runge-Kutta method:
+
+$$u_{n+1} = u_n + h\,\Psi(h, t_n, u_n)$$
+
+where $\Psi$ encapsulates all the intermediate quantities derived from $f$.
+
+**Consistency**: Automatic from the derivation.
+
+**Zero-stability**: If $\Psi$ is Lipschitz in $y$, the scheme is zero-stable (as proved for Euler's method). If $f(t, y)$ is Lipschitz in $y$, so is $\Psi$.
+
+### Absolute Stability of RK Methods
+
+Consider the test equation $y' = \lambda y$, let $z = h\lambda$.
+
+For an $m$-stage explicit RK method, each stage $hf_j$ is a polynomial of degree $j$ in $z$ times $u_n$. Thus:
+
+$$u_{n+1} = u_n + \sum_{j=1}^{m} w_j(hf_j) = g(z)\, u_n$$
+
+where $g(z)$ is a **polynomial of degree $m$** in $z$.
+
+The **stability region** is:
+
+$$\mathcal{R} = \{z \in \mathbb{C} : |g(z)| \leq 1\}$$
+
+Since $|g(z)| \sim C|z|^m$ as $|z| \to \infty$, and if $|g(z)| > 1$, then $u_n$ grows unbounded. Thus the region of absolute stability is **bounded** for all explicit RK methods.
+
+All explicit RK methods have a **stability constraint** on $h$.
+
+---
+
+## 4. Adaptive Time Stepping
+
+### Motivation
+
+**Question**: How do we choose grid size $h$?
+
+- Smaller $h \to$ better accuracy + longer run time
+- Need to ensure stability
+
+Since for a one-step method, only the values at the previous step (step $n$) are used to update to $n + 1$, we can choose a **new $h$ for each step**.
+
+### Algorithm
+
+Given an error tolerance $\varepsilon$:
+
+1. Take a single step of size $h_0$
+2. **Estimate the error** between the exact solution and the updated value
+3. If error is larger than $\varepsilon$ $\Rightarrow$ retry the step with a smaller step size (e.g., $h_0/2$)
+4. If error is smaller than $\varepsilon$, accept it and go back to (1)
+
+### Error Estimation via Two Methods
+
+To estimate the error, we use **two numerical methods of different order** to approximate the exact solution:
+
+**Method A** (order $p$): produces $u_n$ from $u_{n-1}$, with local error $e_n(h) = Ch^{p+1} + O(h^{p+2})$
+
+**Method B** (order $p + 1$): produces $\tilde{u}_n$ from $u_{n-1}$, with local error $\tilde{e}_n(h) = O(h^{p+2})$
+
+Assuming the value at time $n - 1$ is exact:
+
+$$y(t_n) = u_n + e_n(h) = u_n + Ch^{p+1} + O(h^{p+2})$$
+$$y(t_n) = \tilde{u}_n + \tilde{e}_n(h) = \tilde{u}_n + O(h^{p+2})$$
+
+Therefore:
+
+$$Ch^{p+1} + O(h^{p+2}) = e_n(h) = \tilde{u}_n - u_n + O(h^{p+2})$$
+
+So $\tilde{u}_n - u_n$ approximates the **leading-order term** of $e_n(h)$.
+
+Check if $|\tilde{u}_n - u_n|$ is bounded by $\varepsilon$ to decide whether to accept or reject the step.
+
+### Embedded Pairs
+
+In general, the "two method" approach requires **twice as much work** as using one fixed step. We can create **overlap in the computation** to save work.
+
+**Example**: Forward Euler (Method A, order 1) and Modified Euler (Method B, order 2):
+
+- Method A: $u_{n+1} = u_n + hf(t_n, u_n)$
+- Method B:
+  - $f_1 = f(t_n, u_n)$
+  - $f_2 = f(t_n + h/2, \; u_n + \frac{h}{2}f_1)$
+  - $\tilde{u}_{n+1} = u_n + hf_2$
+
+Only **two function evaluations** total are done because $f_1$ is shared between both methods (Euler method is **embedded** in the modified one).
+
+### Practical Pairs
+
+**Runge-Kutta-Fehlberg** and **Dormand-Prince** pairs use a pair of **fourth/fifth order** RK methods to adaptively select step size. These are the default choice for solving ODEs in most software (e.g., MATLAB's `ode45`).
+
+---
+
+## 5. Operator Splitting
+
+An idea widely used in numerical analysis for solving complex problems.
+
+### Motivation
+
+Consider a PDE as a simple example:
+
+$$\frac{\partial u}{\partial t} = \mathcal{L}_1 u + \mathcal{L}_2 u$$
+
+For instance, a **convection-diffusion equation**:
+
+$$\frac{\partial u}{\partial t} = -c\frac{\partial u}{\partial x} + k\frac{\partial^2 u}{\partial x^2}$$
+
+One can solve two simpler equations separately:
+
+$$\frac{\partial u}{\partial t} = -c\frac{\partial u}{\partial x} \quad \text{and} \quad \frac{\partial u}{\partial t} = k\frac{\partial^2 u}{\partial x^2}$$
+
+Taking one step for the convection part, then one step for the diffusion part.
+
+### Analysis: Splitting Error
+
+There will be error associated with splitting. Consider a simplified problem:
+
+$$\frac{d\vec{y}}{dt} = A\vec{y} + B\vec{y}, \quad y(0) = y_0$$
+
+Even simpler: $\frac{dy}{dt} = ay + by$, $y(0) = y_0$.
+
+If we solve $y' = by$, get $w(t) = e^{bt}y_0$, then solve $y' = ay$:
+
+$$y(t) = e^{at}e^{bt}y_0$$
+
+For the matrix form: if $\vec{w}$ solves $\vec{y}' = B\vec{y}$, then $\vec{w} = e^{Bt}\vec{y}_0$.
+
+Let $\vec{y}$ solve $\vec{y}' = A\vec{y}$ with initial condition $\vec{w}$:
+
+$$\vec{y} = e^{At}e^{Bt}\vec{y}_0$$
+
+The exact solution should be $\vec{y} = e^{(A+B)t}\vec{y}_0$.
+
+**Key issue**: $e^{(A+B)t} \neq e^{At} \cdot e^{Bt}$ in general (unless $A$ and $B$ commute).
+
+### Order of Splitting
+
+Using the **Baker-Campbell-Hausdorff theorem**: $e^X e^Y = e^Z$ where:
+
+$$Z = X + Y + \frac{1}{2}[X, Y] + \frac{1}{12}[X, [X, Y]] + \frac{1}{12}[Y, [Y, X]] + \cdots$$
+
+with $[X, Y] = XY - YX$ (the Lie bracket/commutator).
+
+Therefore: $e^{hA}e^{hB} = e^{h(A+B) + O(h^2)}$
+
+We can expect **local error of $O(h^2)$**, so the method is **order 1**.
+
+### Combining with Numerical Methods
+
+When $A$ and $B$ are not constant-coefficient matrices, we can replace $e^{hA}$ and $e^{hB}$ by numerical schemes.
+
+If we use forward Euler:
+
+$$\vec{w}_n = \vec{u}_{n-1} + hB\vec{u}_{n-1} = (I + hB)\vec{u}_{n-1}$$
+$$\vec{u}_n = \vec{w}_n + hA\vec{w}_n = (I + hA)(I + hB)\vec{u}_{n-1}$$
+
+Compare splitting version vs. forward Euler without splitting:
+
+$$\vec{u}_n = [I + h(A + B)]\vec{u}_{n-1} \quad \text{(forward Euler)}$$
+
+$$(I + hA)(I + hB) = I + h(A + B) + O(h^2) \quad \text{(splitting)}$$
+
+The splitting version has $O(h^2)$ additional local error, matching the order of the splitting itself.
+
+### Strang Splitting (Second-Order)
+
+Instead of $e^{hA}e^{hB}$, use:
+
+$$e^{\frac{h}{2}A}\, e^{hB}\, e^{\frac{h}{2}A}$$
+
+This achieves $O(h^3)$ local error (i.e., **second-order** method), providing a significant improvement in accuracy.

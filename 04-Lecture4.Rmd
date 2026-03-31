@@ -127,6 +127,11 @@ $$
 **Resulting Formula:**
 $$f'(x) \approx \frac{\frac{3}{2}f(x) - 2f(x-h) + \frac{1}{2}f(x-2h)}{h}$$
 
+**Error Analysis:**
+$$D(h) = \frac{hf'(x) - \frac{1}{3}h^3 f^{(3)}(\eta)}{h} = f'(x) - \frac{1}{3}h^2 f^{(3)}(\eta)$$
+
+$$E(x) = -\frac{1}{3}h^2 f^{(3)}(\eta)$$
+
 ---
 
 ## 4. Summary Table
