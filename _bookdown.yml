@@ -13,6 +13,7 @@ rmd_files:
   - 07-Lecture7.Rmd
   - 08-Lecture8.Rmd
   - 09-Lecture9.Rmd
+  - 10-Lecture10.Rmd
   - 99-bibliography.Rmd
       
 language:

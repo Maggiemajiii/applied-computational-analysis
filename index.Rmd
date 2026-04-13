@@ -27,6 +27,7 @@ This site contains my course notes for Applied Computational Analysis. The notes
 - [Lecture 7](#lecture7)
 - [Lecture 8](#lecture8)
 - [Lecture 9](#lecture9)
+- [Lecture 10](#lecture10)
 - [Bibliography](#refs)
 
 ---
