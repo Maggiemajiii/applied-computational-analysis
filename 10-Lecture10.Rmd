@@ -4,7 +4,9 @@ date: "`r Sys.Date()`"
 ---
 # Lecture 10 (first part review) {#lecture10}
 
-## Forward Euler with Splitting
+## Review
+
+### Forward Euler with Splitting
 
 Consider an ODE of the form:
 $$\dot{u} = (A + B)u$$
@@ -15,7 +17,7 @@ $$u_{n+1} = (I + hA)(I + hB)\, u_n$$
 
 This scheme has **local truncation error** $\mathcal{O}(h^2)$ and **global error** $\mathcal{O}(h)$, so the method is **first-order accurate**.
 
-## Strong (Strang) Splitting
+### Strong (Strang) Splitting
 
 To improve accuracy to second order, we use **Strang splitting**:
 
@@ -29,14 +31,14 @@ $$u_{n+1} = e^{hA/2}\, e^{hB}\, e^{hA/2}\, u_n$$
 
 > **Key requirement:** Each matrix exponential approximation must itself be second-order accurate for the overall method to be second order.
 
-## Baker–Campbell–Hausdorff (BCH) Theorem
+### Baker–Campbell–Hausdorff (BCH) Theorem
 
 The BCH theorem (from Lie algebra) quantifies the error in operator splitting. If $X, Y$ are elements in a Lie algebra with commutator $[X,Y] = XY - YX$, then:
 $$e^X e^Y = e^{Z}, \quad Z = X + Y + \tfrac{1}{2}[X,Y] + \tfrac{1}{12}[X,[X,Y]] - \tfrac{1}{12}[Y,[X,Y]] + \cdots$$
 
 The splitting error is $\mathcal{O}(h^2)$ for standard splitting and $\mathcal{O}(h^3)$ for Strang splitting.
 
-## Motivating Example: Stiff Equations
+### Motivating Example: Stiff Equations
 
 Consider a **stiff ODE**:
 $$u' = -100u + \sin(u)$$
@@ -57,9 +59,9 @@ In general, for $y' = Ay + g(t,y)$, if $A$ is the stiff part, solve it implicitl
 
 ---
 
-# Introduction to Boundary Value Problems (BVP)
+## Introduction to Boundary Value Problems (BVP)
 
-## Definition
+### Definition
 
 A **Boundary Value Problem (BVP)** consists of:
 
@@ -72,7 +74,7 @@ $$y'' = f(x, y, y'), \quad y(a) = c, \quad y(b) = d$$
 
 This differs fundamentally from an **Initial Value Problem (IVP)**, where all conditions are given at a single point.
 
-## Converting to First-Order Systems
+### Converting to First-Order Systems
 
 Any higher-order BVP can be rewritten as a **system of first-order equations**:
 $$Y' = F(x, Y), \quad x \in [a, b]$$
@@ -85,15 +87,15 @@ $$w_1' = w_2, \quad w_2' = f(x, w_1, w_2)$$
 Boundary conditions become:
 $$w_1(a) = c, \quad w_1(b) = d$$
 
-## Why BVPs Are Harder Than IVPs
+### Why BVPs Are Harder Than IVPs
 
 For IVPs, we know all initial conditions at one point and **step forward** to the other end. For BVPs, we have conditions at **two different endpoints** and cannot simply march forward — this is the fundamental difficulty.
 
 ---
 
-# Properties of BVPs
+## Properties of BVPs
 
-## Existence and Uniqueness
+### Existence and Uniqueness
 
 Unlike IVPs, there is **no general existence/uniqueness theory** for BVPs. A BVP may have:
 
@@ -105,7 +107,7 @@ Unlike IVPs, there is **no general existence/uniqueness theory** for BVPs. A BVP
 
 Each equation must be analyzed individually.
 
-## Stability
+### Stability
 
 For the linear BVP $y' = Ay$ with boundary conditions $B[y(a), y(b)] = 0$:
 
@@ -119,18 +121,18 @@ $$y(x) = \int_a^b G(x,s)\, \epsilon(s)\, ds$$
 
 ---
 
-# Method 1: Shooting Method
+## Method 1: Shooting Method
 
-## Idea
+### Idea
 
 The **shooting method** converts a BVP into an IVP by treating the unknown initial derivative as a **parameter** $s$, then finding $s$ such that the solution matches the boundary condition at the other endpoint.
 
 **Setup:** For the two-point BVP:
 $$y'' = f(x, y, y'), \quad y(a) = c, \quad y(b) = d$$
 
-## Algorithm
+### Algorithm
 
-### Step 1: Set Up the IVP
+#### Step 1: Set Up the IVP
 
 Define the IVP parameterized by $s$:
 $$y'' = f(x, y, y'), \quad y(a) = c, \quad y'(a) = s$$
@@ -139,14 +141,14 @@ Denote the solution as $y(x;\, s)$.
 
 For some $s^*$, the solution satisfies $y(b;\, s^*) = d$.
 
-### Step 2: Define the Goal Function
+#### Step 2: Define the Goal Function
 
 Define:
 $$g(s) = y(b;\, s) - d$$
 
 We seek $s^*$ such that $g(s^*) = 0$.
 
-### Step 3: Apply Newton's Method
+#### Step 3: Apply Newton's Method
 
 **Newton's method** for solving $g(s^*) = 0$:
 $$s_{n+1} = s_n - \frac{g(s_n)}{g'(s_n)}$$
@@ -154,7 +156,7 @@ $$s_{n+1} = s_n - \frac{g(s_n)}{g'(s_n)}$$
 **Convergence:** If $g(s^*) = 0$ and $g'(s^*) \neq 0$, Newton's method converges **quadratically** in a neighborhood of $s^*$:
 $$e_{n+1} \approx C \cdot e_n^2, \quad \text{where } e_n = s_n - s^*$$
 
-### Step 4: Compute $g'(s)$
+#### Step 4: Compute $g'(s)$
 
 To apply Newton's method, we need $g'(s) = \frac{\partial y}{\partial s}(b;\, s)$.
 
@@ -169,7 +171,7 @@ This is the **variational equation** (also called the sensitivity equation).
 Then:
 $$g'(s) = z(b;\, s)$$
 
-## Full Workflow Summary
+### Full Workflow Summary
 
 1. **Set up** the shooting problem and define $g(s) = y(b; s) - d$
 
@@ -183,13 +185,13 @@ $$g'(s) = z(b;\, s)$$
 
 3. **Reconstruct** the BVP solution by solving the IVP with $s = s^*$
 
-## Required Tools
+### Required Tools
 
 - An **IVP solver** (e.g., Runge–Kutta 4)
 
 - A **nonlinear equation solver** for $g(s) = 0$ (e.g., Newton's method)
 
-## Example
+### Example
 
 **Problem:** $y'' = 2y^3 - 6y - 2x^3$, $y(1) = 2$, $y(2) = 5/2$
 
@@ -210,11 +212,11 @@ $$s_{n+1} = s_n - \frac{g(s_n)}{g'(s_n)} = s_n - \frac{y(2; s_n) - 5/2}{z(2; s_n
 
 ---
 
-# Review: LU Decomposition (for Finite Difference Method)
+## Review: LU Decomposition (for Finite Difference Method)
 
 The last step of finite difference methods (and Newton iterations) requires solving a linear system $Ax = b$.
 
-## LU Decomposition
+### LU Decomposition
 
 Decompose $A = LU$ where $L$ is lower triangular and $U$ is upper triangular:
 
@@ -224,7 +226,7 @@ Decompose $A = LU$ where $L$ is lower triangular and $U$ is upper triangular:
 
 3. **Back substitution:** Solve $Ux = y$ — costs $\mathcal{O}(N^2)$
 
-## Tridiagonal Matrices
+### Tridiagonal Matrices
 
 For a **tridiagonal matrix** $A$ (bandwidth $m = 3$):
 $$A = \begin{pmatrix} \beta_1 & \gamma_1 & & \\ \alpha_2 & \beta_2 & \gamma_2 & \\ & \ddots & \ddots & \ddots \\ & & \alpha_N & \beta_N \end{pmatrix}$$
@@ -237,13 +239,13 @@ $$A = \begin{pmatrix} \beta_1 & \gamma_1 & & \\ \alpha_2 & \beta_2 & \gamma_2 & 
 
 ---
 
-# Method 2: Finite Difference Method for BVPs
+## Method 2: Finite Difference Method for BVPs
 
-## Overview
+### Overview
 
 Instead of converting to an IVP, we **discretize the domain** and compute all solution values simultaneously by solving a linear system.
 
-## Model Problem
+### Model Problem
 
 Consider the model BVP with **zero Dirichlet boundary conditions**:
 $$-u'' = f(x), \quad x \in [0, 1], \quad u(0) = 0, \quad u(1) = 0$$
@@ -252,7 +254,7 @@ The exact solution is:
 $$u(x) = C_1 + C_2 x - \int_0^x F(s)\, ds, \quad F(s) = \int_0^s f(t)\, dt$$
 where $C_1$, $C_2$ are determined by the boundary conditions.
 
-## Discretization
+### Discretization
 
 **Uniform grid:** $x_j = jh$, $h = 1/N$, $j = 0, 1, \ldots, N$
 
@@ -264,7 +266,7 @@ $$\frac{-u_{j-1} + 2u_j - u_{j+1}}{h^2} = f(x_j), \quad j = 1, 2, \ldots, N-1$$
 
 with $u_0 = u_N = 0$ from boundary conditions.
 
-## Linear System
+### Linear System
 
 Let $\mathbf{u} = (u_1, u_2, \ldots, u_{N-1})^T$ and $\mathbf{f} = (f_1, f_2, \ldots, f_{N-1})^T$. The system is:
 
@@ -275,7 +277,7 @@ $$A_{fd} = \begin{pmatrix} 2 & -1 & & \\ -1 & 2 & -1 & \\ & \ddots & \ddots & \d
 
 This matrix is **symmetric positive definite**, so $A_{fd}\mathbf{u} = \mathbf{f}$ has a **unique solution**.
 
-## Neumann Boundary Conditions
+### Neumann Boundary Conditions
 
 For BCs of the form $u'(0) = c$, $u'(1) = d$:
 
@@ -288,21 +290,21 @@ Use the centered difference $\frac{u_1 - u_{-1}}{2h} = c$, giving $u_{-1} = u_1 
 
 ---
 
-# Method 3: Midpoint Discretization
+## Method 3: Midpoint Discretization
 
-## Overview
+### Overview
 
 For the **first-order system**:
 $$Y' = F(x, Y), \quad B[Y(x_0), Y(x_N)] = \tau$$
 
 the midpoint scheme discretizes at **cell midpoints** rather than grid points, which simplifies handling of non-uniform grids.
 
-## Grid Setup
+### Grid Setup
 
 Define grid points $x_0 < x_1 < \cdots < x_N$ with midpoints:
 $$x_{j+1/2} = \frac{x_j + x_{j+1}}{2}, \quad h_j = x_{j+1} - x_j$$
 
-## Midpoint Scheme
+### Midpoint Scheme
 
 $$\frac{Y_{j+1} - Y_j}{h_j} = F\!\left(x_{j+1/2},\, \frac{Y_j + Y_{j+1}}{2}\right), \quad j = 0, 1, \ldots, N-1$$
 
@@ -313,7 +315,7 @@ $$(N+1) \cdot m \text{ equations for } (N+1) \cdot m \text{ unknowns}$$
 
 This is a **complete system**.
 
-## Advantages
+### Advantages
 
 - Only involves **first-order derivatives** — simpler discretization
 
@@ -321,15 +323,15 @@ This is a **complete system**.
 
 - Works well for general first-order BVP systems
 
-## Nonlinear Case
+### Nonlinear Case
 
 If $F$ is nonlinear in $Y$, apply **Newton's method** to the resulting nonlinear system.
 
 ---
 
-# Consistency, Convergence, and Stability of FDM for BVPs
+## Consistency, Convergence, and Stability of FDM for BVPs
 
-## Consistency
+### Consistency
 
 **Local Truncation Error (LTE):** For the model problem $u'' = f$, $u(0) = u(1) = 0$:
 
@@ -340,7 +342,7 @@ $$\tau_j = \frac{h^2}{12} Y^{(4)}(x_j) + \mathcal{O}(h^4)$$
 
 The method is **consistent with order 2** (LTE $= \mathcal{O}(h^2)$).
 
-## Stability for BVPs
+### Stability for BVPs
 
 **Definition:** A finite difference method for a linear BVP producing matrix equations $A_{fd}^{(h)} \mathbf{u}_h = \mathbf{f}_h$ is **stable** if:
 
@@ -348,7 +350,7 @@ The method is **consistent with order 2** (LTE $= \mathcal{O}(h^2)$).
 
 - There exists a constant $C$ (independent of $h$) such that $\|(A_{fd}^{(h)})^{-1}\| \leq C$ for all $h \leq h_0$
 
-## Convergence
+### Convergence
 
 Given the error equation:
 $$A_{fd}(\mathbf{u}_{exact} - \mathbf{u}_h) = h^2 \boldsymbol{\tau}$$
@@ -363,9 +365,9 @@ $$\|\mathbf{u}_{exact} - \mathbf{u}_h\| = \mathcal{O}(h^2)$$
 
 ---
 
-# Method 4: Galerkin / Weak Formulation
+## Method 4: Galerkin / Weak Formulation
 
-## Motivation
+### Motivation
 
 Consider the BVP:
 $$-y'' + cy = f(x), \quad x \in [0,1], \quad y(0) = y(1) = 0$$
@@ -376,7 +378,7 @@ A **classical (strong) solution** requires $y \in C^2[0,1]$. However:
 
 - The regularity requirement is analytically inconvenient
 
-## Weak Formulation
+### Weak Formulation
 
 **Derivation:** Multiply the ODE by a smooth **test function** $\phi \in C_0^\infty(0,1)$ and integrate by parts:
 
@@ -394,20 +396,20 @@ where:
 
 > **Key insight:** The weak formulation only requires one derivative of $y$ (not two), so it admits a broader class of solutions.
 
-## Remark: Navier–Stokes Equations
+### Remark: Navier–Stokes Equations
 
 The Navier–Stokes equations (governing viscous fluid motion, used in car/aircraft design and ocean current modeling) have **proven weak solutions**, but the **regularity** (smoothness) of these solutions is one of the **7 Millennium Prize Problems** in mathematics.
 
-## Galerkin Method
+### Galerkin Method
 
-### Approximation Space
+#### Approximation Space
 
 Introduce a finite-dimensional subspace $V_h \subset H_0^1(0,1)$:
 $$V_h = \text{span}\{\phi_1, \phi_2, \ldots, \phi_N\}$$
 
 where $\{\phi_i\}$ are linearly independent basis functions.
 
-### Discrete Problem
+#### Discrete Problem
 
 Find $u_h = \sum_{j=1}^N \mu_j \phi_j \in V_h$ such that:
 $$a(u_h, \phi_i) = \langle f, \phi_i \rangle, \quad i = 1, 2, \ldots, N$$
@@ -421,7 +423,7 @@ where:
 
 - $F_i = \langle f, \phi_i \rangle$ — the **load vector**
 
-### Céa's Lemma (Error Estimate)
+#### Céa's Lemma (Error Estimate)
 
 Assume $V$ is a Hilbert space and $a(\cdot, \cdot)$ satisfies:
 
@@ -438,13 +440,13 @@ The **Galerkin error** is quasi-optimal — it is bounded by a constant times th
 
 ---
 
-# Finite Element Method (FEM)
+## Finite Element Method (FEM)
 
-## Basis Function Choice
+### Basis Function Choice
 
 The key choice in the Galerkin method is the basis $\{\phi_i\}$ for $V_h$.
 
-### Piecewise Linear "Hat" Functions
+#### Piecewise Linear "Hat" Functions
 
 The simplest FEM basis: **hat functions** $\phi_i$ defined on a grid $x_0 < x_1 < \cdots < x_N$:
 $$\phi_i(x) = \begin{cases} \frac{x - x_{i-1}}{x_i - x_{i-1}} & x \in [x_{i-1}, x_i] \\ \frac{x_{i+1} - x}{x_{i+1} - x_i} & x \in [x_i, x_{i+1}] \\ 0 & \text{otherwise} \end{cases}$$
@@ -455,14 +457,14 @@ $$\phi_i(x) = \begin{cases} \frac{x - x_{i-1}}{x_i - x_{i-1}} & x \in [x_{i-1}, 
 
 - **Local support**: $\phi_i$ is nonzero only on $[x_{i-1}, x_{i+1}]$
 
-### Sparsity of the Stiffness Matrix
+#### Sparsity of the Stiffness Matrix
 
 Because hat functions have **local support**:
 $$A_{ij} = a(\phi_j, \phi_i) \neq 0 \quad \text{only if } |i - j| \leq 1$$
 
 The stiffness matrix is **tridiagonal** — the linear system can be solved in $\mathcal{O}(N)$ operations.
 
-## Spectral Galerkin Method
+### Spectral Galerkin Method
 
 Use **global Fourier basis** functions:
 $$\phi_k(x) = e^{2\pi i k x}, \quad k = 1, 2, \ldots, N$$
@@ -475,7 +477,7 @@ $$\phi_k(x) = e^{2\pi i k x}, \quad k = 1, 2, \ldots, N$$
 
 - Better suited for problems with smooth solutions on simple domains
 
-## Comparison
+### Comparison
 
 | Method | Basis | Stiffness Matrix | Convergence |
 |--------|-------|-----------------|-------------|
@@ -484,7 +486,7 @@ $$\phi_k(x) = e^{2\pi i k x}, \quad k = 1, 2, \ldots, N$$
 
 ---
 
-# Summary
+## Summary
 
 | Method | Approach | When to Use |
 |--------|----------|-------------|
