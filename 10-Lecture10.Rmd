@@ -4,7 +4,6 @@ date: "`r Sys.Date()`"
 ---
 # Lecture 10{#lecture10}
 
----
 # Review: Operator Splitting (from Previous Lecture)
 
 ## Forward Euler with Splitting

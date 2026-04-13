@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>9 Lecture 8: ODE Initial Value Problems and Euler Methods | Lecture 10</title>
-  <meta name="description" content="9 Lecture 8: ODE Initial Value Problems and Euler Methods | Lecture 10" />
+  <title>15 Method 1: Shooting Method | Lecture 10</title>
+  <meta name="description" content="15 Method 1: Shooting Method | Lecture 10" />
   <meta name="generator" content="bookdown 0.45 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="9 Lecture 8: ODE Initial Value Problems and Euler Methods | Lecture 10" />
+  <meta property="og:title" content="15 Method 1: Shooting Method | Lecture 10" />
   <meta property="og:type" content="book" />
   
   
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="9 Lecture 8: ODE Initial Value Problems and Euler Methods | Lecture 10" />
+  <meta name="twitter:title" content="15 Method 1: Shooting Method | Lecture 10" />
   
   
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="lecture7.html"/>
-<link rel="next" href="lecture9.html"/>
+<link rel="prev" href="properties-of-bvps.html"/>
+<link rel="next" href="review-lu-decomposition-for-finite-difference-method.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -478,301 +478,86 @@
   <span>👁 <span id="busuanzi_value_page_pv"></span> views</span>
 
 </div>
-<div id="lecture8" class="section level1 hasAnchor" number="9">
-<h1><span class="header-section-number">9</span> Lecture 8: ODE Initial Value Problems and Euler Methods<a href="lecture8.html#lecture8" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p>Numerical methods for solving ordinary differential equations (ODEs).</p>
-<p>Previously we have learned approximation of functions, derivatives, and integrals. Now we study <strong>approximation of solutions of ODEs</strong>, focusing on:</p>
-<ul>
-<li><strong>Convergence</strong></li>
-<li><strong>Stability</strong></li>
-</ul>
-<hr />
-<div id="review-of-odes" class="section level2 hasAnchor" number="9.1">
-<h2><span class="header-section-number">9.1</span> 1. Review of ODEs<a href="lecture8.html#review-of-odes" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div id="initial-value-problem-ivp" class="section level3 hasAnchor" number="9.1.1">
-<h3><span class="header-section-number">9.1.1</span> Initial Value Problem (IVP)<a href="lecture8.html#initial-value-problem-ivp" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>An <strong>initial value problem (IVP)</strong> in one dimension:</p>
-<p><span class="math display">\[y&#39; = f(t, y), \quad y(t_0) = y_0\]</span></p>
-<p>where <span class="math inline">\(t\)</span> is the independent variable and <span class="math inline">\(y\)</span> is the dependent variable. The solution <span class="math inline">\(y(t)\)</span> depends on the solution at previous times. This is also called the <strong>Cauchy problem</strong>.</p>
-<p>Typically we consider solving the ODE “forward in time” <span class="math inline">\(t &gt; t_0\)</span>.</p>
+<div id="method-1-shooting-method" class="section level1 hasAnchor" number="15">
+<h1><span class="header-section-number">15</span> Method 1: Shooting Method<a href="method-1-shooting-method.html#method-1-shooting-method" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="idea" class="section level2 hasAnchor" number="15.1">
+<h2><span class="header-section-number">15.1</span> Idea<a href="method-1-shooting-method.html#idea" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The <strong>shooting method</strong> converts a BVP into an IVP by treating the unknown initial derivative as a <strong>parameter</strong> <span class="math inline">\(s\)</span>, then finding <span class="math inline">\(s\)</span> such that the solution matches the boundary condition at the other endpoint.</p>
+<p><strong>Setup:</strong> For the two-point BVP:
+<span class="math display">\[y&#39;&#39; = f(x, y, y&#39;), \quad y(a) = c, \quad y(b) = d\]</span></p>
 </div>
-<div id="remarks" class="section level3 hasAnchor" number="9.1.2">
-<h3><span class="header-section-number">9.1.2</span> Remarks<a href="lecture8.html#remarks" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="algorithm-1" class="section level2 hasAnchor" number="15.2">
+<h2><span class="header-section-number">15.2</span> Algorithm<a href="method-1-shooting-method.html#algorithm-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="step-1-set-up-the-ivp" class="section level3 hasAnchor" number="15.2.1">
+<h3><span class="header-section-number">15.2.1</span> Step 1: Set Up the IVP<a href="method-1-shooting-method.html#step-1-set-up-the-ivp" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Define the IVP parameterized by <span class="math inline">\(s\)</span>:
+<span class="math display">\[y&#39;&#39; = f(x, y, y&#39;), \quad y(a) = c, \quad y&#39;(a) = s\]</span></p>
+<p>Denote the solution as <span class="math inline">\(y(x;\, s)\)</span>.</p>
+<p>For some <span class="math inline">\(s^*\)</span>, the solution satisfies <span class="math inline">\(y(b;\, s^*) = d\)</span>.</p>
+</div>
+<div id="step-2-define-the-goal-function" class="section level3 hasAnchor" number="15.2.2">
+<h3><span class="header-section-number">15.2.2</span> Step 2: Define the Goal Function<a href="method-1-shooting-method.html#step-2-define-the-goal-function" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Define:
+<span class="math display">\[g(s) = y(b;\, s) - d\]</span></p>
+<p>We seek <span class="math inline">\(s^*\)</span> such that <span class="math inline">\(g(s^*) = 0\)</span>.</p>
+</div>
+<div id="step-3-apply-newtons-method" class="section level3 hasAnchor" number="15.2.3">
+<h3><span class="header-section-number">15.2.3</span> Step 3: Apply Newton’s Method<a href="method-1-shooting-method.html#step-3-apply-newtons-method" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><strong>Newton’s method</strong> for solving <span class="math inline">\(g(s^*) = 0\)</span>:
+<span class="math display">\[s_{n+1} = s_n - \frac{g(s_n)}{g&#39;(s_n)}\]</span></p>
+<p><strong>Convergence:</strong> If <span class="math inline">\(g(s^*) = 0\)</span> and <span class="math inline">\(g&#39;(s^*) \neq 0\)</span>, Newton’s method converges <strong>quadratically</strong> in a neighborhood of <span class="math inline">\(s^*\)</span>:
+<span class="math display">\[e_{n+1} \approx C \cdot e_n^2, \quad \text{where } e_n = s_n - s^*\]</span></p>
+</div>
+<div id="step-4-compute-gs" class="section level3 hasAnchor" number="15.2.4">
+<h3><span class="header-section-number">15.2.4</span> Step 4: Compute <span class="math inline">\(g&#39;(s)\)</span><a href="method-1-shooting-method.html#step-4-compute-gs" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>To apply Newton’s method, we need <span class="math inline">\(g&#39;(s) = \frac{\partial y}{\partial s}(b;\, s)\)</span>.</p>
+<p>Let <span class="math inline">\(z(x) = \frac{\partial y}{\partial x}(x;\, s)\)</span>. Differentiating the ODE with respect to <span class="math inline">\(s\)</span>:</p>
+<p><span class="math display">\[z&#39;&#39; = f_y(x, y, y&#39;)\, z + f_{y&#39;}(x, y, y&#39;)\, z&#39;\]</span>
+with initial conditions:
+<span class="math display">\[z(a) = 0, \quad z&#39;(a) = 1\]</span></p>
+<p>This is the <strong>variational equation</strong> (also called the sensitivity equation).</p>
+<p>Then:
+<span class="math display">\[g&#39;(s) = z(b;\, s)\]</span></p>
+</div>
+</div>
+<div id="full-workflow-summary" class="section level2 hasAnchor" number="15.3">
+<h2><span class="header-section-number">15.3</span> Full Workflow Summary<a href="method-1-shooting-method.html#full-workflow-summary" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <ol style="list-style-type: decimal">
-<li>Most numerical methods for the first-order IVP can be extended to <strong>systems</strong> of first-order equations:</li>
+<li><p><strong>Set up</strong> the shooting problem and define <span class="math inline">\(g(s) = y(b; s) - d\)</span></p></li>
+<li><p><strong>Apply Newton’s method</strong> to solve <span class="math inline">\(g(s^*) = 0\)</span>. For each Newton step:</p>
+<ul>
+<li><ol style="list-style-type: lower-alpha">
+<li>Solve the IVP to compute <span class="math inline">\(y(x; s_n)\)</span> and evaluate <span class="math inline">\(g(s_n) = y(b; s_n) - d\)</span></li>
+</ol></li>
+<li><ol start="2" style="list-style-type: lower-alpha">
+<li>Solve the variational IVP to compute <span class="math inline">\(z(x; s_n)\)</span> and evaluate <span class="math inline">\(g&#39;(s_n) = z(b; s_n)\)</span></li>
+</ol></li>
+<li><ol start="3" style="list-style-type: lower-alpha">
+<li>Update: <span class="math inline">\(s_{n+1} = s_n - g(s_n)/g&#39;(s_n)\)</span></li>
+</ol></li>
+</ul></li>
+<li><p><strong>Reconstruct</strong> the BVP solution by solving the IVP with <span class="math inline">\(s = s^*\)</span></p></li>
 </ol>
-<p><span class="math display">\[\begin{cases} y_1&#39; = f_1(t, y_1, y_2, \ldots, y_N) \\ y_2&#39; = f_2(t, y_1, y_2, \ldots, y_N) \\ \quad \vdots \\ y_N&#39; = f_N(t, y_1, y_2, \ldots, y_N) \end{cases}\]</span></p>
-<ol start="2" style="list-style-type: decimal">
-<li>An <strong><span class="math inline">\(n\)</span>-th order ODE</strong> can be converted to a first-order system.</li>
-</ol>
-<p><strong>Example</strong>: <span class="math inline">\(y&#39;&#39; = 3y&#39; + 4y + t^2\)</span>. Let <span class="math inline">\(w_1 = y\)</span>, <span class="math inline">\(w_2 = y&#39;\)</span>. Then:</p>
-<p><span class="math display">\[\begin{cases} w_1&#39; = w_2 \\ w_2&#39; = 3w_2 + 4w_1 + t^2 \end{cases}\]</span></p>
-<hr />
 </div>
-</div>
-<div id="theorems-for-ivp-uniqueness-and-stability" class="section level2 hasAnchor" number="9.2">
-<h2><span class="header-section-number">9.2</span> 2. Theorems for IVP: Uniqueness and Stability<a href="lecture8.html#theorems-for-ivp-uniqueness-and-stability" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div id="lipschitz-condition" class="section level3 hasAnchor" number="9.2.1">
-<h3><span class="header-section-number">9.2.1</span> Lipschitz Condition<a href="lecture8.html#lipschitz-condition" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p><strong>Definition</strong>: Let <span class="math inline">\(D\)</span> be a simply connected domain in the <span class="math inline">\((t, y)\)</span> plane. A function <span class="math inline">\(f: \mathbb{R}^2 \to \mathbb{R}\)</span> is <strong>Lipschitz in <span class="math inline">\(y\)</span></strong> if:</p>
-<p><span class="math display">\[|f(t, y_1) - f(t, y_2)| \leq L |y_1 - y_2|\]</span></p>
-<p>for all <span class="math inline">\((t, y_1), (t, y_2) \in D\)</span>, for some constant <span class="math inline">\(L &gt; 0\)</span>.</p>
-</div>
-<div id="main-theorem-existencestability" class="section level3 hasAnchor" number="9.2.2">
-<h3><span class="header-section-number">9.2.2</span> Main Theorem (Existence/Stability)<a href="lecture8.html#main-theorem-existencestability" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Consider the initial value problem:</p>
-<p><span class="math display">\[y&#39;(t) = f(t, y(t)), \quad y(a) = y_0\]</span></p>
-<p>and the “strip” in the <span class="math inline">\((t, y)\)</span> plane:</p>
-<p><span class="math display">\[R = \{(t, y) : a \leq t \leq b, \; y \in \mathbb{R}\}\]</span></p>
-<p>If <span class="math inline">\(f\)</span> is <strong>Lipschitz in <span class="math inline">\(y\)</span></strong> with constant <span class="math inline">\(L\)</span> within <span class="math inline">\(R\)</span>, then:</p>
-<p><strong>(i)</strong> The IVP has a <strong>unique solution</strong> <span class="math inline">\(y(t)\)</span> in <span class="math inline">\([a, b]\)</span>.</p>
-<p><strong>(ii)</strong> If <span class="math inline">\(z(t)\)</span> is a solution starting with “perturbed data” <span class="math inline">\(z(a) = z_0\)</span>, then:</p>
-<p><span class="math display">\[|y(t) - z(t)| \leq e^{L(t - t_0)} |y_0 - z_0| \quad \text{in } R\]</span></p>
-<p><strong>(iii)</strong> If <span class="math inline">\(z(t)\)</span> solves the “perturbed” problem:</p>
-<p><span class="math display">\[z&#39;(t) = f(t, z) + h(t, z), \quad z(a) = z_0\]</span></p>
-<p>and the perturbation satisfies <span class="math inline">\(|h(t, z)| \leq M\)</span> in <span class="math inline">\(R\)</span>, then:</p>
-<p><span class="math display">\[|y(t) - z(t)| \leq e^{L(t - t_0)} |y_0 - z_0| + M \frac{e^{L(t - t_0)} - 1}{L}\]</span></p>
-<p>In particular, <span class="math inline">\(z(t) \to y(t)\)</span> uniformly in <span class="math inline">\([a, b]\)</span> as <span class="math inline">\(M, |y_0 - z_0| \to 0\)</span> (the perturbed solution approaches the original as the perturbation goes to zero).</p>
-<hr />
-</div>
-</div>
-<div id="eulers-method-forward-euler-method" class="section level2 hasAnchor" number="9.3">
-<h2><span class="header-section-number">9.3</span> 3. Euler’s Method (Forward Euler Method)<a href="lecture8.html#eulers-method-forward-euler-method" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div id="setup" class="section level3 hasAnchor" number="9.3.1">
-<h3><span class="header-section-number">9.3.1</span> Setup<a href="lecture8.html#setup" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Given <span class="math inline">\(y&#39; = f(t, y)\)</span> for <span class="math inline">\(t \in [0, b]\)</span>, <span class="math inline">\(y(0) = y_0\)</span>.</p>
-<p>We <strong>discretize</strong> the problem: seek a solution that is defined on <strong>grid points</strong>:</p>
-<p><span class="math display">\[0 = t_0 &lt; t_1 &lt; \cdots &lt; t_N = b\]</span></p>
-<p>Let <span class="math inline">\(y_n = y(t_n)\)</span> denote the <strong>exact solution</strong> at each grid point.</p>
-<p>Let <span class="math inline">\(u_n\)</span> represent the <strong>approximation</strong> of the solution:</p>
-<p><span class="math display">\[u_n \approx y_n = y(t_n), \quad n = 0, 1, \ldots, N\]</span></p>
-<p>The approximation <span class="math inline">\(\{u_n\}\)</span> is called a <strong>grid function</strong>. The spacing <span class="math inline">\(h_n = t_{n+1} - t_n\)</span> is the <strong>step size</strong>.</p>
-</div>
-<div id="global-error" class="section level3 hasAnchor" number="9.3.2">
-<h3><span class="header-section-number">9.3.2</span> Global Error<a href="lecture8.html#global-error" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>We define the <strong>global error</strong> of the grid function by:</p>
-<p><span class="math display">\[\|\vec{u} - \vec{y}\|_\infty = \max_{0 \leq n \leq N} |u_n - y(t_n)|\]</span></p>
-</div>
-<div id="convergence" class="section level3 hasAnchor" number="9.3.3">
-<h3><span class="header-section-number">9.3.3</span> Convergence<a href="lecture8.html#convergence" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>A method is said to be <strong>convergent with order <span class="math inline">\(p\)</span></strong> if:</p>
-<p><span class="math display">\[\max_{0 \leq n \leq N} |u_n - y(t_n)| = O(h^p) \quad \text{as } h \to 0\]</span></p>
-</div>
-<div id="derivation-of-forward-euler-method" class="section level3 hasAnchor" number="9.3.4">
-<h3><span class="header-section-number">9.3.4</span> Derivation of Forward Euler Method<a href="lecture8.html#derivation-of-forward-euler-method" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>The forward Euler method can be derived from <strong>Taylor expansion</strong>. Consider equal spacing grid points, i.e., <span class="math inline">\(h_i = h\)</span> for all <span class="math inline">\(i\)</span>.</p>
-<p>Then <span class="math inline">\(y&#39;(t_n) = f(t_n, y_n)\)</span>.</p>
-<p>If we do Taylor expansion at <span class="math inline">\(t_n\)</span>:</p>
-<p><span class="math display">\[y(t_{n+1}) = y(t_n) + y&#39;(t_n)(t_{n+1} - t_n) + \frac{h^2}{2} y&#39;&#39;(\xi_{n+1})\]</span></p>
-<p>where <span class="math inline">\(\xi_{n+1} \in [t_n, t_{n+1}]\)</span>. Plugging in <span class="math inline">\(y&#39; = f(t, y)\)</span>:</p>
-<p><span class="math display">\[y_{n+1} = y_n + f(t_n, y_n) h + \frac{h^2}{2} y&#39;&#39;(\xi_{n+1})\]</span></p>
-<p>Dropping the error term gives the <strong>forward Euler method</strong>:</p>
-<p><span class="math display">\[\boxed{u_{n+1} = u_n + h f(t_n, u_n), \quad u_0 = y_0}\]</span></p>
-<p>This computable formula is called a <strong>finite difference equation (FDE)</strong>.</p>
-<hr />
-</div>
-</div>
-<div id="local-truncation-error-and-consistency" class="section level2 hasAnchor" number="9.4">
-<h2><span class="header-section-number">9.4</span> 4. Local Truncation Error and Consistency<a href="lecture8.html#local-truncation-error-and-consistency" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div id="relationship-between-ode-and-fde" class="section level3 hasAnchor" number="9.4.1">
-<h3><span class="header-section-number">9.4.1</span> Relationship Between ODE and FDE<a href="lecture8.html#relationship-between-ode-and-fde" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Let us summarize the relationship:</p>
-<p><strong>ODE</strong>: <span class="math inline">\(y&#39; = f(t, y)\)</span></p>
-<p><strong>Exact solution</strong> satisfies:</p>
-<p><span class="math display">\[\frac{y_{n+1} - y_n}{h} = f(t_n, y_n) + \frac{h}{2} y&#39;&#39;(\xi_{n+1})\]</span></p>
-<p><strong>FDE</strong> (Forward Euler):</p>
-<p><span class="math display">\[\frac{u_{n+1} - u_n}{h} = f(t_n, u_n)\]</span></p>
-</div>
-<div id="local-truncation-error-lte" class="section level3 hasAnchor" number="9.4.2">
-<h3><span class="header-section-number">9.4.2</span> Local Truncation Error (LTE)<a href="lecture8.html#local-truncation-error-lte" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>We define the <strong>local truncation error (LTE)</strong> of the formula as:</p>
-<p><span class="math display">\[\tau_{n+1} = \frac{y_{n+1} - y_n}{h} - f(t_n, y_n)\]</span></p>
-<p>It is the error of applying the finite difference formula to the <strong>exact solution</strong>.</p>
-</div>
-<div id="the-operator-a_h" class="section level3 hasAnchor" number="9.4.3">
-<h3><span class="header-section-number">9.4.3</span> The Operator <span class="math inline">\(A_h\)</span><a href="lecture8.html#the-operator-a_h" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Define <span class="math inline">\(A_h\)</span> with the formula <span class="math inline">\(\tau_{n+1} = A_h y_n\)</span>:</p>
-<p><span class="math display">\[A_h v_n := \frac{v_{n+1} - v_n}{h} - f(t_n, v_n)\]</span></p>
-<p>Note that <span class="math inline">\(A_h u_n = 0\)</span> if <span class="math inline">\(\{u_n\}\)</span> is derived with the scheme. The definition can be extended to other finite difference formulas: <span class="math inline">\(\text{LTE} = \tau_{n+1} = A_h y(t_n)\)</span>.</p>
-<p>In our case:</p>
-<p><span class="math display">\[\tau_{n+1} = A_h y_n = \frac{h}{2} y&#39;&#39;(\xi_{n+1})\]</span></p>
-</div>
-<div id="definition-consistency" class="section level3 hasAnchor" number="9.4.4">
-<h3><span class="header-section-number">9.4.4</span> Definition (Consistency)<a href="lecture8.html#definition-consistency" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>A finite difference formula is <strong>consistent (with order <span class="math inline">\(p\)</span>)</strong> if:</p>
-<p><span class="math display">\[\text{LTE} = O(h^p)\]</span></p>
-<p>For the forward Euler method, <span class="math inline">\(\text{LTE} = O(h)\)</span>, so it is <strong>first-order consistent</strong>.</p>
-<p><strong>Question</strong>: Does consistency guarantee the convergence of the solution?</p>
-<hr />
-</div>
-</div>
-<div id="zero-stability" class="section level2 hasAnchor" number="9.5">
-<h2><span class="header-section-number">9.5</span> 5. Zero-Stability<a href="lecture8.html#zero-stability" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Recall the definitions:</p>
+<div id="required-tools" class="section level2 hasAnchor" number="15.4">
+<h2><span class="header-section-number">15.4</span> Required Tools<a href="method-1-shooting-method.html#required-tools" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <ul>
-<li><strong>Convergence</strong>: <span class="math inline">\(\max_{0 \leq n \leq N} |u_n - y_n| = O(h^p)\)</span></li>
-<li><strong>Consistency</strong> of forward Euler method: <span class="math inline">\(\frac{y_{n+1} - y_n}{h} - f(t_n, y_n) = O(h^p)\)</span>, i.e., the FDE is consistent with the ODE.</li>
+<li><p>An <strong>IVP solver</strong> (e.g., Runge–Kutta 4)</p></li>
+<li><p>A <strong>nonlinear equation solver</strong> for <span class="math inline">\(g(s) = 0\)</span> (e.g., Newton’s method)</p></li>
 </ul>
-<p>The missing piece: <strong>consistency + ? <span class="math inline">\(\Rightarrow\)</span> convergence</strong>.</p>
-<div id="definition-zero-stability" class="section level3 hasAnchor" number="9.5.1">
-<h3><span class="header-section-number">9.5.1</span> Definition (Zero-Stability)<a href="lecture8.html#definition-zero-stability" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>The FDE is <strong>zero-stable</strong> if for small enough <span class="math inline">\(h\)</span>, there exists a constant <span class="math inline">\(M\)</span> such that for any two grid functions <span class="math inline">\(v_n, w_n\)</span>:</p>
-<p><span class="math display">\[|v_n - w_n| \leq M \left( |v_0 - w_0| + \max_{0 \leq j \leq N-1} |A_h v(t_j) - A_h w(t_j)| \right)\]</span></p>
-<p>for <span class="math inline">\(1 \leq n \leq N\)</span>.</p>
-<p>That is, small perturbations in the initial data (<span class="math inline">\(v_0 \to w_0\)</span>) or in the formula at time <span class="math inline">\(j\)</span> lead to small changes in the result.</p>
 </div>
-<div id="remark" class="section level3 hasAnchor" number="9.5.2">
-<h3><span class="header-section-number">9.5.2</span> Remark<a href="lecture8.html#remark" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Ideally, <span class="math inline">\(A_h v(t_j) = A_h w(t_j) = 0\)</span>, but there might be rounding error and other perturbations when computing the FDE.</p>
-</div>
-<div id="the-fundamental-theorem" class="section level3 hasAnchor" number="9.5.3">
-<h3><span class="header-section-number">9.5.3</span> The Fundamental Theorem<a href="lecture8.html#the-fundamental-theorem" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p><strong>Zero-stability + consistency (of order <span class="math inline">\(p\)</span>) <span class="math inline">\(\Rightarrow\)</span> convergence (of order <span class="math inline">\(p\)</span>)</strong>:</p>
-<p><span class="math display">\[|y_n - u_n| \leq M \left( |y_0 - u_0| + \max_{0 \leq j \leq N} (A_h y(t_j) - A_h u_j) \right) = O(h^p)\]</span></p>
-<p>if the method is consistent with order <span class="math inline">\(p\)</span>.</p>
+<div id="example-2" class="section level2 hasAnchor" number="15.5">
+<h2><span class="header-section-number">15.5</span> Example<a href="method-1-shooting-method.html#example-2" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><strong>Problem:</strong> <span class="math inline">\(y&#39;&#39; = 2y^3 - 6y - 2x^3\)</span>, <span class="math inline">\(y(1) = 2\)</span>, <span class="math inline">\(y(2) = 5/2\)</span></p>
+<p><strong>Exact solution:</strong> <span class="math inline">\(y(x) = x + \frac{1}{x}\)</span>, <span class="math inline">\(x \in [1, 2]\)</span></p>
+<p><strong>Shooting setup:</strong></p>
+<p>Solve the IVP: <span class="math inline">\(y&#39;&#39; = 2y^3 - 6y - 2x^3\)</span>, <span class="math inline">\(y(1) = 2\)</span>, <span class="math inline">\(y&#39;(1) = s\)</span></p>
+<p>Define <span class="math inline">\(g(s) = y(2; s) - 5/2\)</span>. We want <span class="math inline">\(g(s^*) = 0\)</span>.</p>
+<p><strong>Variational equation:</strong></p>
+<p><span class="math display">\[z&#39;&#39; = (6y^2 - 6)\, z, \quad z(1) = 0, \quad z&#39;(1) = 1\]</span></p>
+<p><strong>Newton update:</strong>
+<span class="math display">\[s_{n+1} = s_n - \frac{g(s_n)}{g&#39;(s_n)} = s_n - \frac{y(2; s_n) - 5/2}{z(2; s_n)}\]</span></p>
 <hr />
-</div>
-</div>
-<div id="convergence-proof-for-forward-euler-method" class="section level2 hasAnchor" number="9.6">
-<h2><span class="header-section-number">9.6</span> 6. Convergence Proof for Forward Euler Method<a href="lecture8.html#convergence-proof-for-forward-euler-method" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Assume <span class="math inline">\(f(t, y)\)</span> is <strong>Lipschitz in <span class="math inline">\(y\)</span></strong> for <span class="math inline">\(t \in [0, b]\)</span>.</p>
-<p>Let <span class="math inline">\(v_n, w_n\)</span> be two grid functions. By definition of <span class="math inline">\(A_h\)</span>:</p>
-<p><span class="math display">\[v_{n+1} = v_n + h f(t_n, v_n) + h A_h v(t_n)\]</span>
-<span class="math display">\[w_{n+1} = w_n + h f(t_n, w_n) + h A_h w(t_n)\]</span></p>
-<p>Let <span class="math inline">\(\tau = \max_{1 \leq j \leq N} |A_h v(t_j) - A_h w(t_j)|\)</span>.</p>
-<p>Taking the difference:</p>
-<p><span class="math display">\[|v_{n+1} - w_{n+1}| = |v_n - w_n + h(f(t_n, v_n) - f(t_n, w_n)) + h(A_h v(t_n) - A_h w(t_n))|\]</span></p>
-<p>Using the Lipschitz condition on <span class="math inline">\(f\)</span> in <span class="math inline">\(y\)</span>:</p>
-<p><span class="math display">\[\leq |v_n - w_n| + hL|v_n - w_n| + h\tau\]</span></p>
-<p>Let <span class="math inline">\(d_n = v_n - w_n\)</span>, then:</p>
-<p><span class="math display">\[|d_{n+1}| \leq (1 + hL)|d_n| + h\tau\]</span></p>
-<p><strong>Iterating the bound</strong>:</p>
-<p><span class="math display">\[|d_{n+1}| \leq (1 + hL)^n |d_0| + h\tau \sum_{j=0}^{n-1} (1 + hL)^j\]</span></p>
-<p><span class="math display">\[\leq (1 + hL)^n |d_0| + h\tau \cdot \frac{(1 + hL)^n - 1}{hL}\]</span></p>
-<p>Using the inequality <span class="math inline">\(1 + x \leq e^x\)</span>, so <span class="math inline">\(1 + hL \leq e^{hL}\)</span>, and since <span class="math inline">\(nh &lt; b\)</span>:</p>
-<p><span class="math display">\[|d_{n+1}| \leq e^{nhL} |d_0| + \frac{\tau}{L}(e^{nhL} - 1)\]</span></p>
-<p><span class="math display">\[\leq e^{bL} |d_0| + \frac{e^{bL} - 1}{L} \tau\]</span></p>
-<p>This proves <strong>zero-stability</strong>. Combined with consistency, we obtain convergence.</p>
-<hr />
-</div>
-<div id="other-methods" class="section level2 hasAnchor" number="9.7">
-<h2><span class="header-section-number">9.7</span> 7. Other Methods<a href="lecture8.html#other-methods" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div id="forward-euler-method" class="section level3 hasAnchor" number="9.7.1">
-<h3><span class="header-section-number">9.7.1</span> Forward Euler Method<a href="lecture8.html#forward-euler-method" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Uses the <strong>forward difference</strong> approximation: <span class="math inline">\(y&#39;(t_n) \approx \frac{y_{n+1} - y_n}{h}\)</span>.</p>
-<p><span class="math display">\[u_{n+1} = u_n + h f(t_n, u_n)\]</span></p>
-</div>
-<div id="backward-euler-method" class="section level3 hasAnchor" number="9.7.2">
-<h3><span class="header-section-number">9.7.2</span> Backward Euler Method<a href="lecture8.html#backward-euler-method" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Uses the <strong>backward difference</strong> approximation: <span class="math inline">\(y&#39;(t_n) \approx \frac{y(t_n) - y(t_{n-1})}{h}\)</span>.</p>
-<p><span class="math display">\[\boxed{u_{n+1} = u_n + h f(t_{n+1}, u_{n+1})}\]</span></p>
-<p>The scheme is:</p>
-<p><span class="math display">\[\frac{u_{n+1} - u_n}{h} = f(t_{n+1}, u_{n+1})\]</span></p>
-<p><strong>Is it consistent?</strong> The local truncation error:</p>
-<p><span class="math display">\[\tau_n = \frac{y_{n+1} - y_n}{h} - f(t_{n+1}, y_{n+1}) = y&#39;(t_{n+1}) - \frac{h}{2}y&#39;&#39;(\xi_n) - y&#39;(t_{n+1}) = -\frac{h}{2}y&#39;&#39;(\xi_n) = O(h)\]</span></p>
-<p>So it is <strong>first-order consistent</strong> (<span class="math inline">\(O(h)\)</span>).</p>
-<p>It is <strong>implicit</strong>, meaning that to compute the “next” value <span class="math inline">\(u_{n+1}\)</span> involves both previously known values (<span class="math inline">\(u_n\)</span>) and itself. Thus each step involves solving a <strong>nonlinear equation</strong>:</p>
-<p><span class="math display">\[0 = g(z) := z - u_n - f(t_{n+1}, z)\]</span></p>
-</div>
-<div id="trapezoidal-method" class="section level3 hasAnchor" number="9.7.3">
-<h3><span class="header-section-number">9.7.3</span> Trapezoidal Method<a href="lecture8.html#trapezoidal-method" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>From the ODE, we know the exact solution satisfies:</p>
-<p><span class="math display">\[y(t_{n+1}) = y(t_n) + \int_{t_n}^{t_{n+1}} f(s, y(s))\, ds\]</span></p>
-<p>Applying the <strong>trapezoidal rule</strong> to the integral:</p>
-<p><span class="math display">\[y_{n+1} = y_n + \frac{h}{2}(f_n + f_{n+1}) - \frac{h^3}{12} y&#39;&#39;(\xi_{n+1})\]</span></p>
-<p>The <strong>trapezoidal method</strong>:</p>
-<p><span class="math display">\[\boxed{u_{n+1} = u_n + \frac{h}{2}\big(f(t_n, u_n) + f(t_{n+1}, u_{n+1})\big)}\]</span></p>
-<p>Properties:</p>
-<ul>
-<li><strong>Consistency</strong>: <span class="math inline">\(\tau_{n+1} = A_h y = \frac{y_{n+1} - y_n}{h} - \frac{1}{2}(f_n + f_{n+1}) = O(h^2)\)</span>, so it is <strong>second-order consistent</strong>.</li>
-<li>It is <strong>implicit</strong> (like backward Euler).</li>
-</ul>
-<hr />
-</div>
-</div>
-<div id="absolute-stability-and-stiffness" class="section level2 hasAnchor" number="9.8">
-<h2><span class="header-section-number">9.8</span> 8. Absolute Stability and Stiffness<a href="lecture8.html#absolute-stability-and-stiffness" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div id="motivation" class="section level3 hasAnchor" number="9.8.1">
-<h3><span class="header-section-number">9.8.1</span> Motivation<a href="lecture8.html#motivation" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Recall that <strong>zero-stability</strong> is about behavior for small <span class="math inline">\(h\)</span> (as <span class="math inline">\(h \to 0\)</span>, <span class="math inline">\(u_n\)</span> converges to exact solution).</p>
-<p><strong>Absolute stability</strong> is about the <strong>asymptotic behavior</strong> of <span class="math inline">\(u_n\)</span>: for fixed <span class="math inline">\(h\)</span>, whether <span class="math inline">\(u_n\)</span> will remain bounded as <span class="math inline">\(t_n \to +\infty\)</span>.</p>
-</div>
-<div id="the-model-problem" class="section level3 hasAnchor" number="9.8.2">
-<h3><span class="header-section-number">9.8.2</span> The Model Problem<a href="lecture8.html#the-model-problem" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Consider the simple ODE:</p>
-<p><span class="math display">\[y&#39;(t) = \lambda y(t), \quad t &gt; 0, \quad y(0) = 1 \tag{1}\]</span></p>
-<p>where <span class="math inline">\(f(t, y) = \lambda y\)</span>. The exact solution is <span class="math inline">\(y = e^{\lambda t}\)</span>.</p>
-<p>If <span class="math inline">\(\text{Re}(\lambda) &lt; 0\)</span>, then <span class="math inline">\(\lim_{t \to \infty} |y(t)| = 0\)</span>.</p>
-<p>If <span class="math inline">\(\lambda \geq 1\)</span>, then <span class="math inline">\(y = e^t \to +\infty\)</span> as <span class="math inline">\(t \to +\infty\)</span>.</p>
-<p>We hope that the numerical solution <span class="math inline">\(u_n\)</span> has the <strong>same behavior</strong>.</p>
-</div>
-<div id="definition-absolute-stability" class="section level3 hasAnchor" number="9.8.3">
-<h3><span class="header-section-number">9.8.3</span> Definition (Absolute Stability)<a href="lecture8.html#definition-absolute-stability" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>A numerical method approximating (1) is <strong>absolutely stable</strong> if <span class="math inline">\(|u_n| \to 0\)</span> as <span class="math inline">\(t_n \to +\infty\)</span>.</p>
-<p>Whether a method is absolutely stable depends on <strong>both <span class="math inline">\(\lambda\)</span> and <span class="math inline">\(h\)</span></strong>.</p>
-</div>
-<div id="forward-euler-applied-to-the-model-problem" class="section level3 hasAnchor" number="9.8.4">
-<h3><span class="header-section-number">9.8.4</span> Forward Euler Applied to the Model Problem<a href="lecture8.html#forward-euler-applied-to-the-model-problem" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p><span class="math display">\[u_{n+1} = u_n + h\lambda u_n = (1 + h\lambda) u_n\]</span></p>
-<p><span class="math display">\[\Rightarrow u_n = (1 + h\lambda)^n u_0\]</span></p>
-<ul>
-<li>When <span class="math inline">\(n \to \infty\)</span>: <span class="math inline">\(u_n \to 0\)</span> if <span class="math inline">\(|1 + h\lambda| &lt; 1\)</span></li>
-<li><span class="math inline">\(u_n \to \infty\)</span> if <span class="math inline">\(|1 + h\lambda| &gt; 1\)</span></li>
-</ul>
-<p>We need <span class="math inline">\(z = h\lambda\)</span> to satisfy <span class="math inline">\(|1 + h\lambda| &lt; 1\)</span> for absolute stability.</p>
-</div>
-<div id="definition-region-of-absolute-stability" class="section level3 hasAnchor" number="9.8.5">
-<h3><span class="header-section-number">9.8.5</span> Definition (Region of Absolute Stability)<a href="lecture8.html#definition-region-of-absolute-stability" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>The <strong>region of absolute stability</strong> of a numerical method for (1), denoted by <span class="math inline">\(\mathcal{R}\)</span>, is the set of complex numbers <span class="math inline">\(z = h\lambda\)</span> such that:</p>
-<p><span class="math display">\[|u_n| \to 0 \quad \text{as } n \to \infty\]</span></p>
-</div>
-<div id="stability-regions-of-various-methods" class="section level3 hasAnchor" number="9.8.6">
-<h3><span class="header-section-number">9.8.6</span> Stability Regions of Various Methods<a href="lecture8.html#stability-regions-of-various-methods" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p><strong>Forward Euler</strong>: <span class="math inline">\(\mathcal{R} = \{z \in \mathbb{C} : |1 + z| &lt; 1\}\)</span></p>
-<p>This is the interior of the <strong>unit circle centered at <span class="math inline">\((-1, 0)\)</span></strong> in the complex plane.</p>
-<p><strong>Example</strong>: For <span class="math inline">\(y&#39; = -20y\)</span>, <span class="math inline">\(\lambda = -20\)</span>. The region of absolute stability requires <span class="math inline">\(|1 + z| &lt; 1\)</span> where <span class="math inline">\(z = -20h\)</span>. We need <span class="math inline">\(h \in (0, 1/10)\)</span>. If <span class="math inline">\(h &gt; 1/10\)</span>, <span class="math inline">\(u_n\)</span> will grow exponentially (unstable). This is a “<strong>stability constraint on <span class="math inline">\(h\)</span></strong>.”</p>
-<p><strong>Backward Euler</strong>: Applied to <span class="math inline">\(y&#39; = \lambda y\)</span>:</p>
-<p><span class="math display">\[u_{n+1} = u_n + h\lambda u_{n+1} \quad \Rightarrow \quad u_{n+1} = \frac{1}{1 - h\lambda} u_n\]</span></p>
-<p><span class="math display">\[\Rightarrow u_n = \frac{1}{(1 - h\lambda)^n}, \quad n \geq 0\]</span></p>
-<p>We need <span class="math inline">\(|1 - h\lambda| &gt; 1\)</span> for <span class="math inline">\(u_n \to 0\)</span> as <span class="math inline">\(t_n \to \infty\)</span>.</p>
-<p><span class="math inline">\(\mathcal{R} = \{z \in \mathbb{C} : |1 - z| &gt; 1\}\)</span>, i.e., the <strong>exterior</strong> of the unit circle centered at <span class="math inline">\((1, 0)\)</span>.</p>
-<p><strong>Trapezoidal Method</strong>:</p>
-<p><span class="math display">\[u_n = \left[\frac{1 + \frac{1}{2}\lambda h}{1 - \frac{1}{2}\lambda h}\right]^n\]</span></p>
-<p>The stability condition is satisfied for any <span class="math inline">\(\lambda h \in \mathbb{C}^- = \{z \in \mathbb{C} : \text{Re}(z) &lt; 0\}\)</span>.</p>
-</div>
-<div id="a-stability" class="section level3 hasAnchor" number="9.8.7">
-<h3><span class="header-section-number">9.8.7</span> A-Stability<a href="lecture8.html#a-stability" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p><strong>Definition</strong>: A method with absolute stability region <span class="math inline">\(\mathcal{R}\)</span> containing <span class="math inline">\(\mathbb{C}^- = \{z \in \mathbb{C} : \text{Re}(z) &lt; 0\}\)</span> is called <strong>A-stable</strong>.</p>
-<p><strong>Backward Euler</strong> and <strong>Trapezoidal method</strong> are <strong>A-stable</strong>: when <span class="math inline">\(\text{Re}(\lambda) &lt; 0\)</span>, there is no stability constraint when choosing <span class="math inline">\(h\)</span>.</p>
-</div>
-<div id="stiffness" class="section level3 hasAnchor" number="9.8.8">
-<h3><span class="header-section-number">9.8.8</span> Stiffness<a href="lecture8.html#stiffness" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>When choosing grid size <span class="math inline">\(h\)</span>, we need to consider both <strong>stability</strong> and <strong>convergence</strong> at the same time:</p>
-<ul>
-<li>When <span class="math inline">\(h\)</span> is small: <span class="math inline">\(O(h^p)\)</span> error (convergence)</li>
-<li><span class="math inline">\(\lambda h\)</span> needs to be within <span class="math inline">\(\mathcal{R}\)</span> for a reasonable solution (stability)</li>
-</ul>
-<p><strong>Definition</strong>: A problem is called <strong>stiff</strong> when the stability constraint is a significant issue, i.e., the step size required for stability is much smaller than what would be needed for accuracy alone.</p>
-</div>
-<div id="remark-general-odes" class="section level3 hasAnchor" number="9.8.9">
-<h3><span class="header-section-number">9.8.9</span> Remark: General ODEs<a href="lecture8.html#remark-general-odes" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>For a general ODE <span class="math inline">\(y&#39; = f(t, y(t))\)</span> (not just <span class="math inline">\(y&#39; = \lambda y\)</span>):</p>
-<p>If there exist two positive constants <span class="math inline">\(\mu_{\max}\)</span> and <span class="math inline">\(\mu_{\min}\)</span> such that:</p>
-<p><span class="math display">\[-\mu_{\max} &lt; \frac{\partial f}{\partial y}(t, y) &lt; -\mu_{\min}\]</span></p>
-<p>then <span class="math inline">\(-\mu_{\max}\)</span> plays the role of <span class="math inline">\(\lambda\)</span> in the stability analysis.</p>
-</div>
-<div id="example-stiff-problem" class="section level3 hasAnchor" number="9.8.10">
-<h3><span class="header-section-number">9.8.10</span> Example: Stiff Problem<a href="lecture8.html#example-stiff-problem" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p><span class="math display">\[y&#39; = -20(y - \sin t) + \cos t, \quad y(0) = 1\]</span></p>
-<p>Exact solution: <span class="math inline">\(y(t) = e^{-20t} + \sin t\)</span>.</p>
-<p>Here <span class="math inline">\(\partial f / \partial y \approx -20\)</span>, so <span class="math inline">\(\lambda \approx -20\)</span>, and the stability region <span class="math inline">\(\mathcal{R}\)</span> requires <span class="math inline">\(h &lt; 0.1\)</span> for forward Euler.</p>
-<ul>
-<li><strong>Forward Euler</strong>: needs <span class="math inline">\(h &lt; 0.1\)</span>; for <span class="math inline">\(h = 0.15\)</span> or <span class="math inline">\(0.11\)</span> the solution oscillates wildly; for <span class="math inline">\(h = 0.10\)</span> and <span class="math inline">\(0.09\)</span> it converges.</li>
-<li><strong>Backward Euler</strong>: any <span class="math inline">\(h &gt; 0\)</span> will lead to <span class="math inline">\(h(-100) \in \mathcal{R}\)</span> (A-stable). With <span class="math inline">\(h = 0.005\)</span>, the solution is very accurate; with <span class="math inline">\(h = 0.1\)</span>, the solution is less accurate but still <strong>bounded</strong>.</li>
-</ul>
-<p>The <strong>accuracy constraint</strong> (<span class="math inline">\(h \to 0\)</span> for <span class="math inline">\(O(h^p)\)</span> convergence) may be much less restrictive than the <strong>stability constraint</strong> (<span class="math inline">\(\lambda h \in \mathcal{R}\)</span>).</p>
-
-</div>
 </div>
 </div>
 <hr style="margin-top:50px;">
@@ -797,8 +582,8 @@
           </div>
         </div>
       </div>
-<a href="lecture7.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="lecture9.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="properties-of-bvps.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="review-lu-decomposition-for-finite-difference-method.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
