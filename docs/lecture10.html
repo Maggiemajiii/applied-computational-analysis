@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>11 Lecture 10 (first part review) | Lecture 10</title>
-  <meta name="description" content="11 Lecture 10 (first part review) | Lecture 10" />
+  <title>11 Lecture 10 | Lecture 10: Numerical Methods for Boundary Value Problems (BVP)</title>
+  <meta name="description" content="11 Lecture 10 | Lecture 10: Numerical Methods for Boundary Value Problems (BVP)" />
   <meta name="generator" content="bookdown 0.45 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="11 Lecture 10 (first part review) | Lecture 10" />
+  <meta property="og:title" content="11 Lecture 10 | Lecture 10: Numerical Methods for Boundary Value Problems (BVP)" />
   <meta property="og:type" content="book" />
   
   
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="11 Lecture 10 (first part review) | Lecture 10" />
+  <meta name="twitter:title" content="11 Lecture 10 | Lecture 10: Numerical Methods for Boundary Value Problems (BVP)" />
   
   
   
@@ -23,7 +23,7 @@
 <meta name="author" content="Maggie Zhang" />
 
 
-<meta name="date" content="2026-04-12" />
+<meta name="date" content="2026-04-17" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -350,19 +350,19 @@
 <li class="chapter" data-level="10.5.5" data-path="lecture9.html"><a href="lecture9.html#strang-splitting-second-order"><i class="fa fa-check"></i><b>10.5.5</b> Strang Splitting (Second-Order)</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="11" data-path="lecture10.html"><a href="lecture10.html"><i class="fa fa-check"></i><b>11</b> Lecture 10 (first part review)</a>
+<li class="chapter" data-level="11" data-path="lecture10.html"><a href="lecture10.html"><i class="fa fa-check"></i><b>11</b> Lecture 10</a>
 <ul>
-<li class="chapter" data-level="11.1" data-path="lecture10.html"><a href="lecture10.html#review"><i class="fa fa-check"></i><b>11.1</b> Review</a>
+<li class="chapter" data-level="11.1" data-path="lecture10.html"><a href="lecture10.html#part-i-review-operator-splitting-continued"><i class="fa fa-check"></i><b>11.1</b> Part I: Review — Operator Splitting (Continued)</a>
 <ul>
-<li class="chapter" data-level="11.1.1" data-path="lecture10.html"><a href="lecture10.html#forward-euler-with-splitting"><i class="fa fa-check"></i><b>11.1.1</b> Forward Euler with Splitting</a></li>
+<li class="chapter" data-level="11.1.1" data-path="lecture10.html"><a href="lecture10.html#forward-euler-splitting"><i class="fa fa-check"></i><b>11.1.1</b> Forward Euler Splitting</a></li>
 <li class="chapter" data-level="11.1.2" data-path="lecture10.html"><a href="lecture10.html#strong-strang-splitting"><i class="fa fa-check"></i><b>11.1.2</b> Strong (Strang) Splitting</a></li>
 <li class="chapter" data-level="11.1.3" data-path="lecture10.html"><a href="lecture10.html#bakercampbellhausdorff-bch-theorem"><i class="fa fa-check"></i><b>11.1.3</b> Baker–Campbell–Hausdorff (BCH) Theorem</a></li>
 <li class="chapter" data-level="11.1.4" data-path="lecture10.html"><a href="lecture10.html#motivating-example-stiff-equations"><i class="fa fa-check"></i><b>11.1.4</b> Motivating Example: Stiff Equations</a></li>
 </ul></li>
-<li class="chapter" data-level="11.2" data-path="lecture10.html"><a href="lecture10.html#introduction-to-boundary-value-problems-bvp"><i class="fa fa-check"></i><b>11.2</b> Introduction to Boundary Value Problems (BVP)</a>
+<li class="chapter" data-level="11.2" data-path="lecture10.html"><a href="lecture10.html#part-ii-numerical-methods-for-boundary-value-problems"><i class="fa fa-check"></i><b>11.2</b> Part II: Numerical Methods for Boundary Value Problems</a>
 <ul>
 <li class="chapter" data-level="11.2.1" data-path="lecture10.html"><a href="lecture10.html#definition-2"><i class="fa fa-check"></i><b>11.2.1</b> Definition</a></li>
-<li class="chapter" data-level="11.2.2" data-path="lecture10.html"><a href="lecture10.html#converting-to-first-order-systems"><i class="fa fa-check"></i><b>11.2.2</b> Converting to First-Order Systems</a></li>
+<li class="chapter" data-level="11.2.2" data-path="lecture10.html"><a href="lecture10.html#conversion-to-first-order-systems"><i class="fa fa-check"></i><b>11.2.2</b> Conversion to First-Order Systems</a></li>
 <li class="chapter" data-level="11.2.3" data-path="lecture10.html"><a href="lecture10.html#why-bvps-are-harder-than-ivps"><i class="fa fa-check"></i><b>11.2.3</b> Why BVPs Are Harder Than IVPs</a></li>
 </ul></li>
 <li class="chapter" data-level="11.3" data-path="lecture10.html"><a href="lecture10.html#properties-of-bvps"><i class="fa fa-check"></i><b>11.3</b> Properties of BVPs</a>
@@ -373,17 +373,20 @@
 <li class="chapter" data-level="11.4" data-path="lecture10.html"><a href="lecture10.html#method-1-shooting-method"><i class="fa fa-check"></i><b>11.4</b> Method 1: Shooting Method</a>
 <ul>
 <li class="chapter" data-level="11.4.1" data-path="lecture10.html"><a href="lecture10.html#idea"><i class="fa fa-check"></i><b>11.4.1</b> Idea</a></li>
-<li class="chapter" data-level="11.4.2" data-path="lecture10.html"><a href="lecture10.html#algorithm-1"><i class="fa fa-check"></i><b>11.4.2</b> Algorithm</a></li>
-<li class="chapter" data-level="11.4.3" data-path="lecture10.html"><a href="lecture10.html#full-workflow-summary"><i class="fa fa-check"></i><b>11.4.3</b> Full Workflow Summary</a></li>
-<li class="chapter" data-level="11.4.4" data-path="lecture10.html"><a href="lecture10.html#required-tools"><i class="fa fa-check"></i><b>11.4.4</b> Required Tools</a></li>
-<li class="chapter" data-level="11.4.5" data-path="lecture10.html"><a href="lecture10.html#example-2"><i class="fa fa-check"></i><b>11.4.5</b> Example</a></li>
+<li class="chapter" data-level="11.4.2" data-path="lecture10.html"><a href="lecture10.html#step-1-set-up-the-ivp"><i class="fa fa-check"></i><b>11.4.2</b> Step 1: Set Up the IVP</a></li>
+<li class="chapter" data-level="11.4.3" data-path="lecture10.html"><a href="lecture10.html#step-2-define-the-goal-function"><i class="fa fa-check"></i><b>11.4.3</b> Step 2: Define the Goal Function</a></li>
+<li class="chapter" data-level="11.4.4" data-path="lecture10.html"><a href="lecture10.html#step-3-solve-with-newtons-method"><i class="fa fa-check"></i><b>11.4.4</b> Step 3: Solve with Newton’s Method</a></li>
+<li class="chapter" data-level="11.4.5" data-path="lecture10.html"><a href="lecture10.html#step-4-compute-gs-via-the-variational-equation"><i class="fa fa-check"></i><b>11.4.5</b> Step 4: Compute <span class="math inline">\(g&#39;(s)\)</span> via the Variational Equation</a></li>
+<li class="chapter" data-level="11.4.6" data-path="lecture10.html"><a href="lecture10.html#full-workflow-summary"><i class="fa fa-check"></i><b>11.4.6</b> Full Workflow Summary</a></li>
+<li class="chapter" data-level="11.4.7" data-path="lecture10.html"><a href="lecture10.html#worked-example"><i class="fa fa-check"></i><b>11.4.7</b> Worked Example</a></li>
 </ul></li>
-<li class="chapter" data-level="11.5" data-path="lecture10.html"><a href="lecture10.html#review-lu-decomposition-for-finite-difference-method"><i class="fa fa-check"></i><b>11.5</b> Review: LU Decomposition (for Finite Difference Method)</a>
+<li class="chapter" data-level="11.5" data-path="lecture10.html"><a href="lecture10.html#review-lu-decomposition"><i class="fa fa-check"></i><b>11.5</b> Review: LU Decomposition</a>
 <ul>
-<li class="chapter" data-level="11.5.1" data-path="lecture10.html"><a href="lecture10.html#lu-decomposition"><i class="fa fa-check"></i><b>11.5.1</b> LU Decomposition</a></li>
-<li class="chapter" data-level="11.5.2" data-path="lecture10.html"><a href="lecture10.html#tridiagonal-matrices"><i class="fa fa-check"></i><b>11.5.2</b> Tridiagonal Matrices</a></li>
+<li class="chapter" data-level="11.5.1" data-path="lecture10.html"><a href="lecture10.html#motivation-3"><i class="fa fa-check"></i><b>11.5.1</b> Motivation</a></li>
+<li class="chapter" data-level="11.5.2" data-path="lecture10.html"><a href="lecture10.html#tridiagonal-matrices-and-bandwidth"><i class="fa fa-check"></i><b>11.5.2</b> Tridiagonal Matrices and Bandwidth</a></li>
+<li class="chapter" data-level="11.5.3" data-path="lecture10.html"><a href="lecture10.html#worked-example-lu-of-a-tridiagonal-matrix"><i class="fa fa-check"></i><b>11.5.3</b> Worked Example: LU of a Tridiagonal Matrix</a></li>
 </ul></li>
-<li class="chapter" data-level="11.6" data-path="lecture10.html"><a href="lecture10.html#method-2-finite-difference-method-for-bvps"><i class="fa fa-check"></i><b>11.6</b> Method 2: Finite Difference Method for BVPs</a>
+<li class="chapter" data-level="11.6" data-path="lecture10.html"><a href="lecture10.html#method-2-finite-difference-method-fdm-for-bvps"><i class="fa fa-check"></i><b>11.6</b> Method 2: Finite Difference Method (FDM) for BVPs</a>
 <ul>
 <li class="chapter" data-level="11.6.1" data-path="lecture10.html"><a href="lecture10.html#overview"><i class="fa fa-check"></i><b>11.6.1</b> Overview</a></li>
 <li class="chapter" data-level="11.6.2" data-path="lecture10.html"><a href="lecture10.html#model-problem"><i class="fa fa-check"></i><b>11.6.2</b> Model Problem</a></li>
@@ -393,30 +396,29 @@
 </ul></li>
 <li class="chapter" data-level="11.7" data-path="lecture10.html"><a href="lecture10.html#method-3-midpoint-discretization"><i class="fa fa-check"></i><b>11.7</b> Method 3: Midpoint Discretization</a>
 <ul>
-<li class="chapter" data-level="11.7.1" data-path="lecture10.html"><a href="lecture10.html#overview-1"><i class="fa fa-check"></i><b>11.7.1</b> Overview</a></li>
-<li class="chapter" data-level="11.7.2" data-path="lecture10.html"><a href="lecture10.html#grid-setup"><i class="fa fa-check"></i><b>11.7.2</b> Grid Setup</a></li>
-<li class="chapter" data-level="11.7.3" data-path="lecture10.html"><a href="lecture10.html#midpoint-scheme"><i class="fa fa-check"></i><b>11.7.3</b> Midpoint Scheme</a></li>
-<li class="chapter" data-level="11.7.4" data-path="lecture10.html"><a href="lecture10.html#advantages"><i class="fa fa-check"></i><b>11.7.4</b> Advantages</a></li>
-<li class="chapter" data-level="11.7.5" data-path="lecture10.html"><a href="lecture10.html#nonlinear-case"><i class="fa fa-check"></i><b>11.7.5</b> Nonlinear Case</a></li>
+<li class="chapter" data-level="11.7.1" data-path="lecture10.html"><a href="lecture10.html#the-standard-first-order-system"><i class="fa fa-check"></i><b>11.7.1</b> The Standard First-Order System</a></li>
+<li class="chapter" data-level="11.7.2" data-path="lecture10.html"><a href="lecture10.html#midpoint-formula"><i class="fa fa-check"></i><b>11.7.2</b> Midpoint Formula</a></li>
+<li class="chapter" data-level="11.7.3" data-path="lecture10.html"><a href="lecture10.html#remarks-1"><i class="fa fa-check"></i><b>11.7.3</b> Remarks</a></li>
+<li class="chapter" data-level="11.7.4" data-path="lecture10.html"><a href="lecture10.html#concrete-example-midpoint-discretization"><i class="fa fa-check"></i><b>11.7.4</b> Concrete Example: Midpoint Discretization</a></li>
 </ul></li>
-<li class="chapter" data-level="11.8" data-path="lecture10.html"><a href="lecture10.html#consistency-convergence-and-stability-of-fdm-for-bvps"><i class="fa fa-check"></i><b>11.8</b> Consistency, Convergence, and Stability of FDM for BVPs</a>
+<li class="chapter" data-level="11.8" data-path="lecture10.html"><a href="lecture10.html#consistency-stability-and-convergence-for-bvp-fdm"><i class="fa fa-check"></i><b>11.8</b> Consistency, Stability, and Convergence for BVP FDM</a>
 <ul>
 <li class="chapter" data-level="11.8.1" data-path="lecture10.html"><a href="lecture10.html#consistency"><i class="fa fa-check"></i><b>11.8.1</b> Consistency</a></li>
 <li class="chapter" data-level="11.8.2" data-path="lecture10.html"><a href="lecture10.html#stability-for-bvps"><i class="fa fa-check"></i><b>11.8.2</b> Stability for BVPs</a></li>
 <li class="chapter" data-level="11.8.3" data-path="lecture10.html"><a href="lecture10.html#convergence-1"><i class="fa fa-check"></i><b>11.8.3</b> Convergence</a></li>
 </ul></li>
-<li class="chapter" data-level="11.9" data-path="lecture10.html"><a href="lecture10.html#method-4-galerkin-weak-formulation"><i class="fa fa-check"></i><b>11.9</b> Method 4: Galerkin / Weak Formulation</a>
+<li class="chapter" data-level="11.9" data-path="lecture10.html"><a href="lecture10.html#method-4-galerkin-method-and-weak-formulation"><i class="fa fa-check"></i><b>11.9</b> Method 4: Galerkin Method and Weak Formulation</a>
 <ul>
-<li class="chapter" data-level="11.9.1" data-path="lecture10.html"><a href="lecture10.html#motivation-3"><i class="fa fa-check"></i><b>11.9.1</b> Motivation</a></li>
-<li class="chapter" data-level="11.9.2" data-path="lecture10.html"><a href="lecture10.html#weak-formulation"><i class="fa fa-check"></i><b>11.9.2</b> Weak Formulation</a></li>
-<li class="chapter" data-level="11.9.3" data-path="lecture10.html"><a href="lecture10.html#remark-navierstokes-equations"><i class="fa fa-check"></i><b>11.9.3</b> Remark: Navier–Stokes Equations</a></li>
-<li class="chapter" data-level="11.9.4" data-path="lecture10.html"><a href="lecture10.html#galerkin-method"><i class="fa fa-check"></i><b>11.9.4</b> Galerkin Method</a></li>
+<li class="chapter" data-level="11.9.1" data-path="lecture10.html"><a href="lecture10.html#motivation-4"><i class="fa fa-check"></i><b>11.9.1</b> Motivation</a></li>
+<li class="chapter" data-level="11.9.2" data-path="lecture10.html"><a href="lecture10.html#derivation-of-the-weak-formulation"><i class="fa fa-check"></i><b>11.9.2</b> Derivation of the Weak Formulation</a></li>
+<li class="chapter" data-level="11.9.3" data-path="lecture10.html"><a href="lecture10.html#sobolev-space-and-distribution-derivative"><i class="fa fa-check"></i><b>11.9.3</b> Sobolev Space and Distribution Derivative</a></li>
+<li class="chapter" data-level="11.9.4" data-path="lecture10.html"><a href="lecture10.html#weak-formulation"><i class="fa fa-check"></i><b>11.9.4</b> Weak Formulation</a></li>
+<li class="chapter" data-level="11.9.5" data-path="lecture10.html"><a href="lecture10.html#galerkin-method"><i class="fa fa-check"></i><b>11.9.5</b> Galerkin Method</a></li>
 </ul></li>
 <li class="chapter" data-level="11.10" data-path="lecture10.html"><a href="lecture10.html#finite-element-method-fem"><i class="fa fa-check"></i><b>11.10</b> Finite Element Method (FEM)</a>
 <ul>
-<li class="chapter" data-level="11.10.1" data-path="lecture10.html"><a href="lecture10.html#basis-function-choice"><i class="fa fa-check"></i><b>11.10.1</b> Basis Function Choice</a></li>
-<li class="chapter" data-level="11.10.2" data-path="lecture10.html"><a href="lecture10.html#spectral-galerkin-method"><i class="fa fa-check"></i><b>11.10.2</b> Spectral Galerkin Method</a></li>
-<li class="chapter" data-level="11.10.3" data-path="lecture10.html"><a href="lecture10.html#comparison"><i class="fa fa-check"></i><b>11.10.3</b> Comparison</a></li>
+<li class="chapter" data-level="11.10.1" data-path="lecture10.html"><a href="lecture10.html#basis-function-choices"><i class="fa fa-check"></i><b>11.10.1</b> Basis Function Choices</a></li>
+<li class="chapter" data-level="11.10.2" data-path="lecture10.html"><a href="lecture10.html#comparison-of-galerkin-methods"><i class="fa fa-check"></i><b>11.10.2</b> Comparison of Galerkin Methods</a></li>
 </ul></li>
 <li class="chapter" data-level="11.11" data-path="lecture10.html"><a href="lecture10.html#summary"><i class="fa fa-check"></i><b>11.11</b> Summary</a></li>
 </ul></li>
@@ -430,7 +432,7 @@
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Lecture 10</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Lecture 10: Numerical Methods for Boundary Value Problems (BVP)</a>
           </h1>
         </div>
 
@@ -466,83 +468,92 @@
 
 </div>
 <div id="lecture10" class="section level1 hasAnchor" number="11">
-<h1><span class="header-section-number">11</span> Lecture 10 (first part review)<a href="lecture10.html#lecture10" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<div id="review" class="section level2 hasAnchor" number="11.1">
-<h2><span class="header-section-number">11.1</span> Review<a href="lecture10.html#review" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div id="forward-euler-with-splitting" class="section level3 hasAnchor" number="11.1.1">
-<h3><span class="header-section-number">11.1.1</span> Forward Euler with Splitting<a href="lecture10.html#forward-euler-with-splitting" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Consider an ODE of the form:
-<span class="math display">\[\dot{u} = (A + B)u\]</span>
-where <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> may be matrices (or operators). When <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> are <strong>not constant</strong>, we replace <span class="math inline">\(e^{hA}\)</span> and <span class="math inline">\(e^{hB}\)</span> by numerical approximations.</p>
-<p><strong>Forward Euler splitting</strong> gives:
-<span class="math display">\[u_{n+1} = (I + hA)(I + hB)\, u_n\]</span></p>
-<p>This scheme has <strong>local truncation error</strong> <span class="math inline">\(\mathcal{O}(h^2)\)</span> and <strong>global error</strong> <span class="math inline">\(\mathcal{O}(h)\)</span>, so the method is <strong>first-order accurate</strong>.</p>
+<h1><span class="header-section-number">11</span> Lecture 10<a href="lecture10.html#lecture10" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<hr />
+<div id="part-i-review-operator-splitting-continued" class="section level2 hasAnchor" number="11.1">
+<h2><span class="header-section-number">11.1</span> Part I: Review — Operator Splitting (Continued)<a href="lecture10.html#part-i-review-operator-splitting-continued" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="forward-euler-splitting" class="section level3 hasAnchor" number="11.1.1">
+<h3><span class="header-section-number">11.1.1</span> Forward Euler Splitting<a href="lecture10.html#forward-euler-splitting" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Consider an ODE of the form <span class="math inline">\(\dot{u} = (A + B)u\)</span> where <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> are operators (possibly matrices). The <strong>exact solution</strong> advances as:
+<span class="math display">\[\vec{u}_n = e^{hA}e^{hB}e^{hA}e^{hB}\cdots e^{hA}e^{hB}\vec{u}_0\]</span></p>
+<p>Since <span class="math inline">\(e^{hA}e^{hB} = e^{h(A+B)} + O(h^2)\)</span>, the local error of the splitting is <span class="math inline">\(O(h^2)\)</span>, which gives <strong>global error</strong> <span class="math inline">\(O(h)\)</span>. Thus the <strong>order of the method is 1</strong>.</p>
+<p>When <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> are <strong>not constant-coefficient matrices</strong>, we can no longer use the matrix exponentials exactly. Instead, we replace <span class="math inline">\(e^{hA}\)</span> and <span class="math inline">\(e^{hB}\)</span> by numerical schemes.</p>
+<p><strong>Forward Euler splitting:</strong>
+<span class="math display">\[\begin{cases} \vec{w}_n = \vec{u}_{n-1} + hB\vec{u}_{n-1} = (I + hB)\vec{u}_{n-1} \\ \vec{u}_n = \vec{w}_n + hA\vec{w}_n = (I + hA)(I + hB)\vec{u}_{n-1} \end{cases}\]</span></p>
+<p>Now observe the key identity:
+<span class="math display">\[(I+hA)(I+hB) = I + h(A+B) + h^2 AB\]</span></p>
+<p>Compared to the standard Forward Euler step:
+<span class="math display">\[\vec{u}_n = [I + h(A+B)]\vec{u}_{n-1}\]</span></p>
+<p>The splitting version differs by <span class="math inline">\(O(h^2)\)</span>:
+<span class="math display">\[(I+hA)(I+hB) = I + h(A+B) + O(h^2)\]</span></p>
+<blockquote>
+<p><strong>Conclusion:</strong> Splitting like <span class="math inline">\((I+hA)(I+hB)\)</span> versus the Euler method <span class="math inline">\(I + h(A+B)\)</span> has an <span class="math inline">\(O(h^2)\)</span> difference per step — consistent with the order-1 global method.</p>
+</blockquote>
+<hr />
 </div>
 <div id="strong-strang-splitting" class="section level3 hasAnchor" number="11.1.2">
 <h3><span class="header-section-number">11.1.2</span> Strong (Strang) Splitting<a href="lecture10.html#strong-strang-splitting" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>To improve accuracy to second order, we use <strong>Strang splitting</strong>:</p>
-<ol style="list-style-type: decimal">
-<li><p>Take a <strong>half step</strong> of size <span class="math inline">\(h/2\)</span> with operator <span class="math inline">\(A\)</span></p></li>
-<li><p>Take a <strong>full step</strong> of size <span class="math inline">\(h\)</span> with operator <span class="math inline">\(B\)</span></p></li>
-<li><p>Take another <strong>half step</strong> of size <span class="math inline">\(h/2\)</span> with operator <span class="math inline">\(A\)</span></p></li>
-</ol>
-<p><span class="math display">\[u_{n+1} = e^{hA/2}\, e^{hB}\, e^{hA/2}\, u_n\]</span></p>
+<p>To improve accuracy from order 1 to order 2, we use <strong>Strang splitting</strong>, which uses the <strong>exact exponentials</strong>:
+<span class="math display">\[e^{hA/2}e^{hB}e^{hA/2} = e^{h(A+B)} + O(h^3)\]</span></p>
+<p>This improves the splitting error by one order (compared to <span class="math inline">\(O(h^2)\)</span> for simple splitting), resulting in a <strong>second-order accurate</strong> overall method.</p>
+<p><strong>Key requirement:</strong> The individual exponential approximations <span class="math inline">\(e^{hA/2}\)</span> and <span class="math inline">\(e^{hB}\)</span> must each be computed by a <strong>second-order accurate</strong> numerical method. Only then is the overall method + strong splitting second-order.</p>
+<p><strong>Forward Euler with Strong Splitting Algorithm:</strong></p>
+<p>For Strang splitting with Forward Euler approximating each exponential:
+<span class="math display">\[\begin{cases} \vec{w}_n = \vec{u}_n + \dfrac{h}{2} A\vec{u}_n &amp; (\text{half-step by }A) \\[6pt] \tilde{\vec{w}}_n = \vec{w}_n + h B \vec{w}_n &amp; (\text{full step by }B) \\[6pt] \vec{u}_{n+1} = \tilde{\vec{w}}_n + \dfrac{h}{2} A \tilde{\vec{w}}_n &amp; (\text{half-step by }A) \end{cases}\]</span></p>
 <blockquote>
-<p><strong>Key requirement:</strong> Each matrix exponential approximation must itself be second-order accurate for the overall method to be second order.</p>
+<p><strong>Note:</strong> Forward Euler is only first-order, so using it here does <strong>not</strong> give a second-order overall method. To achieve second order, the individual sub-step solvers must themselves be second-order (e.g., the trapezoidal rule or midpoint method).</p>
 </blockquote>
+<hr />
 </div>
 <div id="bakercampbellhausdorff-bch-theorem" class="section level3 hasAnchor" number="11.1.3">
 <h3><span class="header-section-number">11.1.3</span> Baker–Campbell–Hausdorff (BCH) Theorem<a href="lecture10.html#bakercampbellhausdorff-bch-theorem" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>The BCH theorem (from Lie algebra) quantifies the error in operator splitting. If <span class="math inline">\(X, Y\)</span> are elements in a Lie algebra with commutator <span class="math inline">\([X,Y] = XY - YX\)</span>, then:
-<span class="math display">\[e^X e^Y = e^{Z}, \quad Z = X + Y + \tfrac{1}{2}[X,Y] + \tfrac{1}{12}[X,[X,Y]] - \tfrac{1}{12}[Y,[X,Y]] + \cdots\]</span></p>
-<p>The splitting error is <span class="math inline">\(\mathcal{O}(h^2)\)</span> for standard splitting and <span class="math inline">\(\mathcal{O}(h^3)\)</span> for Strang splitting.</p>
+<p>The BCH theorem from Lie algebra gives a precise formula for the error in operator splitting. If <span class="math inline">\(X, Y\)</span> are elements of a Lie algebra with commutator <span class="math inline">\([X, Y] = XY - YX\)</span>, then:
+<span class="math display">\[e^X e^Y = e^Z, \quad Z = X + Y + \frac{1}{2}[X,Y] + \frac{1}{12}[X,[X,Y]] + \frac{1}{12}[Y,[Y,X]] + \cdots\]</span></p>
+<p>Applying this with <span class="math inline">\(X = hA\)</span>, <span class="math inline">\(Y = hB\)</span>:
+- <strong>Simple splitting:</strong> <span class="math inline">\(e^{hA}e^{hB} = e^{h(A+B) + \frac{h^2}{2}[A,B] + O(h^3)}\)</span>, so error <span class="math inline">\(= O(h^2)\)</span> per step
+- <strong>Strang splitting:</strong> <span class="math inline">\(e^{hA/2}e^{hB}e^{hA/2} = e^{h(A+B) + O(h^3)}\)</span>, so error <span class="math inline">\(= O(h^3)\)</span> per step</p>
+<hr />
 </div>
 <div id="motivating-example-stiff-equations" class="section level3 hasAnchor" number="11.1.4">
 <h3><span class="header-section-number">11.1.4</span> Motivating Example: Stiff Equations<a href="lecture10.html#motivating-example-stiff-equations" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Consider a <strong>stiff ODE</strong>:
-<span class="math display">\[u&#39; = -100u + \sin(u)\]</span></p>
-<ul>
-<li><p>Using an <strong>explicit method</strong> requires a very small step size <span class="math inline">\(h\)</span> to remain within the stability region — computationally expensive.</p></li>
-<li><p>Solution: Use <strong>operator splitting</strong> to handle the stiff part implicitly:</p></li>
-</ul>
-<p><span class="math display">\[y&#39; = \underbrace{-100y}_{Ay \text{ (stiff, implicit)}} + \underbrace{\sin(y)}_{By \text{ (non-stiff, explicit)}}\]</span></p>
-<p><strong>Splitting scheme:</strong>
-<span class="math display">\[w_{n+1/2} = y_n + h \cdot By_n \quad \text{(explicit step for } \sin(y)\text{)}\]</span>
-<span class="math display">\[y_{n+1} - 100h\, y_{n+1} = w_{n+1/2} \quad \Rightarrow \quad (1 + 100h)\,y_{n+1} = w_{n+1/2} \quad \text{(implicit step)}\]</span></p>
-<blockquote>
-<p><strong>Advantage:</strong> The implicit solve for the stiff part is just a linear equation — no Newton iteration needed.</p>
-</blockquote>
-<p>In general, for <span class="math inline">\(y&#39; = Ay + g(t,y)\)</span>, if <span class="math inline">\(A\)</span> is the stiff part, solve it implicitly to avoid Newton iterations.</p>
+<p><strong>Stiff ODE:</strong> <span class="math inline">\(y&#39; = -100y + \sin y\)</span>, where <span class="math inline">\(\frac{\partial f}{\partial y} \approx -100\)</span> (large and negative).</p>
+<p>If we use an <strong>explicit method</strong> (e.g., Forward Euler), the stability region requires <span class="math inline">\(h\lambda \in\)</span> stability region. Since <span class="math inline">\(\lambda \approx -100\)</span>, we need <span class="math inline">\(h \cdot 100 \leq 2\)</span> for Forward Euler, so <span class="math inline">\(h \leq 0.02\)</span> — a very small step size.</p>
+<p><strong>Fully implicit method</strong> would give:
+<span class="math display">\[u_{n+1} = u_n + h(-100u_{n+1} + \sin u_{n+1})\]</span>
+<span class="math display">\[\Rightarrow (1+100h)u_{n+1} - h\sin u_{n+1} = u_n\]</span>
+This is a <strong>nonlinear equation</strong> requiring Newton’s method at each step — expensive.</p>
+<p><strong>Operator splitting approach:</strong> Split <span class="math inline">\(y&#39; = Ay + By\)</span> where <span class="math inline">\(Ay = -100y\)</span> (stiff, solve implicitly) and <span class="math inline">\(By = \sin y\)</span> (non-stiff, solve explicitly):</p>
+<p><span class="math display">\[\begin{cases} w_{n+1} = y_n + h\sin y_n &amp; \text{(explicit step for }\sin y\text{)} \\[4pt] \dfrac{y_{n+1} - w_{n+1}}{100} = -100\, y_{n+1} \Rightarrow (1 + 100h)\,y_{n+1} = w_{n+1} &amp; \text{(implicit step for stiff part)} \end{cases}\]</span></p>
+<p>The implicit solve for the stiff part is now a <strong>linear equation</strong> — no Newton iteration needed!</p>
+<p><strong>General principle:</strong> For <span class="math inline">\(\vec{y}&#39; = A\vec{y} + g(t, \vec{y})\)</span>, if <span class="math inline">\(A\)</span> is the stiff part, solve it implicitly to avoid Newton iteration for the full nonlinear system.</p>
 <hr />
 </div>
 </div>
-<div id="introduction-to-boundary-value-problems-bvp" class="section level2 hasAnchor" number="11.2">
-<h2><span class="header-section-number">11.2</span> Introduction to Boundary Value Problems (BVP)<a href="lecture10.html#introduction-to-boundary-value-problems-bvp" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="part-ii-numerical-methods-for-boundary-value-problems" class="section level2 hasAnchor" number="11.2">
+<h2><span class="header-section-number">11.2</span> Part II: Numerical Methods for Boundary Value Problems<a href="lecture10.html#part-ii-numerical-methods-for-boundary-value-problems" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <div id="definition-2" class="section level3 hasAnchor" number="11.2.1">
 <h3><span class="header-section-number">11.2.1</span> Definition<a href="lecture10.html#definition-2" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>A <strong>Boundary Value Problem (BVP)</strong> consists of:</p>
 <ul>
-<li><p>An ODE defined on some interval <span class="math inline">\([a, b]\)</span></p></li>
-<li><p><strong>Boundary conditions</strong> involving data at <strong>both</strong> endpoints</p></li>
+<li>An ODE defined on some interval <span class="math inline">\([a, b]\)</span></li>
+<li><strong>Boundary conditions</strong> specifying data at <strong>both</strong> endpoints</li>
 </ul>
 <p><strong>Example (second-order BVP):</strong>
-<span class="math display">\[y&#39;&#39; = f(x, y, y&#39;), \quad y(a) = c, \quad y(b) = d\]</span></p>
-<p>This differs fundamentally from an <strong>Initial Value Problem (IVP)</strong>, where all conditions are given at a single point.</p>
+<span class="math display">\[(\star) \quad \begin{cases} y&#39;&#39; = 4y - y&#39;, &amp; x \in [a, b] \\ y(a) = c, &amp; y(b) = d \end{cases}\]</span></p>
+<p>This differs fundamentally from an <strong>Initial Value Problem (IVP)</strong>, where all conditions are specified at a single point.</p>
 </div>
-<div id="converting-to-first-order-systems" class="section level3 hasAnchor" number="11.2.2">
-<h3><span class="header-section-number">11.2.2</span> Converting to First-Order Systems<a href="lecture10.html#converting-to-first-order-systems" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Any higher-order BVP can be rewritten as a <strong>system of first-order equations</strong>:
-<span class="math display">\[Y&#39; = F(x, Y), \quad x \in [a, b]\]</span>
-with boundary conditions:
-<span class="math display">\[B\big[Y(a),\, Y(b)\big] = 0\]</span></p>
-<p><strong>Example:</strong> For <span class="math inline">\(y&#39;&#39; = f(x, y, y&#39;)\)</span> with <span class="math inline">\(y(a) = c\)</span>, <span class="math inline">\(y(b) = d\)</span>, let <span class="math inline">\(w_1 = y\)</span>, <span class="math inline">\(w_2 = y&#39;\)</span>:
-<span class="math display">\[w_1&#39; = w_2, \quad w_2&#39; = f(x, w_1, w_2)\]</span></p>
-<p>Boundary conditions become:
-<span class="math display">\[w_1(a) = c, \quad w_1(b) = d\]</span></p>
+<div id="conversion-to-first-order-systems" class="section level3 hasAnchor" number="11.2.2">
+<h3><span class="header-section-number">11.2.2</span> Conversion to First-Order Systems<a href="lecture10.html#conversion-to-first-order-systems" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Any higher-order BVP can be rewritten as a <strong>first-order system</strong>. Let <span class="math inline">\(w_1 = y\)</span>, <span class="math inline">\(w_2 = y&#39;\)</span>, <span class="math inline">\(\vec{y} = (w_1, w_2)^T\)</span>:</p>
+<p><span class="math display">\[\begin{cases} w_1&#39; = w_2 \\ w_2&#39; = 4w_1 - w_2 \end{cases} \Rightarrow \begin{pmatrix} w_1&#39; \\ w_2&#39; \end{pmatrix} = \begin{pmatrix} 0 &amp; 1 \\ 4 &amp; -1 \end{pmatrix} \begin{pmatrix} w_1 \\ w_2 \end{pmatrix}\]</span></p>
+<p>With boundary conditions:
+<span class="math display">\[B\bigl[\vec{y}(a),\, \vec{y}(b)\bigr] = \begin{pmatrix} w_1(a) - c \\ w_2(b) - d \end{pmatrix} = \vec{0}\]</span></p>
+<p><strong>General form:</strong> Any BVP of higher order becomes:
+<span class="math display">\[\frac{d\vec{y}}{dx} = F(x, \vec{y}), \quad x \in [a, b], \qquad B\bigl[\vec{y}(a),\, \vec{y}(b)\bigr] = \vec{0}\]</span></p>
 </div>
 <div id="why-bvps-are-harder-than-ivps" class="section level3 hasAnchor" number="11.2.3">
 <h3><span class="header-section-number">11.2.3</span> Why BVPs Are Harder Than IVPs<a href="lecture10.html#why-bvps-are-harder-than-ivps" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>For IVPs, we know all initial conditions at one point and <strong>step forward</strong> to the other end. For BVPs, we have conditions at <strong>two different endpoints</strong> and cannot simply march forward — this is the fundamental difficulty.</p>
+<p>For IVPs, numerical schemes use the <strong>initial condition</strong> at one endpoint and <strong>step forward</strong> to the other. For BVPs, conditions are specified at <strong>two different endpoints</strong>, so we cannot simply march forward — this is the fundamental difficulty.</p>
 <hr />
 </div>
 </div>
@@ -550,23 +561,36 @@ with boundary conditions:
 <h2><span class="header-section-number">11.3</span> Properties of BVPs<a href="lecture10.html#properties-of-bvps" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <div id="existence-and-uniqueness" class="section level3 hasAnchor" number="11.3.1">
 <h3><span class="header-section-number">11.3.1</span> Existence and Uniqueness<a href="lecture10.html#existence-and-uniqueness" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Unlike IVPs, there is <strong>no general existence/uniqueness theory</strong> for BVPs. A BVP may have:</p>
-<ol style="list-style-type: decimal">
-<li><p>A <strong>unique solution</strong></p></li>
-<li><p><strong>Multiple solutions</strong></p></li>
-<li><p><strong>No solution at all</strong></p></li>
+<p>There is <strong>no general theory</strong> for BVPs. A BVP may have:</p>
+<ol style="list-style-type: lower-roman">
+<li>A <strong>unique solution</strong></li>
+<li><strong>Multiple solutions</strong></li>
+<li><strong>No solution at all</strong></li>
 </ol>
-<p>Each equation must be analyzed individually.</p>
+<p>Each equation must be analyzed individually. (Even when a unique solution exists and seems well-behaved, perturbations may change its character.)</p>
 </div>
 <div id="stability" class="section level3 hasAnchor" number="11.3.2">
 <h3><span class="header-section-number">11.3.2</span> Stability<a href="lecture10.html#stability" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>For the linear BVP <span class="math inline">\(y&#39; = Ay\)</span> with boundary conditions <span class="math inline">\(B[y(a), y(b)] = 0\)</span>:</p>
-<p><strong>Perturbation analysis:</strong> If we add perturbation <span class="math inline">\(\epsilon(t)\)</span> to the right-hand side:
-<span class="math display">\[y&#39; = Ay + \epsilon(t), \quad B[y(a), y(b)] = \delta\]</span></p>
-<p>The solution involves the <strong>Green’s function</strong> <span class="math inline">\(G(x, s)\)</span> of the problem:
-<span class="math display">\[y(x) = \int_a^b G(x,s)\, \epsilon(s)\, ds\]</span></p>
+<p>We consider two types of stability for BVPs:</p>
+<p><strong>① Stability with respect to the RHS.</strong> Consider:
+<span class="math display">\[\vec{y}&#39; = A\vec{y}, \quad B[\vec{y}(a),\, \vec{y}(b)] = \vec{0}\]</span></p>
+<p>With perturbation <span class="math inline">\(\vec{p}(t)\)</span> on the RHS:
+<span class="math display">\[\tilde{\vec{y}}&#39; = A\tilde{\vec{y}} + \vec{p}(t), \quad B[\tilde{\vec{y}}(a),\, \tilde{\vec{y}}(b)] = \vec{0}\]</span></p>
+<p>Let <span class="math inline">\(\vec{w} = \tilde{\vec{y}} - \vec{y}\)</span>. Then <span class="math inline">\(\vec{w}&#39; = A\vec{w} + \vec{p}(t)\)</span>, and by <strong>Green’s function</strong> <span class="math inline">\(G(t, s)\)</span>:
+<span class="math display">\[\vec{w} = \int_a^b \vec{p}(s)\, G(t, s)\, ds\]</span></p>
+<p><strong>② Stability with respect to boundary conditions.</strong> A crucial insight:</p>
 <blockquote>
-<p><strong>Important:</strong> Stability for BVPs and IVPs are <strong>very different concepts</strong>. A BVP can be stable even if the corresponding IVP has exponentially growing solutions, because the boundary condition at <span class="math inline">\(x = b\)</span> constrains the solution.</p>
+<p><strong>BVP stability and IVP stability are very different concepts.</strong></p>
+</blockquote>
+<p><strong>IVP example:</strong> Consider the system with <span class="math inline">\(c &gt; 0\)</span>:
+<span class="math display">\[\begin{pmatrix} y_1&#39; \\ y_2&#39; \end{pmatrix} = \begin{pmatrix} -c &amp; 0 \\ 0 &amp; c \end{pmatrix}\begin{pmatrix} y_1 \\ y_2 \end{pmatrix}, \quad y_1(0) = 1,\ y_2(0) = 1\]</span>
+<span class="math display">\[\Rightarrow y_1(t) = e^{-ct}, \quad y_2(t) = e^{ct} \quad (\text{grows exponentially as } t \to \infty)\]</span></p>
+<p>The IVP is <strong>unstable</strong> because <span class="math inline">\(y_2\)</span> grows without bound.</p>
+<p><strong>BVP example:</strong> Same system, but with boundary conditions <span class="math inline">\(y_1(0) = 1\)</span>, <span class="math inline">\(y_2(1) = 0\)</span>, for <span class="math inline">\(0 &lt; t &lt; 1\)</span>:
+<span class="math display">\[\begin{cases} y_1&#39; = -cy_1,\ y_1(0) = 1 &amp; \Rightarrow y_1(t) = e^{-ct} \\ y_2&#39; = cy_2,\ y_2(1) = 0 &amp; \Rightarrow y_2(t) = e^{c(t-1)} \end{cases}\]</span></p>
+<p>Both <span class="math inline">\(y_1\)</span> and <span class="math inline">\(y_2\)</span> are <strong>bounded</strong> on <span class="math inline">\([0,1]\)</span> — the BVP is stable!</p>
+<blockquote>
+<p><strong>Conclusion:</strong> A BVP can be stable even when the corresponding IVP has exponentially growing solutions, because the boundary condition at <span class="math inline">\(x = b\)</span> constrains the behavior.</p>
 </blockquote>
 <hr />
 </div>
@@ -575,347 +599,388 @@ with boundary conditions:
 <h2><span class="header-section-number">11.4</span> Method 1: Shooting Method<a href="lecture10.html#method-1-shooting-method" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <div id="idea" class="section level3 hasAnchor" number="11.4.1">
 <h3><span class="header-section-number">11.4.1</span> Idea<a href="lecture10.html#idea" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>The <strong>shooting method</strong> converts a BVP into an IVP by treating the unknown initial derivative as a <strong>parameter</strong> <span class="math inline">\(s\)</span>, then finding <span class="math inline">\(s\)</span> such that the solution matches the boundary condition at the other endpoint.</p>
-<p><strong>Setup:</strong> For the two-point BVP:
-<span class="math display">\[y&#39;&#39; = f(x, y, y&#39;), \quad y(a) = c, \quad y(b) = d\]</span></p>
+<p>The <strong>shooting method</strong> converts a BVP into an IVP by treating the unknown initial derivative as a parameter <span class="math inline">\(s\)</span>, then using a nonlinear solver to find the value of <span class="math inline">\(s\)</span> for which the solution matches the far boundary condition.</p>
+<p><strong>Setup:</strong> Two-point BVP: <span class="math inline">\(y&#39;&#39; = f(x, y, y&#39;)\)</span>, <span class="math inline">\(y(a) = c\)</span>, <span class="math inline">\(y(b) = d\)</span>.</p>
+<hr />
 </div>
-<div id="algorithm-1" class="section level3 hasAnchor" number="11.4.2">
-<h3><span class="header-section-number">11.4.2</span> Algorithm<a href="lecture10.html#algorithm-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div id="step-1-set-up-the-ivp" class="section level4 hasAnchor" number="11.4.2.1">
-<h4><span class="header-section-number">11.4.2.1</span> Step 1: Set Up the IVP<a href="lecture10.html#step-1-set-up-the-ivp" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div id="step-1-set-up-the-ivp" class="section level3 hasAnchor" number="11.4.2">
+<h3><span class="header-section-number">11.4.2</span> Step 1: Set Up the IVP<a href="lecture10.html#step-1-set-up-the-ivp" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Define the IVP parameterized by <span class="math inline">\(s\)</span>:
-<span class="math display">\[y&#39;&#39; = f(x, y, y&#39;), \quad y(a) = c, \quad y&#39;(a) = s\]</span></p>
-<p>Denote the solution as <span class="math inline">\(y(x;\, s)\)</span>.</p>
-<p>For some <span class="math inline">\(s^*\)</span>, the solution satisfies <span class="math inline">\(y(b;\, s^*) = d\)</span>.</p>
+<span class="math display">\[(\text{IVP}_s) \quad \begin{cases} y&#39;&#39; = f(x, y, y&#39;) \\ y(a) = c \\ y&#39;(a) = s \end{cases}\]</span></p>
+<p>Denote its solution <span class="math inline">\(y(x;\, s)\)</span>. For some <span class="math inline">\(s^*\)</span>, the solution satisfies <span class="math inline">\(y(b;\, s^*) = d\)</span>.</p>
+<hr />
 </div>
-<div id="step-2-define-the-goal-function" class="section level4 hasAnchor" number="11.4.2.2">
-<h4><span class="header-section-number">11.4.2.2</span> Step 2: Define the Goal Function<a href="lecture10.html#step-2-define-the-goal-function" class="anchor-section" aria-label="Anchor link to header"></a></h4>
-<p>Define:
-<span class="math display">\[g(s) = y(b;\, s) - d\]</span></p>
+<div id="step-2-define-the-goal-function" class="section level3 hasAnchor" number="11.4.3">
+<h3><span class="header-section-number">11.4.3</span> Step 2: Define the Goal Function<a href="lecture10.html#step-2-define-the-goal-function" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><span class="math display">\[g(s) = y(x;\, s)\big|_{x=b} - d = y(b;\, s) - d\]</span></p>
 <p>We seek <span class="math inline">\(s^*\)</span> such that <span class="math inline">\(g(s^*) = 0\)</span>.</p>
+<hr />
 </div>
-<div id="step-3-apply-newtons-method" class="section level4 hasAnchor" number="11.4.2.3">
-<h4><span class="header-section-number">11.4.2.3</span> Step 3: Apply Newton’s Method<a href="lecture10.html#step-3-apply-newtons-method" class="anchor-section" aria-label="Anchor link to header"></a></h4>
-<p><strong>Newton’s method</strong> for solving <span class="math inline">\(g(s^*) = 0\)</span>:
-<span class="math display">\[s_{n+1} = s_n - \frac{g(s_n)}{g&#39;(s_n)}\]</span></p>
-<p><strong>Convergence:</strong> If <span class="math inline">\(g(s^*) = 0\)</span> and <span class="math inline">\(g&#39;(s^*) \neq 0\)</span>, Newton’s method converges <strong>quadratically</strong> in a neighborhood of <span class="math inline">\(s^*\)</span>:
-<span class="math display">\[e_{n+1} \approx C \cdot e_n^2, \quad \text{where } e_n = s_n - s^*\]</span></p>
+<div id="step-3-solve-with-newtons-method" class="section level3 hasAnchor" number="11.4.4">
+<h3><span class="header-section-number">11.4.4</span> Step 3: Solve with Newton’s Method<a href="lecture10.html#step-3-solve-with-newtons-method" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="quick-review-of-newtons-method-textbook-6.2.2" class="section level4 hasAnchor" number="11.4.4.1">
+<h4><span class="header-section-number">11.4.4.1</span> Quick Review of Newton’s Method (Textbook §6.2.2)<a href="lecture10.html#quick-review-of-newtons-method-textbook-6.2.2" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Newton’s method solves a nonlinear equation <span class="math inline">\(f(x) = 0\)</span> by generating a sequence <span class="math inline">\(\{x_n\}\)</span> converging to <span class="math inline">\(x^*\)</span>.</p>
+<p><strong>Derivation (scalar case):</strong> By Taylor series:
+<span class="math display">\[f(x) = f(x_n) + f&#39;(x_n)(x - x_n) + \frac{f&#39;&#39;(\xi_n)}{2}(x - x_n)^2\]</span></p>
+<p>The linear approximation <span class="math inline">\(\ell(x) = f(x_n) + f&#39;(x_n)(x - x_n)\)</span> is the tangent line to <span class="math inline">\(f\)</span> at <span class="math inline">\(x_n\)</span>. Setting <span class="math inline">\(\ell(x) = 0\)</span>:
+<span class="math display">\[f(x_n) + f&#39;(x_n)(x_{n+1} - x_n) = 0 \implies x_{n+1} = x_n - \frac{f(x_n)}{f&#39;(x_n)}\]</span></p>
+<p><strong>Convergence:</strong> Define error <span class="math inline">\(e_n = x_n - x^*\)</span>. If <span class="math inline">\(f(x^*) = 0\)</span>, <span class="math inline">\(f&#39;(x^*) \neq 0\)</span>, and <span class="math inline">\(f \in C^2\)</span> in a neighborhood of <span class="math inline">\(x^*\)</span>, then for <span class="math inline">\(x_0\)</span> sufficiently close to <span class="math inline">\(x^*\)</span>:
+<span class="math display">\[e_{n+1} = \frac{f&#39;&#39;(\xi_n)}{2f&#39;(x_n)}\, e_n^2 \leq C\, e_n^2\]</span></p>
+<p>Equivalently: <span class="math inline">\(|x_{n+1} - x^*| \leq C|x_n - x^*|^2\)</span>. This is <strong>quadratic convergence</strong> — each step roughly doubles the number of correct digits.</p>
+<hr />
 </div>
-<div id="step-4-compute-gs" class="section level4 hasAnchor" number="11.4.2.4">
-<h4><span class="header-section-number">11.4.2.4</span> Step 4: Compute <span class="math inline">\(g&#39;(s)\)</span><a href="lecture10.html#step-4-compute-gs" class="anchor-section" aria-label="Anchor link to header"></a></h4>
-<p>To apply Newton’s method, we need <span class="math inline">\(g&#39;(s) = \frac{\partial y}{\partial s}(b;\, s)\)</span>.</p>
-<p>Let <span class="math inline">\(z(x) = \frac{\partial y}{\partial x}(x;\, s)\)</span>. Differentiating the ODE with respect to <span class="math inline">\(s\)</span>:</p>
-<p><span class="math display">\[z&#39;&#39; = f_y(x, y, y&#39;)\, z + f_{y&#39;}(x, y, y&#39;)\, z&#39;\]</span>
-with initial conditions:
-<span class="math display">\[z(a) = 0, \quad z&#39;(a) = 1\]</span></p>
-<p>This is the <strong>variational equation</strong> (also called the sensitivity equation).</p>
+</div>
+<div id="step-4-compute-gs-via-the-variational-equation" class="section level3 hasAnchor" number="11.4.5">
+<h3><span class="header-section-number">11.4.5</span> Step 4: Compute <span class="math inline">\(g&#39;(s)\)</span> via the Variational Equation<a href="lecture10.html#step-4-compute-gs-via-the-variational-equation" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>To apply Newton’s method we need <span class="math inline">\(g&#39;(s) = \frac{\partial y(b;\,s)}{\partial s}\)</span>.</p>
+<p><strong>Define:</strong> <span class="math inline">\(z(x;\,s) = \frac{\partial y(x;\,s)}{\partial s}\)</span>, so that <span class="math inline">\(z&#39;&#39; = \frac{\partial y&#39;&#39;}{\partial s}\)</span> (derivative w.r.t. <span class="math inline">\(x\)</span>).</p>
+<p>Starting from <span class="math inline">\(y&#39;&#39; = f(x, y, y&#39;)\)</span>, <span class="math inline">\(y(a) = c\)</span>, <span class="math inline">\(y&#39;(a) = s\)</span>, differentiate with respect to <span class="math inline">\(s\)</span>:</p>
+<p><span class="math display">\[z&#39;&#39; = \frac{\partial f}{\partial y}\cdot\frac{\partial y}{\partial s} + \frac{\partial f}{\partial y&#39;}\cdot\frac{\partial y&#39;}{\partial s} = \frac{\partial f}{\partial y}\,z + \frac{\partial f}{\partial y&#39;}\,z&#39;\]</span></p>
+<p>Initial conditions: differentiating <span class="math inline">\(y(a) = c\)</span> and <span class="math inline">\(y&#39;(a) = s\)</span> w.r.t. <span class="math inline">\(s\)</span> gives <span class="math inline">\(z(a) = 0\)</span> and <span class="math inline">\(z&#39;(a) = 1\)</span>.</p>
+<p>This is the <strong>variational IVP (IVP<span class="math inline">\(_{Z_s}\)</span>):</strong>
+<span class="math display">\[(\text{IVP}_{Z_s}) \quad \begin{cases} z&#39;&#39; = \dfrac{\partial f}{\partial y}\,z + \dfrac{\partial f}{\partial y&#39;}\,z&#39; \\[6pt] z(a) = 0,\quad z&#39;(a) = 1 \end{cases}\]</span></p>
 <p>Then:
-<span class="math display">\[g&#39;(s) = z(b;\, s)\]</span></p>
+<span class="math display">\[g&#39;(s) = \frac{\partial y}{\partial s}\bigg|_{x=b} = z(b;\, s)\]</span></p>
+<p><strong>Newton update:</strong>
+<span class="math display">\[s_{n+1} = s_n - \frac{g(s_n)}{g&#39;(s_n)} = s_n - \frac{y(b;\,s_n) - d}{\dfrac{\partial y}{\partial s}(b;\,s_n)}\]</span></p>
+<hr />
 </div>
-</div>
-<div id="full-workflow-summary" class="section level3 hasAnchor" number="11.4.3">
-<h3><span class="header-section-number">11.4.3</span> Full Workflow Summary<a href="lecture10.html#full-workflow-summary" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="full-workflow-summary" class="section level3 hasAnchor" number="11.4.6">
+<h3><span class="header-section-number">11.4.6</span> Full Workflow Summary<a href="lecture10.html#full-workflow-summary" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <ol style="list-style-type: decimal">
-<li><p><strong>Set up</strong> the shooting problem and define <span class="math inline">\(g(s) = y(b; s) - d\)</span></p></li>
-<li><p><strong>Apply Newton’s method</strong> to solve <span class="math inline">\(g(s^*) = 0\)</span>. For each Newton step:</p>
+<li><p><strong>Set up</strong> the shooting problem; define <span class="math inline">\(g(s) = y(b;\,s) - d\)</span>.</p></li>
+<li><p><strong>Newton’s method</strong> to solve <span class="math inline">\(g(s^*) = 0\)</span>. For each Newton step:</p>
 <ul>
 <li><ol style="list-style-type: lower-alpha">
-<li>Solve the IVP to compute <span class="math inline">\(y(x; s_n)\)</span> and evaluate <span class="math inline">\(g(s_n) = y(b; s_n) - d\)</span></li>
+<li>Solve <span class="math inline">\(\text{IVP}_s\)</span> to compute <span class="math inline">\(y(x;\,s_n)\)</span> and evaluate <span class="math inline">\(g(s_n) = y(b;\,s_n) - d\)</span></li>
 </ol></li>
 <li><ol start="2" style="list-style-type: lower-alpha">
-<li>Solve the variational IVP to compute <span class="math inline">\(z(x; s_n)\)</span> and evaluate <span class="math inline">\(g&#39;(s_n) = z(b; s_n)\)</span></li>
+<li>Solve <span class="math inline">\(\text{IVP}_{Z_s}\)</span> on the same grid to compute <span class="math inline">\(z(x;\,s_n)\)</span> and evaluate <span class="math inline">\(g&#39;(s_n) = z(b;\,s_n)\)</span></li>
 </ol></li>
 <li><ol start="3" style="list-style-type: lower-alpha">
 <li>Update: <span class="math inline">\(s_{n+1} = s_n - g(s_n)/g&#39;(s_n)\)</span></li>
 </ol></li>
 </ul></li>
-<li><p><strong>Reconstruct</strong> the BVP solution by solving the IVP with <span class="math inline">\(s = s^*\)</span></p></li>
+<li><p><strong>Reconstruct</strong> the BVP solution by solving <span class="math inline">\(\text{IVP}_{s^*}\)</span> with the converged <span class="math inline">\(s^*\)</span>.</p></li>
 </ol>
+<p><strong>What is required:</strong>
+- An IVP solver (e.g., Runge–Kutta 4)
+- A nonlinear equation solver for <span class="math inline">\(g(s) = 0\)</span> (e.g., Newton’s method)</p>
+<hr />
 </div>
-<div id="required-tools" class="section level3 hasAnchor" number="11.4.4">
-<h3><span class="header-section-number">11.4.4</span> Required Tools<a href="lecture10.html#required-tools" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<ul>
-<li><p>An <strong>IVP solver</strong> (e.g., Runge–Kutta 4)</p></li>
-<li><p>A <strong>nonlinear equation solver</strong> for <span class="math inline">\(g(s) = 0\)</span> (e.g., Newton’s method)</p></li>
-</ul>
-</div>
-<div id="example-2" class="section level3 hasAnchor" number="11.4.5">
-<h3><span class="header-section-number">11.4.5</span> Example<a href="lecture10.html#example-2" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p><strong>Problem:</strong> <span class="math inline">\(y&#39;&#39; = 2y^3 - 6y - 2x^3\)</span>, <span class="math inline">\(y(1) = 2\)</span>, <span class="math inline">\(y(2) = 5/2\)</span></p>
-<p><strong>Exact solution:</strong> <span class="math inline">\(y(x) = x + \frac{1}{x}\)</span>, <span class="math inline">\(x \in [1, 2]\)</span></p>
-<p><strong>Shooting setup:</strong></p>
-<p>Solve the IVP: <span class="math inline">\(y&#39;&#39; = 2y^3 - 6y - 2x^3\)</span>, <span class="math inline">\(y(1) = 2\)</span>, <span class="math inline">\(y&#39;(1) = s\)</span></p>
-<p>Define <span class="math inline">\(g(s) = y(2; s) - 5/2\)</span>. We want <span class="math inline">\(g(s^*) = 0\)</span>.</p>
-<p><strong>Variational equation:</strong></p>
-<p><span class="math display">\[z&#39;&#39; = (6y^2 - 6)\, z, \quad z(1) = 0, \quad z&#39;(1) = 1\]</span></p>
+<div id="worked-example" class="section level3 hasAnchor" number="11.4.7">
+<h3><span class="header-section-number">11.4.7</span> Worked Example<a href="lecture10.html#worked-example" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><strong>Problem:</strong> <span class="math inline">\(y&#39;&#39; = 2y^3 - 6y - 2x^3\)</span>, <span class="math inline">\(y(1) = 2\)</span>, <span class="math inline">\(y(2) = \tfrac{5}{2}\)</span>.</p>
+<p><strong>Exact solution:</strong> <span class="math inline">\(y(x) = x + \tfrac{1}{x}\)</span>, <span class="math inline">\(x \in [1, 2]\)</span>.</p>
+<p><strong>Shooting setup:</strong> Let <span class="math inline">\(y(x;\,s)\)</span> solve:
+<span class="math display">\[(\text{IVP}_s) \quad y&#39;&#39; = 2y^3 - 6y - 2x^3, \quad y(1) = 2,\quad y&#39;(1) = s\]</span></p>
+<p>Define <span class="math inline">\(g(s) = y(2;\,s) - \tfrac{5}{2}\)</span>. Find <span class="math inline">\(s^*\)</span> such that <span class="math inline">\(g(s^*) = 0\)</span>.</p>
+<p><strong>Variational equation:</strong> Differentiate <span class="math inline">\(y&#39;&#39; = 2y^3 - 6y - 2x^3\)</span> w.r.t. <span class="math inline">\(s\)</span>:
+<span class="math display">\[z&#39;&#39; = (6y^2 - 6)\,z, \quad z(1) = 0,\quad z&#39;(1) = 1\]</span></p>
 <p><strong>Newton update:</strong>
-<span class="math display">\[s_{n+1} = s_n - \frac{g(s_n)}{g&#39;(s_n)} = s_n - \frac{y(2; s_n) - 5/2}{z(2; s_n)}\]</span></p>
+<span class="math display">\[s_{n+1} = s_n - \frac{g(s_n)}{g&#39;(s_n)} = s_n - \frac{y(2;\,s_n) - \tfrac{5}{2}}{z(2;\,s_n)}\]</span></p>
 <hr />
 </div>
 </div>
-<div id="review-lu-decomposition-for-finite-difference-method" class="section level2 hasAnchor" number="11.5">
-<h2><span class="header-section-number">11.5</span> Review: LU Decomposition (for Finite Difference Method)<a href="lecture10.html#review-lu-decomposition-for-finite-difference-method" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>The last step of finite difference methods (and Newton iterations) requires solving a linear system <span class="math inline">\(Ax = b\)</span>.</p>
-<div id="lu-decomposition" class="section level3 hasAnchor" number="11.5.1">
-<h3><span class="header-section-number">11.5.1</span> LU Decomposition<a href="lecture10.html#lu-decomposition" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Decompose <span class="math inline">\(A = LU\)</span> where <span class="math inline">\(L\)</span> is lower triangular and <span class="math inline">\(U\)</span> is upper triangular:</p>
-<ol style="list-style-type: decimal">
-<li><p><strong>Factor:</strong> Compute <span class="math inline">\(L\)</span>, <span class="math inline">\(U\)</span> such that <span class="math inline">\(A = LU\)</span> — costs <span class="math inline">\(\mathcal{O}(N^3)\)</span> for dense <span class="math inline">\(N \times N\)</span> matrices</p></li>
-<li><p><strong>Forward substitution:</strong> Solve <span class="math inline">\(Ly = b\)</span> — costs <span class="math inline">\(\mathcal{O}(N^2)\)</span></p></li>
-<li><p><strong>Back substitution:</strong> Solve <span class="math inline">\(Ux = y\)</span> — costs <span class="math inline">\(\mathcal{O}(N^2)\)</span></p></li>
-</ol>
+<div id="review-lu-decomposition" class="section level2 hasAnchor" number="11.5">
+<h2><span class="header-section-number">11.5</span> Review: LU Decomposition<a href="lecture10.html#review-lu-decomposition" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="motivation-3" class="section level3 hasAnchor" number="11.5.1">
+<h3><span class="header-section-number">11.5.1</span> Motivation<a href="lecture10.html#motivation-3" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The last step of finite difference methods (and each Newton iteration) requires solving a linear system <span class="math inline">\(A\vec{x} = \vec{b}\)</span>.</p>
+<p><strong>LU decomposition:</strong> Factor <span class="math inline">\(A = LU\)</span> where <span class="math inline">\(L\)</span> is lower triangular and <span class="math inline">\(U\)</span> is upper triangular.</p>
+<p>Solving <span class="math inline">\(A\vec{x} = \vec{b}\)</span> in two stages:
+1. <strong>Compute</strong> <span class="math inline">\(L, U\)</span> such that <span class="math inline">\(A = LU\)</span>
+2. <strong>Forward substitution:</strong> Solve <span class="math inline">\(L\vec{y} = \vec{b}\)</span> — cost <span class="math inline">\(O(N^2)\)</span>
+3. <strong>Back substitution:</strong> Solve <span class="math inline">\(U\vec{x} = \vec{y}\)</span> — cost <span class="math inline">\(O(N^2)\)</span></p>
+<p>For a <strong>dense</strong> <span class="math inline">\(N \times N\)</span> matrix: LU factorization costs <span class="math inline">\(O(N^3)\)</span>.</p>
+<hr />
 </div>
-<div id="tridiagonal-matrices" class="section level3 hasAnchor" number="11.5.2">
-<h3><span class="header-section-number">11.5.2</span> Tridiagonal Matrices<a href="lecture10.html#tridiagonal-matrices" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>For a <strong>tridiagonal matrix</strong> <span class="math inline">\(A\)</span> (bandwidth <span class="math inline">\(m = 3\)</span>):
-<span class="math display">\[A = \begin{pmatrix} \beta_1 &amp; \gamma_1 &amp; &amp; \\ \alpha_2 &amp; \beta_2 &amp; \gamma_2 &amp; \\ &amp; \ddots &amp; \ddots &amp; \ddots \\ &amp; &amp; \alpha_N &amp; \beta_N \end{pmatrix}\]</span></p>
-<ul>
-<li><p>LU factorization costs <span class="math inline">\(\mathcal{O}(N)\)</span> operations (vs <span class="math inline">\(\mathcal{O}(N^3)\)</span> for dense)</p></li>
-<li><p>Back/forward substitution also costs <span class="math inline">\(\mathcal{O}(N)\)</span></p></li>
-</ul>
-<blockquote>
-<p><strong>Bandwidth</strong> <span class="math inline">\(m = m_1 + m_2 + 1\)</span>, where <span class="math inline">\(m_1\)</span> = lower bands, <span class="math inline">\(m_2\)</span> = upper bands. LU of a banded matrix costs <span class="math inline">\(\mathcal{O}(m^2 N)\)</span> — much cheaper for small <span class="math inline">\(m\)</span>.</p>
-</blockquote>
+<div id="tridiagonal-matrices-and-bandwidth" class="section level3 hasAnchor" number="11.5.2">
+<h3><span class="header-section-number">11.5.2</span> Tridiagonal Matrices and Bandwidth<a href="lecture10.html#tridiagonal-matrices-and-bandwidth" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>For a <strong>tridiagonal matrix</strong> (bandwidth <span class="math inline">\(m = 3\)</span>):
+<span class="math display">\[A = \begin{pmatrix} \beta_1 &amp; \gamma_1 &amp; &amp; &amp; \\ \alpha_2 &amp; \beta_2 &amp; \gamma_2 &amp; &amp; \\ &amp; \ddots &amp; \ddots &amp; \ddots &amp; \\ &amp; &amp; \alpha_{N-1} &amp; \beta_{N-1} &amp; \gamma_{N-1} \\ &amp; &amp; &amp; \alpha_N &amp; \beta_N \end{pmatrix}\]</span></p>
+<p>LU factorization costs only <span class="math inline">\(O(N)\)</span> operations — drastically cheaper than <span class="math inline">\(O(N^3)\)</span>.</p>
+<p><strong>General banded matrix:</strong> Define bandwidth <span class="math inline">\(m = m_1 + m_2 + 1\)</span> where <span class="math inline">\(m_1\)</span> = number of lower sub-diagonals, <span class="math inline">\(m_2\)</span> = number of upper super-diagonals. An entry satisfies <span class="math inline">\(a_{ij} = 0\)</span> for <span class="math inline">\(-m_1 \leq j - i \leq m_2\)</span>. LU factorization of a banded matrix costs <span class="math inline">\(O(Nm^2)\)</span>.</p>
+<hr />
+</div>
+<div id="worked-example-lu-of-a-tridiagonal-matrix" class="section level3 hasAnchor" number="11.5.3">
+<h3><span class="header-section-number">11.5.3</span> Worked Example: LU of a Tridiagonal Matrix<a href="lecture10.html#worked-example-lu-of-a-tridiagonal-matrix" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><span class="math display">\[A = \begin{pmatrix} 2 &amp; 1 &amp; 0 &amp; 0 \\ 1 &amp; 3 &amp; 1 &amp; 0 \\ 0 &amp; 1 &amp; 4 &amp; 1 \\ 0 &amp; 0 &amp; 1 &amp; 3 \end{pmatrix}\]</span></p>
+<p>We perform <strong>Gaussian elimination</strong> <span class="math inline">\(L_2 L_1 L_0 A = U\)</span>:</p>
+<p><strong>Step 1:</strong> Eliminate column 1 below diagonal. Subtract <span class="math inline">\(\frac{1}{2}\)</span> times row 1 from row 2:
+<span class="math display">\[A_1 = \begin{pmatrix} 2 &amp; 1 &amp; 0 &amp; 0 \\ 0 &amp; \tfrac{5}{2} &amp; 1 &amp; 0 \\ 0 &amp; 1 &amp; 4 &amp; 1 \\ 0 &amp; 0 &amp; 1 &amp; 3 \end{pmatrix}, \qquad L_0^{-1} = \begin{pmatrix} 1 &amp; 0 &amp; 0 &amp; 0 \\ \tfrac{1}{2} &amp; 1 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 1 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 1 \end{pmatrix}\]</span></p>
+<p><strong>Step 2:</strong> Eliminate column 2 below diagonal. Subtract <span class="math inline">\(\frac{2}{5}\)</span> times row 2 from row 3:</p>
+<p><strong>Step 3:</strong> Continue until upper triangular form:
+<span class="math display">\[U = A_3 = \begin{pmatrix} 2 &amp; 1 &amp; 0 &amp; 0 \\ 0 &amp; \tfrac{5}{2} &amp; 1 &amp; 0 \\ 0 &amp; 0 &amp; \tfrac{18}{5} &amp; 1 \\ 0 &amp; 0 &amp; 0 &amp; \tfrac{49}{18} \end{pmatrix}\]</span></p>
+<p>The lower triangular factor is:
+<span class="math display">\[L = L_0^{-1}L_1^{-1}L_2^{-1} = \begin{pmatrix} 1 &amp; 0 &amp; 0 &amp; 0 \\ \tfrac{1}{2} &amp; 1 &amp; 0 &amp; 0 \\ 0 &amp; \tfrac{2}{5} &amp; 1 &amp; 0 \\ 0 &amp; 0 &amp; \tfrac{5}{18} &amp; 1 \end{pmatrix}\]</span></p>
 <hr />
 </div>
 </div>
-<div id="method-2-finite-difference-method-for-bvps" class="section level2 hasAnchor" number="11.6">
-<h2><span class="header-section-number">11.6</span> Method 2: Finite Difference Method for BVPs<a href="lecture10.html#method-2-finite-difference-method-for-bvps" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="method-2-finite-difference-method-fdm-for-bvps" class="section level2 hasAnchor" number="11.6">
+<h2><span class="header-section-number">11.6</span> Method 2: Finite Difference Method (FDM) for BVPs<a href="lecture10.html#method-2-finite-difference-method-fdm-for-bvps" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <div id="overview" class="section level3 hasAnchor" number="11.6.1">
 <h3><span class="header-section-number">11.6.1</span> Overview<a href="lecture10.html#overview" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Instead of converting to an IVP, we <strong>discretize the domain</strong> and compute all solution values simultaneously by solving a linear system.</p>
+<p>Instead of converting to an IVP, the FDM <strong>discretizes the domain</strong> and computes all grid-point values simultaneously by solving a linear system.</p>
 </div>
 <div id="model-problem" class="section level3 hasAnchor" number="11.6.2">
 <h3><span class="header-section-number">11.6.2</span> Model Problem<a href="lecture10.html#model-problem" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Consider the model BVP with <strong>zero Dirichlet boundary conditions</strong>:
-<span class="math display">\[-u&#39;&#39; = f(x), \quad x \in [0, 1], \quad u(0) = 0, \quad u(1) = 0\]</span></p>
-<p>The exact solution is:
-<span class="math display">\[u(x) = C_1 + C_2 x - \int_0^x F(s)\, ds, \quad F(s) = \int_0^s f(t)\, dt\]</span>
-where <span class="math inline">\(C_1\)</span>, <span class="math inline">\(C_2\)</span> are determined by the boundary conditions.</p>
+<p><strong>Zero Dirichlet BVP:</strong>
+<span class="math display">\[-u&#39;&#39; = f(x), \quad 0 &lt; x &lt; 1, \qquad u(0) = u(1) = 0\]</span></p>
+<p>If <span class="math inline">\(u \in C^2([0,1])\)</span> and satisfies the ODE:
+<span class="math display">\[u(x) = C_1 + C_2 x - \int_0^x F(s)\,ds, \quad F(s) = \int_0^s f(t)\,dt\]</span>
+where <span class="math inline">\(C_1, C_2\)</span> are determined by enforcing the boundary conditions.</p>
 </div>
 <div id="discretization" class="section level3 hasAnchor" number="11.6.3">
 <h3><span class="header-section-number">11.6.3</span> Discretization<a href="lecture10.html#discretization" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p><strong>Uniform grid:</strong> <span class="math inline">\(x_j = jh\)</span>, <span class="math inline">\(h = 1/N\)</span>, <span class="math inline">\(j = 0, 1, \ldots, N\)</span></p>
-<p><strong>Second-order central difference</strong> approximation to <span class="math inline">\(u&#39;&#39;(x_j)\)</span>:
-<span class="math display">\[u&#39;&#39;(x_j) \approx \frac{u_{j-1} - 2u_j + u_{j+1}}{h^2}\]</span></p>
-<p>The discrete equations are:
-<span class="math display">\[\frac{-u_{j-1} + 2u_j - u_{j+1}}{h^2} = f(x_j), \quad j = 1, 2, \ldots, N-1\]</span></p>
-<p>with <span class="math inline">\(u_0 = u_N = 0\)</span> from boundary conditions.</p>
+<p><strong>Uniform grid:</strong> <span class="math inline">\(x_j = jh\)</span>, <span class="math inline">\(h = \tfrac{1}{N}\)</span>, <span class="math inline">\(j = 0, 1, \ldots, N\)</span>. Introduce grid values <span class="math inline">\(\{u_j\}_{j=0}^N\)</span> where <span class="math inline">\(u_j \approx u(x_j)\)</span>.</p>
+<p><strong>Second-order central difference</strong> for <span class="math inline">\(-u&#39;&#39;\)</span>:
+<span class="math display">\[\langle 1 \rangle \quad -\left(\frac{u_{j+1} - 2u_j + u_{j-1}}{h^2}\right) = f(x_j), \quad j = 1, 2, \ldots, N-1 \quad (N-1 \text{ conditions})\]</span></p>
+<p>with <span class="math inline">\(u_0 = u_N = 0\)</span> from boundary conditions. We cannot start from one endpoint and step forward, but we can <strong>list a system</strong> for all interior values simultaneously.</p>
 </div>
 <div id="linear-system" class="section level3 hasAnchor" number="11.6.4">
 <h3><span class="header-section-number">11.6.4</span> Linear System<a href="lecture10.html#linear-system" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Let <span class="math inline">\(\mathbf{u} = (u_1, u_2, \ldots, u_{N-1})^T\)</span> and <span class="math inline">\(\mathbf{f} = (f_1, f_2, \ldots, f_{N-1})^T\)</span>. The system is:</p>
-<p><span class="math display">\[A_{fd}\, \mathbf{u} = h^2 \mathbf{f}\]</span></p>
-<p>where <span class="math inline">\(A_{fd}\)</span> is the <strong>tridiagonal matrix</strong>:
-<span class="math display">\[A_{fd} = \begin{pmatrix} 2 &amp; -1 &amp; &amp; \\ -1 &amp; 2 &amp; -1 &amp; \\ &amp; \ddots &amp; \ddots &amp; \ddots \\ &amp; &amp; -1 &amp; 2 \end{pmatrix}\]</span></p>
-<p>This matrix is <strong>symmetric positive definite</strong>, so <span class="math inline">\(A_{fd}\mathbf{u} = \mathbf{f}\)</span> has a <strong>unique solution</strong>.</p>
+<p>Let <span class="math inline">\(\vec{u} = (u_1, u_2, \ldots, u_{N-1})^T\)</span> and <span class="math inline">\(\vec{f} = (f_1, f_2, \ldots, f_{N-1})^T\)</span> with <span class="math inline">\(f_j = f(x_j)\)</span>. The first interior equation is:
+<span class="math display">\[-\left(\frac{u_2 - 2u_1 + u_0}{h^2}\right) = f(x_1) \quad \Rightarrow \quad -\frac{u_2 - 2u_1 + 0}{h^2} = f_1\]</span></p>
+<p>The full system is <span class="math inline">\(A_{fd}\,\vec{u} = \vec{f}\)</span> where:</p>
+<p><span class="math display">\[\frac{1}{h^2}\begin{pmatrix} 2 &amp; -1 &amp; 0 &amp; \cdots &amp; 0 &amp; 0 \\ -1 &amp; 2 &amp; -1 &amp; \cdots &amp; 0 &amp; 0 \\ &amp; &amp; \vdots &amp; \ddots &amp; &amp; \\ 0 &amp; 0 &amp; 0 &amp; \cdots &amp; -1 &amp; 2 \end{pmatrix} \begin{pmatrix} u_1 \\ u_2 \\ \vdots \\ u_{N-1} \end{pmatrix} = \begin{pmatrix} f_1 \\ f_2 \\ \vdots \\ f_{N-1} \end{pmatrix}\]</span></p>
+<p>Since <span class="math inline">\(\vec{x}^T A_{fd} \vec{x} &gt; 0\)</span> for all <span class="math inline">\(\vec{x} \neq \vec{0}\)</span>, <span class="math inline">\(A_{fd}\)</span> is <strong>symmetric positive definite</strong>, so <span class="math inline">\(A_{fd}\vec{u} = \vec{f}\)</span> has a <strong>unique solution</strong>.</p>
 </div>
 <div id="neumann-boundary-conditions" class="section level3 hasAnchor" number="11.6.5">
 <h3><span class="header-section-number">11.6.5</span> Neumann Boundary Conditions<a href="lecture10.html#neumann-boundary-conditions" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>For BCs of the form <span class="math inline">\(u&#39;(0) = c\)</span>, <span class="math inline">\(u&#39;(1) = d\)</span>:</p>
-<p><strong>Naive approach</strong> (one-sided difference, first-order):
-<span class="math display">\[\frac{u_1 - u_0}{h} = c, \quad \frac{u_N - u_{N-1}}{h} = d\]</span></p>
-<p><strong>Preferred approach</strong> — introduce <strong>ghost points</strong> <span class="math inline">\(x_{-1}\)</span> and <span class="math inline">\(x_{N+1}\)</span>:</p>
-<p>Use the centered difference <span class="math inline">\(\frac{u_1 - u_{-1}}{2h} = c\)</span>, giving <span class="math inline">\(u_{-1} = u_1 - 2hc\)</span>. This maintains second-order accuracy and can be eliminated from the system.</p>
+<p>For <span class="math inline">\(u&#39;(0) = c\)</span>, <span class="math inline">\(u&#39;(1) = d\)</span> on the ODE <span class="math inline">\(u&#39;&#39; = f(x, u, u&#39;)\)</span>:</p>
+<p><strong>Naive approach (first-order, not recommended):</strong>
+<span class="math display">\[\frac{u_1 - u_0}{h} = c, \quad \frac{u_N - u_{N-1}}{h} = d\]</span>
+giving <span class="math inline">\(N-1\)</span> interior equations + 2 boundary equations <span class="math inline">\(= N+1\)</span> equations for <span class="math inline">\(N+1\)</span> unknowns.</p>
+<p><strong>Preferred approach: Ghost points.</strong> Introduce virtual points <span class="math inline">\(x_{-1}\)</span> and <span class="math inline">\(x_{N+1}\)</span> outside the domain, and enforce the Neumann condition via centered differences:
+<span class="math display">\[\frac{u_1 - u_{-1}}{2h} = c \implies u_{-1} = u_1 - 2hc\]</span>
+<span class="math display">\[\frac{u_{N+1} - u_{N-1}}{2h} = d \implies u_{N+1} = u_{N-1} + 2hd\]</span></p>
+<p>Equation <span class="math inline">\((\star)\)</span> can now also be listed for <span class="math inline">\(j = 0\)</span> and <span class="math inline">\(j = N\)</span>, giving <span class="math inline">\((N+1)\)</span> equations for <span class="math inline">\((N+1)\)</span> unknowns. This maintains <strong>second-order accuracy</strong>.</p>
 <hr />
 </div>
 </div>
 <div id="method-3-midpoint-discretization" class="section level2 hasAnchor" number="11.7">
 <h2><span class="header-section-number">11.7</span> Method 3: Midpoint Discretization<a href="lecture10.html#method-3-midpoint-discretization" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div id="overview-1" class="section level3 hasAnchor" number="11.7.1">
-<h3><span class="header-section-number">11.7.1</span> Overview<a href="lecture10.html#overview-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>For the <strong>first-order system</strong>:
-<span class="math display">\[Y&#39; = F(x, Y), \quad B[Y(x_0), Y(x_N)] = \tau\]</span></p>
-<p>the midpoint scheme discretizes at <strong>cell midpoints</strong> rather than grid points, which simplifies handling of non-uniform grids.</p>
+<div id="the-standard-first-order-system" class="section level3 hasAnchor" number="11.7.1">
+<h3><span class="header-section-number">11.7.1</span> The Standard First-Order System<a href="lecture10.html#the-standard-first-order-system" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>For a general first-order system:
+<span class="math display">\[\vec{y}&#39; = F(x, \vec{y}), \quad x \in [a, b], \qquad \vec{y}: \mathbb{R} \to \mathbb{R}^m \quad (m \text{ equations})\]</span></p>
+<p>with boundary condition:
+<span class="math display">\[B_0\,\vec{y}(0) + B_b\,\vec{y}(b) = \vec{c}\]</span></p>
+<blockquote>
+<p><strong>The grid does not need to be uniform.</strong></p>
+</blockquote>
 </div>
-<div id="grid-setup" class="section level3 hasAnchor" number="11.7.2">
-<h3><span class="header-section-number">11.7.2</span> Grid Setup<a href="lecture10.html#grid-setup" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Define grid points <span class="math inline">\(x_0 &lt; x_1 &lt; \cdots &lt; x_N\)</span> with midpoints:
-<span class="math display">\[x_{j+1/2} = \frac{x_j + x_{j+1}}{2}, \quad h_j = x_{j+1} - x_j\]</span></p>
+<div id="midpoint-formula" class="section level3 hasAnchor" number="11.7.2">
+<h3><span class="header-section-number">11.7.2</span> Midpoint Formula<a href="lecture10.html#midpoint-formula" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Consider grid points <span class="math inline">\(\{x_j\}_{j=0}^N\)</span> with step sizes <span class="math inline">\(h_j = x_{j+1} - x_j\)</span>, and let <span class="math inline">\(x_{j+\frac{1}{2}}\)</span> denote the <strong>midpoints</strong>. The midpoint discretization evaluates the ODE at midpoints:
+<span class="math display">\[\frac{\vec{u}_{j+1} - \vec{u}_j}{h_j} = F\!\left(x_{j+\frac{1}{2}},\, \frac{\vec{u}_{j+1} + \vec{u}_j}{2}\right), \quad j = 0, 1, \ldots, N-1\]</span></p>
+<p><strong>System count:</strong>
+- <span class="math inline">\(N \cdot m\)</span> equations from the ODE (across <span class="math inline">\(N\)</span> intervals)
+- <span class="math inline">\(m\)</span> equations from the boundary conditions</p>
+<p>Total: <span class="math inline">\((N+1)\cdot m\)</span> equations for <span class="math inline">\((N+1)\cdot m\)</span> unknowns — a <strong>complete system</strong>.</p>
 </div>
-<div id="midpoint-scheme" class="section level3 hasAnchor" number="11.7.3">
-<h3><span class="header-section-number">11.7.3</span> Midpoint Scheme<a href="lecture10.html#midpoint-scheme" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p><span class="math display">\[\frac{Y_{j+1} - Y_j}{h_j} = F\!\left(x_{j+1/2},\, \frac{Y_j + Y_{j+1}}{2}\right), \quad j = 0, 1, \ldots, N-1\]</span></p>
-<p>This gives <span class="math inline">\(N \cdot m\)</span> equations from the ODE (where <span class="math inline">\(m\)</span> is the system dimension).</p>
-<p>Combined with <span class="math inline">\(m\)</span> boundary condition equations, we have:
-<span class="math display">\[(N+1) \cdot m \text{ equations for } (N+1) \cdot m \text{ unknowns}\]</span></p>
-<p>This is a <strong>complete system</strong>.</p>
+<div id="remarks-1" class="section level3 hasAnchor" number="11.7.3">
+<h3><span class="header-section-number">11.7.3</span> Remarks<a href="lecture10.html#remarks-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ol style="list-style-type: decimal">
+<li>If <span class="math inline">\(F\)</span> is <strong>linear</strong> in <span class="math inline">\(\vec{u}\)</span>: the scheme gives a large sparse linear system (block tridiagonal).</li>
+<li>If <span class="math inline">\(F\)</span> is <strong>nonlinear</strong>: Newton’s method is needed.</li>
+<li><strong>Key advantage:</strong> We only discretize <strong>first-order derivatives</strong>, involving only two consecutive points <span class="math inline">\((x_n, x_{n+1})\)</span>. This makes handling <strong>non-uniform grids</strong> exceptionally simple.</li>
+</ol>
+<hr />
 </div>
-<div id="advantages" class="section level3 hasAnchor" number="11.7.4">
-<h3><span class="header-section-number">11.7.4</span> Advantages<a href="lecture10.html#advantages" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<ul>
-<li><p>Only involves <strong>first-order derivatives</strong> — simpler discretization</p></li>
-<li><p>Handles <strong>non-uniform grids</strong> naturally (two-point stencil: <span class="math inline">\(x_j\)</span> and <span class="math inline">\(x_{j+1}\)</span>)</p></li>
-<li><p>Works well for general first-order BVP systems</p></li>
-</ul>
-</div>
-<div id="nonlinear-case" class="section level3 hasAnchor" number="11.7.5">
-<h3><span class="header-section-number">11.7.5</span> Nonlinear Case<a href="lecture10.html#nonlinear-case" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>If <span class="math inline">\(F\)</span> is nonlinear in <span class="math inline">\(Y\)</span>, apply <strong>Newton’s method</strong> to the resulting nonlinear system.</p>
+<div id="concrete-example-midpoint-discretization" class="section level3 hasAnchor" number="11.7.4">
+<h3><span class="header-section-number">11.7.4</span> Concrete Example: Midpoint Discretization<a href="lecture10.html#concrete-example-midpoint-discretization" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><strong>Problem:</strong> <span class="math inline">\(y&#39;&#39; + cy&#39; = f(y)\)</span>, <span class="math inline">\(y(0) = 0\)</span>, <span class="math inline">\(y(1) = 3\)</span>.</p>
+<p>Let <span class="math inline">\(x_n = nh\)</span>, <span class="math inline">\(h = 1/N\)</span>, <span class="math inline">\(x_N = 1\)</span>.</p>
+<p><strong>Convert to first-order system:</strong> Let <span class="math inline">\(u = y\)</span>, <span class="math inline">\(v = y&#39;\)</span>:
+<span class="math display">\[\begin{cases} u&#39; = v \\ v&#39; + cv = f(u) \end{cases}, \quad u(0) = 0,\quad u(1) = 3\]</span></p>
+<p><strong>Applying the midpoint formula</strong> at interval <span class="math inline">\([x_n, x_{n+1}]\)</span>:</p>
+<p>From <span class="math inline">\(u&#39; = v\)</span> at midpoint <span class="math inline">\(x_{n+\frac{1}{2}}\)</span>:
+<span class="math display">\[\frac{u_{n+1} - u_n}{h} = v_{n+\frac{1}{2}} \approx \frac{v_n + v_{n+1}}{2}\]</span></p>
+<p>From <span class="math inline">\(v&#39; + cv = f(u)\)</span> at midpoint:
+<span class="math display">\[\frac{v_{n+1} - v_n}{h} + c\,\frac{v_{n+1} + v_n}{2} = f\!\left(\frac{u_n + u_{n+1}}{2}\right)\]</span></p>
+<p>With boundary conditions <span class="math inline">\(u_0 = 0\)</span>, <span class="math inline">\(u_N = 3\)</span>.</p>
+<p><strong>Assuming <span class="math inline">\(f(u) = au\)</span> (linear) and <span class="math inline">\(c = 0\)</span></strong> for illustration, the system becomes block banded. Define block matrices:
+<span class="math display">\[A_n = \begin{pmatrix} -1 &amp; -h/2 \\ -ah/2 &amp; -1 \end{pmatrix}, \quad B_n = \begin{pmatrix} 1 &amp; -h/2 \\ -ah/2 &amp; 1 \end{pmatrix}\]</span></p>
+<p>The full linear system <span class="math inline">\(A_{fd}\,\vec{w} = \vec{b}\)</span> with <span class="math inline">\(\vec{w} = (u_0, v_0, u_1, v_1, \ldots, u_N, v_N)^T\)</span> has block structure:</p>
+<p><span class="math display">\[A_{fd} = \begin{pmatrix} 1 &amp; 0 &amp; 0 &amp; 0 &amp; \cdots &amp; 0 &amp; 0 \\ \boxed{A_0} &amp; \boxed{B_0} &amp; 0 &amp; 0 &amp; \cdots &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; \boxed{A_1} &amp; \boxed{B_1} &amp; \cdots &amp; 0 &amp; 0 \\ &amp; &amp; &amp; \ddots &amp; &amp; &amp; \\ \cdots &amp; &amp; &amp; &amp; \boxed{A_N} &amp; \boxed{B_N} &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 0 &amp; \cdots &amp; 1 &amp; 0 \end{pmatrix}\]</span></p>
+<p>This is a <strong>block banded</strong> (block tridiagonal) matrix.</p>
 <hr />
 </div>
 </div>
-<div id="consistency-convergence-and-stability-of-fdm-for-bvps" class="section level2 hasAnchor" number="11.8">
-<h2><span class="header-section-number">11.8</span> Consistency, Convergence, and Stability of FDM for BVPs<a href="lecture10.html#consistency-convergence-and-stability-of-fdm-for-bvps" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="consistency-stability-and-convergence-for-bvp-fdm" class="section level2 hasAnchor" number="11.8">
+<h2><span class="header-section-number">11.8</span> Consistency, Stability, and Convergence for BVP FDM<a href="lecture10.html#consistency-stability-and-convergence-for-bvp-fdm" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <div id="consistency" class="section level3 hasAnchor" number="11.8.1">
 <h3><span class="header-section-number">11.8.1</span> Consistency<a href="lecture10.html#consistency" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p><strong>Local Truncation Error (LTE):</strong> For the model problem <span class="math inline">\(u&#39;&#39; = f\)</span>, <span class="math inline">\(u(0) = u(1) = 0\)</span>:</p>
-<p><span class="math display">\[\tau_j = \frac{Y(x_{j+1}) - 2Y(x_j) + Y(x_{j-1})}{h^2} - f(x_j)\]</span></p>
-<p>By Taylor expansion:
-<span class="math display">\[\tau_j = \frac{h^2}{12} Y^{(4)}(x_j) + \mathcal{O}(h^4)\]</span></p>
-<p>The method is <strong>consistent with order 2</strong> (LTE <span class="math inline">\(= \mathcal{O}(h^2)\)</span>).</p>
+<p>Take <span class="math inline">\(u&#39;&#39; = f\)</span>, <span class="math inline">\(u(0) = u(1) = 0\)</span> as the model. The <strong>local truncation error</strong> <span class="math inline">\(\tau_j\)</span> measures how well the exact solution satisfies the discrete equation:</p>
+<p><span class="math display">\[\tau_j = -\frac{1}{h^2}\bigl(Y(x_{j+1}) - 2Y(x_j) + Y(x_{j-1})\bigr) - f\!\left(x_j,\, Y(x_j),\, \frac{Y(x_{j+1}) - Y(x_{j-1})}{2h}\right)\]</span></p>
+<p>By Taylor expansion on a uniform grid:
+<span class="math display">\[\tau_j = \frac{1}{12}h^2\, Y^{(4)}(x_j) + O(h^4)\]</span></p>
+<p>Therefore the method is <strong>consistent with order 2</strong> (LTE <span class="math inline">\(= O(h^2)\)</span>).</p>
 </div>
 <div id="stability-for-bvps" class="section level3 hasAnchor" number="11.8.2">
 <h3><span class="header-section-number">11.8.2</span> Stability for BVPs<a href="lecture10.html#stability-for-bvps" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p><strong>Definition:</strong> A finite difference method for a linear BVP producing matrix equations <span class="math inline">\(A_{fd}^{(h)} \mathbf{u}_h = \mathbf{f}_h\)</span> is <strong>stable</strong> if:</p>
-<ul>
-<li><p><span class="math inline">\((A_{fd}^{(h)})^{-1}\)</span> exists for all sufficiently small <span class="math inline">\(h\)</span></p></li>
-<li><p>There exists a constant <span class="math inline">\(C\)</span> (independent of <span class="math inline">\(h\)</span>) such that <span class="math inline">\(\|(A_{fd}^{(h)})^{-1}\| \leq C\)</span> for all <span class="math inline">\(h \leq h_0\)</span></p></li>
-</ul>
+<p>Recall the two systems:
+<span class="math display">\[A_{fd}^h\, \vec{u}_h = \vec{f}_h \qquad \text{(numerical)} \qquad \text{and} \qquad A_{fd}^h\, \vec{u}_{exact} = \vec{f}_h + \vec{\tau}_h \qquad \text{(exact, with truncation error)}\]</span></p>
+<p>Subtracting:
+<span class="math display">\[A_{fd}^h(\vec{u}_{exact} - \vec{u}_h) = \vec{\tau}_h\]</span></p>
+<p>So: <span class="math inline">\(\|\vec{u}_{exact} - \vec{u}_h\| = \|(A_{fd}^h)^{-1}\|\cdot\|\vec{\tau}_h\|\)</span>.</p>
+<p><strong>Definition (Stability):</strong> A FDM for a linear BVP giving <span class="math inline">\(A_{fd}^h\,\vec{u}_h = \vec{f}_h\)</span> is <strong>stable</strong> if:
+- <span class="math inline">\((A_{fd}^h)^{-1}\)</span> exists for all sufficiently small <span class="math inline">\(h\)</span>, and
+- There exists a constant <span class="math inline">\(C\)</span> (independent of <span class="math inline">\(h\)</span>) such that <span class="math inline">\(\|(A_{fd}^h)^{-1}\| \leq C\)</span> for all <span class="math inline">\(h \leq h_0\)</span>.</p>
+<p>(See Textbook p. 542.)</p>
 </div>
 <div id="convergence-1" class="section level3 hasAnchor" number="11.8.3">
 <h3><span class="header-section-number">11.8.3</span> Convergence<a href="lecture10.html#convergence-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Given the error equation:
-<span class="math display">\[A_{fd}(\mathbf{u}_{exact} - \mathbf{u}_h) = h^2 \boldsymbol{\tau}\]</span></p>
-<p>where <span class="math inline">\(\boldsymbol{\tau}\)</span> is the vector of local truncation errors, we have:
-<span class="math display">\[\|\mathbf{u}_{exact} - \mathbf{u}_h\| = \|(A_{fd})^{-1}\| \cdot \|h^2 \boldsymbol{\tau}\|\]</span></p>
-<p>If the method is <strong>stable</strong> (<span class="math inline">\(\|(A_{fd})^{-1}\| \leq C\)</span>) and <strong>consistent</strong> (LTE <span class="math inline">\(= \mathcal{O}(h^2)\)</span>), then:
-<span class="math display">\[\|\mathbf{u}_{exact} - \mathbf{u}_h\| = \mathcal{O}(h^2)\]</span></p>
+<p>If the method is <strong>stable</strong> (<span class="math inline">\(\|(A_{fd}^h)^{-1}\| \leq C\)</span>) and <strong>consistent</strong> (LTE <span class="math inline">\(= O(h^2)\)</span>, so <span class="math inline">\(\|\vec{\tau}_h\| = O(h^2)\)</span>), then:
+<span class="math display">\[\|\vec{u}_{exact} - \vec{u}_h\| = \|(A_{fd}^h)^{-1}\|\cdot\|\vec{\tau}_h\| \leq C \cdot O(h^2) = O(h^2)\]</span></p>
 <blockquote>
-<p><strong>For BVPs:</strong> Stability + Consistency <span class="math inline">\(\Rightarrow\)</span> Convergence (analogous to the Lax Equivalence Theorem for IVPs).</p>
+<p><strong>For BVPs: Stability + Consistency <span class="math inline">\(\Rightarrow\)</span> Convergence</strong> (analogous to the Lax Equivalence Theorem for IVPs).</p>
 </blockquote>
 <hr />
 </div>
 </div>
-<div id="method-4-galerkin-weak-formulation" class="section level2 hasAnchor" number="11.9">
-<h2><span class="header-section-number">11.9</span> Method 4: Galerkin / Weak Formulation<a href="lecture10.html#method-4-galerkin-weak-formulation" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div id="motivation-3" class="section level3 hasAnchor" number="11.9.1">
-<h3><span class="header-section-number">11.9.1</span> Motivation<a href="lecture10.html#motivation-3" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Consider the BVP:
-<span class="math display">\[-y&#39;&#39; + cy = f(x), \quad x \in [0,1], \quad y(0) = y(1) = 0\]</span></p>
-<p>A <strong>classical (strong) solution</strong> requires <span class="math inline">\(y \in C^2[0,1]\)</span>. However:</p>
-<ul>
-<li><p>Strong solutions may not exist for discontinuous <span class="math inline">\(f\)</span> or when shocks are present</p></li>
-<li><p>The regularity requirement is analytically inconvenient</p></li>
-</ul>
+<div id="method-4-galerkin-method-and-weak-formulation" class="section level2 hasAnchor" number="11.9">
+<h2><span class="header-section-number">11.9</span> Method 4: Galerkin Method and Weak Formulation<a href="lecture10.html#method-4-galerkin-method-and-weak-formulation" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="motivation-4" class="section level3 hasAnchor" number="11.9.1">
+<h3><span class="header-section-number">11.9.1</span> Motivation<a href="lecture10.html#motivation-4" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Consider the BVP (also analogous to the PDE <span class="math inline">\(-\Delta y + cy = f(x)\)</span> on a domain <span class="math inline">\(\Omega\)</span> with <span class="math inline">\(y|_{\partial\Omega} = g(x)\)</span>):
+<span class="math display">\[\begin{cases} -y&#39;&#39; + cy = f(x), &amp; x \in [0, 1] \\ y(0) = y(1) = 0 \end{cases}\]</span></p>
+<p>A <strong>classical (strong) solution</strong> requires <span class="math inline">\(y \in C^2[0,1]\)</span>. However:
+- Strong solutions may not exist when <span class="math inline">\(f\)</span> is discontinuous or when shocks are present
+- The <span class="math inline">\(C^2\)</span> regularity requirement is analytically restrictive</p>
+<p>We “relax” the notion of solution via the <strong>weak formulation</strong>.</p>
 </div>
-<div id="weak-formulation" class="section level3 hasAnchor" number="11.9.2">
-<h3><span class="header-section-number">11.9.2</span> Weak Formulation<a href="lecture10.html#weak-formulation" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p><strong>Derivation:</strong> Multiply the ODE by a smooth <strong>test function</strong> <span class="math inline">\(\phi \in C_0^\infty(0,1)\)</span> and integrate by parts:</p>
-<p><span class="math display">\[\int_0^1 y&#39;&#39; \phi\, dx = [y&#39;\phi]_0^1 - \int_0^1 y&#39;\phi&#39;\, dx = -\int_0^1 y&#39;\phi&#39;\, dx \quad (\phi = 0 \text{ at boundary})\]</span></p>
-<p>This gives the weak form: find <span class="math inline">\(y \in H_0^1(0,1)\)</span> such that
-<span class="math display">\[a(y, \phi) = \langle f, \phi \rangle \quad \forall \phi \in H_0^1(0,1)\]</span></p>
-<p>where:
-- <span class="math inline">\(a(u, v) = \int_0^1 u&#39;v&#39;\, dx + c\int_0^1 uv\, dx\)</span> (bilinear form)</p>
-<ul>
-<li><p><span class="math inline">\(\langle f, v \rangle = \int_0^1 f(x)v(x)\, dx\)</span> (linear form / <span class="math inline">\(L^2\)</span> inner product)</p></li>
-<li><p><span class="math inline">\(H_0^1(0,1) = \{v \in L^2 : v&#39; \in L^2,\; v(0) = v(1) = 0\}\)</span> (<strong>Sobolev space</strong>)</p></li>
-</ul>
+<div id="derivation-of-the-weak-formulation" class="section level3 hasAnchor" number="11.9.2">
+<h3><span class="header-section-number">11.9.2</span> Derivation of the Weak Formulation<a href="lecture10.html#derivation-of-the-weak-formulation" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Consider the <span class="math inline">\(L^2\)</span> inner product: <span class="math inline">\(\langle f, g \rangle = \int_0^1 f(x)g(x)\,dx\)</span>.</p>
+<p>Multiply the ODE by an arbitrary <strong>test function</strong> <span class="math inline">\(\psi \in C_0^\infty(0,1)\)</span> (the space of infinitely differentiable functions with compact support in <span class="math inline">\((0,1)\)</span>, so <span class="math inline">\(\psi(0) = \psi(1) = 0\)</span>) and integrate:
+<span class="math display">\[\langle -y&#39;&#39; + cy,\, \psi \rangle = \langle f, \psi \rangle\]</span>
+<span class="math display">\[\langle -y&#39;&#39;, \psi \rangle + c\langle y, \psi \rangle = \langle f, \psi \rangle\]</span></p>
+<p><strong>Integration by parts</strong> on the first term (using <span class="math inline">\(\psi(0) = \psi(1) = 0\)</span>):
+<span class="math display">\[\langle -y&#39;&#39;, \psi \rangle = -[y&#39;\psi]_0^1 + \langle y&#39;, \psi&#39; \rangle = \langle y&#39;, \psi&#39; \rangle\]</span></p>
+<p>So the weak form becomes:
+<span class="math display">\[\langle y&#39;, \psi&#39; \rangle + c\langle y, \psi \rangle = \langle f, \psi \rangle\]</span></p>
+</div>
+<div id="sobolev-space-and-distribution-derivative" class="section level3 hasAnchor" number="11.9.3">
+<h3><span class="header-section-number">11.9.3</span> Sobolev Space and Distribution Derivative<a href="lecture10.html#sobolev-space-and-distribution-derivative" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>We enlarge the test function space from <span class="math inline">\(C_0^\infty(0,1)\)</span> to the <strong>Sobolev space</strong>:
+<span class="math display">\[V = H_0^1(0,1) = \bigl\{v \in L^2(0,1) :\ v&#39; \in L^2(0,1),\ v(0) = v(1) = 0\bigr\}\]</span></p>
+<p>where <span class="math inline">\(v&#39;\)</span> is the <strong>distribution (weak) derivative</strong> of <span class="math inline">\(v\)</span>, defined by:
+<span class="math display">\[\langle v&#39;, \psi \rangle = -\langle v, \psi&#39; \rangle, \quad \forall\, \psi \in C_0^\infty(0,1)\]</span></p>
+<p><strong>Example:</strong> <span class="math inline">\(v(x) = |x|\)</span> on <span class="math inline">\([-1,1]\)</span> has distribution derivative <span class="math inline">\(v&#39;(x) = \begin{cases} -1 &amp; x &lt; x_0 \\ 1 &amp; x &gt; x_0 \end{cases}\)</span>, even though <span class="math inline">\(v\)</span> is not differentiable at <span class="math inline">\(0\)</span> in the classical sense.</p>
+<p><strong>Sobolev regularity:</strong> If <span class="math inline">\(v \in H^n\)</span> then <span class="math inline">\(v&#39; \in H^{n-1}\)</span> (each differentiation loses one order of regularity).</p>
+<p>The weak formulation only requires <strong>one derivative</strong> of <span class="math inline">\(y\)</span> (not two), so it admits a broader class of solutions.</p>
+</div>
+<div id="weak-formulation" class="section level3 hasAnchor" number="11.9.4">
+<h3><span class="header-section-number">11.9.4</span> Weak Formulation<a href="lecture10.html#weak-formulation" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Define the <strong>bilinear form</strong> <span class="math inline">\(a(u, v) = \langle u&#39;, v&#39; \rangle + c\langle u, v \rangle\)</span> and <strong>linear form</strong> <span class="math inline">\(\langle f, v \rangle = \int_0^1 f(x)v(x)\,dx\)</span>.</p>
+<p><strong>Weak formulation:</strong> Find <span class="math inline">\(u \in V = H_0^1(0,1)\)</span> such that:
+<span class="math display">\[a(u, \psi) = \langle f, \psi \rangle, \quad \forall\, \psi \in V\]</span></p>
+<p>i.e., <span class="math inline">\(\langle u&#39;, \psi&#39; \rangle + c\langle u, \psi \rangle = \langle f, \psi \rangle\)</span> for all <span class="math inline">\(\psi \in V\)</span>.</p>
 <blockquote>
-<p><strong>Key insight:</strong> The weak formulation only requires one derivative of <span class="math inline">\(y\)</span> (not two), so it admits a broader class of solutions.</p>
+<p>If a function <span class="math inline">\(u \in C^2\)</span> is the <strong>strong solution</strong> to the BVP, then it must also satisfy this weak formulation. The converse is not generally true — the weak formulation admits more solutions.</p>
 </blockquote>
+<p><strong>Remark (Navier–Stokes):</strong> The Navier–Stokes equations governing viscous fluid motion (used in car/aircraft design, ocean current modeling) have <strong>proven weak solutions</strong>, but the <strong>regularity</strong> (smoothness) of these solutions is one of the <strong>7 Millennium Prize Problems</strong> in mathematics.</p>
+<hr />
 </div>
-<div id="remark-navierstokes-equations" class="section level3 hasAnchor" number="11.9.3">
-<h3><span class="header-section-number">11.9.3</span> Remark: Navier–Stokes Equations<a href="lecture10.html#remark-navierstokes-equations" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>The Navier–Stokes equations (governing viscous fluid motion, used in car/aircraft design and ocean current modeling) have <strong>proven weak solutions</strong>, but the <strong>regularity</strong> (smoothness) of these solutions is one of the <strong>7 Millennium Prize Problems</strong> in mathematics.</p>
+<div id="galerkin-method" class="section level3 hasAnchor" number="11.9.5">
+<h3><span class="header-section-number">11.9.5</span> Galerkin Method<a href="lecture10.html#galerkin-method" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="approximation-space" class="section level4 hasAnchor" number="11.9.5.1">
+<h4><span class="header-section-number">11.9.5.1</span> Approximation Space<a href="lecture10.html#approximation-space" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Introduce a finite-dimensional subspace <span class="math inline">\(V_h \subset V\)</span>:
+<span class="math display">\[V_h = \text{span}\{\Phi_1, \Phi_2, \ldots, \Phi_N\}\]</span></p>
+<p>where <span class="math inline">\(\{\Phi_j\}\)</span> are linearly independent basis functions.</p>
 </div>
-<div id="galerkin-method" class="section level3 hasAnchor" number="11.9.4">
-<h3><span class="header-section-number">11.9.4</span> Galerkin Method<a href="lecture10.html#galerkin-method" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div id="approximation-space" class="section level4 hasAnchor" number="11.9.4.1">
-<h4><span class="header-section-number">11.9.4.1</span> Approximation Space<a href="lecture10.html#approximation-space" class="anchor-section" aria-label="Anchor link to header"></a></h4>
-<p>Introduce a finite-dimensional subspace <span class="math inline">\(V_h \subset H_0^1(0,1)\)</span>:
-<span class="math display">\[V_h = \text{span}\{\phi_1, \phi_2, \ldots, \phi_N\}\]</span></p>
-<p>where <span class="math inline">\(\{\phi_i\}\)</span> are linearly independent basis functions.</p>
+<div id="galerkin-discrete-problem" class="section level4 hasAnchor" number="11.9.5.2">
+<h4><span class="header-section-number">11.9.5.2</span> Galerkin Discrete Problem<a href="lecture10.html#galerkin-discrete-problem" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Find <span class="math inline">\(u_h \in V_h\)</span> (written <span class="math inline">\(u_h = \sum_{j=1}^N u_j \Phi_j\)</span>) such that:
+<span class="math display">\[a(u_h, \psi_h) = \langle f, \psi_h \rangle, \quad \forall\, \psi_h \in V_h\]</span></p>
+<p>Choosing test functions <span class="math inline">\(\psi_h = \Phi_i\)</span> for <span class="math inline">\(i = 1, 2, \ldots, N\)</span>:
+<span class="math display">\[a\!\left(\sum_{j=1}^N u_j \Phi_j,\, \Phi_i\right) = \langle f, \Phi_i \rangle \implies \sum_{j=1}^N u_j\, a(\Phi_j, \Phi_i) = \langle f, \Phi_i \rangle\]</span></p>
+<p>This yields the <strong>linear system</strong> <span class="math inline">\(A_G\,\vec{u} = \vec{f}_G\)</span> where:
+- <strong>Stiffness matrix:</strong> <span class="math inline">\((A_G)_{ij} = a(\Phi_j, \Phi_i)\)</span> — the <span class="math inline">\(N \times N\)</span> stiffness matrix
+- <strong>Load vector:</strong> <span class="math inline">\((f_G)_i = \langle f, \Phi_i \rangle\)</span></p>
+<p>The structure of <span class="math inline">\(A_G\)</span> depends on the choice of basis <span class="math inline">\(\{\Phi_j\}\)</span> and space <span class="math inline">\(V_h\)</span>. We hope <span class="math inline">\(A_G\)</span> is <strong>banded</strong> (so the linear system is cheaper to solve).</p>
 </div>
-<div id="discrete-problem" class="section level4 hasAnchor" number="11.9.4.2">
-<h4><span class="header-section-number">11.9.4.2</span> Discrete Problem<a href="lecture10.html#discrete-problem" class="anchor-section" aria-label="Anchor link to header"></a></h4>
-<p>Find <span class="math inline">\(u_h = \sum_{j=1}^N \mu_j \phi_j \in V_h\)</span> such that:
-<span class="math display">\[a(u_h, \phi_i) = \langle f, \phi_i \rangle, \quad i = 1, 2, \ldots, N\]</span></p>
-<p>This gives the linear system:
-<span class="math display">\[A\boldsymbol{\mu} = \mathbf{F}\]</span></p>
-<p>where:</p>
-<ul>
-<li><p><span class="math inline">\(A_{ij} = a(\phi_j, \phi_i)\)</span> — the <strong>stiffness matrix</strong></p></li>
-<li><p><span class="math inline">\(F_i = \langle f, \phi_i \rangle\)</span> — the <strong>load vector</strong></p></li>
-</ul>
-</div>
-<div id="céas-lemma-error-estimate" class="section level4 hasAnchor" number="11.9.4.3">
-<h4><span class="header-section-number">11.9.4.3</span> Céa’s Lemma (Error Estimate)<a href="lecture10.html#céas-lemma-error-estimate" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div id="céas-lemma-error-estimate" class="section level4 hasAnchor" number="11.9.5.3">
+<h4><span class="header-section-number">11.9.5.3</span> Céa’s Lemma (Error Estimate)<a href="lecture10.html#céas-lemma-error-estimate" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>Assume <span class="math inline">\(V\)</span> is a Hilbert space and <span class="math inline">\(a(\cdot, \cdot)\)</span> satisfies:</p>
-<ul>
-<li><p><strong>Coercivity:</strong> <span class="math inline">\(a(v,v) \geq \alpha_0 \|v\|_V^2\)</span> for some <span class="math inline">\(\alpha_0 &gt; 0\)</span></p></li>
-<li><p><strong>Continuity:</strong> <span class="math inline">\(|a(u,v)| \leq M\|u\|_V\|v\|_V\)</span></p></li>
-<li><p><strong>Boundedness:</strong> <span class="math inline">\(|\langle f, v\rangle| \leq K\|f\|\|v\|_V\)</span></p></li>
-</ul>
+<ol style="list-style-type: decimal">
+<li><strong>Coercivity:</strong> <span class="math inline">\(\exists\, \alpha_0 &gt; 0\)</span> such that <span class="math inline">\(a(v, v) \geq \alpha_0\|v\|_V^2\)</span> for all <span class="math inline">\(v \in V\)</span></li>
+<li><strong>Continuity:</strong> <span class="math inline">\(\exists\, M &gt; 0\)</span> such that <span class="math inline">\(|a(u, v)| \leq M\|u\|_V\|v\|_V\)</span> for all <span class="math inline">\(u, v \in V\)</span></li>
+<li><strong>Boundedness of <span class="math inline">\(f\)</span>:</strong> <span class="math inline">\(|\langle f, v\rangle| \leq K\|v\|_V\)</span> for all <span class="math inline">\(v \in V\)</span></li>
+</ol>
 <p>Then:
 <span class="math display">\[\|u - u_h\|_V \leq \frac{M}{\alpha_0} \min_{w_h \in V_h} \|u - w_h\|_V\]</span></p>
-<p>The <strong>Galerkin error</strong> is quasi-optimal — it is bounded by a constant times the best approximation error in <span class="math inline">\(V_h\)</span>.</p>
+<p>where <span class="math inline">\(u\)</span> is the exact weak solution and <span class="math inline">\(u_h\)</span> solves the discrete Galerkin system.</p>
+<blockquote>
+<p><strong>Interpretation:</strong> The Galerkin error is <strong>quasi-optimal</strong> — bounded by a constant times the best possible approximation error from <span class="math inline">\(V_h\)</span>.</p>
+</blockquote>
 <hr />
 </div>
 </div>
 </div>
 <div id="finite-element-method-fem" class="section level2 hasAnchor" number="11.10">
 <h2><span class="header-section-number">11.10</span> Finite Element Method (FEM)<a href="lecture10.html#finite-element-method-fem" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div id="basis-function-choice" class="section level3 hasAnchor" number="11.10.1">
-<h3><span class="header-section-number">11.10.1</span> Basis Function Choice<a href="lecture10.html#basis-function-choice" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>The key choice in the Galerkin method is the basis <span class="math inline">\(\{\phi_i\}\)</span> for <span class="math inline">\(V_h\)</span>.</p>
+<div id="basis-function-choices" class="section level3 hasAnchor" number="11.10.1">
+<h3><span class="header-section-number">11.10.1</span> Basis Function Choices<a href="lecture10.html#basis-function-choices" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <div id="piecewise-linear-hat-functions" class="section level4 hasAnchor" number="11.10.1.1">
-<h4><span class="header-section-number">11.10.1.1</span> Piecewise Linear “Hat” Functions<a href="lecture10.html#piecewise-linear-hat-functions" class="anchor-section" aria-label="Anchor link to header"></a></h4>
-<p>The simplest FEM basis: <strong>hat functions</strong> <span class="math inline">\(\phi_i\)</span> defined on a grid <span class="math inline">\(x_0 &lt; x_1 &lt; \cdots &lt; x_N\)</span>:
-<span class="math display">\[\phi_i(x) = \begin{cases} \frac{x - x_{i-1}}{x_i - x_{i-1}} &amp; x \in [x_{i-1}, x_i] \\ \frac{x_{i+1} - x}{x_{i+1} - x_i} &amp; x \in [x_i, x_{i+1}] \\ 0 &amp; \text{otherwise} \end{cases}\]</span></p>
-<p><strong>Properties:</strong></p>
-<ul>
-<li><p><span class="math inline">\(\phi_i(x_j) = \delta_{ij}\)</span> (equals 1 at node <span class="math inline">\(x_i\)</span>, 0 at all others)</p></li>
-<li><p><strong>Local support</strong>: <span class="math inline">\(\phi_i\)</span> is nonzero only on <span class="math inline">\([x_{i-1}, x_{i+1}]\)</span></p></li>
-</ul>
+<h4><span class="header-section-number">11.10.1.1</span> (1) Piecewise Linear “Hat” Functions<a href="lecture10.html#piecewise-linear-hat-functions" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>The simplest FEM basis constructs <span class="math inline">\(V_h\)</span> using <strong>piecewise polynomial interpolations</strong>. On a grid <span class="math inline">\(x_0 &lt; x_1 &lt; \cdots &lt; x_N\)</span>, define the <strong>hat functions</strong> <span class="math inline">\(\Phi_k\)</span> for <span class="math inline">\(k = 1, \ldots, N-1\)</span>:
+<span class="math display">\[\Phi_k(x) = \begin{cases} \dfrac{x - x_{k-1}}{x_k - x_{k-1}} &amp; x \in [x_{k-1}, x_k] \\[6pt] \dfrac{x_{k+1} - x}{x_{k+1} - x_k} &amp; x \in [x_k, x_{k+1}] \\[6pt] 0 &amp; \text{otherwise} \end{cases}\]</span></p>
+<p>Then <span class="math inline">\(\{\Phi_k\}_{k=1}^{N-1}\)</span> spans the space <span class="math inline">\(V_h\)</span> satisfying the boundary conditions.</p>
+<p><strong>Properties of hat functions:</strong>
+- <span class="math inline">\(\Phi_k(x_j) = \delta_{kj}\)</span> (equals 1 at <span class="math inline">\(x_k\)</span>, zero at all other nodes)
+- <strong>Local support:</strong> <span class="math inline">\(\Phi_k\)</span> is nonzero only on <span class="math inline">\([x_{k-1}, x_{k+1}]\)</span></p>
+<p><strong>Stiffness matrix structure:</strong> The bilinear form entry is:
+<span class="math display">\[a(\Phi_j, \Phi_i) = -\langle \Phi_j&#39;, \Phi_i&#39; \rangle + c\langle \Phi_j, \Phi_i \rangle\]</span></p>
+<p>Because of local support, <span class="math inline">\(a(\Phi_j, \Phi_i) \neq 0\)</span> only when <span class="math inline">\(|i - j| \leq 1\)</span>, so <span class="math inline">\(A_G\)</span> is <strong>tridiagonal</strong> — the system can be solved in <span class="math inline">\(O(N)\)</span> operations.</p>
 </div>
-<div id="sparsity-of-the-stiffness-matrix" class="section level4 hasAnchor" number="11.10.1.2">
-<h4><span class="header-section-number">11.10.1.2</span> Sparsity of the Stiffness Matrix<a href="lecture10.html#sparsity-of-the-stiffness-matrix" class="anchor-section" aria-label="Anchor link to header"></a></h4>
-<p>Because hat functions have <strong>local support</strong>:
-<span class="math display">\[A_{ij} = a(\phi_j, \phi_i) \neq 0 \quad \text{only if } |i - j| \leq 1\]</span></p>
-<p>The stiffness matrix is <strong>tridiagonal</strong> — the linear system can be solved in <span class="math inline">\(\mathcal{O}(N)\)</span> operations.</p>
-</div>
-</div>
-<div id="spectral-galerkin-method" class="section level3 hasAnchor" number="11.10.2">
-<h3><span class="header-section-number">11.10.2</span> Spectral Galerkin Method<a href="lecture10.html#spectral-galerkin-method" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="spectral-galerkin-method" class="section level4 hasAnchor" number="11.10.1.2">
+<h4><span class="header-section-number">11.10.1.2</span> (2) Spectral Galerkin Method<a href="lecture10.html#spectral-galerkin-method" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>Use <strong>global Fourier basis</strong> functions:
-<span class="math display">\[\phi_k(x) = e^{2\pi i k x}, \quad k = 1, 2, \ldots, N\]</span></p>
-<p><strong>Properties:</strong></p>
+<span class="math display">\[\Phi_k(x) = e^{i2\pi kx} \quad \text{or} \quad \Phi_k(x) = \cos(jx), \quad k = 1, 2, \ldots, N\]</span></p>
+<p>Here <span class="math inline">\(V_h \to V\)</span> as <span class="math inline">\(N \to \infty\)</span> (the approximation space approaches the full space <span class="math inline">\(V\)</span>).</p>
 <ul>
-<li><p>Global support — each basis function is nonzero everywhere</p></li>
-<li><p>Leads to a <strong>dense stiffness matrix</strong>, but exponential convergence for smooth solutions</p></li>
-<li><p>Better suited for problems with smooth solutions on simple domains</p></li>
+<li><strong>Global support:</strong> each basis function is nonzero everywhere on <span class="math inline">\([0,1]\)</span></li>
+<li>Leads to a <strong>dense stiffness matrix</strong> <span class="math inline">\(A_G\)</span></li>
+<li>But achieves <strong>exponential convergence</strong> for smooth solutions</li>
 </ul>
+<hr />
 </div>
-<div id="comparison" class="section level3 hasAnchor" number="11.10.3">
-<h3><span class="header-section-number">11.10.3</span> Comparison<a href="lecture10.html#comparison" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+</div>
+<div id="comparison-of-galerkin-methods" class="section level3 hasAnchor" number="11.10.2">
+<h3><span class="header-section-number">11.10.2</span> Comparison of Galerkin Methods<a href="lecture10.html#comparison-of-galerkin-methods" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <table>
 <colgroup>
-<col width="17%" />
-<col width="15%" />
-<col width="37%" />
-<col width="28%" />
+<col width="16%" />
+<col width="14%" />
+<col width="34%" />
+<col width="34%" />
 </colgroup>
 <thead>
 <tr class="header">
 <th>Method</th>
 <th>Basis</th>
 <th>Stiffness Matrix</th>
-<th>Convergence</th>
+<th>Convergence Rate</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td>FEM (hat functions)</td>
-<td>Piecewise polynomial, local support</td>
-<td>Sparse (tridiagonal)</td>
+<td><strong>FEM</strong> (hat functions)</td>
+<td>Piecewise linear, local support</td>
+<td>Tridiagonal (sparse)</td>
 <td>Algebraic in <span class="math inline">\(h\)</span></td>
 </tr>
 <tr class="even">
-<td>Spectral Galerkin</td>
-<td>Global Fourier modes</td>
+<td><strong>Spectral Galerkin</strong></td>
+<td>Global Fourier modes, <span class="math inline">\(V_h \to V\)</span></td>
 <td>Dense</td>
-<td>Exponential (smooth solutions)</td>
+<td>Exponential (for smooth <span class="math inline">\(u\)</span>)</td>
 </tr>
 </tbody>
 </table>
@@ -927,47 +992,48 @@ where <span class="math inline">\(C_1\)</span>, <span class="math inline">\(C_2\
 <table>
 <colgroup>
 <col width="25%" />
-<col width="32%" />
-<col width="41%" />
+<col width="34%" />
+<col width="40%" />
 </colgroup>
 <thead>
 <tr class="header">
 <th>Method</th>
-<th>Approach</th>
+<th>Core Idea</th>
 <th>When to Use</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td><strong>Shooting Method</strong></td>
-<td>Convert BVP <span class="math inline">\(\to\)</span> IVP; use Newton’s method to find <span class="math inline">\(s^*\)</span></td>
-<td>Simple BVPs; need IVP solver + rootfinder</td>
+<td>Convert BVP <span class="math inline">\(\to\)</span> IVP; Newton’s method to find <span class="math inline">\(s^*\)</span></td>
+<td>Simple two-point BVPs; requires IVP solver + rootfinder</td>
 </tr>
 <tr class="even">
-<td><strong>Finite Difference (FDM)</strong></td>
-<td>Discretize ODE at grid points; solve tridiagonal system</td>
-<td>Standard BVPs with uniform grids</td>
+<td><strong>FDM (central diff.)</strong></td>
+<td>Discretize ODE at interior grid points; solve tridiagonal system</td>
+<td>Standard BVPs with Dirichlet/Neumann BCs</td>
 </tr>
 <tr class="odd">
 <td><strong>Midpoint Discretization</strong></td>
-<td>Discretize first-order system at midpoints</td>
+<td>Discretize first-order system at cell midpoints</td>
 <td>Non-uniform grids; general first-order systems</td>
 </tr>
 <tr class="even">
 <td><strong>Galerkin / FEM</strong></td>
-<td>Variational formulation; solve in finite-dimensional subspace</td>
-<td>Problems lacking strong solutions; complex geometry</td>
+<td>Variational formulation in finite-dimensional subspace</td>
+<td>Problems lacking classical solutions; complex domains</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Key Takeaways:</strong></p>
 <ul>
-<li><p>BVPs can have zero, one, or multiple solutions — no general existence/uniqueness theory</p></li>
-<li><p>Stability for BVPs <span class="math inline">\(\ne\)</span> stability for IVPs</p></li>
-<li><p>The shooting method relies on Newton’s method and the variational (sensitivity) equation</p></li>
-<li><p>FDM for BVPs yields sparse (tridiagonal) linear systems, solved efficiently via LU factorization</p></li>
-<li><p>The Galerkin weak formulation extends solvability beyond classical <span class="math inline">\(C^2\)</span> solutions</p></li>
-<li><p>Céa’s lemma guarantees quasi-optimal FEM approximations</p></li>
+<li>BVPs can have zero, one, or multiple solutions — no general existence/uniqueness theory</li>
+<li>BVP stability <span class="math inline">\(\neq\)</span> IVP stability: a BVP with boundary conditions at both ends can be stable even when the associated IVP has exponentially growing modes</li>
+<li>Shooting method requires Newton’s method (quadratic convergence) and the variational (sensitivity) equation for <span class="math inline">\(g&#39;(s)\)</span></li>
+<li>FDM for BVPs yields sparse (tridiagonal) linear systems; LU factorization costs <span class="math inline">\(O(N)\)</span> for tridiagonal, <span class="math inline">\(O(Nm^2)\)</span> for bandwidth-<span class="math inline">\(m\)</span> matrices</li>
+<li>The Galerkin weak formulation requires only one derivative (via integration by parts), extending solvability beyond <span class="math inline">\(C^2\)</span></li>
+<li>Céa’s lemma guarantees quasi-optimal Galerkin/FEM approximations</li>
+<li>Hat functions give sparse (tridiagonal) stiffness matrices; spectral Galerkin uses global Fourier modes for exponential convergence on smooth problems</li>
 </ul>
 
 </div>

@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>3 Lecture 2: Condition Numbers &amp; Interpolation | Lecture 10</title>
-  <meta name="description" content="3 Lecture 2: Condition Numbers &amp; Interpolation | Lecture 10" />
+  <title>3 Lecture 2: Condition Numbers &amp; Interpolation | Lecture 10: Numerical Methods for Boundary Value Problems (BVP)</title>
+  <meta name="description" content="3 Lecture 2: Condition Numbers &amp; Interpolation | Lecture 10: Numerical Methods for Boundary Value Problems (BVP)" />
   <meta name="generator" content="bookdown 0.45 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="3 Lecture 2: Condition Numbers &amp; Interpolation | Lecture 10" />
+  <meta property="og:title" content="3 Lecture 2: Condition Numbers &amp; Interpolation | Lecture 10: Numerical Methods for Boundary Value Problems (BVP)" />
   <meta property="og:type" content="book" />
   
   
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="3 Lecture 2: Condition Numbers &amp; Interpolation | Lecture 10" />
+  <meta name="twitter:title" content="3 Lecture 2: Condition Numbers &amp; Interpolation | Lecture 10: Numerical Methods for Boundary Value Problems (BVP)" />
   
   
   
@@ -23,7 +23,7 @@
 <meta name="author" content="Maggie Zhang" />
 
 
-<meta name="date" content="2026-04-12" />
+<meta name="date" content="2026-04-17" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -350,19 +350,19 @@
 <li class="chapter" data-level="10.5.5" data-path="lecture9.html"><a href="lecture9.html#strang-splitting-second-order"><i class="fa fa-check"></i><b>10.5.5</b> Strang Splitting (Second-Order)</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="11" data-path="lecture10.html"><a href="lecture10.html"><i class="fa fa-check"></i><b>11</b> Lecture 10 (first part review)</a>
+<li class="chapter" data-level="11" data-path="lecture10.html"><a href="lecture10.html"><i class="fa fa-check"></i><b>11</b> Lecture 10</a>
 <ul>
-<li class="chapter" data-level="11.1" data-path="lecture10.html"><a href="lecture10.html#review"><i class="fa fa-check"></i><b>11.1</b> Review</a>
+<li class="chapter" data-level="11.1" data-path="lecture10.html"><a href="lecture10.html#part-i-review-operator-splitting-continued"><i class="fa fa-check"></i><b>11.1</b> Part I: Review — Operator Splitting (Continued)</a>
 <ul>
-<li class="chapter" data-level="11.1.1" data-path="lecture10.html"><a href="lecture10.html#forward-euler-with-splitting"><i class="fa fa-check"></i><b>11.1.1</b> Forward Euler with Splitting</a></li>
+<li class="chapter" data-level="11.1.1" data-path="lecture10.html"><a href="lecture10.html#forward-euler-splitting"><i class="fa fa-check"></i><b>11.1.1</b> Forward Euler Splitting</a></li>
 <li class="chapter" data-level="11.1.2" data-path="lecture10.html"><a href="lecture10.html#strong-strang-splitting"><i class="fa fa-check"></i><b>11.1.2</b> Strong (Strang) Splitting</a></li>
 <li class="chapter" data-level="11.1.3" data-path="lecture10.html"><a href="lecture10.html#bakercampbellhausdorff-bch-theorem"><i class="fa fa-check"></i><b>11.1.3</b> Baker–Campbell–Hausdorff (BCH) Theorem</a></li>
 <li class="chapter" data-level="11.1.4" data-path="lecture10.html"><a href="lecture10.html#motivating-example-stiff-equations"><i class="fa fa-check"></i><b>11.1.4</b> Motivating Example: Stiff Equations</a></li>
 </ul></li>
-<li class="chapter" data-level="11.2" data-path="lecture10.html"><a href="lecture10.html#introduction-to-boundary-value-problems-bvp"><i class="fa fa-check"></i><b>11.2</b> Introduction to Boundary Value Problems (BVP)</a>
+<li class="chapter" data-level="11.2" data-path="lecture10.html"><a href="lecture10.html#part-ii-numerical-methods-for-boundary-value-problems"><i class="fa fa-check"></i><b>11.2</b> Part II: Numerical Methods for Boundary Value Problems</a>
 <ul>
 <li class="chapter" data-level="11.2.1" data-path="lecture10.html"><a href="lecture10.html#definition-2"><i class="fa fa-check"></i><b>11.2.1</b> Definition</a></li>
-<li class="chapter" data-level="11.2.2" data-path="lecture10.html"><a href="lecture10.html#converting-to-first-order-systems"><i class="fa fa-check"></i><b>11.2.2</b> Converting to First-Order Systems</a></li>
+<li class="chapter" data-level="11.2.2" data-path="lecture10.html"><a href="lecture10.html#conversion-to-first-order-systems"><i class="fa fa-check"></i><b>11.2.2</b> Conversion to First-Order Systems</a></li>
 <li class="chapter" data-level="11.2.3" data-path="lecture10.html"><a href="lecture10.html#why-bvps-are-harder-than-ivps"><i class="fa fa-check"></i><b>11.2.3</b> Why BVPs Are Harder Than IVPs</a></li>
 </ul></li>
 <li class="chapter" data-level="11.3" data-path="lecture10.html"><a href="lecture10.html#properties-of-bvps"><i class="fa fa-check"></i><b>11.3</b> Properties of BVPs</a>
@@ -373,17 +373,20 @@
 <li class="chapter" data-level="11.4" data-path="lecture10.html"><a href="lecture10.html#method-1-shooting-method"><i class="fa fa-check"></i><b>11.4</b> Method 1: Shooting Method</a>
 <ul>
 <li class="chapter" data-level="11.4.1" data-path="lecture10.html"><a href="lecture10.html#idea"><i class="fa fa-check"></i><b>11.4.1</b> Idea</a></li>
-<li class="chapter" data-level="11.4.2" data-path="lecture10.html"><a href="lecture10.html#algorithm-1"><i class="fa fa-check"></i><b>11.4.2</b> Algorithm</a></li>
-<li class="chapter" data-level="11.4.3" data-path="lecture10.html"><a href="lecture10.html#full-workflow-summary"><i class="fa fa-check"></i><b>11.4.3</b> Full Workflow Summary</a></li>
-<li class="chapter" data-level="11.4.4" data-path="lecture10.html"><a href="lecture10.html#required-tools"><i class="fa fa-check"></i><b>11.4.4</b> Required Tools</a></li>
-<li class="chapter" data-level="11.4.5" data-path="lecture10.html"><a href="lecture10.html#example-2"><i class="fa fa-check"></i><b>11.4.5</b> Example</a></li>
+<li class="chapter" data-level="11.4.2" data-path="lecture10.html"><a href="lecture10.html#step-1-set-up-the-ivp"><i class="fa fa-check"></i><b>11.4.2</b> Step 1: Set Up the IVP</a></li>
+<li class="chapter" data-level="11.4.3" data-path="lecture10.html"><a href="lecture10.html#step-2-define-the-goal-function"><i class="fa fa-check"></i><b>11.4.3</b> Step 2: Define the Goal Function</a></li>
+<li class="chapter" data-level="11.4.4" data-path="lecture10.html"><a href="lecture10.html#step-3-solve-with-newtons-method"><i class="fa fa-check"></i><b>11.4.4</b> Step 3: Solve with Newton’s Method</a></li>
+<li class="chapter" data-level="11.4.5" data-path="lecture10.html"><a href="lecture10.html#step-4-compute-gs-via-the-variational-equation"><i class="fa fa-check"></i><b>11.4.5</b> Step 4: Compute <span class="math inline">\(g&#39;(s)\)</span> via the Variational Equation</a></li>
+<li class="chapter" data-level="11.4.6" data-path="lecture10.html"><a href="lecture10.html#full-workflow-summary"><i class="fa fa-check"></i><b>11.4.6</b> Full Workflow Summary</a></li>
+<li class="chapter" data-level="11.4.7" data-path="lecture10.html"><a href="lecture10.html#worked-example"><i class="fa fa-check"></i><b>11.4.7</b> Worked Example</a></li>
 </ul></li>
-<li class="chapter" data-level="11.5" data-path="lecture10.html"><a href="lecture10.html#review-lu-decomposition-for-finite-difference-method"><i class="fa fa-check"></i><b>11.5</b> Review: LU Decomposition (for Finite Difference Method)</a>
+<li class="chapter" data-level="11.5" data-path="lecture10.html"><a href="lecture10.html#review-lu-decomposition"><i class="fa fa-check"></i><b>11.5</b> Review: LU Decomposition</a>
 <ul>
-<li class="chapter" data-level="11.5.1" data-path="lecture10.html"><a href="lecture10.html#lu-decomposition"><i class="fa fa-check"></i><b>11.5.1</b> LU Decomposition</a></li>
-<li class="chapter" data-level="11.5.2" data-path="lecture10.html"><a href="lecture10.html#tridiagonal-matrices"><i class="fa fa-check"></i><b>11.5.2</b> Tridiagonal Matrices</a></li>
+<li class="chapter" data-level="11.5.1" data-path="lecture10.html"><a href="lecture10.html#motivation-3"><i class="fa fa-check"></i><b>11.5.1</b> Motivation</a></li>
+<li class="chapter" data-level="11.5.2" data-path="lecture10.html"><a href="lecture10.html#tridiagonal-matrices-and-bandwidth"><i class="fa fa-check"></i><b>11.5.2</b> Tridiagonal Matrices and Bandwidth</a></li>
+<li class="chapter" data-level="11.5.3" data-path="lecture10.html"><a href="lecture10.html#worked-example-lu-of-a-tridiagonal-matrix"><i class="fa fa-check"></i><b>11.5.3</b> Worked Example: LU of a Tridiagonal Matrix</a></li>
 </ul></li>
-<li class="chapter" data-level="11.6" data-path="lecture10.html"><a href="lecture10.html#method-2-finite-difference-method-for-bvps"><i class="fa fa-check"></i><b>11.6</b> Method 2: Finite Difference Method for BVPs</a>
+<li class="chapter" data-level="11.6" data-path="lecture10.html"><a href="lecture10.html#method-2-finite-difference-method-fdm-for-bvps"><i class="fa fa-check"></i><b>11.6</b> Method 2: Finite Difference Method (FDM) for BVPs</a>
 <ul>
 <li class="chapter" data-level="11.6.1" data-path="lecture10.html"><a href="lecture10.html#overview"><i class="fa fa-check"></i><b>11.6.1</b> Overview</a></li>
 <li class="chapter" data-level="11.6.2" data-path="lecture10.html"><a href="lecture10.html#model-problem"><i class="fa fa-check"></i><b>11.6.2</b> Model Problem</a></li>
@@ -393,30 +396,29 @@
 </ul></li>
 <li class="chapter" data-level="11.7" data-path="lecture10.html"><a href="lecture10.html#method-3-midpoint-discretization"><i class="fa fa-check"></i><b>11.7</b> Method 3: Midpoint Discretization</a>
 <ul>
-<li class="chapter" data-level="11.7.1" data-path="lecture10.html"><a href="lecture10.html#overview-1"><i class="fa fa-check"></i><b>11.7.1</b> Overview</a></li>
-<li class="chapter" data-level="11.7.2" data-path="lecture10.html"><a href="lecture10.html#grid-setup"><i class="fa fa-check"></i><b>11.7.2</b> Grid Setup</a></li>
-<li class="chapter" data-level="11.7.3" data-path="lecture10.html"><a href="lecture10.html#midpoint-scheme"><i class="fa fa-check"></i><b>11.7.3</b> Midpoint Scheme</a></li>
-<li class="chapter" data-level="11.7.4" data-path="lecture10.html"><a href="lecture10.html#advantages"><i class="fa fa-check"></i><b>11.7.4</b> Advantages</a></li>
-<li class="chapter" data-level="11.7.5" data-path="lecture10.html"><a href="lecture10.html#nonlinear-case"><i class="fa fa-check"></i><b>11.7.5</b> Nonlinear Case</a></li>
+<li class="chapter" data-level="11.7.1" data-path="lecture10.html"><a href="lecture10.html#the-standard-first-order-system"><i class="fa fa-check"></i><b>11.7.1</b> The Standard First-Order System</a></li>
+<li class="chapter" data-level="11.7.2" data-path="lecture10.html"><a href="lecture10.html#midpoint-formula"><i class="fa fa-check"></i><b>11.7.2</b> Midpoint Formula</a></li>
+<li class="chapter" data-level="11.7.3" data-path="lecture10.html"><a href="lecture10.html#remarks-1"><i class="fa fa-check"></i><b>11.7.3</b> Remarks</a></li>
+<li class="chapter" data-level="11.7.4" data-path="lecture10.html"><a href="lecture10.html#concrete-example-midpoint-discretization"><i class="fa fa-check"></i><b>11.7.4</b> Concrete Example: Midpoint Discretization</a></li>
 </ul></li>
-<li class="chapter" data-level="11.8" data-path="lecture10.html"><a href="lecture10.html#consistency-convergence-and-stability-of-fdm-for-bvps"><i class="fa fa-check"></i><b>11.8</b> Consistency, Convergence, and Stability of FDM for BVPs</a>
+<li class="chapter" data-level="11.8" data-path="lecture10.html"><a href="lecture10.html#consistency-stability-and-convergence-for-bvp-fdm"><i class="fa fa-check"></i><b>11.8</b> Consistency, Stability, and Convergence for BVP FDM</a>
 <ul>
 <li class="chapter" data-level="11.8.1" data-path="lecture10.html"><a href="lecture10.html#consistency"><i class="fa fa-check"></i><b>11.8.1</b> Consistency</a></li>
 <li class="chapter" data-level="11.8.2" data-path="lecture10.html"><a href="lecture10.html#stability-for-bvps"><i class="fa fa-check"></i><b>11.8.2</b> Stability for BVPs</a></li>
 <li class="chapter" data-level="11.8.3" data-path="lecture10.html"><a href="lecture10.html#convergence-1"><i class="fa fa-check"></i><b>11.8.3</b> Convergence</a></li>
 </ul></li>
-<li class="chapter" data-level="11.9" data-path="lecture10.html"><a href="lecture10.html#method-4-galerkin-weak-formulation"><i class="fa fa-check"></i><b>11.9</b> Method 4: Galerkin / Weak Formulation</a>
+<li class="chapter" data-level="11.9" data-path="lecture10.html"><a href="lecture10.html#method-4-galerkin-method-and-weak-formulation"><i class="fa fa-check"></i><b>11.9</b> Method 4: Galerkin Method and Weak Formulation</a>
 <ul>
-<li class="chapter" data-level="11.9.1" data-path="lecture10.html"><a href="lecture10.html#motivation-3"><i class="fa fa-check"></i><b>11.9.1</b> Motivation</a></li>
-<li class="chapter" data-level="11.9.2" data-path="lecture10.html"><a href="lecture10.html#weak-formulation"><i class="fa fa-check"></i><b>11.9.2</b> Weak Formulation</a></li>
-<li class="chapter" data-level="11.9.3" data-path="lecture10.html"><a href="lecture10.html#remark-navierstokes-equations"><i class="fa fa-check"></i><b>11.9.3</b> Remark: Navier–Stokes Equations</a></li>
-<li class="chapter" data-level="11.9.4" data-path="lecture10.html"><a href="lecture10.html#galerkin-method"><i class="fa fa-check"></i><b>11.9.4</b> Galerkin Method</a></li>
+<li class="chapter" data-level="11.9.1" data-path="lecture10.html"><a href="lecture10.html#motivation-4"><i class="fa fa-check"></i><b>11.9.1</b> Motivation</a></li>
+<li class="chapter" data-level="11.9.2" data-path="lecture10.html"><a href="lecture10.html#derivation-of-the-weak-formulation"><i class="fa fa-check"></i><b>11.9.2</b> Derivation of the Weak Formulation</a></li>
+<li class="chapter" data-level="11.9.3" data-path="lecture10.html"><a href="lecture10.html#sobolev-space-and-distribution-derivative"><i class="fa fa-check"></i><b>11.9.3</b> Sobolev Space and Distribution Derivative</a></li>
+<li class="chapter" data-level="11.9.4" data-path="lecture10.html"><a href="lecture10.html#weak-formulation"><i class="fa fa-check"></i><b>11.9.4</b> Weak Formulation</a></li>
+<li class="chapter" data-level="11.9.5" data-path="lecture10.html"><a href="lecture10.html#galerkin-method"><i class="fa fa-check"></i><b>11.9.5</b> Galerkin Method</a></li>
 </ul></li>
 <li class="chapter" data-level="11.10" data-path="lecture10.html"><a href="lecture10.html#finite-element-method-fem"><i class="fa fa-check"></i><b>11.10</b> Finite Element Method (FEM)</a>
 <ul>
-<li class="chapter" data-level="11.10.1" data-path="lecture10.html"><a href="lecture10.html#basis-function-choice"><i class="fa fa-check"></i><b>11.10.1</b> Basis Function Choice</a></li>
-<li class="chapter" data-level="11.10.2" data-path="lecture10.html"><a href="lecture10.html#spectral-galerkin-method"><i class="fa fa-check"></i><b>11.10.2</b> Spectral Galerkin Method</a></li>
-<li class="chapter" data-level="11.10.3" data-path="lecture10.html"><a href="lecture10.html#comparison"><i class="fa fa-check"></i><b>11.10.3</b> Comparison</a></li>
+<li class="chapter" data-level="11.10.1" data-path="lecture10.html"><a href="lecture10.html#basis-function-choices"><i class="fa fa-check"></i><b>11.10.1</b> Basis Function Choices</a></li>
+<li class="chapter" data-level="11.10.2" data-path="lecture10.html"><a href="lecture10.html#comparison-of-galerkin-methods"><i class="fa fa-check"></i><b>11.10.2</b> Comparison of Galerkin Methods</a></li>
 </ul></li>
 <li class="chapter" data-level="11.11" data-path="lecture10.html"><a href="lecture10.html#summary"><i class="fa fa-check"></i><b>11.11</b> Summary</a></li>
 </ul></li>
@@ -430,7 +432,7 @@
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Lecture 10</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Lecture 10: Numerical Methods for Boundary Value Problems (BVP)</a>
           </h1>
         </div>
 
