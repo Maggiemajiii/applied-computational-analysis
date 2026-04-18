@@ -1,0 +1,581 @@
+---
+title: "Lecture 11: Numerical Methods for Partial Differential Equations"
+date: "`r Sys.Date()`"
+---
+
+# Lecture 11 {#lecture11}
+
+---
+
+## Part I: Introduction — The Heat / Diffusion Equation
+
+### Model Problem
+
+Consider a **time-dependent diffusion (heat) equation** in a finite interval:
+
+$$u_t = u_{xx}, \quad x \in [0, L],\quad t \geq 0$$
+
+with **boundary conditions (BCs):**
+$$u(0, t) = u(L, t) = 0, \quad t > 0$$
+
+and **initial condition (IC):**
+$$u(x, 0) = f(x)$$
+
+> *中文注释：这是一个热传导/扩散方程。$u(x,t)$ 表示位置 $x$、时刻 $t$ 的温度（或浓度）。边界条件表示两端固定为零（如两端接触冰水），初始条件给出 $t=0$ 时的温度分布 $f(x)$。*
+
+This is a PDE in two variables $(x, t)$. Unlike ODEs, we cannot directly apply time-stepping methods — we must **first discretize in space**, reducing the PDE to a system of ODEs.
+
+---
+
+## Part II: Method of Lines
+
+The **method of lines** is a systematic procedure for discretizing a PDE:
+
+1. **Discretize the PDE in space** on a grid $\{x_j\}$
+2. **Write down a system of ODEs** for the functions $U_j(t) \approx u(x_j, t)$, derived from the spatial discretization and boundary conditions
+3. **Solve the system of IVPs** for $U_j(t)$
+
+> *中文注释：直线法（Method of Lines）的思路是：先在空间方向离散化，把 PDE 变成一个关于时间 $t$ 的 ODE 系统，再用 ODE 的时间推进方法求解。*
+
+### Setting Up the ODE System
+
+Let $x_j = jh$ with $h = \dfrac{L}{N+1}$, for $j = 0, 1, \ldots, N+1$.
+
+Let $U_j(t)$ denote the approximation of $u(x_j, t)$. Using the **second-order central difference** for $u_{xx}$:
+$$\frac{dU_j}{dt} = \frac{U_{j+1}(t) - 2U_j(t) + U_{j-1}(t)}{h^2}, \quad j = 1, 2, \ldots, N$$
+
+with boundary conditions $U_0(t) = 0$, $U_{N+1}(t) = 0$, and initial conditions $U_j(0) = f(x_j)$.
+
+This gives a **system of $N$ ODEs**. In matrix form:
+
+$$\vec{U} = \begin{pmatrix} U_1 \\ U_2 \\ \vdots \\ U_N \end{pmatrix}, \qquad \frac{d\vec{U}}{dt} = A\vec{U}$$
+
+where $A$ is the **tridiagonal diffusion matrix**:
+$$A = \frac{1}{h^2} \begin{pmatrix} -2 & 1 & & \\ 1 & -2 & 1 & \\ & \ddots & \ddots & \ddots \\ & & 1 & -2 \end{pmatrix}_{N \times N}$$
+
+> This is a **linear** system of ODEs and can be solved with standard IVP methods (e.g., Forward Euler, Backward Euler, Runge–Kutta).
+
+> *中文注释：把空间方向的有限差分代入 PDE，得到一组关于 $U_j(t)$ 的 ODE：$\frac{d\vec{U}}{dt} = A\vec{U}$。矩阵 $A$ 是三对角矩阵（来自中心差分），因此这个 ODE 系统的刚性（stiffness）由 $A$ 的最大特征值决定，且随着 $h \to 0$，$A$ 的模增大。*
+
+---
+
+## Part III: Discretizing in Time — FTCS and BTCS
+
+### Notation
+
+Let $u_j^k$ denote the numerical approximation of $u(x_j, t_k)$, where:
+- $x_j = j\,\Delta x$ (spatial grid, step $\Delta x$)
+- $t_k = k\,\Delta t$ (temporal grid, step $\Delta t$)
+
+---
+
+### Scheme 1: Forward Time Centered Space (FTCS) — Explicit
+
+Use **Forward Euler** in time and **central difference** in space:
+
+$$\frac{u_j^{k+1} - u_j^k}{\Delta t} = \frac{u_{j+1}^k - 2u_j^k + u_{j-1}^k}{\Delta x^2}$$
+
+This is an **explicit scheme**: $u_j^{k+1}$ depends only on known values at time level $k$.
+
+**Stencil:**
+```
+  j-1,k --- j,k --- j+1,k
+                |
+              j,k+1
+```
+
+Rearranging:
+$$u_j^{k+1} = u_j^k + \frac{\Delta t}{\Delta x^2}\bigl(u_{j+1}^k - 2u_j^k + u_{j-1}^k\bigr)$$
+
+Let $\beta = \dfrac{\Delta t}{\Delta x^2}$ (the **mesh ratio**). Then:
+$$u_j^{k+1} = \beta u_{j+1}^k + (1 - 2\beta)u_j^k + \beta u_{j-1}^k$$
+
+> *中文注释：FTCS 是显式格式（explicit），计算简单，但稳定性有限制。每一步 $u^{k+1}$ 直接由上一步 $u^k$ 计算得出，不需要解线性方程组。*
+
+---
+
+### Scheme 2: Backward Time Centered Space (BTCS) — Implicit
+
+Use **Backward Euler** in time and **central difference** in space:
+
+$$\frac{u_j^k - u_j^{k-1}}{\Delta t} = \frac{u_{j+1}^k - 2u_j^k + u_{j-1}^k}{\Delta x^2}$$
+
+This is an **implicit scheme**: $u_j^k$ appears on both sides, so we must solve a linear system at each time step.
+
+**Stencil:**
+```
+  j-1,k --- j,k --- j+1,k
+       |
+     j,k-1
+```
+
+Rearranging, at each time step $k$ we solve:
+$$-\beta u_{j-1}^k + (1 + 2\beta)u_j^k - \beta u_{j+1}^k = u_j^{k-1}$$
+
+This gives a **tridiagonal linear system** at each step, solvable in $O(N)$ operations.
+
+> *中文注释：BTCS 是隐式格式（implicit），每一步需要解一个三对角线性方程组，但计算量仍然是 $O(N)$。隐式格式的好处是：稳定性不受步长比 $\beta$ 的限制（无条件稳定）。*
+
+---
+
+## Part IV: Properties of the Schemes
+
+### Convergence
+
+Suppose $u_n^k \approx u(x_n, t_k)$ approximates the solution in the time interval $[0, T]$.
+
+**Definition (Convergence):** A scheme is **convergent with order $p$ in space and $q$ in time** if:
+$$\max_n |u_n^k - u(x_n, t_k)| = O(\Delta x^p + \Delta t^q) \quad \text{for all } k \text{ such that } k\Delta t \leq T$$
+
+> *中文注释：收敛性（convergence）表示当 $\Delta x, \Delta t \to 0$ 时，数值解趋近于精确解。阶数 $p, q$ 表示误差随步长的衰减速度。*
+
+**Remark:** Convergence is defined in the limit $\Delta x, \Delta t \to 0$. In practice, $\Delta x$ and $\Delta t$ may be **tied together** (e.g., $\Delta t = C \Delta x^2$ for the heat equation), and we consider $\Delta t \to 0$ alone.
+
+---
+
+### Consistency (Local Truncation Error for FTCS)
+
+Recall from ODEs: **Convergence $\Leftarrow$ Consistency + Zero-Stability** (Dahlquist).
+
+For PDEs (Lax Equivalence Theorem): **Convergence $\Leftarrow$ Consistency + Stability**.
+
+**Computing the LTE for FTCS:** Let $\bar{u}_n^k = u(x_n, t_k)$ be the exact solution. The **local truncation error** is:
+
+$$\tau = \frac{\bar{u}_n^{k+1} - \bar{u}_n^k}{\Delta t} - \frac{\bar{u}_{n+1}^k - 2\bar{u}_n^k + \bar{u}_{n-1}^k}{\Delta x^2}$$
+
+By Taylor expansion in both $\Delta t$ and $\Delta x$:
+$$\tau = \left(\frac{\Delta t}{2} - \frac{\Delta x^2}{12}\right)\bar{u}_{xxxx} + O(\Delta t^2 + \Delta x^4)$$
+
+To simplify, we use the heat equation identity $u_t = u_{xx}$, which implies:
+$$u_{tt} = u_{xxt} = u_{xxxx}$$
+
+Therefore:
+$$\tau = O(\Delta t + \Delta x^2)$$
+
+> **Conclusion:** FTCS is **first-order accurate in time** and **second-order accurate in space**.
+
+> *中文注释：局部截断误差（LTE）衡量精确解代入数值格式后的残差。这里 LTE $= O(\Delta t + \Delta x^2)$，说明时间方向一阶精度、空间方向二阶精度。关键技巧：用 $u_t = u_{xx}$ 把 $u_{tt}$ 替换为 $u_{xxxx}$。*
+
+---
+
+### Stability — Lax-Richtmyer Definition
+
+Consider a general numerical scheme for a PDE of the form:
+$$\vec{U}^{k+1} = V\vec{U}^k + \vec{b} \quad (\star)$$
+
+where $V$ and $\vec{b}$ may depend on $\Delta x$ and $\Delta t$. Further assume $\Delta x$ is tied to $\Delta t$ in the limit $\Delta t \to 0$.
+
+**Definition (Lax-Richtmyer Stability):** The method $(\star)$ is called **(Lax-Richtmyer) stable** in the time interval $[0, T]$ if there exists a constant $C_T$ such that:
+$$\|V^k\| \leq C_T \quad \text{for all integers } k \text{ such that } k\Delta t \leq T$$
+for all sufficiently small values of $\Delta t$.
+
+> *中文注释：LR 稳定性要求矩阵 $V$ 的 $k$ 次幂有界（对所有有限时间 $T$ 内的 $k$），防止数值误差随时间指数增长。矩阵 $A$ 的模随 $\Delta x \to 0$ 增大，所以稳定性对 $\Delta x$ 和 $\Delta t$ 的关系有约束。*
+
+---
+
+### Lax Equivalence Theorem
+
+**Theorem:** A difference method for a **linear PDE** of form $(\star)$ is **convergent** if and only if it is **consistent** and **stable** in the limit $\Delta x, \Delta t \to 0$.
+
+$$\text{Consistency} + \text{Stability} \iff \text{Convergence}$$
+
+> This is the PDE analogue of Dahlquist's theorem for ODEs.
+
+> *中文注释：Lax 等价定理是 PDE 数值方法的核心定理：线性 PDE 的差分格式，相容性 + 稳定性 $\Leftrightarrow$ 收敛性。因此分析一个格式时，只需分别验证相容性（LTE $\to$ 0）和稳定性即可。*
+
+**Note on the matrix $A$:** Since $A = \frac{1}{\Delta x^2}[\ldots]$, as $\Delta x \to 0$ its magnitude grows, meaning the **stiffness changes with mesh size**. This means stability conditions will impose a constraint between $\Delta x$ and $\Delta t$ — requiring detailed analysis (Von Neumann analysis).
+
+---
+
+## Part V: Von Neumann Stability Analysis
+
+### Fourier Analysis Background
+
+Consider an infinite domain. Any function $u(x, t)$ can be written via its **Fourier transform**:
+$$u(x,t) = \int_{-\infty}^{\infty} \hat{u}(w, t)\, e^{iwx}\, dw$$
+
+Key transform properties (differentiation becomes multiplication):
+$$\mathcal{F}\!\left(\frac{\partial u}{\partial x}\right) = iw\,\hat{u}(w,t), \qquad \mathcal{F}\!\left(\frac{\partial^2 u}{\partial x^2}\right) = -w^2\,\hat{u}(w,t)$$
+
+So the heat equation $u_t = u_{xx}$ becomes in Fourier space:
+$$\hat{u}_t = -w^2 \hat{u}$$
+
+> *中文注释：Fourier 变换把空间导数变成乘以 $iw$，把 PDE 变成 ODE（在 Fourier 频率域中解耦）。Von Neumann 分析利用这一思想：每个频率 $w$ 的模式独立演化，分析每个模式的增长即可判断稳定性。*
+
+### The Von Neumann Ansatz
+
+Consider a **single Fourier mode** (ansatz):
+$$U_n^k = \alpha_k\, e^{iwn\Delta x}$$
+
+where $\alpha_k$ is the **amplitude** at time level $k$ and $w$ is the spatial frequency. Stability requires the amplitude not to grow unboundedly: we need $|\alpha_{k+1}/\alpha_k| \leq 1$ for all $w$.
+
+Define the **amplification factor** $A(w)$ by $\alpha_{k+1} = A(w)\,\alpha_k$.
+
+**Stability condition:** $|A(w)| \leq 1$ for all frequencies $w$.
+
+---
+
+### Von Neumann Analysis for FTCS (Heat Equation)
+
+**FTCS scheme:**
+$$\frac{U_n^{k+1} - U_n^k}{\Delta t} = \frac{U_{n+1}^k - 2U_n^k + U_{n-1}^k}{\Delta x^2}$$
+
+**Substitute the ansatz** $U_n^k = \alpha_k e^{iwn\Delta x}$:
+
+$$\frac{\alpha_{k+1} e^{iwn\Delta x} - \alpha_k e^{iwn\Delta x}}{\Delta t} = \frac{\alpha_k e^{iw(n+1)\Delta x} - 2\alpha_k e^{iwn\Delta x} + \alpha_k e^{iw(n-1)\Delta x}}{\Delta x^2}$$
+
+Divide through by $e^{iwn\Delta x}$:
+$$\frac{\alpha_{k+1} - \alpha_k}{\Delta t} = \frac{\alpha_k(e^{iw\Delta x} - 2 + e^{-iw\Delta x})}{\Delta x^2}$$
+
+Let $\beta = \dfrac{\Delta t}{\Delta x^2}$. Using $e^{i\theta} + e^{-i\theta} = 2\cos\theta$:
+
+$$\alpha_{k+1} - \alpha_k = \beta\alpha_k(e^{iw\Delta x} - 2 + e^{-iw\Delta x}) = \beta\alpha_k(2\cos(w\Delta x) - 2)$$
+
+$$\alpha_{k+1} = \bigl(2\beta\cos(w\Delta x) - 2\beta + 1\bigr)\alpha_k$$
+
+Using the identity $2\cos\theta - 2 = -4\sin^2(\theta/2)$:
+
+$$\boxed{\alpha_{k+1} = A(w)\,\alpha_k, \quad \text{where } A(w) = 1 - 4\beta\sin^2\!\left(\frac{w\Delta x}{2}\right)}$$
+
+**Stability condition:** We need $|A(w)| \leq 1$ for all $w$.
+
+Since $0 \leq \sin^2\!\left(\frac{w\Delta x}{2}\right) \leq 1$, the amplification factor satisfies:
+$$1 - 4\beta \leq A(w) \leq 1$$
+
+For $|A(w)| \leq 1$, we need $A(w) \geq -1$, i.e.:
+$$1 - 4\beta \geq -1 \implies 4\beta \leq 2 \implies \beta \leq \frac{1}{2}$$
+
+$$\boxed{\frac{\Delta t}{\Delta x^2} \leq \frac{1}{2} \quad \text{(FTCS stability condition for heat equation)}}$$
+
+> *中文注释：这是 FTCS 格式的稳定性条件（CFL 类条件）：时间步长 $\Delta t$ 必须不超过 $\frac{\Delta x^2}{2}$。若网格加密 $\Delta x = 10^{-1} \to \Delta x = 10^{-2}$，则 $\Delta t$ 必须缩小到原来的 $\frac{1}{100}$，代价很大！*
+
+**Consequence of grid refinement:** If we refine $\Delta x_1 = 10^{-1} \to \Delta x_2 = 10^{-2}$, the stability condition requires $\Delta t_2$ to be $\frac{1}{100}$ of $\Delta t_1$. This makes FTCS **very expensive** for fine spatial grids.
+
+---
+
+### Von Neumann Analysis for BTCS (Heat Equation)
+
+**BTCS scheme:**
+$$\frac{u_j^k - u_j^{k-1}}{\Delta t} = \frac{u_{j+1}^k - 2u_j^k + u_{j-1}^k}{\Delta x^2}$$
+
+Substitute the ansatz $U_n^k = \alpha_k e^{iwn\Delta x}$ (the implicit side is at level $k$):
+$$(\alpha_k - \alpha_{k-1})e^{iwn\Delta x} = \beta\alpha_k\bigl(e^{iw\Delta x} - 2 + e^{-iw\Delta x}\bigr)e^{iwn\Delta x}$$
+
+$$\alpha_k - \alpha_{k-1} = \beta\alpha_k(2\cos(w\Delta x) - 2) = -4\beta\sin^2\!\left(\frac{w\Delta x}{2}\right)\alpha_k$$
+
+$$\alpha_{k-1} = \left(1 + 4\beta\sin^2\!\left(\frac{w\Delta x}{2}\right)\right)\alpha_k$$
+
+$$\boxed{A(w) = \frac{\alpha_k}{\alpha_{k-1}} = \frac{1}{1 + 4\beta\sin^2\!\left(\frac{w\Delta x}{2}\right)} < 1 \quad \text{for any } \beta > 0}$$
+
+Since the denominator $1 + 4\beta\sin^2(\cdot) \geq 1 > 0$, we have $0 < A(w) \leq 1$ **for any** $\beta = \Delta t/\Delta x^2$.
+
+> **Conclusion: BTCS is unconditionally stable.** It does not require $\Delta t$ to be small relative to $\Delta x^2$.
+
+> *中文注释：BTCS（隐式格式）无条件稳定！无论 $\Delta t$ 多大，数值解都不会爆炸。代价是每步需要解线性方程组，但对于三对角矩阵，这只需 $O(N)$ 时间。这使得 BTCS 在实践中比 FTCS 更常用。*
+
+**Remark on Von Neumann analysis assumptions:**
+
+1. The PDE is assumed to be **linear** (modes decouple)
+2. Modes for each $w$ are **decoupled** (no cross-frequency interaction)
+3. **Boundary conditions are neglected** — this analysis is for an infinite domain
+
+Von Neumann stability is a good **practical approximation** of actual stability, but is not a rigorous proof.
+
+---
+
+## Part VI: Stability Analysis for the Advection Equation
+
+### Model: Linear Advection
+
+$$u_t + cu_x = 0, \quad c > 0$$
+
+This equation transports the initial profile $u_0(x) = u(x,0)$ to the right at speed $c$: $u(x,t) = u_0(x - ct)$.
+
+> *中文注释：平流方程（advection equation）描述一个波形以速度 $c$ 向右平移，不会改变形状。精确解 $u(x,t) = u_0(x-ct)$。我们希望数值格式也能捕捉这一特性。*
+
+---
+
+### FTCS for Advection — Unconditionally Unstable
+
+**FTCS scheme:**
+$$\frac{u_j^{k+1} - u_j^k}{\Delta t} = -c\frac{u_{j+1}^k - u_{j-1}^k}{2\Delta x}$$
+
+**Von Neumann analysis** with $U_j^k = \alpha_k e^{ijw\Delta x}$ and $\beta = \Delta t/\Delta x$:
+
+$$(A(w) - 1)e^{ijw\Delta x} = -\frac{c\beta}{2}\bigl(e^{i(j+1)w\Delta x} - e^{i(j-1)w\Delta x}\bigr)$$
+
+$$A(w) - 1 = -\frac{c\beta}{2}(e^{iw\Delta x} - e^{-iw\Delta x}) = -ic\beta\sin(w\Delta x)$$
+
+$$\boxed{A(w) = 1 - ic\beta\sin(w\Delta x)}$$
+
+$$|A(w)| = \sqrt{1 + c^2\beta^2\sin^2(w\Delta x)} \geq 1 \quad \text{for any choice of } \beta$$
+
+> **Conclusion: FTCS for the advection equation is unconditionally unstable.** The amplification factor always exceeds 1.
+
+> *中文注释：FTCS 用于平流方程时，无论时间步长多小，数值解都会指数增长——无条件不稳定！原因：中心差分在时间前向、空间中心的组合对于双曲型方程（如平流方程）天然不稳定。*
+
+---
+
+### Lax-Friedrichs Scheme — Stable but Dissipative
+
+**A simple fix:** Replace $u_j^k$ in the time derivative's numerator by the average $\frac{1}{2}(u_{j-1}^k + u_{j+1}^k)$:
+
+$$\frac{u_j^{k+1} - \frac{1}{2}(u_{j-1}^k + u_{j+1}^k)}{\Delta t} = -c\frac{u_{j+1}^k - u_{j-1}^k}{2\Delta x}$$
+
+**Von Neumann analysis** gives (as an exercise):
+$$\alpha_{k+1} = \alpha_k \cdot \frac{1}{2}(2\cos(w\Delta x) - 2ic\beta\sin(w\Delta x))$$
+
+$$\boxed{A(w) = \cos(w\Delta x) - ic\beta\sin(w\Delta x)}$$
+
+$$|A(w)|^2 = \cos^2(w\Delta x) + c^2\beta^2\sin^2(w\Delta x) = 1 + (c^2\beta^2 - 1)\sin^2(w\Delta x)$$
+
+$$|A(w)| = \sqrt{1 + (\beta^2c^2 - 1)\sin^2(w\Delta x)}$$
+
+For stability $|A(w)| \leq 1$, we need $c^2\beta^2 - 1 \leq 0$, i.e.:
+
+$$\boxed{c\beta = \frac{c\,\Delta t}{\Delta x} \leq 1 \quad \textbf{(CFL condition: Courant–Friedrichs–Lewy)}}$$
+
+> *中文注释：Lax-Friedrichs 格式通过将 $u_j^k$ 替换为左右邻点的平均值来稳定格式，满足 CFL 条件时稳定。CFL 条件的物理意义：数值信息传播速度不能慢于物理波速 $c$，即 $c \cdot \Delta t \leq \Delta x$。*
+
+#### Artificial Diffusion in Lax-Friedrichs
+
+**Why does the solution's shape change (height decreases) over time?** Plugging the exact solution into the Lax-Friedrichs scheme and expanding by Taylor series:
+
+$$u_t = -cu_x + \underbrace{\left(\frac{\Delta x^2}{2\Delta t} - \frac{c^2\Delta t}{2}\right)u_{xx}}_{\text{artificial diffusion}} + \cdots = -cu_x + \frac{\Delta x}{2\beta}(1 - c^2\beta^2)u_{xx} + \cdots$$
+
+The Lax-Friedrichs scheme is actually solving a **modified PDE**:
+$$u_t + cu_x = \underbrace{\frac{\Delta x^2}{2\Delta t}}_{\text{artificial diffusion coeff.}} u_{xx}$$
+
+This is equivalent to **FTCS applied to an advection-diffusion equation**. The extra diffusion term smears out the solution — the scheme is called **dissipative**.
+
+**Diffusion coefficient for Lax-Friedrichs:**
+$$D_L = 1 - c^2\beta^2 \quad (\text{recall } \beta = \Delta t/\Delta x)$$
+
+> *中文注释：人工扩散（artificial diffusion）是 Lax-Friedrichs 格式的副作用：数值方案实际上在求解带有额外扩散项的方程，导致波形随时间变宽、变低。这称为耗散性（dissipative）。*
+
+---
+
+### Upwind Scheme — Less Dissipative
+
+**Motivation:** Design a scheme that is stable but introduces **less artificial diffusion** than Lax-Friedrichs.
+
+For $u_t = -cu_x$ with $c > 0$ (wave travels right), use a **backward (upwind) difference** for the spatial derivative:
+
+$$\frac{u_j^{k+1} - u_j^k}{\Delta t} = -c\frac{u_j^k - u_{j-1}^k}{\Delta x}$$
+
+**Physical motivation:** Since the wave moves to the right, information comes from the left. The upwind scheme uses the same propagation direction as the physical solution.
+
+**Von Neumann analysis** with $U_j^k = \alpha_k e^{ijw\Delta x}$:
+
+$$(\alpha_{k+1} - \alpha_k)e^{ijw\Delta x} = -c\beta\,\alpha_k(e^{ijw\Delta x} - e^{i(j-1)w\Delta x})$$
+
+$$\alpha_{k+1} - \alpha_k = -c\beta\,\alpha_k(1 - e^{-iw\Delta x})$$
+
+$$\alpha_{k+1} = \alpha_k\bigl[1 - c\beta(1 - e^{-iw\Delta x})\bigr]$$
+
+$$\boxed{A(w) = 1 - c\beta(1 - e^{-iw\Delta x})}$$
+
+Let $\theta = w\Delta x$:
+$$A(w) = 1 - c\beta(1 - \cos\theta + i\sin\theta)$$
+
+We need $|A(w)|^2 \leq 1$:
+$$(1 - c\beta(1 - \cos\theta))^2 + (c\beta\sin\theta)^2 \leq 1$$
+
+Let $\nu = c\beta$:
+$$1 - 2\nu(1-\cos\theta) + \nu^2(1 - 2\cos\theta + \cos^2\theta) + \nu^2\sin^2\theta \leq 1$$
+$$1 - 2\nu(1-\cos\theta) + 2\nu^2 - 2\nu^2\cos\theta \leq 1$$
+$$1 + 2\nu(\nu-1)(1-\cos\theta) \leq 1$$
+$$\nu(\nu-1)(1-\cos\theta) \leq 0$$
+
+Since $1 - \cos\theta \geq 0$ always, we need $\nu(\nu - 1) \leq 0$, i.e. $0 \leq \nu \leq 1$:
+
+$$\boxed{c\beta = \frac{c\,\Delta t}{\Delta x} \leq 1 \quad \textbf{(CFL condition)}}$$
+
+**Diffusion coefficient for upwind:**
+$$D_U = 1 - c\beta$$
+
+**Comparison:** Since $D_U = 1 - c\beta < 1 - c^2\beta^2 = D_L$ (when $c\beta < 1$), the **upwind scheme is less diffusive** than Lax-Friedrichs.
+
+> *中文注释：迎风格式（upwind scheme）利用了波的传播方向：$c>0$ 时信息从左传来，所以用向后差分（backward difference）。其人工扩散系数 $D_U = 1-c\beta$ 比 Lax-Friedrichs 的 $D_L = 1-c^2\beta^2$ 小，波形保持更好。*
+
+---
+
+### Leapfrog Scheme — Non-dissipative but Dispersive
+
+The **leapfrog scheme** uses a **multi-step** approach — it uses values at two previous time levels:
+
+$$\frac{u_j^{k+1} - u_j^{k-1}}{2\Delta t} = -c\frac{u_{j+1}^k - u_{j-1}^k}{2\Delta x}$$
+
+**Stencil (three time levels):**
+```
+       j, k+1
+       |
+j-1,k  j,k  j+1,k
+       |
+       j, k-1
+```
+
+**Von Neumann analysis:** With $U_j^k = \alpha_k e^{ijw\Delta x}$:
+$$(\alpha_{k+1} - \alpha_{k-1})e^{ijw\Delta x} = -c\beta\,\alpha_k(e^{i(j+1)w\Delta x} - e^{i(j-1)w\Delta x})$$
+
+$$\alpha_{k+1} - \alpha_{k-1} = -c\beta\,\alpha_k(e^{iw\Delta x} - e^{-iw\Delta x}) = -2ic\beta\sin(w\Delta x)\,\alpha_k$$
+
+Let $\theta := c\beta\sin(w\Delta x)$. Setting $\alpha_{k+1} = A^2\alpha_{k-1}$, $\alpha_k = A\alpha_{k-1}$:
+
+$$A^2 + 2i\theta A - 1 = 0 \implies A = \frac{-2i\theta \pm \sqrt{-4\theta^2 + 4}}{2} = -i\theta \pm \sqrt{1 - \theta^2}$$
+
+$$|A|^2 = \theta^2 + (1 - \theta^2) = 1$$
+
+Both roots satisfy $|A| = 1$ **if and only if** $\theta \leq 1$, i.e.:
+
+$$\boxed{c\beta = \frac{c\,\Delta t}{\Delta x} \leq 1 \quad \textbf{(CFL condition)}}$$
+
+**Properties of Leapfrog:**
+
+- **Stable** (when $c\beta \leq 1$): $|A| = 1$ — amplitude is preserved exactly
+- **Non-dissipative**: No artificial diffusion (the scheme adds no diffusion term to the modified PDE); it leads to a modified PDE error of $O(\Delta t^2 u_{xxx})$ rather than $O(\Delta t u_{xx})$
+- **Dispersive**: The factor $e^{i(\ldots)}$ produces a **phase shift** — a frequency-dependent change in wave speed, leading to **spurious oscillations** in the numerical solution
+- **On the boundary of stability**: Since $|A| = 1$ (not $< 1$), for more complicated nonlinear PDEs this can cause trouble
+
+> *中文注释：跳蛙格式（leapfrog）是多步格式，需要两个时间层的数据。优点：无人工扩散，幅值精确保持；缺点：在稳定边界上（$|A|=1$），对于复杂 PDE 可能不稳定，且有相位误差（色散），导致数值解出现虚假振荡（spurious oscillations）。*
+
+---
+
+### Summary: Schemes for the Advection Equation
+
+| Scheme | Formula | Stability | $|A(w)|$ | Artificial Diffusion |
+|--------|---------|-----------|-----------|---------------------|
+| **FTCS** | Forward $t$, centered $x$ | Unconditionally **unstable** | $> 1$ always | — |
+| **Lax-Friedrichs** | Average $u_j^k$ by neighbors | $c\beta < 1$ (CFL) | $\leq 1$ | $D_L = 1-c^2\beta^2$ (large) |
+| **Upwind** | Backward $x$ (for $c>0$) | $c\beta \leq 1$ (CFL) | $\leq 1$ | $D_U = 1-c\beta$ (smaller) |
+| **Leapfrog** | Centered $t$ and $x$, multistep | $c\beta \leq 1$ (CFL) | $= 1$ exactly | None (dispersive instead) |
+
+**Leading error terms in the modified PDE:**
+- Lax-Friedrichs: $\Delta t\, u_{xx}$ (dissipation)
+- Leapfrog: $\Delta t^2\, u_{xxx}$ (dispersion / spurious oscillations)
+
+> *中文注释：
+> - **耗散性（dissipative）**：格式引入人工扩散项，使波形变矮变宽（如 Lax-Friedrichs, Upwind）
+> - **色散性（dispersive）**：格式引入相位误差，使不同频率分量以不同速度传播，产生虚假振荡（如 Leapfrog）
+> - **CFL 条件**（Courant-Friedrichs-Lewy）：$c\Delta t/\Delta x \leq 1$，直观意义是数值依赖域必须包含物理依赖域*
+
+---
+
+## Part VII: Laplace Equation — 2D Elliptic PDE
+
+### Problem Setup
+
+Consider the **Poisson/Laplace equation** on a 2D rectangular domain $\Omega = [0, W] \times [0, H]$:
+
+$$\Delta u = f, \quad (x, y) \in \Omega$$
+$$\begin{cases} u_{xx} + u_{yy} = f \\ u(x, 0) = u(x, H) = 0 \\ u(0, y) = u(W, y) = 0 \end{cases}$$
+
+This is an **elliptic PDE** — there is no time variable. Unlike parabolic/hyperbolic equations, we solve for $u$ everywhere in $\Omega$ simultaneously.
+
+> *中文注释：Laplace/Poisson 方程是椭圆型 PDE，描述稳态问题（如稳定热场、静电场）。没有时间变量，需要在整个区域同时求解，最终化为一个大型线性方程组。*
+
+### Discretization
+
+**Grid:** $x_j = j\Delta x$, $y_k = k\Delta y$, with:
+$$\Delta x = \frac{W}{N+1}, \quad \Delta y = \frac{H}{N+1}, \quad j,k = 1, 2, \ldots, N$$
+
+Using **second-order central differences** in both $x$ and $y$:
+
+$$\frac{u_{j+1,k} - 2u_{j,k} + u_{j-1,k}}{\Delta x^2} + \frac{u_{j,k+1} - 2u_{j,k} + u_{j,k-1}}{\Delta y^2} = f_{j,k}$$
+
+for $j = 1, 2, \ldots, N$ and $k = 1, 2, \ldots, N$.
+
+Assuming $\Delta x = \Delta y$ (uniform square grid), this simplifies to:
+
+$$u_{j+1,k} + u_{j-1,k} + u_{j,k+1} + u_{j,k-1} - 4u_{j,k} = \Delta x^2 f_{j,k}$$
+
+This is the **5-point stencil** (star stencil) for the Laplacian.
+
+> *中文注释：5 点星形模板（5-point stencil）：$u_{j,k}$ 的离散 Laplacian 用其上下左右四个邻点表示。这是 2D 椭圆问题最标准的离散化方式。*
+
+### Forming the Linear System
+
+To write this as $A\vec{v} = \vec{f}$, we **flatten** the 2D array $u_{j,k}$ into a 1D vector. With row-major ordering:
+$$\vec{v} = (u_{1,1},\, u_{1,2},\, \ldots,\, u_{1,N},\, u_{2,1},\, \ldots,\, u_{2,N},\, \ldots,\, u_{N,N})^T$$
+
+This gives $\vec{v}$ with $N^2$ entries, and the system $A\vec{v} = \vec{f}$ with $A$ being an $N^2 \times N^2$ matrix.
+
+**Block structure of $A$:**
+$$A = \begin{pmatrix} D & I_N & 0 & \cdots & 0 \\ I_N & D & I_N & \cdots & 0 \\ & \ddots & \ddots & \ddots & \\ 0 & \cdots & I_N & D & I_N \\ 0 & \cdots & 0 & I_N & D \end{pmatrix}_{N^2 \times N^2}$$
+
+where $I_N$ is the $N \times N$ identity matrix and $D$ is the $N \times N$ tridiagonal matrix:
+$$D = \begin{pmatrix} -4 & 1 & 0 & \cdots & 0 \\ 1 & -4 & 1 & \cdots & 0 \\ 0 & 1 & -4 & \cdots & 0 \\ \vdots & & \ddots & \ddots & \vdots \\ 0 & \cdots & 0 & 1 & -4 \end{pmatrix}_{N \times N}$$
+
+> *中文注释：二维 Laplacian 离散化后得到一个块三对角矩阵，大小为 $N^2 \times N^2$。对角块 $D$ 来自 $x$ 方向的差分，次对角块 $I_N$ 来自 $y$ 方向相邻行之间的耦合。直接求解代价为 $O(N^6)$（dense LU），但利用稀疏结构可大幅降低。*
+
+**Key properties:**
+- $A$ is **sparse** (most entries are zero)
+- $A$ is **symmetric negative definite** (for this problem)
+- Direct LU factorization costs $O(N^3)$ for this banded structure (vs. $O(N^6)$ for a dense $N^2 \times N^2$ matrix)
+
+---
+
+## Part VIII: Brief Overview of Other Methods for 2D PDEs
+
+### Finite Element Method (FEM) in 2D
+
+For complex domains $\Omega$ (non-rectangular), the FEM is more natural:
+
+- **Triangulate** the domain $\Omega = \bigcup T_i$ into triangles (triangulation $\mathcal{T}_h$)
+- Use piecewise linear basis functions $\{\Phi_i\}$ on each triangle
+- Solve the **Galerkin system**: find $u_h = \sum u_j \Phi_j$ such that
+$$a(u_h, v_h) = (f_h, v_h) \quad \forall v_h \in V_h$$
+$$A_{FE}\,\vec{u} = \vec{f}, \quad (A_{FE})_{ij} = a(\Phi_j, \Phi_i)$$
+
+The stiffness matrix $A_{FE}$ is **sparse** due to local support of basis functions.
+
+> *中文注释：有限元方法（FEM）对复杂形状的域特别有优势：将 $\Omega$ 剖分为三角形，在每个三角形上用分片线性基函数，得到稀疏刚度矩阵。相比有限差分，FEM 更灵活，可以处理任意形状的边界。*
+
+### Spectral Methods
+
+For problems on simple domains with **smooth solutions**, use **global Fourier / DFT basis**:
+
+1. Expand $u$ in Fourier modes
+2. Apply DFT: the PDE $u'' = f$ becomes $-k^2\hat{u} = \hat{f}$ (solved directly!)
+3. Apply inverse DFT (IDFT) to recover $u_h$
+
+**Error estimate** for spectral methods on $-\Delta u = f$:
+$$\|\Delta u_0 - f\| + \|u_0|_{\partial\Omega} - g\| \to 0$$
+
+with **exponential convergence** for smooth $f$ and $g$ (faster than any algebraic rate in $\Delta x$).
+
+> *中文注释：谱方法（spectral methods）对光滑问题有超高精度（指数收敛），利用 DFT/FFT 在频率域求解，本质上把微分方程变成代数方程。缺点是对复杂区域和非光滑问题不适用。*
+
+---
+
+## Summary
+
+| Topic | Key Idea | Key Result |
+|-------|----------|------------|
+| **Method of Lines** | Discretize PDE in space $\to$ ODE system $\frac{d\vec{U}}{dt} = A\vec{U}$ | Matrix $A$ tridiagonal; stiffness grows as $\Delta x \to 0$ |
+| **FTCS** | Explicit; Forward Euler in $t$, central diff in $x$ | LTE $= O(\Delta t + \Delta x^2)$; stable iff $\Delta t/\Delta x^2 \leq \frac{1}{2}$ |
+| **BTCS** | Implicit; Backward Euler in $t$, central diff in $x$ | Unconditionally stable; solve tridiagonal system each step |
+| **Lax Equivalence** | Consistency + Stability $\Leftrightarrow$ Convergence (linear PDEs) | Connects all three properties |
+| **Von Neumann analysis** | Fourier mode ansatz $U_n^k = \alpha_k e^{iwn\Delta x}$; find $A(w)$ | Stability iff $\|A(w)\| \leq 1$ for all $w$ |
+| **FTCS (advection)** | $A(w) = 1 - ic\beta\sin(w\Delta x)$; $|A|>1$ always | Unconditionally unstable |
+| **Lax-Friedrichs** | Average $u_j^k$ in numerator | CFL: $c\Delta t/\Delta x \leq 1$; dissipative ($D_L = 1-c^2\beta^2$) |
+| **Upwind** | Backward diff in $x$ (for $c>0$) | CFL: $c\Delta t/\Delta x \leq 1$; less dissipative ($D_U = 1-c\beta < D_L$) |
+| **Leapfrog** | Multistep; centered in both $t$ and $x$ | CFL: $c\Delta t/\Delta x \leq 1$; $\|A\|=1$ exactly; non-dissipative but dispersive |
+| **Laplace (2D)** | 5-point stencil $\to$ $N^2 \times N^2$ block system | Block-tridiagonal $A$; sparse; FEM/spectral for complex domains |
+
+**Key Takeaways (核心要点):**
+
+- The method of lines converts a PDE into a large ODE system; the matrix $A$ becomes increasingly stiff as $\Delta x \to 0$
+- Explicit schemes (FTCS) are cheap per step but have severe stability constraints ($\Delta t \propto \Delta x^2$ for parabolic PDEs)
+- Implicit schemes (BTCS) require solving a linear system per step but are unconditionally stable
+- Von Neumann analysis: substitute Fourier ansatz, find amplification factor $A(w)$, require $|A(w)| \leq 1$ for all $w$
+- For the advection equation: FTCS is unstable; the CFL condition $c\Delta t/\Delta x \leq 1$ is required for Lax-Friedrichs, Upwind, and Leapfrog
+- Stability trades off with diffusion: Lax-Friedrichs is most diffusive; Leapfrog is non-dissipative but dispersive
+- 2D Laplace discretization yields a large but sparse block-tridiagonal system of size $N^2 \times N^2$
+
+> *中文总结：
+> - 显式格式简单但受稳定性限制；隐式格式每步代价大但无条件稳定
+> - Von Neumann 分析：代入 Fourier 模式，求放大因子 $|A(w)| \leq 1$ 即稳定
+> - CFL 条件（$c\Delta t/\Delta x \leq 1$）是双曲型方程显式格式的必要条件
+> - 数值格式的误差类型：耗散（dissipation，波形变矮）vs 色散（dispersion，产生振荡）
+> - 2D 椭圆 PDE 离散后得到 $N^2 \times N^2$ 稀疏块三对角系统，利用稀疏结构高效求解*
